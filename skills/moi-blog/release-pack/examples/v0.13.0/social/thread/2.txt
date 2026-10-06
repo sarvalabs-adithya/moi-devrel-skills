@@ -1,0 +1,3 @@
+Fee Payer
+
+An interaction can now specify a separate fee payer. The fee payer also signs the interaction and pays the fuel cost instead of the sender.

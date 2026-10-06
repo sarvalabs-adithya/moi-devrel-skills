@@ -1,0 +1,3 @@
+KMOI Native Asset
+
+KMOI now uses MASN, a new native asset standard. You cannot mint or burn KMOI, and neither can the asset manager. KMOI also has a new Asset ID.

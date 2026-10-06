@@ -1,0 +1,3 @@
+Participant List
+
+The node now reads the sender and fee payer from the interaction header, so do not add them to the participant list. The one exception is a fee payer that also acts as a notary, co-signing for the operations and not only the fuel.

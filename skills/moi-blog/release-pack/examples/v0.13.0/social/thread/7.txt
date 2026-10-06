@@ -1,0 +1,7 @@
+SDK Versions
+
+The following SDK versions support fee payers and MASN:
+- js-moi-sdk: 0.9.0-rc2
+- js-polo: 0.1.5
+
+Update your integration before the network moves to moipod v0.13.0.

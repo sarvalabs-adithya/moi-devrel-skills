@@ -1,0 +1,43 @@
+slide,figure,value,source,as_of,confirmed_by,status
+1,Call number,#14,"Announcement copy pasted by the previous operator, 2026-09-24",2026-09-24,the previous operator,confirmed
+1,Month and year on the title chip,September 2026,"Announcement copy pasted by the previous operator, 2026-09-24",2026-09-24,the previous operator,confirmed
+2;3,moipod version,v0.13.0,RELEASE-NOTE.md (copy in examples/cc14/sources/),2026-09-11,Protocol team (release note),confirmed
+2,Date it went live on devnet,11 September,"RELEASE-NOTE.md (copy in examples/cc14/sources/) says the update is ""scheduled for today at 12:00 AM UTC"" with no date; 00:00 UTC on 11 September comes from social/x-correction-reply.txt in the release pack (previous operator's machine only); the September release post says live since 11 September; moi-devrel/references/devnet.md records that the upgrade reached devnet that day and that net.Version read 0.13.0 on 2026-10-02 slop-lint: ignore",2026-10-02,nobody: net.Version read on 2026-10-02 only; the fee_payer wire field was not checked. ASK: Gokul,unverified
+2;3,Minimum fuel price,50 anu,RELEASE-NOTE.md (copy in examples/cc14/sources/),2026-09-11,Protocol team (release note),confirmed
+2,Storage price per byte,"a million anu (1,000,000)",RELEASE-NOTE.md (copy in examples/cc14/sources/),2026-09-11,Protocol team (release note),confirmed
+2,Size of one KMOI,"a billion anu (1,000,000,000)",RELEASE-NOTE.md (copy in examples/cc14/sources/),2026-09-11,Protocol team (release note),confirmed
+3,js-moi-sdk version,0.9.0-rc2,RELEASE-NOTE.md (copy in examples/cc14/sources/),2026-09-11,Protocol team (release note),confirmed
+3,js-polo version,0.1.5,RELEASE-NOTE.md (copy in examples/cc14/sources/),2026-09-11,Protocol team (release note),confirmed
+3,Old KMOI asset id to search for,0x108000004cd973c4,"the September release post (blog/src/content/posts/moi-september-2026-release.md in sarvalabs/MOI-Website), 'What do developers need to change', item 1. Not in the protocol team's note",2026-09-11,nobody: the post is the only source and nobody has traced this id to go-moi or js-moi-sdk source. ASK: Gokul,unverified
+3,Asset creation limits,"max supply 0, over 18 decimals","the September release post (blog/src/content/posts/moi-september-2026-release.md in sarvalabs/MOI-Website), item 5. Not in the protocol team's note",2026-09-11,nobody: the post is the only source and nobody has traced this limit to go-moi source. ASK: Gokul,unverified
+4,HTTP status code named by x402,402,Name of the HTTP status code the x402 standard uses; not a MOI metric,2026-09-25,"n/a, a protocol name and not a measurement",confirmed
+5;11,Queries tracked,47,"Scribble AI-visibility report text pasted 2026-09-24, 'older than the dashboard'",2026-09-24,nobody: after the dashboard update Claude asked for the current figure and no reply is in the record,unverified
+5,AI engines tracked,5,Scribble AI-visibility report text pasted 2026-09-24; the deck shows four logos and never names the fifth engine,2026-09-24,"nobody: never reconfirmed, and 47 queries x 5 engines is 235, not the 226 responses on slide 6",unverified
+5,Visibility,17.3%,"AI-visibility dashboard screenshot and figures typed by the previous operator, 2026-09-24",2026-09-24,the previous operator (dashboard screenshot),confirmed
+5,Citations,"1,203","AI-visibility dashboard screenshot and figures typed by the previous operator, 2026-09-24",2026-09-24,the previous operator (dashboard screenshot),confirmed
+5,Mentions,650,"AI-visibility dashboard screenshot and figures typed by the previous operator, 2026-09-24",2026-09-24,the previous operator (dashboard screenshot),confirmed
+6,Perplexity visibility,20%,"AI-visibility dashboard screenshot and figures typed by the previous operator, 2026-09-24",2026-09-24,the previous operator (dashboard screenshot),confirmed
+6,Gemini visibility,19.1%,"AI-visibility dashboard screenshot and figures typed by the previous operator, 2026-09-24",2026-09-24,the previous operator (dashboard screenshot),confirmed
+6,Copilot visibility,19%,"Typed by the previous operator, 2026-09-24 ('copilot - 19%')",2026-09-24,the previous operator,confirmed
+6,ChatGPT visibility,12.8%,"AI-visibility dashboard screenshot and figures typed by the previous operator, 2026-09-24",2026-09-24,the previous operator (dashboard screenshot),confirmed
+6,Gemini movement,up 12.8 points,Sentence kept on the slide after the trend arrows were removed from the tiles,2026-09-24,"nobody: same number as ChatGPT's level, may be a transcription slip; Claude flagged it on 2026-09-25 and no answer is recorded",unverified
+6,ChatGPT movement,slipped 4.3,Sentence kept on the slide after the trend arrows were removed from the tiles,2026-09-24,nobody: no source figure in the record; Claude flagged the sentence on 2026-09-25 and no answer is recorded,unverified
+6,Responses covered,221,Scribble AI-visibility report text pasted 2026-09-24,2026-09-24,nobody: never reconfirmed after the dashboard update,unverified
+6,Responses in the tracked set,226,Scribble AI-visibility report text pasted 2026-09-24,2026-09-24,"nobody: never reconfirmed, and 47 x 5 = 235 does not equal 226",unverified
+6,Coverage share,97.8%,Derived from 221 of 226 (221/226 = 97.79%),2026-09-24,nobody: only as good as 221 and 226,unverified
+9,New Discord joins,120+,the marketing contact's 'Community Growth - Key Pointers' in Slack,2026-09-24,nobody: the previous operator asked the marketing contact to confirm the numbers were the month's latest and no reply is in the record,unverified
+9,Active members,60+,the marketing contact's 'Community Growth - Key Pointers' in Slack,2026-09-24,nobody: same open question as the joins figure,unverified
+9,Game Night run number,seventh,"First-draft deck, kept as written",2026-09-23,nobody: Claude warned that first-draft numbers date from an earlier call and must be checked,unverified
+9,Game Night peak attendance,42,"First-draft deck, kept as written",2026-09-23,nobody: Claude warned that first-draft numbers date from an earlier call and must be checked,unverified
+9,Game Night attendance last time,20,"First-draft deck, kept as written",2026-09-23,nobody: Claude warned that first-draft numbers date from an earlier call and must be checked,unverified
+9,Date of the Gartic Game Night,last Friday,"First-draft deck, kept as written",2026-09-23,"nobody: a relative date, and the Friday it meant is not recorded. ASK: Sai Kiran",unverified
+10,Futuremode dates,4 to 6 September,"The event's own site, read during the build",2026-09-24,Event site read on 2026-09-24,confirmed
+5,Visibility in the Scribble report text,13.5%,Scribble AI-visibility report text pasted 2026-09-24,2026-09-24,replaced by the dashboard figure on 2026-09-24,superseded
+5,Citations in the Scribble report text,"1,187",Scribble AI-visibility report text pasted 2026-09-24,2026-09-24,replaced by the dashboard figure on 2026-09-24,superseded
+5,Mentions in the Scribble report text,639,Scribble AI-visibility report text pasted 2026-09-24,2026-09-24,replaced by the dashboard figure on 2026-09-24,superseded
+5,Visibility as first quoted by the previous operator,18%,"Typed by the previous operator, 2026-09-24",2026-09-24,replaced by the more precise 17.3% on 2026-09-24,superseded
+6,ChatGPT in the Scribble report text,17%,Scribble AI-visibility report text pasted 2026-09-24,2026-09-24,replaced by the dashboard figure on 2026-09-24,superseded
+6,Perplexity in the Scribble report text,17%,Scribble AI-visibility report text pasted 2026-09-24,2026-09-24,replaced by the dashboard figure on 2026-09-24,superseded
+6,Gemini in the Scribble report text,6.4%,Scribble AI-visibility report text pasted 2026-09-24,2026-09-24,replaced by the dashboard figure on 2026-09-24,superseded
+cut,First-draft impressions figure,64K,"First-draft deck, kept as written",2026-09-23,its slide was cut during pruning,dropped
+cut,First-draft demo day figure,$100K,"First-draft deck, kept as written",2026-09-23,its slide was cut during pruning,dropped

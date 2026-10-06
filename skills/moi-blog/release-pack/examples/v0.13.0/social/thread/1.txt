@@ -1,0 +1,3 @@
+MOI Protocol Release: v0.13.0
+
+The moipod v0.13.0 network update is scheduled for today at 12:00 AM UTC. This release includes breaking changes. Please review the changes below before you upgrade. <!-- slop-lint:ignore -->

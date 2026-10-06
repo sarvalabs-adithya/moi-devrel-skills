@@ -1,0 +1,3 @@
+{{Section name, as the note writes it}}
+
+{{The note's sentence or sentences for this section, copied exactly. If the note has fewer changes than there are change files, delete the spare files and renumber so the files run 1 to N with no gap.}}

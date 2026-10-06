@@ -1,0 +1,37 @@
+# History: the recorded resets
+
+Facts are as of 2026-10-03. Sources: `moi-devrel/references/devnet.md`, the Launchpad's commit bodies and its `docs/REGISTRY-C684F926-CUTOVER.md`, the Explorer and MCP commit dates, and live reads on 2026-10-02 and 2026-10-03. A short id is the 8 hex digits after `0x20000000` in a registry logic id. Times are UTC unless stated. "Inferred" and "unknown" are marked. Back to `../SKILL.md`.
+
+Earlier resets before August 2026 are not catalogued. Five events are recorded in just over five weeks, two of them full wipes.
+
+## The events
+| Date | What happened | What broke | Recovery, and how long |
+|---|---|---|---|
+| 2026-08-06 | Registry `b97ce717` stopped executing writes but kept serving reads from frozen state. No wipe | Registrations hung about 127 seconds in the wallet and never landed, unnoticed for four days. Builders session 7 on 2026-08-07 was presented with two existing agents because registry writes were failing | MOI replaced it with `f5b0c7af` on 2026-08-10: about 4 days |
+| 2026-08-10 | Registry replaced by `f5b0c7af`. No wipe | Wallets were blocked by stuck interactions from 2026-08-11 to 2026-08-13; the cure was a replacement interaction at the same nonce with enough fuel. Whether the registry move caused it is not known (root cause unknown; ASK: Gokul) | Replaced again 3 days later |
+| 2026-08-13 | Registry replaced by `09ce50ba`. No wipe | Eight registrations that had landed on `f5b0c7af` were left behind by the import into `09ce50ba`. This is why the Launchpad now computes "stranded" agents by comparing chain and database | Superseded 2 days later |
+| 2026-08-15 about 23:38 | Full wipe. New registry `c684f926` deployed at 23:38:03; MOI imported agents (one `ImportAgents` interaction, receipt status 0). `js-moi-agent-registry@0.3.0-rc1` (published 2026-08-16 01:31) embeds `c684f926` and pins `js-moi-sdk@0.8.0` exactly | Every known wallet, and every older registry, answered "account not found". The Launchpad answered 200 and listed 6 agents as `onchain:true` from its database while chain reads failed: reads had used the connected user's address as the caller, and no user existed. Dashboard notices were keyed to the event | The cutover note was verified live on 2026-08-18 and the dashboard notice is keyed 2026-08-19. The code on `master` named `c684f926` by 2026-08-22 at the latest (the clone's history starts that day). So 4 to 7 days (inferred). Exact merge time unknown. ASK: Adithya |
+| 2026-09-11 | go-moi v0.13.0 was tagged 2026-09-10 and reached devnet with the network update at 00:00 UTC on 2026-09-11 (as the release pack gave it). `moipod` v0.13.0 wiped devnet and killed `c684f926`. MOI redeployed the registry as `2f3e9469` and imported an old snapshot: 144 agents, 89 the Launchpad's (mostly deprecated Vercel-era), 1 of the 11 agents the marketplace listed that day carried over | Constants moved: KMOI became a MASN asset with a new id (`...fffe...`), the fuel price floor is 50 (was 1), the default storage fund rose 10,000 times, creating a participant needs a grant of at least 1 KMOI (measured in September), and `fee_payer` replaced `payer` on the wire (read on 2026-10-03 in the registry's first interaction, which has `fee_payer` and no `payer`; devnet still answered `payer` on 2026-09-10). The Launchpad's three registration wallets were wiped, so activation failed with "account not found" and nobody could onboard for three days. `/api/stats` showed 46 on-chain agents for days after the registry vanished, because errors were swallowed. The AgentMarket contract probably did not survive: the listing read is still `null` (inferred). The MCP's asset creation broke and went unnoticed for about a week | See below | <!-- slop-lint: ignore -->
+
+## The September recovery, product by product
+| Product | Moved | After the wipe | Notes |
+|---|---|---|---|
+| Protocol team | Redeployed the registry as `2f3e9469`; its first tesseract is stamped 2026-09-15 about 05:46 UTC (read 2026-10-03, from the node's `time_stamp`) | 4 days (the blocking dependency) | The 2026-09-10 release note did not say devnet would be wiped (`moi-blog/release-pack/references/timing.md`) |
+| SDK upgrade (Launchpad) | 2026-09-12 | 1 day | Both packages together; `overrides` for the registry package's SDK peer |
+| Launchpad | Honest chain status 2026-09-14; survive wiped wallets and the recreate script 2026-09-14; registry switch 2026-09-15 at 12:21 (merge); activation grant floor fix the same day | 4 days | Two deploys failed on 2026-09-14 at `npm ci` and nobody was told. The script's default grant of 0.5 KMOI was below the 1 KMOI floor |
+| Agent Explorer | Tracked the registry 2026-09-22 (commit bb5d38e); `main` pins `2f3e9469` since 2026-09-24 | 11 days | On 2026-10-03 the live index still listed 49 agents (1 verified). PR #5 (the reconcile and the client pin) is open and not deployed |
+| MCP server | Pinned the new registry 2026-09-23 (commit 731a808), on `moi-mcp` `master` with PR #21 on 2026-09-24 (in the previous operator's clone); not in production | 12 days to the pin, then not live | The live server still answered with the wiped `c684f926` on 2026-10-02 and 2026-10-03: production is a copy in `voyage-api` synced on 2026-09-23 before the pin, and its newer sync PR #313 was open without review as of 2026-10-02 |
+| Dashboard notices | Still keyed to the August events at c49afb7 | not done | A user who dismissed the August notice would not see a new one |
+
+## What the record says about the next one
+- The August sequence was three registry events in ten days and then a wipe. Do not spend funds or announce until the protocol team says the state is final.
+- The blocking dependency is the protocol team's redeploy (4 days). Your own side took 1 day for the SDK, and the Launchpad's commit for the new id (942827a) is dated 06:31 UTC on 2026-09-15, about 45 minutes after the registry was stamped, with its pull request merged at 12:21 UTC.
+- A go-moi release came the day before the wipe of 2026-09-11 (v0.13.0 on 2026-09-10): firm. The same pattern for the wipe of 2026-08-15 (go-moi v0.12.0 on 2026-08-14) is inferred, from a devnet read of 0.12.0 on 2026-09-10. `moi-devrel/references/devnet.md` calls it one observation. ASK: Gokul.
+- No reset is recorded since 2026-09-11. The genesis tesseract of the KMOI founding account began 0x4529116966dd8c85 on both RPC paths on 2026-10-03, the same prefix the previous operator's file records for 2026-09-14.
+- Past recovery was never written as one log with times. The template `../templates/reset-log.md` exists so the next one is.
+
+## Not yet known
+- Where and how the protocol team announced each reset and each new id. ASK: Rahul, Gokul.
+- Whether the 2026-08-10 and 2026-08-13 replacements were planned or caused by a fault, and why the 2026-08-06 registry froze. ASK: Gokul.
+- When the Launchpad merged the move to `c684f926`, and whether the AgentMarket contract was redeployed after either wipe. ASK: Adithya.
+- When devnet was re-initialised for v0.13.0. The explorer's oldest listed interaction is dated 2026-09-10 13:18 UTC, before the 00:00 UTC on 2026-09-11 the release pack gave, and that list is capped at 355 entries (`moi-devrel/claim-check/references/live-reads.md`). ASK: Gokul.

@@ -1,0 +1,7 @@
+SDK Versions
+
+{{The note's sentence that introduces the versions.}}
+- {{package}}: {{exact version, with any -rc suffix}}
+- {{package}}: {{exact version}}
+
+{{The note's closing sentence, if it has one.}}

@@ -1,0 +1,18 @@
+**MOI Protocol Release: moipod v0.13.0**
+
+moipod v0.13.0 is live on Voyage devnet as of 11 September, 12:00 AM UTC (5:30 AM IST). This is a breaking release. Please review the changes below before you upgrade. <!-- slop-lint:ignore -->
+
+**Fee payer:** An interaction can name an account other than the sender to pay its fuel. That account co-signs and pays; the sender pays nothing for fuel. Apps can now cover fuel for their users.
+
+**KMOI on MASN:** KMOI moves to MASN, a native asset standard of its own, with a fixed supply: no mint, no burn, including by the manager. KMOI gets a new asset ID. <!-- slop-lint:ignore -->
+
+**Pricing in anu:** Fuel and storage are priced in anu, the smallest unit of KMOI. 1 KMOI = 1,000,000,000 anu. Minimum fuel price is 50 anu. Storage is 1,000,000 anu per byte.
+
+**Participant list:** The node now reads the sender and fee payer from the interaction header, so do not add them to the participant list. The one exception is a fee payer that also acts as a notary, co-signing for the operations and not only the fuel.
+
+**If you build on MOI:**
+- Update to `js-moi-sdk@0.9.0-rc2` and `js-polo@0.1.5`.
+- Stop adding the sender or fee payer to the participant list.
+- Recheck any fixed storage funding values, using the SDK's KMOI and anu conversion functions. Do not calculate these conversions manually.
+
+Full release notes: RELEASE_URL <!-- slop-lint:ignore -->

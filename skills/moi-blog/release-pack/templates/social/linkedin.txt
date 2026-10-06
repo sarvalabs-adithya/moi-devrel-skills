@@ -1,0 +1,9 @@
+MOI Protocol Release: v{{version}}
+
+{{The note's opening sentence, with the release moment written as <day month year> at <HH:MM> UTC (<HH:MM> IST).}} {{The note's sentence that says the release is breaking, if it has one.}}
+
+{{Section name, as the note writes it}}
+
+{{The note's sentences for this section, copied exactly. Repeat this block for every section of the note. Plain lines for headings, hyphen bullets, no backticks, no bold.}}
+
+{{Full release notes line and its https:// URL, or delete this line.}}

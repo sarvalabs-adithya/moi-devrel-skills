@@ -1,0 +1,2 @@
+id,claim,where,type,source,verdict,checked_by,as_of,note
+#,"Delete this line. One row per claim. Verdicts: verified (needs a source), scoped (true only with a stated limit: write the limit in the note AND in the text), argument (an opinion, labelled as one in the text), cut (the sentence was removed), unverified. checked_by names a person or Claude with the pass, for example Claude, pass 1. as_of is YYYY-MM-DD. Quote any cell that contains a comma. Do not paste a key or a recovery phrase into any cell.",,,,,,,

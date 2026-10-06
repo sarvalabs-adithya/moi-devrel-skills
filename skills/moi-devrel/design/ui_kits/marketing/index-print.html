@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=1280, initial-scale=1" />
+  <title>MOI marketing UI kit: sample layout, placeholder copy</title>
+  <link rel="icon" type="image/svg+xml" href="../../assets/logos/SVG/Planetoid - Light.svg" />
+  <link rel="stylesheet" href="../../colors_and_type.css" />
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <style>
+    body { margin: 0; }
+    @keyframes slideIn { from { transform: translateY(20px); opacity: 0 } to { transform: none; opacity: 1 } }
+    @keyframes pipFloat { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-12px) } }
+    .pip-orbit img { animation: pipFloat 8s ease-in-out infinite; }
+
+    /* ────── Print rules ────── */
+    @page { size: 1280px 1800px; margin: 0; }
+    @media print {
+      html, body { background: #fff !important; }
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      /* Pin nav to top-of-page only, not as a fixed overlay */
+      nav { position: static !important; backdrop-filter: none !important; background: rgba(10,0,38,0.95) !important; }
+      /* Kill animations + interactions */
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+      /* Each major section starts on a fresh page */
+      section { break-inside: avoid; page-break-inside: avoid; }
+      section + section { break-before: page; page-break-before: always; }
+      /* Hide the floating toast in print */
+      [data-print-hide] { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel" src="components.jsx"></script>
+  <script type="text/babel">
+    function App() {
+      const [activeIdx, setActiveIdx] = React.useState(0);
+      return (
+        <>
+          <Nav onCta={()=>{}} />
+          <Hero onCta={()=>{}} />
+          <FourWays activeIdx={activeIdx} setActiveIdx={setActiveIdx} />
+          <StoryBand />
+          <ValidatorsBand />
+          <CtaBand onCta={()=>{}} />
+          <Footer />
+        </>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+    // Wait for fonts + images, then print
+    (async () => {
+      try { await document.fonts.ready; } catch (e) {}
+      // Wait for all images to settle
+      const imgs = Array.from(document.images);
+      await Promise.all(imgs.map(img => img.complete ? Promise.resolve()
+        : new Promise(r => { img.onload = img.onerror = r; })));
+      await new Promise(r => setTimeout(r, 500));
+      window.print();
+    })();
+  </script>
+</body>
+</html>

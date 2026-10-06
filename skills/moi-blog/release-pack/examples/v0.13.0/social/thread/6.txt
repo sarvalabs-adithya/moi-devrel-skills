@@ -1,0 +1,3 @@
+Action required
+
+If your application uses fixed storage funding values, check them. The previous values can be too low after this update. Use the KMOI and anu conversion functions in the SDK. Do not calculate these conversions manually.

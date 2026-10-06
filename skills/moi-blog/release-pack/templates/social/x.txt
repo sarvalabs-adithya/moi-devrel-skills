@@ -1,0 +1,5 @@
+moipod v{{version}} {{is scheduled for}} {{day month year}} at {{HH:MM}} UTC ({{HH:MM}} IST).
+
+{{One line per change, in the note's words.}}
+
+{{Say once that the release is breaking, if the note does. Name the SDK version to update to, exactly as the note writes it.}}

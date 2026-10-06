@@ -1,0 +1,14 @@
+moipod v{{version}} {{is scheduled for}} {{day month year}} at {{HH:MM}} UTC ({{HH:MM}} IST).
+
+What it adds:
+
+{{Change name}}. {{One or two sentences in the note's words.}}
+
+{{Change name}}. {{One or two sentences in the note's words.}}
+
+{{Say once that the release is breaking, if the note does.}} If you build on MOI:
+
+- {{Each action from the note, with exact versions.}}
+- {{Each action from the note.}}
+
+{{Full release notes: and its https:// URL on the next line, or delete both lines.}}

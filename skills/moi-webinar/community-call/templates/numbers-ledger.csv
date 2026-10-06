@@ -1,0 +1,4 @@
+slide,figure,value,source,as_of,confirmed_by,status
+#,"Statuses: confirmed; unverified or pending (not confirmed); accepted-unverified (the human kept a figure nobody verified; confirmed_by reads ""accepted by <name> on YYYY-MM-DD: <reason>""); superseded or dropped (retired). Quote any cell that contains a comma. Delete this line if you like.",,,,,
+1,Call number,[N],[where the number was announced],[YYYY-MM-DD],,pending
+1,Month and year on the title chip,[Month YYYY],[where the date was agreed],[YYYY-MM-DD],,pending

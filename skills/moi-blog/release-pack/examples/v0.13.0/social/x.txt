@@ -1,0 +1,5 @@
+moipod v0.13.0 goes live on 11 September at 12:00 AM UTC (5:30 AM IST). <!-- slop-lint:ignore -->
+
+New: a fee payer can cover fuel for another account's interaction. KMOI moves to its own MASN standard. Fuel and storage are priced in anu.
+
+Breaking release. Update to js-moi-sdk 0.9.0-rc2 before then.

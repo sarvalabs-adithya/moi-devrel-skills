@@ -1,0 +1,23 @@
+# Written by moi-webinar new-session.sh. Edit it with the operator's yes before any commit.
+# moi-foundation/MOI-Webinars is a public repo: a push publishes everything not ignored here.
+node_modules/
+.env
+.vscode/
+
+# Internal documents. In session 8 the previous operator kept these local only (they were listed in
+# the root .gitignore of the branch claude/agent-payments-simple, not in the one on main). Local only
+# also means lost with the laptop: keep a second copy.
+STORYLINE.md
+RUNBOOK.md
+LUMA.md
+SOCIAL.md
+social/
+
+# Claim ledger and its raw candidates: library default, not a recorded practice. They list unverified
+# rows, so keep them local.
+ledger.csv
+claims-candidates.csv
+
+# Rehearsal media can be large. Decide with the operator whether the recording is committed.
+recording/*.wav
+recording/*.m4a

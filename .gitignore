@@ -1,0 +1,8 @@
+.DS_Store
+.env
+.env.*
+node_modules/
+__pycache__/
+*.pyc
+# Local snapshots taken before secret-shaped values were cleaned — never commit.
+_backup-*/

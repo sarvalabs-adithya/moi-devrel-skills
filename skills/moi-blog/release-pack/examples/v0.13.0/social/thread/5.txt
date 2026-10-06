@@ -1,0 +1,7 @@
+ANU
+
+The protocol now prices in ANU, the smallest unit of KMOI. 1 KMOI = 1,000,000,000 anu
+
+The following prices have changed:
+- Minimum fuel price: 1 anu → 50 anu
+- Storage price per byte: 1 anu → 1,000,000 anu

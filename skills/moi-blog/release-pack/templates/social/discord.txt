@@ -1,0 +1,13 @@
+**MOI Protocol Release: moipod v{{version}}**
+
+moipod v{{version}} {{is scheduled for}} {{day month year}} at {{HH:MM}} UTC ({{HH:MM}} IST). {{The note's sentence that says the release is breaking, if it has one.}}
+
+**{{Change name}}:** {{The note's sentences for it, copied exactly.}}
+
+**{{Change name}}:** {{The note's sentences for it, copied exactly.}}
+
+**If you build on MOI:**
+- {{Each action from the note, with exact versions.}}
+- {{Each action from the note.}}
+
+Full release notes: {{https:// URL from the protocol team, or delete this line.}}

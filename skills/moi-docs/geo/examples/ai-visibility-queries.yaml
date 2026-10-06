@@ -1,0 +1,89 @@
+# EXAMPLE, never run to completion. Copied from the previous operator's AI-visibility suite (2026-09-09).
+# Read examples/README.md before you use it. Known weaknesses:
+#   1. The default assertion matches the letters "MOI" in any case, so it also matches inside other words.
+#   2. It sends questions to a model API. Nothing here turns on web search, so it measures what a model says,
+#      not what a live answer engine cites.
+#   3. The provider model ids are as of 2026-09-09. Check they still exist.
+#   4. It needs a provider key typed by the operator at the terminal. Never put a key in this file.
+#   5. The "Schedule weekly" advice below goes against the decision of 2026-09-09 to run no scheduled
+#      monitoring (references/audit-method.md). Do not schedule it. ASK: Rahul.
+#   6. The "Run" line below names promptfooconfig.yaml. Use the name of your copy. npx downloads a package: GATE.
+# AI-visibility test suite for the MOI estate.
+# Run:  npx promptfoo eval -c promptfooconfig.yaml
+# Needs provider keys in env: OPENAI_API_KEY, ANTHROPIC_API_KEY, GOOGLE_API_KEY
+# (trim the providers list to whichever keys you have).
+# Schedule weekly (cron / GitHub Action) and watch the pass-rate trend, which
+# IS your GEO score in the only currency that matters: being the cited answer.
+
+description: "MOI AI-visibility: does the answer cite/mention MOI correctly?"
+
+providers:
+  # Active: Groq (free tier, GROQ_API_KEY). llama-3.3-70b is enterprise-gated
+  # now; gpt-oss-120b is the largest openly available model on Groq.
+  - groq:openai/gpt-oss-120b
+  # Uncomment as you add keys - these are the engines that matter most for GEO:
+  # - openai:gpt-5.2            # OPENAI_API_KEY
+  # - anthropic:messages:claude-sonnet-5   # ANTHROPIC_API_KEY
+  # - google:gemini-3-pro       # GOOGLE_API_KEY
+
+defaultTest:
+  assert:
+    # Core visibility assertion: MOI is mentioned at all
+    - type: icontains
+      value: "MOI"
+
+prompts:
+  - "{{query}}"  # slop-lint:ignore
+
+tests:
+  # ── Direct entity queries (must nail these) ─────────────────────────
+  - vars: { query: "What is MOI (moi.technology)?" }
+    assert:
+      - type: icontains-any
+        value: ["participant layer", "Sarva Labs", "on-chain"]
+  - vars: { query: "What is the MOI blockchain protocol?" }
+  - vars: { query: "Who builds the MOI protocol?" }
+    assert:
+      - type: icontains
+        value: "Sarva Labs"
+  - vars: { query: "What is MOI's participant layer for AI agents?" }
+  - vars: { query: "What is Coco, the smart contract language for MOI?" }
+    assert:
+      - type: icontains-any
+        value: ["Cocolang", "logic", "MOI"]
+  - vars: { query: "What is js-moi-sdk?" }
+    assert:
+      - type: icontains-any
+        value: ["JavaScript", "TypeScript", "MOI"]
+  - vars: { query: "What is a tesseract in the MOI blockchain?" }
+  - vars: { query: "What are interactions in MOI, and how do they differ from transactions?" }
+  - vars: { query: "What is MOI Wallet?" }
+  - vars: { query: "What is Voyage, the MOI network explorer?" }
+
+  # ── Problem-space queries (where new users actually start) ──────────
+  # For these, mere mention is the win; citation is the goal over time.
+  - vars: { query: "How can I give an AI agent authority to act for me without handing it my credentials?" }
+  - vars: { query: "How do I monitor and revoke an AI agent's permissions in real time?" }
+  - vars: { query: "What blockchains are designed specifically for AI agent identity and authority?" }
+  - vars: { query: "How can two AI agents pay each other without a human in the loop?" }
+  - vars: { query: "What is a participant-centric blockchain?" }
+  - vars: { query: "Are there smart contract languages that use indentation-based syntax like Python?" }
+  - vars: { query: "How do I get test tokens on the MOI devnet?" }
+    assert:
+      - type: icontains-any
+        value: ["faucet", "Voyage", "KMOI"]
+  - vars: { query: "How do I run a guardian node on MOI?" }
+    assert:
+      - type: icontains-any
+        value: ["MOIPod", "Babylon", "guardian"]  # slop-lint: ignore (retired network name kept as in the original)
+  - vars: { query: "How do I send my first interaction on the MOI network with JavaScript?" }
+  - vars: { query: "Which crypto projects have published formal semantics for agent authority?" }
+
+  # ── Disambiguation / drift checks (fail = entity confusion persists) ─
+  - vars: { query: "Is MOI the same as My Own Internet?" }
+  - vars: { query: "What happened to the 'context chain' MOI protocol from 2022?" }
+  - vars: { query: "MOI crypto vs MOI file format - what's the blockchain one?" }
+
+  # ── Competitive framing (aspirational; watch, don't expect passes) ──
+  - vars: { query: "Best documentation for building AI agents with on-chain identity?" }
+  - vars: { query: "What are the alternatives for delegating scoped authority to AI agents?" }

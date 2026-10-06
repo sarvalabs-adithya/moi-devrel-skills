@@ -1,0 +1,79 @@
+<!doctype html>
+<!--
+  Starter for a branded MOI page or mock. Copy this file to brand-<slug>/index.html.
+  It expects these next to it (step 2 of moi-devrel/design/GUIDE.md copies them):
+    colors_and_type.css, fonts/Poppins-Regular.ttf, assets/logos/SVG/*.svg
+  Every colour, size and weight comes from a token in colors_and_type.css.
+  Every word in [brackets] is a placeholder. Replace it, then run brand-check.py and slop-lint.sh.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>[Page title]</title>
+<link rel="icon" type="image/svg+xml" href="assets/logos/SVG/Planetoid%20-%20Light.svg">
+<link rel="stylesheet" href="colors_and_type.css">
+<style>
+  body { margin: 0; }
+  .dark .t-cap { color: var(--fg-on-dark-accent); }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: var(--space-7) var(--space-6); }
+  .bar { display: flex; align-items: center; justify-content: space-between; }
+  .logo { height: 40px; width: auto; display: block; }
+  .light { background: var(--bg-almost-lavender); color: var(--fg-1); }
+  .dark { background: var(--moi-black); color: var(--fg-on-dark-1); }
+  .dark .logo { height: 48px; }
+  .chip { display: inline-block; padding: var(--space-2) var(--space-5); border-radius: var(--r-pill);
+          background: var(--bg-certainly-lavender); border: 1px solid var(--bg-pastel-purple); }
+  .dark .chip { background: rgba(255, 255, 255, 0.06); border-color: var(--hairline); color: var(--fg-on-dark-accent); }
+  .accent { color: var(--fg-accent); }
+  .dark .accent { color: var(--fg-on-dark-accent); }
+  .lede { color: var(--fg-2); max-width: 60ch; }
+  .dark .lede { color: var(--fg-on-dark-2); }
+  .btn { display: inline-block; padding: var(--space-4) var(--space-6); border-radius: var(--r-pill);
+         background: var(--moi-main); color: var(--moi-white); font-weight: var(--wt-semibold); font-size: var(--size-16); }
+  .dark .btn { background: var(--bg-certainly-lavender); color: var(--moi-black); }
+  .btn:hover { box-shadow: var(--shadow-glow); border-bottom-color: transparent; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-5); }
+  .card { background: var(--moi-white); border: 1px solid var(--border-soft); border-radius: var(--r-lg);
+          padding: var(--space-6); box-shadow: var(--shadow-card-sm); }
+  .dark .card { background: rgba(255, 255, 255, 0.05); border-color: var(--hairline); box-shadow: none; }
+  .dark .card p { color: var(--fg-on-dark-2); }
+  h1 { font-size: var(--size-58); margin: var(--space-6) 0 var(--space-5); }
+  h2 { font-size: var(--size-41); margin: 0 0 var(--space-5); }
+  h4 { margin: var(--space-3) 0 var(--space-2); font-size: var(--size-23); }
+  .foot { font-size: var(--size-13); color: var(--fg-3); }
+  .dark .foot { color: var(--fg-on-dark-2); }
+  @media (max-width: 640px) { h1 { font-size: var(--size-36); } h2 { font-size: var(--size-29); } .wrap { padding: var(--space-6) var(--space-4); } }
+</style>
+</head>
+<body>
+
+<!-- Light section: purple logo (Default - Light) on a light ground -->
+<section class="light">
+  <div class="wrap">
+    <div class="bar">
+      <img class="logo" src="assets/logos/SVG/Default%20-%20Light.svg" alt="MOI logo, purple planet with white lettering">
+      <a class="btn" href="#">[Primary action]</a>
+    </div>
+    <span class="chip t-cap" style="margin-top: var(--space-8)">[Chip label]</span>
+    <h1>[Headline that <span class="accent">leads</span>]</h1>
+    <p class="lede">[One supporting sentence. Every claim in it is checked with moi-devrel/claim-check before this ships.]</p>
+  </div>
+</section>
+
+<!-- Dark section: pale logo (Default - Dark) on MOI Black -->
+<section class="dark">
+  <div class="wrap">
+    <img class="logo" src="assets/logos/SVG/Default%20-%20Dark.svg" alt="MOI logo, pale planet with dark lettering">
+    <h2 style="margin-top: var(--space-7)">[Section headline]</h2>
+    <div class="cards">
+      <div class="card"><span class="t-cap">[Label]</span><h4>[Card title]</h4><p>[One sentence.]</p></div>
+      <div class="card"><span class="t-cap">[Label]</span><h4>[Card title]</h4><p>[One sentence.]</p></div>
+      <div class="card"><span class="t-cap">[Label]</span><h4>[Card title]</h4><p>[One sentence.]</p></div>
+    </div>
+    <p class="foot" style="margin-top: var(--space-7)">@MOI_Tech &nbsp;&middot;&nbsp; moi.technology</p>
+  </div>
+</section>
+
+</body>
+</html>

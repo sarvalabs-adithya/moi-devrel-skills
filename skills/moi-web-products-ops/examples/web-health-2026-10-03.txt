@@ -1,0 +1,41 @@
+web-health all, read-only, GET and HEAD only UTC date 2026-10-03
+PASS   website   moi.technology GET /  200
+PASS   website   moi.technology GET /why-moi  200 (the app shell; this host answers 200 for any address, see W-K3)
+PASS   website   moi.technology GET /manifesto  200 (the app shell; this host answers 200 for any address, see W-K3)
+PASS   website   moi.technology GET /papers  200 (the app shell; this host answers 200 for any address, see W-K3)
+PASS   website   moi.technology GET /blog  200 (generated listing)
+PASS   website   moi.technology GET /sitemap.xml  200
+PASS   website   moi.technology GET /robots.txt  200
+PASS   website   moi.technology GET /api/health  200 status ok (the Express server answers behind this host)
+KNOWN  website   moi.technology GET /api/community-calls  500 [W-K1: calendar API answers 500; the related GitHub issue 3 has been open since 2026-04-20; first recorded 2026-10-02, seen again 2026-10-03; see references/website-health.md]
+KNOWN  website   moi.technology GET main script  API base baked in: https://dev.moi.technology/api [W-K2: the site bundle has the dev host baked in as its API base; first recorded 2026-10-02, seen again 2026-10-03; see references/website-health.md]
+KNOWN  website   moi.technology GET /zz-health-check-no-such-page  200 with the app shell [W-K3: unknown addresses answer 200 (no real 404); first recorded 2026-10-02, seen again 2026-10-03; see references/website-health.md]
+KNOWN  website   moi.technology HEAD /  no Link header [W-K4: no discovery Link header on the home page; first recorded 2026-10-02, seen again 2026-10-03; see references/website-health.md]
+KNOWN  website   moi.technology HEAD /papers/moi-white-paper.pdf  200, 2245957 bytes, no Content-Disposition [W-K5: PDFs are served without a download header; first recorded 2026-10-02, seen again 2026-10-03; see references/website-health.md]
+PASS   blog      blog.moi.technology GET /  200
+PASS   blog      blog.moi.technology GET /rss.xml  200
+PASS   blog      blog.moi.technology GET /rss-email.xml  200
+PASS   blog      blog.moi.technology GET /sitemap-index.xml  200
+PASS   blog      blog.moi.technology GET /llms.txt  200
+PASS   blog      blog.moi.technology GET /article/zz-health-check-no-such-post/  404 (an unknown article is a real 404 here)
+PASS   blog      blog.moi.technology GET /rss.xml  all 6 posts in the feed are in the apex /blog listing
+PASS   dataroom  dataroom.moi.technology GET /  307 to /home
+PASS   dataroom  dataroom.moi.technology GET /home  200
+PASS   dataroom  dataroom.moi.technology GET /api/documents  200, 23 documents, 17 completed
+KNOWN  dataroom  dataroom.moi.technology GET /api/documents  failed: GTM Deck [D-K1: document not fully embedded, so the chat may miss it or be unable to cite it; first recorded 2026-10-02, seen again 2026-10-03; see references/dataroom-health.md]
+KNOWN  dataroom  dataroom.moi.technology GET /api/documents  processing: Whitepaper [D-K1: document not fully embedded, so the chat may miss it or be unable to cite it; first recorded 2026-10-02, seen again 2026-10-03; see references/dataroom-health.md]
+KNOWN  dataroom  dataroom.moi.technology GET /api/documents  processing: IM Deck [D-K1: document not fully embedded, so the chat may miss it or be unable to cite it; first recorded 2026-10-02, seen again 2026-10-03; see references/dataroom-health.md]
+KNOWN  dataroom  dataroom.moi.technology GET /api/documents  processing: Tokenomics Overview [D-K1: document not fully embedded, so the chat may miss it or be unable to cite it; first recorded 2026-10-02, seen again 2026-10-03; see references/dataroom-health.md]
+KNOWN  dataroom  dataroom.moi.technology GET /api/documents  processing: Parallelism in shared spaces [D-K1: document not fully embedded, so the chat may miss it or be unable to cite it; first recorded 2026-10-02, seen again 2026-10-03; see references/dataroom-health.md]
+KNOWN  dataroom  dataroom.moi.technology GET /api/documents  processing: Truth of Happiness - The vision paper [D-K1: document not fully embedded, so the chat may miss it or be unable to cite it; first recorded 2026-10-02, seen again 2026-10-03; see references/dataroom-health.md]
+KNOWN  dataroom  dataroom.moi.technology GET /home  figures shown: 4.3K, 14.4K, 50K+, 79.0M [D-K2: home page shows hard-coded figures that nothing updates; first recorded 2026-10-03, seen again 2026-10-03; see references/dataroom-health.md]
+PASS   points    points.moi.technology GET /api/health  200 healthy=True database=ok migrations applied 11 of 11
+KNOWN  points    points.moi.technology GET /api/health  sha null [P-K1: health JSON reports sha null, so the running build cannot be told; first recorded 2026-10-02, seen again 2026-10-03; see references/points-health.md]
+PASS   points    points.moi.technology GET /api/health  enabled tasks: join_x_verified, join_discord, join_telegram, create_wallet
+PASS   points    points.moi.technology GET /api/tasks  200, 4 tasks (same as enabledTasks)
+PASS   points    points.moi.technology GET /leaderboard  200
+PASS   points    points.moi.technology GET /api/leaderboard  200
+PASS   points    points.moi.technology GET /  307 to /login
+PASS   points    preview.points.moi.technology GET /api/health  200 (preview host, same box)
+summary: PASS 25, WARN 0, KNOWN 13, FAIL 0 (28 requests)
+not checked: a chat answer, any upload or admin page, a deploy run's status, the database itself, the VM, DNS or certificates. See references/<product>-health.md for those.

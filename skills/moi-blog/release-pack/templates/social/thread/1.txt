@@ -1,0 +1,3 @@
+MOI Protocol Release: v{{version}}
+
+{{The note's opening sentence. Write the release moment as <day month year> at <HH:MM> UTC (<HH:MM> IST). Never "today", never "12:00 AM".}} {{The note's sentence that says the release is breaking, if it has one.}}

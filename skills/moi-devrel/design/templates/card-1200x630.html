@@ -1,0 +1,38 @@
+<!doctype html>
+<!--
+  Starter for a 1200 x 630 image card (share image, cover, social tile). Copy it to brand-<slug>/card.html.
+  It expects colors_and_type.css, fonts/Poppins-Regular.ttf and assets/logos/SVG/*.svg next to it.
+  Export to PNG with the command in moi-devrel/design/GUIDE.md, run step 9. Replace every [bracket], then run brand-check.py.
+  Check the words with moi-devrel/claim-check. A release post carries no picture unless the approver says so (see GUIDE.md).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>[Card title]</title>
+<link rel="stylesheet" href="colors_and_type.css">
+<style>
+  html { font-size: 10px; }
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+  .card { position: relative; width: 1200px; height: 630px; box-sizing: border-box; overflow: hidden;
+          background: var(--grad-cosmos); color: var(--fg-on-dark-1); padding: var(--space-8) var(--space-8) var(--space-7); }
+  .planetoid { position: absolute; right: -180px; bottom: -150px; width: 760px; height: auto; opacity: 0.16; }
+  .logo { position: relative; height: 56px; width: auto; display: block; }
+  .chip { position: relative; display: inline-block; margin-top: var(--space-7); padding: var(--space-2) var(--space-5);
+          border-radius: var(--r-pill); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--hairline);
+          color: var(--fg-on-dark-accent); }
+  h1 { position: relative; max-width: 760px; margin: var(--space-5) 0 0; font-size: var(--size-58); color: var(--fg-on-dark-1); }
+  h1 .accent { color: var(--fg-on-dark-accent); }
+  .meta { position: absolute; left: var(--space-8); right: var(--space-8); bottom: var(--space-6);
+          display: flex; justify-content: space-between; font-size: var(--size-16); color: var(--fg-on-dark-2); }
+</style>
+</head>
+<body>
+<div class="card">
+  <img class="planetoid" src="assets/logos/SVG/Planetoid%20-%20Dark.svg" alt="">
+  <img class="logo" src="assets/logos/SVG/Default%20-%20Dark.svg" alt="MOI logo, pale planet with dark lettering">
+  <span class="chip t-cap">[Chip label]</span>
+  <h1>[Headline of <span class="accent">one idea</span>]</h1>
+  <div class="meta"><span>@MOI_Tech</span><span>moi.technology</span></div>
+</div>
+</body>
+</html>
