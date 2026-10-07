@@ -1,5 +1,7 @@
 # Community Call
 
+**Status: active.** Monthly; the next one is CC15 in October.
+
 The monthly public call where MOI shows what shipped and what the team did. Calls usually happen on a Friday. I own the deck and the protocol and DevRel segments. Vardan owns the event.
 
 ## Variables
@@ -102,8 +104,3 @@ The deck is built with the **moi-deck** skill. The rest of the call (inputs, num
 
 What the skill never does without my yes: send a message, post anything, upload a file, or push the call folder (the webinars repo is public).
 
-## Open items
-
-- Several figures on the September deck were never confirmed. Check them before reusing them.
-- No recording description exists for the September call.
-- The skills are not in a repo yet.

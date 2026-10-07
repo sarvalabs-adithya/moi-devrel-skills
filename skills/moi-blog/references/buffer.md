@@ -5,7 +5,7 @@ Facts are as of 2026-10-02. Sources: `scripts/lib/senders.js`, `scripts/lib/soci
 ## What Buffer is here, and why
 Buffer holds the connections to MOI's X account ("MOI_Tech") and LinkedIn company page ("moi-tech"). A draft or a scheduled post sits on Buffer's servers until it is published. X's own drafts screen stays empty, and that is normal. Check `publish.buffer.com`, the channel, Drafts.
 Why Buffer and not the platform APIs, from the message of commit `cc6ddf1` (2026-08-24): X ended its free tier in February and bills per post containing a link, which every post here has. LinkedIn company-page posting needs approval under its Marketing Developer Platform programme, which runs for months. Buffer's plan carries approved integrations for both. X has no per-person roles, so without Buffer "give someone access" means sharing the account password. Plan limits and prices are not recorded. ASK: Rahul which plan the organisation is on.
-Only a Buffer organisation owner can create an API key. The owner of the organisation is not recorded. ASK: Rahul.
+Only a Buffer organisation owner can create an API key. Chandra owns the organisation (stated by the previous operator, 2026-10-06).
 
 ## Two tools, two key names
 The two do not share a variable.
@@ -93,4 +93,4 @@ Each step that changes a shared system is a gate.
 ## Not yet known
 - Who owns the Buffer organisation and which plan it is on. ASK: Rahul.
 - Whether `BUFFER_ACCESS_TOKEN` and the two channel ids are set on `sarvalabs/MOI-Website` today. They are only readable by a repo admin. ASK: Rahul.
-- Where `BUFFER_API_KEY` comes from for you and who creates it. Only a Buffer organisation owner can create one. ASK: Rahul.
+- Where `BUFFER_API_KEY` comes from for you and who creates it. Only a Buffer organisation owner can create one: Chandra.

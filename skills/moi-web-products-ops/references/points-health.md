@@ -38,7 +38,7 @@ Observed health on 2026-10-03: `healthy` true, `database` "ok", `migrations` app
 | (none) | Production runs `feature/ci-cd` at `92f9c48` (2026-09-16). `main` is stale since 2026-08-03. Draft PR #15 moves the trigger to `main` and adds `ci.yml` and a rollback input; it needs DevOps setup first: an `environment: production` with its secrets, a non-root VM user in the docker group, nginx on loopback | `points-ship.md` | Upendhar, Rahul |
 | (none) | PR #21 (review batch) is open, not merged. PR #1 (the original CI/CD) waits for review. `sarvalabs/Points-Program` #1 sits on a repo that may be unused | `points-ship.md` | Rahul |
 | (none) | Nobody is shown scheduling the nightly housekeeping job on the box. Whether a schedule exists is unknown | ASK: Upendhar | Upendhar |
-| (none) | The database is on a personal free-plan login with no backups | Move to a company login and a paid plan. ASK: Rahul | Rahul |
+| (none) | The database is on the Points email account, free plan, no backups | Put it on a paid plan with backups. ASK: Rahul | Rahul |
 | (none) | The schema `backup.tasks_before_0008` still exists | `points-settings-and-database.md` | Adithya |
 | (none) | `Dockerfile` pins pnpm 11.11.0 and `package.json` pins 10.34.5 | ASK: Upendhar which wins | Upendhar |
 | (none) | `X_TOKEN_ENCRYPTION_KEY` and `CLIENT_IP_HEADER` are not passed by the deploy | `points-settings-and-database.md` | Rahul |

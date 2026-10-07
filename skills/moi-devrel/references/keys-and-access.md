@@ -34,12 +34,12 @@ Names only. This file never holds a value, a length or a prefix. It is the index
 ## Accounts with no repo secret
 | Name | Unlocks | Used by | Lives in | Who grants | Status |
 |---|---|---|---|---|---|
-| Buffer organisation (X channel "MOI_Tech", LinkedIn page "moi-tech") | Social drafts and scheduling. Only the owner can create an API token | Blog, release and webinar posts | buffer.com | Buffer owner. ASK | TBD |
-| Mailchimp | Weekly RSS blast (about 5,500 subscribers, paid plan). The sender must be a real MOI address. The Mailchimp template parts are in `moi-blog/templates/mailchimp/` | Newsletter | mailchimp.com | ASK | TBD |
+| Buffer organisation (X channel "MOI_Tech", LinkedIn page "moi-tech") | Social drafts and scheduling. Only the owner can create an API token | Blog, release and webinar posts | buffer.com | Chandra owns the organisation (stated by the previous operator, 2026-10-06) | TBD |
+| Mailchimp | RSS campaign on the 15th of every month (about 5,500 subscribers, paid plan). Vardan has access (stated by the previous operator, 2026-10-06). The sender must be a real MOI address. The Mailchimp template parts are in `moi-blog/templates/mailchimp/` | Newsletter | mailchimp.com | ASK | TBD |
 | Luma | Builders event pages, made by hand. No automation | Webinars | luma.com | ASK | TBD |
 | Google Workspace shared accounts `info@moi.technology` (Builders and call Meets, recordings, Gemini notes) and `marketing@moinetwork.io` (standups); Drive forms and sheets, including the Programs sheet, the programme forms and the content-bounty sheet | Meet hosting, recordings, calendars, programme sheets | Calls, webinars, education programmes | Google | ASK: Rahul which Google account owns the forms and sheets | TBD |
 | YouTube channel | Call recordings and AMA clips | Calls | youtube.com | Owner unknown. ASK | TBD |
-| Google Analytics 4 and Tag Manager | Measurement, UTM by post slug | Website, blog | Google | ASK | TBD |
+| Google Analytics 4 and Tag Manager | Measurement, UTM by post slug | Website, blog | Google, under the sarvalabsdeveloper@gmail.com account (stated by the previous operator, 2026-10-06) | The holder of that account | TBD |
 | Google Search Console and Bing Webmaster Tools | Indexing, sitemaps. Bing imported from Search Console on 2026-09-09 | Website, blog, docs | Google, Microsoft | ASK | TBD |
 | Cloudflare: Pages projects `moichain-docs`, `cocodocs`, `voyage-docs`, `moi-website`; R2 behind `cdn.moi.technology`; zone settings | Docs builds and previews, skill zips, AI-crawler blocking | Docs, SDK | Cloudflare | ASK | TBD |
 | Otter.ai, Slack, Discord server, Zoom, Teams | Transcripts, inputs, community, call links, one file hand-off | Everyone | Each | Zoom owner unknown. ASK | TBD |

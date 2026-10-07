@@ -29,7 +29,7 @@ A step marked ADMIN needs the operator to confirm first that the handover note w
 | 6 | VERIFY | Use it | `bash "$SKILLS/moi-web-products-ops/scripts/web-health.sh" points`, then a real sign-in and the one feature that uses the setting | It works |
 
 ## The database
-- Postgres on Supabase, through Drizzle. The production project is on the previous operator's personal free-plan login and has no backups. It holds every user and every point. Moving it to a company login and a paid plan is open (`DEPENDENCIES.md` ToDo 1, local to the previous operator). ASK: Rahul, Adithya.
+- Postgres on Supabase, through Drizzle. The production project is on the Points Program's own email account (stated by the previous operator, 2026-10-06), on the free plan with no backups. It holds every user and every point. Moving it to a company login and a paid plan is open (`DEPENDENCIES.md` ToDo 1, local to the previous operator). ASK: Rahul, Adithya.
 - Eleven migrations, `0000` to `0010`, and `/api/health` shows `applied 11, expected 11` (2026-10-03).
 - Migrations are written by hand. `drizzle/TRIGGERS.md` says do not run `drizzle-kit generate` or `drizzle-kit push`: the snapshots stop at 0003 and a generated diff would try to recreate objects that exist. (`DEPENDENCIES.md` section 10 says `pnpm db:generate`; the repo file contradicts it. Follow the repo.)
 - Triggers are part of the design: `points_ledger` is append-only; a verified completion can only move to `rejected`; a linked social account cannot be reassigned; a bound wallet cannot change except inside the erasure transaction. People with points are anonymised (`eraseUser`) and not deleted. `pnpm db:reset:*` uses `TRUNCATE`, which skips the triggers: run it on a local database only.

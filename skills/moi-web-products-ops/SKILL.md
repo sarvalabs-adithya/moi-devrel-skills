@@ -20,7 +20,7 @@ Not covered: writing and announcing a post (`moi-blog`), search and AI visibilit
 **Ownership.** Whether DevRel owns these products is not settled. ASK: Rahul. Upendhar (DevOps) is the person who acts on a VM for all three. Srikar did earlier VM and CI work, and whether he still owns a VM is unknown. ASK: Rahul. Unknown per product (the full table is `references/who-to-ask.md`):
 - Website: the repo admins, the Supabase project owner, the Anthropic and OpenAI key owners, the Zoom owner for call links, the Analytics and Tag Manager owners.
 - Dataroom: the Supabase project owner, the model key owners, who made two tables and a column by hand.
-- Points: who owns the Google, X, Discord, Telegram, Reown and Resend apps, and the database, which sits on the previous operator's personal free-plan login with no backups. Its five repo admins are known (2026-09-15).
+- Points: who owns the Google, X, Discord, Telegram, Reown and Resend apps, and the database, which sits on the Points Program's own email account (free plan, no backups). Its five repo admins are known (2026-09-15).
 
 ## Before you start
 Run every command from the working copy of the repo you are changing, with the path quoted. The health script needs no repo and no key.

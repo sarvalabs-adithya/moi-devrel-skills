@@ -10,7 +10,7 @@ Which of these products DevRel owns is not settled. ASK: Rahul. The previous ope
 | Wrote it | The previous operator wrote most of the commits; Srikar and Upendhar also committed (`git log` on `main`, read 2026-10-03) | The previous operator wrote most; Srikar is the second contributor, knows the code and wrote the deploy workflow | Harsh Gupta wrote most of the app; Upendhar wrote the CI/CD; the previous operator ran the September audit and its fixes |
 | Who decides content or scope | Rahul reviews public pieces and scope | Not recorded. ASK: Rahul | Not recorded. ASK: Rahul |
 | Repo admins (can edit secrets) | Not recorded. ASK: Rahul | Not recorded. ASK: Rahul | gokul, chandra, git, adithya, upendhar (2026-09-15) |
-| Database owner | Supabase project: unknown | Supabase project: unknown | Supabase project on the previous operator's personal login, free plan |
+| Database owner | Supabase project: unknown | Supabase project: unknown | Supabase project on the Points email account, free plan |
 | Security handover note | Adithya | Adithya | Adithya |
 | Who can act on its VM | Upendhar | Upendhar | Upendhar |
 
@@ -49,7 +49,7 @@ Use `templates/devops-request.md` for each. One task per message. Never ask for 
 | Need | Ask |
 |---|---|
 | Whether DevRel owns a product, scope, approval, who owns a vendor account | Rahul |
-| History of any decision, the security handover note, the personal Points database login, local-only files | Adithya |
+| History of any decision, the security handover note, the Points email account that holds the Points database, local-only files | Adithya |
 | Community call and AMA dates | Vardan, confirmed by Rahul |
 | Points app internals | Harsh Gupta (channel unknown) |
 | Dataroom code, the website chat server | Srikar |

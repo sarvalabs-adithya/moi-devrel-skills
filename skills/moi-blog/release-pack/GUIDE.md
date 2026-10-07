@@ -79,7 +79,7 @@ A yes covers the one action it names. Reads are allowed: `net.Version`, `npm vie
 
 ## Keys and access
 Names only. Where each lives: `moi-devrel/references/keys-and-access.md`. The scripts of this branch need no key.
-- `BUFFER_API_KEY`: `scripts/buffer.mjs`. A local `.env`, never pasted into chat. Only a Buffer organisation owner can create it. ASK: Rahul who that is.
+- `BUFFER_API_KEY`: `scripts/buffer.mjs`. A local `.env`, never pasted into chat. Only a Buffer organisation owner can create it: Chandra.
 - The website pipeline's secrets (`BUFFER_ACCESS_TOKEN`, `BUFFER_CHANNEL_X`, `BUFFER_CHANNEL_LINKEDIN`, `DISCORD_WEBHOOK_URL`) are GitHub Actions secrets, listed in `moi-blog/SKILL.md`.
 - Read access to the private go-moi and go-pisa repositories. ASK: Gokul.
 - Recovery phrases: Claude never handles one, including a throwaway one.

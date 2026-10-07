@@ -1,5 +1,7 @@
 # MOI Website
 
+**Status: active.** The site and the blog are live. Inactive: the chatbot (hidden since June 2026) and the community calendar (broken, parked).
+
 moi.technology and the blog at blog.moi.technology. One repo, one deploy. The site is a React app with its marketing pages prerendered (since 5 Oct 2026), a small Express server behind /api for the chatbot and the community calendar, and the blog built with Astro from the same repo. I own the code and the content. DevOps owns the server.
 
 ## Variables
@@ -10,12 +12,29 @@ moi.technology and the blog at blog.moi.technology. One repo, one deploy. The si
 | Server, nginx, TLS, DNS, the deploy script | DevOps | The deploy script lives on the server, not in the repo |
 | Supabase project | Confirm who | Holds the chatbot's documents and the calendar's events. It may be the Dataroom's project |
 | Blog posts | Me | Markdown files under blog/src/content/posts |
-| Community calendar | Me, dates from Vardan | Edited at /admin/calendar. Broken in production today |
-| Chatbot | Me | Hidden on the live site since June 2026 |
+| Community calendar | Me, dates from Vardan | Inactive. Edited at /admin/calendar; broken in production and parked for now |
+| Chatbot | Me | Inactive. Hidden on the live site since June 2026, no plans for now |
 | Papers | Me | PDFs the site serves under /papers |
-| Analytics | Marketing (confirm) | Tag Manager, Analytics, Search Console |
+| Analytics | The sarvalabsdeveloper@gmail.com account | Tag Manager and Analytics. Search Console: confirm |
 
 The full list of settings and secrets, by name, is in the dependencies doc and in `.env.example` in the repo.
+
+## Env vars
+
+Where they live: production values are GitHub Actions secrets and variables on sarvalabs/MOI-Website (secrets cannot be read back; the readable copy is the env file the deploy script writes on the server, through DevOps). Locally, a .env at the repo root copied from .env.example, used only by the Express server and the ingest script: both sites build with none. Values starting VITE_ are baked in at build, so they need a rebuild. Only the names listed in the deploy workflow reach the server; a new one needs a line there.
+
+| Variable | What it is | Where the value comes from |
+|---|---|---|
+| SUPABASE_URL, SUPABASE_KEY | The chatbot's documents and the calendar's events | Supabase dashboard, the project (which one: confirm), Settings, API |
+| ANTHROPIC_API_KEY, OPENAI_API_KEY | The chatbot (inactive) | The two consoles, API keys |
+| VITE_CHATBOT_API | The address the browser calls for the API. The live value is the dev host, which is why the calendar fails | Should be https://moi.technology, or empty |
+| ADMIN_API_KEY | The calendar admin page. The deploy does not pass it yet; the change that does is local, not merged | Generate with: openssl rand -hex 32 |
+| ALLOWED_ORIGINS, PORT | The Express server. Not passed by the deploy, so set on the server by DevOps (confirm) | Values in .env.example |
+| BUFFER_ACCESS_TOKEN, BUFFER_CHANNEL_X, BUFFER_CHANNEL_LINKEDIN, DISCORD_WEBHOOK_URL, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID | The "Distribute a post" workflow, one per channel. A missing one skips its channel | Buffer (Chandra), Discord server settings, BotFather |
+| TELEPORT_PROXY, TELEPORT_JOIN_TOKEN, TELEPORT_NODE, VM_USERNAME, PREVIEW_VM_HOST, PREVIEW_VM_USER | Deploy and preview access | DevOps |
+| VITE_GA_ID, PUBLIC_GA_ID, DATA_ROOM_CHAT_URL, DATA_ROOM_API_KEY | Passed or listed, but read by nothing in production (Tag Manager measures instead; the Dataroom pair served the old host only) | Leave as they are |
+
+The example file with comments is .env.example in the repo.
 
 ## Process
 
@@ -42,7 +61,7 @@ The full list of settings and secrets, by name, is in the dependencies doc and i
 - After the merge, a workflow opens a pull request with draft social copy. Rewrite it by hand and merge it.
 - Run the Distribute workflow as a dry run, then once for real. It makes Buffer drafts for X and LinkedIn.
 - Publish the drafts in Buffer by hand.
-- The newsletter is built by Mailchimp from the blog feed. Check whether the weekly campaign is running before relying on it.
+- The newsletter is a Mailchimp RSS campaign: on the 15th of every month it emails the posts that are new.
 
 **Adding a community call to the calendar**
 
@@ -79,12 +98,8 @@ What the skills never do without my yes: push, merge (a merge deploys), run a wo
 
 ## Open items
 
-- Fix the calendar: the API returns an error in production and the live site calls the wrong host. Find the Supabase project first.
-- The calendar admin check is unsafe. The fix is written, not merged. It needs the admin key created in GitHub and DevOps to pass it to the server.
-- Decide the chatbot: bring it back with a fresh index of the litepaper, or remove it.
 - Ask DevOps for the nginx changes: a real 404 for unknown pages, the discovery header, a download header for the papers.
-- Open pull requests to merge or close: #56 (September social copy, never announced), #54, #52, #8.
-- Push the corrected README and deploy and content guides. The ones in the repo still describe the old setup.
-- Take down the old copy at moi-website.vercel.app.
+- Ask Upendhar to close his PR #8 (Cloudflare preview test from August).
+- Later: push the corrected README and deploy and content guides. The ones in the repo still describe the old setup.
+- Take down the old copy at moi-website.vercel.app (Adithya, in Vercel).
 - Move the Supabase project and the API keys to company logins.
-- The skills are not in a repo yet.

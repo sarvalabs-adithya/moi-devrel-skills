@@ -37,7 +37,7 @@ This is a different name from `BUFFER_ACCESS_TOKEN`. The two pipelines do not sh
 ## Points Program (`sarvalabs/moi-project`)
 | Name | Unlocks | Used by | Lives in | Who grants | Status |
 |---|---|---|---|---|---|
-| `DATABASE_URL` | The Supabase Postgres holding every user and point. Personal free plan, no backups | App, migrations | Actions secret and the container env | The previous operator's personal login. ASK: Rahul to move it to a company login | TBD |
+| `DATABASE_URL` | The Supabase Postgres holding every user and point. On the Points email account, free plan, no backups | App, migrations | Actions secret and the container env | The Points email account (stated 2026-10-06). ASK: Rahul who holds that login | TBD |
 | `BETTER_AUTH_SECRET`, `CRON_SECRET`, `TELEGRAM_WEBHOOK_SECRET` | Sessions, job auth, webhook auth | App | Actions secrets | Adithya | TBD |
 | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | Google sign-in | App | Actions secrets | ASK | TBD |
 | `X_CLIENT_SECRET`, variable `X_CLIENT_ID` | X developer app (paid API) for verification | App | Actions | ASK | TBD |

@@ -1,5 +1,7 @@
 # Dev Webinars
 
+**Status: active.** Nine sessions so far; the next one is not scheduled.
+
 The MOI Builders sessions: a live session where we build one project on MOI in front of developers. I own the session end to end. Vardan provides the Google Meet link.
 
 ## Variables
@@ -79,11 +81,15 @@ The **moi-webinar** skill covers the session: lesson planning, the Luma text, th
 
 What the skills never do without my yes: schedule or post anything, publish the blog, or push code (the webinars repo is public).
 
-Scheduling on Buffer needs the Buffer API key to be set up once. Everything else works without it.
+Scheduling on Buffer needs a Buffer API key, set up once by whoever runs the sessions:
+
+1. Ask Chandra, who owns the Buffer organisation, for an API key. Only the owner can create one.
+2. Put it in a file called .env at the root of your clone of moi-foundation/MOI-Webinars, as BUFFER_API_KEY=<the key>. Never commit it and never paste it in chat.
+3. The script is scripts/buffer.mjs on the branch claude/agent-payments-simple (not main). Run it from the repo root with Node. Check it works: `node scripts/buffer.mjs channels` lists the X and LinkedIn channels and their ids.
+4. Draft a post: `node scripts/buffer.mjs post --file <post.txt> --channel <id> --draft`. Without --confirm it only prints what it would do; add --confirm to send. Without --draft a scheduled post publishes by itself, with nobody reviewing it, so use --draft unless the exact time matters. A time for --at must end in Z (UTC).
+5. The Claude skill drives the same script after you approve each post.
 
 ## Open items
 
 - Finalize the existing bounty list and the bounty system on the Points Program.
 - Make the session bounty extensible: whoever runs a webinar should be able to create its bounty on the Points site themselves, without a code change. Today each one needs a developer to add a task and deploy.
-- Set up the Buffer API key for whoever runs the next session.
-- The skills are not in a repo yet.
