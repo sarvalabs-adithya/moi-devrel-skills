@@ -1,65 +1,44 @@
-# MOI DevRel skills
+# MOI DevRel handover
 
-Claude skills that let a new developer-relations hire at MOI do the job without the history. Local folder, not a git repo yet. Nothing here has been pushed or shared.
+Everything a new developer-relations hire at MOI needs, in one private repo: the Claude skills that do the work, and the docs that say how each product is run. Start with the install below, then open `skills/moi-devrel/SKILL.md`.
 
-## What is here
+## Where to go
 
-| Path | What |
+| You want to | Open |
 |---|---|
-| `skills/` | The skills. This is the part people install. |
-| `ARCHITECTURE.md` | The design: every skill, why it is shaped this way, build order. |
-| `SKILL-STANDARD.md` | The bar every skill meets. Read before changing one. |
-| `_research/` | Ten research notes (111 processes) the skills were built from. Provenance, not for installing. |
-
-## Status, as of 2026-10-04
-
-Ten skills, each with its branches inside it. All of it was built, hostile-reviewed, fixed and tested as a whole.
-
-| Skill | Branches inside it |
-|---|---|
-| `moi-devrel` (start here; points to all the others) | `ship`, `design`, `claim-check`, `explain`, `call-digest`, `test-round` |
-| `moi-webinar` | `deck`, `community-call` |
-| `moi-blog` | `release-pack` |
-| `moi-docs` | `geo` |
-| `moi-launchpad-ops` | `explorer` |
-| `moi-mcp-ops` | |
-| `moi-web-products-ops` (website, Dataroom, Points) | |
-| `moi-devnet-reset` | |
-| `moi-standards-submission` | |
-| `moi-education-programs` | |
-
-A branch is a folder with a `GUIDE.md`, for example `skills/moi-webinar/deck/GUIDE.md`. `ARCHITECTURE.md` says what each does.
+| Start doing the job | `skills/moi-devrel/SKILL.md`. It holds the house rules, who is who, and points to every other skill |
+| Run a webinar or a community call | `skills/moi-webinar/` (branches `deck`, `community-call`) |
+| Write, ship or announce a blog post | `skills/moi-blog/` (branch `release-pack`) |
+| Work on the docs sites | `skills/moi-docs/` (branch `geo`) |
+| Operate the Agent Launchpad or the Explorer | `skills/moi-launchpad-ops/` (branch `explorer`) |
+| Operate the MCP server | `skills/moi-mcp-ops/` |
+| Operate the website, the Dataroom or the Points Program | `skills/moi-web-products-ops/` |
+| Recover every product after a devnet reset | `skills/moi-devnet-reset/` |
+| File a standards submission | `skills/moi-standards-submission/` |
+| Run an education program | `skills/moi-education-programs/` |
+| Read how a product is run: status, owners, settings, process, open items | `docs/COMMUNITY-CALL.md`, `docs/DEV-WEBINARS.md`, `docs/BLOG.md`, `docs/MOI-WEBSITE.md`, `docs/DATAROOM.md`, `docs/AGENT-LAUNCHPAD.md`, `docs/MCP-SERVER.md`, `docs/POINTS-PROGRAM.md` |
+| See every dependency by name, with its owner and to-dos | `docs/LIST-OF-DEPENDENCIES.md` |
+| See what still moves to a company login, and how | `docs/MIGRATION-LIST.md` |
+| Read the Launchpad's long-form handover | `docs/HANDOVER.md` |
+| Reuse past webinar material (demo plans, cheat sheets, the intro deck) | `docs/webinars/` |
+| Read the x402 standards submission package | `docs/standards/x402-review-package/` |
+| Understand how the library is shaped and how it was checked | `ARCHITECTURE.md` |
+| Change a skill | `SKILL-STANDARD.md` first |
+| See the research the skills were built from | `_research/` (provenance, not for installing) |
+| Find the old `moi-blog`, `moi-deck` and `moi-design` skills | `legacy-skills/` (superseded; kept for reference only) |
+| Turn any other repo into a handover skill | `extra-skills/repo-handover/` |
 
 ## Install
 
-Skills load from `~/.claude/skills/` (every project) or `<repo>/.claude/skills/` (one project). Link each skill folder:
+Skills load from `~/.claude/skills/` (every project) or `<repo>/.claude/skills/` (one project). Link each skill folder and set `SKILLS`, which every skill expects:
 
 ```bash
 for s in ~/moi-devrel-skills/skills/*/; do ln -s "$s" ~/.claude/skills/"$(basename "$s")"; done
-```
-
-Older skills may already be there under the same or a retired name (`moi-blog`, `moi-deck`, `moi-design`). List them with `ls -ld ~/.claude/skills/moi-*` and move any real folder aside first: an old `moi-blog` would stop the link, and an old `moi-deck` or `moi-design` would load beside the new branches and contradict them. Then set `SKILLS` once, as every skill expects:
-
-```bash
 export SKILLS=~/moi-devrel-skills/skills
 ```
 
+Older skills may already be there under the same or a retired name (`moi-blog`, `moi-deck`, `moi-design`). List them with `ls -ld ~/.claude/skills/moi-*` and move any real folder aside first: an old `moi-blog` would stop the link, and an old `moi-deck` or `moi-design` would load beside the new branches and contradict them.
+
 ## Use
 
-Say what you need in plain words. "I'm new to MOI DevRel, where do I start", "I own Community Call 15", "check this deck". Claude loads the matching skill, and the skill routes to the branch. Each skill ends with a hand-back: what was made, what remains, and whether it is ready.
-
-## How the library was checked
-
-1. Every skill: a hostile reviewer tried to refute each statement against `_research/` and the source repos, ran every script on good and bad input, and fixed what it found.
-2. The whole library: a consistency critic read all the skills against each other, two simulated new hires ran real tasks using only `skills/`, and a routing test put 30 plain requests against the descriptions.
-3. Findings were applied or rejected with a written reason, then every script was run again.
-
-About 530 findings in all, 38 of them marked blocker. Most blockers were scripts that could print a secret-shaped value, examples holding a key-shaped id, and steps with no gate: those are fixed. Six came from a simulated new hire and were questions only a person can answer; they are carried as `ASK:` lines.
-
-## Open before this is shared
-
-- Keys and accounts: `skills/moi-devrel/references/keys-and-access.md` lists every one by name with status TBD.
-- The `ASK:` lines. Each names who can answer. Search for `ASK:` to list them.
-- Several source files exist only on the previous operator's machine (the community call 14 folder, the release pack, the handover notes). The skills say so wherever they point at one.
-- The examples in `moi-claim-check/examples` and `moi-community-call/examples` are cleaned of private paths and names, but nobody has yet said they may be published.
-- Seven products carry a one-line note that a security finding is open. The detail is deliberately not in the library.
+Say what you need in plain words: "I'm new to MOI DevRel, where do I start", "I own Community Call 15", "check this deck". Claude loads the matching skill, and the skill routes to the branch. Each skill ends with a hand-back: what was made, what remains, and whether it is ready.

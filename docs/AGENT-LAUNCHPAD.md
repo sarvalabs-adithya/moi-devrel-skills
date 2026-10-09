@@ -9,7 +9,7 @@ The web app at launchpad.moi.technology where anyone can launch an AI agent on M
 | Variable | Owner | Notes |
 |---|---|---|
 | Codebase | Me | sarvalabs/moi-agent-launchpad deploys. I work in my fork, sarvalabs-adithya/moi-agent-launchpad |
-| Database (Supabase) | Me | Holds all app state |
+| Database (Supabase) | Company Supabase organisation (transferred 8 October) | Holds all app state |
 | Telegram bot and the alert chat | Me | @moinetworkbot delivers agent messages to users |
 | AgentMarket contract on devnet | Me | Not redeployed since the devnet wipes, so paid agents are off. The code is there; the next owner redeploys it when it is needed |
 | Server, CI/CD, container registry, Teleport | DevOps | |
@@ -75,7 +75,7 @@ What the skill never does without my yes: push, merge (a merge deploys), change 
 
 ## Open items
 
-- Phone sign-in merged on 7 October (PR #32). Not deployed yet: the build's registry login token is denied, Upendhar was told on 7 October and will rotate it and re-run the workflow. To switch the QR sign-in on, add NEXT_PUBLIC_WC_PROJECT_ID as an Actions variable and run the deploy; until then the site behaves as before. Test a real scan and a brand-new wallet first.
+- Phone sign-in (PR #32) merged and deployed on 7 October after Upendhar rotated the registry login token. The QR sign-in is still off: add NEXT_PUBLIC_WC_PROJECT_ID as an Actions variable and run the deploy to switch it on. Test a real scan and a brand-new wallet first.
 - Move every secret into a shared vault. Today the server's env file is the only readable copy.
-- Migrate the Supabase project and the Telegram bot to DevOps, or to a company login. Today both sit under my accounts.
+- Transfer the Telegram bot to DevOps or a company Telegram account (steps in the migration list). The Supabase project was transferred on 8 October.
 - Push the README and handover doc fixes. The ones in the repo still describe Vercel.

@@ -1,0 +1,271 @@
+# MOI MCP Server
+
+**Status: active.** The hosted connector is live on devnet: mcp.voyage.moi.technology (reads and wallet writes) and mcp-read.voyage.moi.technology (reads only). Inactive: agent lookup (the registry id went stale at the 11 September devnet reset), the Launchpad and dapp tools (on master, not deployed), and the npm package (never published).
+
+The server that lets a chat assistant such as Claude use MOI. MCP (Model Context Protocol) is the standard by which an assistant calls tools on a server, and this server turns MOI reads and writes into those tools. A user adds it as a connector in claude.ai, pairs their MOI Wallet from their phone, and then asks in plain words: what is this account's balance, send 5 KMOI to this address, create a test asset. The server never holds a private key: every write is signed on the phone. I wrote it. The Voyage team hosts the production copy inside their backend, and DevOps owns the VM it runs on. Everything is devnet only.
+
+## How it works
+
+**What the user sees**
+
+- In claude.ai: Settings, Connectors, Add custom connector, URL https://mcp.voyage.moi.technology/mcp, authentication OAuth.
+- A consent page opens. There is no account and no password. The identity is a cookie in that browser, so a different browser is a new identity and needs its own pairing.
+- Reads work straight away: accounts, assets, interactions, logics.
+- To write, the user asks Claude to connect their wallet. The tool returns a link to a pairing page, because claude.ai never shows the QR image. They open the link, scan the QR with MOI Wallet within about 5 minutes, and approve on the phone. A pairing lasts a week.
+- A write is two steps. The first call returns a preview with the numbers (amount, fee, storage fund) and a confirm token. The second call confirms. The token is bound to that user, that tool and those arguments, lasts 10 minutes and works once.
+- The phone then shows a signing request. The phone cannot display what it signs, so the chat preview is where the user reads the numbers before approving.
+- The phone signs, the server broadcasts, and the answer carries the interaction hash. The proof that it worked is the receipt (moi_get_interaction says success), not the broadcast. Devnet has accepted things in simulation that it later refused.
+
+**Two gateways from one codebase**
+
+| | Read gateway | Write gateway |
+|---|---|---|
+| Host | mcp-read.voyage.moi.technology | mcp.voyage.moi.technology |
+| Sign-in | None | OAuth, run by the server itself |
+| Tools live today | 6: ping, the four chain reads, agent lookup | 13: the same six, three wallet tools, four writes |
+| State | None. Any number of copies can run | Sign-ins, tokens, pairings and a journal of writes, as files in the data directory. Exactly one process: two copies fight over the wallet relay identity |
+| Dev copies | dev-mcp-read.voyage.moi.technology | dev-mcp.voyage.moi.technology |
+
+The data directory (MOI_DATA_DIR on the VM) holds the sign-in clients and hashed tokens, the cookie secret, one pairing per user, the write journal (every write as proposed, signed, broadcast, confirmed, failed or orphaned) and WalletConnect scratch files. Losing the cookie secret or the tokens signs everyone out. Losing the pairings un-pairs every wallet. Losing the journal loses audit history only. Never delete or move it, not even during a rollback.
+
+**The tools**
+
+| Class | Tools | Phone needed | Live on production |
+|---|---|---|---|
+| Health | ping | No | Yes |
+| Chain reads | moi_get_account, moi_get_asset, moi_get_interaction, moi_get_logic | No | Yes |
+| Agent registry reads | moi_resolve_agent, moi_list_agents | No | Lookup is deployed but fails (stale registry id). List is not deployed |
+| Wallet | moi_connect_wallet, moi_wallet_status, moi_disconnect_wallet | A pairing tap | Yes |
+| Writes, preview then confirm | moi_transfer, moi_create_asset, moi_mint, moi_call_logic (invoke), moi_create_account | Yes | All but moi_create_account |
+| Agent registry writes | moi_register_agent, moi_set_agent_status, moi_transfer_agent | Yes | No |
+| Launchpad | moi_launchpad_templates, _sign_in, _status, _create_agent, _register_agent, _telegram_link, _setup_script, _sign_out | Sign-in is a message to sign; register is a write | No |
+| Dapp | moi_dapp_sign_in, _api, _call, _sessions, _sign_out | Sign-in is a message to sign | No |
+
+Master holds 31 tools and production lists 13. Every build reports version 0.1.0, so the tool count and the behaviour are how you tell which build is live. PR #27 (a draft) adds another batch: the node's read methods as tools on the read gateway, history, deploy logic, configure account, faucet, and asset routines.
+
+**Two repos: where the code lives and where it runs**
+
+- sarvalabs/moi-mcp (public, default branch master) is the source. CI runs typecheck, tests and build on Node 20, 22 and 24 on every PR. Merging there deploys nothing.
+- sarvalabs/voyage-api (private, the Voyage backend) holds a copy of the server in the folder moi-mcp/ on the branch feat/moi-mcp, with two workflows: "Deploy MOI MCP Gateway" (manual, moi-mcp.deploy.yml) and a preview workflow that runs on every PR (moi-mcp.preview.yml).
+- To update production, a "sync subtree" PR replaces that folder with master's tree, is merged into feat/moi-mcp (not develop), and then a person runs the deploy workflow by hand with deploy_target dev or production.
+- The deploy builds on Node 22, copies the build to the VM through Teleport, stops both processes and starts them again with their settings passed inline (there is no .env on the server), then checks /health. Every deploy is a short outage, and any sign-in or phone signing call in flight is lost.
+- Production today is the 23 September sync (voyage-api PRs #310 to #312). Master moved on the next day (moi-mcp PRs #21 to #23: registry tools, Launchpad tools, dapp tools). The sync that brings them, voyage-api PR #313, has been open without a review since 23 September.
+
+**The automatic checks**
+
+Three things run on their own in sarvalabs/moi-mcp. Each opens a GitHub issue or a PR; nothing merges or deploys by itself, so a person has to read them.
+
+| Check | When | What it asks | What it opens |
+|---|---|---|---|
+| Chain canary | Nightly, 02:43 UTC | Does live devnet still accept what this server builds? It only simulates: nothing is signed or spent | One issue "Chain canary failing", closed by the next green run |
+| Upstream watch | Daily, 03:17 UTC | Did js-moi-sdk, go-moi or cocolang publish a GitHub release? | One issue "Upstream release: <name> <tag>" per release |
+| Dependabot | npm daily, Actions weekly | Dependency updates, the js-moi packages grouped together | Pull requests |
+
+What they cannot see: the canary tests master's code against devnet, not the hosted server, the registry, sign-in or a phone (it was green all through the registry fault). The watch needs UPSTREAM_READ_TOKEN to read the two private repos and only logs a warning without it. No go-moi or cocolang issue has ever been filed, although go-moi v0.13.0 shipped on 10 September.
+
+## Stack
+
+| Piece | What it is |
+|---|---|
+| TypeScript 5, Node 20 or later, built with tsup | The server. Four commands: a local server for desktop clients, the HTTP read gateway, the hosted write gateway, and a CLI |
+| @modelcontextprotocol/sdk | The protocol |
+| js-moi-sdk 0.9.0-rc2, pinned exactly | Chain reads, building interactions, the KMOI id, the fuel floor |
+| WalletConnect 2 (a Reown project id) | The phone wallet pairing and signing. The server holds no key |
+| Express 5 | Both gateways. The write gateway runs its own OAuth server for claude.ai |
+| Files in the data directory, or Redis (optional) | Sign-ins, tokens, pairings, the write journal |
+| pm2 behind nginx on a Voyage VM | Two processes started by the deploy workflow. nginx ends TLS, no buffering, 300 second timeouts |
+| GitHub Actions + Teleport, in voyage-api | The manual deploy and the PR preview |
+| vitest | Tests, 88 files. A Dockerfile exists for the read gateway; production does not use it |
+
+## Variables
+
+| Variable | Owner | Notes |
+|---|---|---|
+| Codebase | Me | sarvalabs/moi-mcp, public. I push branches to it |
+| Production copy and the deploy workflow | Voyage team (Srikar) | sarvalabs/voyage-api, branch feat/moi-mcp, folder moi-mcp/. They own everything else in that repo |
+| Server, nginx, TLS, DNS, Teleport, the data directory | DevOps | Only DevOps logs in to the VM |
+| WalletConnect (Reown) project | Confirm who | A free project at cloud.reown.com. Its id is passed as WC_PROJECT_ID; losing it stops every pairing |
+| Agent registry id and the read caller account | Protocol team (Gokul) | Both change on every devnet reset |
+| The Launchpad | Me | The Launchpad tools sign in to it. MOI_LAUNCHPAD_URL must equal the Launchpad's own public URL |
+| UPSTREAM_READ_TOKEN | Confirm who | A fine-grained GitHub token, read-only on go-moi and cocolang, for the upstream watch |
+| npm package name | Rahul decides | @moi-protocol/mcp-server in package.json. Nothing is published and neither scope is claimed |
+
+## Env vars
+
+Where they live: production values are passed inline by the deploy workflow in sarvalabs/voyage-api (the pm2 start lines in moi-mcp.deploy.yml on feat/moi-mcp). There is no .env on the server. Secrets come from the voyage-api environment secrets and plain values are written in the workflow file, so the only copies are in GitHub and in the running process. Only the names the workflow passes reach the processes; a new setting needs a line in the workflow and a deploy. Locally, a .env copied from .env.example in the repo, or the env block of the desktop client's connector config.
+
+| Variable | What it is | Where the value comes from |
+|---|---|---|
+| WC_PROJECT_ID | The Reown project id, 32 hex characters. The write gateway refuses to start without one; a wrong one makes every pairing fail | voyage-api secrets MCP_PROD_WC_PROJECT_ID and MCP_DEV_WC_PROJECT_ID, from cloud.reown.com, the project, Project ID |
+| PUBLIC_URL | The write gateway's public address, also the OAuth issuer. Must be the exact https origin or sign-in loops | Written in the workflow |
+| MOI_NETWORK, MOI_RPC_URL | voyage today. The read gateway is given the /babylon/ path of dev.voyage-rpc.moi.technology; the code default is /devnet/. Both answer 0.13.0 | Written in the workflow |
+| MOI_DATA_DIR, HOSTED_PORT, LOG_LEVEL, NODE_ENV | The data directory, the write gateway port, log level, Node mode | Written in the workflow |
+| MOI_READ_CALLER | Any account that exists on devnet, used as the caller of read-only simulations. Required for the registry tools. Not passed by the workflow today, which is one reason agent lookup fails. Re-choose it after every reset | A funded devnet account |
+| MOI_AGENT_REGISTRY_LOGIC_ID | Overrides the registry id written in the code. Not passed today | Protocol team, after each reset |
+| MOI_LAUNCHPAD_URL | Needed by the Launchpad tools once they are deployed | The Launchpad's NEXT_PUBLIC_APP_URL |
+| MOI_SESSION_KEY | Not read by master yet. The encryption-at-rest change (split out of PR #27 into a later PR) makes it required at boot. The workflow must pass it before that change is synced, or the write gateway crash-loops | Generate with: openssl rand -base64 32 |
+| REDIS_URL, HOSTED_TIMEOUT_MS, MOI_EXPLORER_URL, PORT, MOI_MCP_HOME, REQUEST_TIMEOUT_MS | Optional: Redis for pairings (carries a password), the hosted call budget (default 240000 ms; above 300000 claude.ai gives up first), explorer links, the read gateway port, the local state folder and the local phone wait | Defaults in the code |
+| TELEPORT_PROXY, TELEPORT_JOIN_TOKEN, MCP_DEV_MACHINE, TELEPORT_PROD_PROXY, TELEPORT_PROD_JOIN_TOKEN, MCP_PROD_MACHINE | Deploy access, in voyage-api | DevOps |
+| UPSTREAM_READ_TOKEN, NPM_TOKEN | In sarvalabs/moi-mcp: the upstream watch, and publishing on a v* tag (unused so far) | A fine-grained GitHub token; the npm account owner |
+
+The example file with comments is .env.example in the repo. Its default registry id is the wiped one.
+
+## Process
+
+**Shipping a change: the source**
+
+- Work on a branch of sarvalabs/moi-mcp.
+- Every bug fix gets a test that would have caught it.
+- Run what CI runs: npm run typecheck, npm test, npm run build, node dist/cli.js help. Use Node 20 at least; the VM runs 20.14.
+- If the change touched package.json, a bin or start-up, install from the packed tarball in a scratch folder and start the HTTP bin once. This caught a phantom dependency before.
+- If the change reads a new setting, note it. The deploy workflow passes a fixed list, and a newly required setting crash-loops the write gateway.
+- Open a PR to master. Body: what changed, how it was verified, what is not verified, "Deploy: not run".
+- Merge once CI is green on all three Node versions. This deploys nothing.
+
+**Shipping a change: the sync**
+
+- In sarvalabs/voyage-api, branch from feat/moi-mcp (the earlier syncs used the branch name moi-mcp/sync-master).
+- Replace the moi-mcp/ folder with master's tree at the merged commit. [How I copy it: fill in.] Check that git diff --stat against feat/moi-mcp lists paths under moi-mcp/ only.
+- Open the PR against feat/moi-mcp, never develop. Title: chore(moi-mcp): sync subtree <date>. Body: what it brings, the settings it adds or needs, what is unverified, "Deploy: not run".
+- Opening the PR deploys a preview on the dev VM at pr-<N>-mcp.preview.voyage.moi.technology. Check it with the health script (--write-host).
+- Get a review from the Voyage side and merge. Still nothing is deployed.
+
+**Shipping a change: the deploy**
+
+- Tell the Voyage team and DevOps: what ships, when, and that it is a short outage.
+- Actions in voyage-api, "Deploy MOI MCP Gateway", Run workflow, branch feat/moi-mcp, deploy_target dev. Watch the run; its last job checks /health.
+- Run the health script against dev (--env dev). Pass the expected tool counts if the sync added tools.
+- Run the workflow again with deploy_target production.
+- Run the health script against production, then the connector checks below for every class the change touched, reads first. A write path change needs a phone-approved write and its receipt.
+- Record: source commit, sync PR, run id, what was checked and what was not.
+- If a check fails after the deploy, roll back (below) before trying a second deploy.
+
+**Connecting and checking the connector** (after every production deploy, and for a new user)
+
+- Health script first. Then one read through the wire: curl a tools/call of moi_get_asset against the read gateway with KMOI's id, taken from the SDK and never from a note.
+- Add the connector in claude.ai: URL https://mcp.voyage.moi.technology/mcp, authentication OAuth. Read-only: https://mcp-read.voyage.moi.technology/mcp, authentication None. None on the write host makes sign-in impossible.
+- Sign in on the consent page.
+- Reads in the chat: KMOI's supply, my balance, an interaction hash from the explorer. Agent lookup fails today; that is the known fault, not the setup.
+- Pair: "Connect my MOI wallet for a week." Open the link, scan, approve. "What is my wallet status?" shows the paired account.
+- Cheapest write first: transfer 1 KMOI to my own account. Preview, confirm, approve on the phone. Then moi_get_interaction on the hash: status success is the proof.
+- Asset creation: "Create a test asset DEPLOYTEST with supply 100." Read the storage fund in the preview before approving. The minimum on master is 7 KMOI; the repo checklist's 20,000 predates v0.13.0.
+- Failure paths, when the change touched them: reject on the phone (user_rejected), ignore it for 5 minutes (timeout), wallet on another network (network_mismatch, reads still work), disconnect then write (wallet_disconnected).
+- What this needs: MOI Wallet on a phone with a devnet account that exists on chain and holds KMOI. The faucet funds only accounts that already exist, so a brand-new wallet registers through the wallet app first. A claude.ai plan that allows custom connectors.
+
+**Changing a setting or a secret**
+
+- Read what the workflow passes today: the pm2 start lines in moi-mcp.deploy.yml on feat/moi-mcp.
+- A secret: set it in the voyage-api environment with gh secret set, typing the value at the hidden prompt. Nothing can read it back.
+- A plain value: a PR into feat/moi-mcp that edits the pm2 start line. Merging deploys nothing.
+- Run the deploy, dev then production. Only values the workflow passes reach the processes.
+- Check with the health script. The OAuth issuer must equal PUBLIC_URL; http://localhost there means the environment never reached the process.
+- Never replace WC_PROJECT_ID casually: it is the relay identity behind every pairing.
+
+**After a devnet reset**
+
+- Start with the devnet reset skill for the order across products. The MCP part is below.
+- Confirm the signature: the health script's RPC line, and agent lookup failing with "account not found".
+- Get from the Protocol team: the new registry id, whether agents were re-imported, the SDK versions, and whether KMOI's id, the fuel floor or the RPC path changed.
+- Check the id before using it: moi_get_logic on the new id through the read gateway must list the registry routines (RegisterAgent, GetAllAgentIds, GetAgentProfile, SetAgentStatus, TransferAgent and the rest).
+- Point the server at it: either pass MOI_AGENT_REGISTRY_LOGIC_ID and MOI_READ_CALLER from the workflow (a PR), or change the default id in src/moi/registry.ts by PR to master and sync. The September id is already on master; production still lacks a sync, a deploy and a read caller.
+- If the SDK constants moved, take the grouped Dependabot PR and run the canary by hand: MOI_E2E=1 npx vitest run test/e2e/chain-canary.test.ts. If KMOI's creator account is gone, the canary needs MOI_CANARY_ACCOUNT, which the nightly workflow does not pass: a workflow edit.
+- Three repos pin the registry id separately (Launchpad, Explorer, this server). After the September reset they drifted by up to 12 days.
+
+**When an automatic check opens an issue**
+
+An upstream release:
+- Read the issue: which upstream, which tag, whether the pin differs, whether the version is on npm.
+- js-moi-sdk on npm: review the grouped Dependabot PR and run the canary by hand before merging. Never merge an SDK bump unread, because it changes what a user signs. A GitHub-only release (rc3 was one): wait for npm, or ask Gokul.
+- go-moi: read the release note, run the canary, and ask the Protocol team when devnet picks it up. A go-moi release can precede a reset.
+- cocolang: read the notes for manifest or calldata changes. moi_get_logic reads the manifests Coco produces and moi_call_logic encodes calls against them.
+- Comment what was checked and close the issue.
+
+The chain canary failing:
+- Read the issue for the failing check, then the health script's RPC line. A changed net.Version means a node upgrade.
+- Reproduce in a working copy with the canary command above.
+- Map the check to its cause: KMOI's id moved (SDK upgrade), a new asset standard (SDK upgrade), decimals or scaling changed, the storage fund or its floor too small, the fuel floor moved, or the sender account gone after a reset.
+- Fix by PR with a test. Production changes only after a sync and a deploy.
+- Let the next green run close the issue.
+
+**Checking it is healthy**
+
+- bash "$SKILLS/moi-mcp-ops/scripts/mcp-health.sh" checks both production gateways and the chain RPC. Add --env dev for the dev pair, --github for the canary and watch runs and open issues, --write-host for a preview host.
+- Reading on 7 October: 9 pass, 4 warn, 0 fail. The warnings: production serves the OAuth metadata in the form before PR #18 (so claude.ai Connect may stall), and agent lookup fails on every host with the stale registry id.
+- By hand: curl /health on both hosts, /.well-known/oauth-authorization-server (the issuer must equal the host), /.well-known/oauth-protected-resource, and a tools/list POST to /mcp with accept set to application/json, text/event-stream. The answer is server-sent events: the JSON follows a data: line.
+- What green does not prove: health ok says the process is up, not that registry reads, pairing or a write work. A green canary says nothing about the hosted server. Only a person with a phone proves the write path.
+- On the VM, read by DevOps: both processes online, the write gateway as a single instance; the error log with the [moi-mcp] prefix; the nginx block with proxy_buffering off, 300 second read and send timeouts, X-Forwarded-For set, and no redirect in front of either host (a redirect drops the Authorization header and breaks sign-in silently).
+- No uptime monitor watches these hosts.
+
+**When something is wrong**
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| Health unreachable, 502 or 504 | DNS, TLS, nginx, the VM or the process. mcp.moi.technology is not a real host; the live ones end .voyage.moi.technology | DevOps. For a 502 they read the write gateway's error log; a fatal line about WC_PROJECT_ID means the id is missing |
+| Health 503 with ok false | The config failed to load: a bad MOI_NETWORK, or custom without MOI_RPC_URL | Fix the workflow value, deploy |
+| OAuth issuer says http://localhost | PUBLIC_URL never reached the process | Set it in the workflow, deploy |
+| Consent completes, then the connector asks again | PUBLIC_URL differs from the host users reach, or plain http drops the cookie | The exact https origin, then a deploy |
+| claude.ai Connect spins forever while curl passes | The build predates PR #18: the protected-resource document names the bare origin, and a registration limit of 10 a minute locks out everyone behind claude.ai's shared address | Sync and deploy master |
+| No QR in the chat | claude.ai never renders the image | Open the pairing link the tool returns |
+| Scanning does nothing, "the relay refused the pairing" | WC_PROJECT_ID missing or wrong | A real id in the voyage-api secret, then a deploy |
+| "The wallet pairing has expired" | A pairing lasts a week | Connect again. Expected |
+| Every write fails network_mismatch | The wallet is on another network | Switch the wallet, disconnect, pair again |
+| Everyone signed out after a deploy | The data directory or its cookie secret was lost | Restore it. If it is gone, everyone signs in and pairs again |
+| Agent lookup: "Could not load the MOI agent registry ... account not found" | The stale registry id, or MOI_READ_CALLER unset | The reset steps above. Tell the user nothing is wrong with their wallet |
+| "interaction underpriced" after the phone approved | A fuel price literal of 1; the floor is 50 since v0.13.0. Fixed on master in PR #15 | Check the live build has it; sync and deploy if not |
+| Tool calls fail during a long phone wait, or a stream never answers | An nginx timeout under 300 seconds, or buffering on | DevOps edits the nginx block |
+| Launchpad tool: "Not signing: the sign-in message from <origin>..." | MOI_LAUNCHPAD_URL differs from the Launchpad's URL | Make them equal in the workflow |
+| The deploy run is red | Read the failing step. A red run can leave the old processes stopped | Health script, then roll back |
+| Claude Desktop with npx -y @moi-protocol/mcp-server does nothing | Nothing is published | The hosted connector, or a local build |
+
+**Rolling back**
+
+- There is no documented rollback and no previous build is kept on the VM.
+- Triggers: a FAIL on health, the issuer, tools/list or ping right after a deploy and again a minute later; the write gateway crash-looping; the tool count dropped; sign-in looping for everyone.
+- What cannot be undone: anything broadcast to the chain, consents and signing calls in flight, and pairings if the bad release changed their stored format.
+- Find the last good sync: the voyage-api run list and the merged sync PRs on feat/moi-mcp.
+- Revert the bad sync commit on a branch from feat/moi-mcp, open a PR titled revert(moi-mcp): sync subtree <sha>, merge, then run the deploy for production again. Another short outage.
+- Verify with the health script and the reads, and a Connect from a clean browser if sign-in was hit.
+- Tell the Voyage team and DevOps, then fix forward through a new PR with a test.
+- Never delete or move the data directory as part of a rollback.
+
+**Publishing to npm**
+
+- Nothing is published. @moi-protocol/mcp-server and @sarvalabs/mcp-server are both unclaimed, and the README, the quickstart and the desktop example all tell users to run npx, which fails today.
+- A pushed tag matching v* publishes to npm through publish.yml with NPM_TOKEN. Never push one until the name is decided.
+- Before the first publish: Rahul picks the name and the npm owner, NPM_TOKEN is set, the packed tarball check passes, and the transfer and create-asset writes have passed once on a phone.
+- Publish 0.1.0, not 1.0.0. The write path may change when the wallet's own sign-and-send call is fixed.
+- After: a working demo, the directory listings (drafts in docs/launch), then the announcement, through claim-check and the blog.
+- Public wording: say devnet, make no mainnet claim.
+
+## Claude skill
+
+The **moi-mcp-ops** skill covers running the server: health, shipping, connecting, triaging the automatic checks, settings, rollback and the publishing questions. After a devnet reset, start with **moi-devnet-reset** for the order across products. A recorded test pass with a plan and a log is the **test-round** branch of moi-devrel, whose case list for this connector is mcp-pass.md.
+
+| When | What to tell Claude | What the skill does |
+|---|---|---|
+| Something looks wrong | "Is the MCP healthy?" | Runs the read-only health script on both gateways and the chain, and says what each warning means. |
+| Shipping | "Ship this MCP change." | Walks the moi-mcp PR, the sync PR into voyage-api, the preview check and the two deploys, and says at each step what is and is not deployed. |
+| A new user, or after a deploy | "Walk me through connecting the connector." | Gives the claude.ai steps, the reads to ask, the pairing and the first write, and checks each result. The wallet steps are mine. |
+| An issue from the checks | "The canary opened an issue." or "There is an upstream release issue." | Reads the issue, reproduces, maps the failing check to its cause and drafts the fix or the closing comment. |
+| A setting | "I need to change this MCP setting: ..." | Says whether the workflow passes it, where it is set and that a deploy follows. It never sees a secret's value. |
+| Devnet reset | "Devnet was reset. What do I redo for the MCP?" | Confirms the reset, drafts the message to Gokul, checks the new id and lists the PRs needed. |
+| A user reports a fault | "A user says the connector will not connect." | Finds the row above and drafts the reply. |
+| A bad deploy | "Roll back the MCP." | Gives the revert and redeploy steps. |
+| Publishing | "Can we publish the package?" | Lists what is still open and who decides each point. |
+| A test pass | "Run the MCP test round." | The test-round branch: a plan, the cases, a log. |
+
+What the skill never does without my yes: push, open or comment on a PR or issue (the repo is public), merge, run the deploy workflow, change a secret, push a tag, or send a message. It never logs in to the VM, never calls a wallet or write tool itself, and never handles a recovery phrase.
+
+## Open items
+
+- voyage-api PR #313 (the sync with the consent fix, the September registry id, and the Launchpad and dapp tools) is open without a review since 23 September. It needs a Voyage review, a merge and a deploy. Until then claude.ai Connect can stall on production and agent lookup fails.
+- Before that deploy the workflow must also pass MOI_READ_CALLER, and MOI_LAUNCHPAD_URL for the Launchpad tools, or agent lookup keeps failing.
+- Ask Gokul for the current registry id and confirm the September one on master is still right.
+- moi-mcp PR #27 (the code review fixes: dapp security, the MAS0 guard, the read layer, more writes, hardening) is a draft since 5 October, with a preview from voyage-api PR #320. Finish it, get it reviewed, merge, then sync. The encryption-at-rest commit comes back as its own PR once the workflow can pass MOI_SESSION_KEY.
+- moi-mcp PR #4 (the code review itself, open since 11 September): close it once #27 lands. Dependabot PR #26 has failing checks.
+- Decide the npm name and owner with Rahul, then publish in the order above.
+- Run the transfer and create-asset writes once on a phone and record it. The last recorded phone check is from 1 September.
+- Confirm who owns the Reown project and UPSTREAM_READ_TOKEN, and whether go-moi and cocolang publish GitHub releases. The watch has never filed an issue for either.
+- Agree who syncs the copy into voyage-api and who runs the deploy from now on, or replace the copy with an install of the published package once it exists.
+- Fix the repo docs: handoff-infra.md names the wrong repo, mcp.moi.technology is used as an example host and does not exist, and the README says 13 tools while its table lists 28.
+- Settle who is notified of moi-mcp issues. Issue #17 sat for two weeks with no comment.

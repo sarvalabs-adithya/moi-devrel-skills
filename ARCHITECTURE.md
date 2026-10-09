@@ -2,7 +2,7 @@
 
 A library of Claude skills that lets a new developer-relations hire at MOI do the whole job. Built from an investigation of how the work was actually done: ten research notes in `_research/`, covering 111 processes.
 
-This folder is local. It is not a git repo yet. When it becomes one, `skills/` is the part people install.
+This is the private repo `sarvalabs-adithya/moi-devrel-skills`. `skills/` is the part people install; everything else is documentation, provenance or kept for reference.
 
 ## Shape
 
@@ -74,3 +74,19 @@ Then the gaps are fixed. See `SKILL-STANDARD.md` for the bar.
 - Personal projects.
 - Secrets, and any file that quotes one.
 - The detail of any open security finding on a live product.
+
+## How the library was checked
+
+1. Every skill: a hostile reviewer tried to refute each statement against `_research/` and the source repos, ran every script on good and bad input, and fixed what it found.
+2. The whole library: a consistency critic read all the skills against each other, two simulated new hires ran real tasks using only `skills/`, and a routing test put 30 plain requests against the descriptions.
+3. Findings were applied or rejected with a written reason, then every script was run again.
+
+About 530 findings in all, 38 of them marked blocker. Most blockers were scripts that could print a secret-shaped value, examples holding a key-shaped id, and steps with no gate: those are fixed. Six came from a simulated new hire and were questions only a person can answer; they are carried as `ASK:` lines.
+
+## Open before this is shared
+
+- Keys and accounts: `skills/moi-devrel/references/keys-and-access.md` lists every one by name with status TBD.
+- The `ASK:` lines. Each names who can answer. Search for `ASK:` to list them.
+- Several source files exist only on the previous operator's machine (the community call 14 folder, the release pack, the handover notes). The skills say so wherever they point at one.
+- The examples in `moi-claim-check/examples` and `moi-community-call/examples` are cleaned of private paths and names, but nobody has yet said they may be published.
+- Seven products carry a one-line note that a security finding is open. The detail is deliberately not in the library.

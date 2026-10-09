@@ -92,4 +92,4 @@ Scheduling on Buffer needs a Buffer API key, set up once by whoever runs the ses
 ## Open items
 
 - Finalize the existing bounty list and the bounty system on the Points Program.
-- Make the session bounty extensible: whoever runs a webinar should be able to create its bounty on the Points site themselves, without a code change. Today each one needs a developer to add a task and deploy.
+- Make the session bounty extensible: whoever runs a webinar creates its bounty on the Points site themselves, without a code change. Built, in sarvalabs/moi-project PR #22, open since 8 October. Once merged, the host flow is in POINTS-PROGRAM.md.

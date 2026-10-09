@@ -221,13 +221,11 @@ As of 4 October 2026. No secret value is written here, only names and where to f
       deploys nothing. I redeploy the market contract if it was wiped.
 
    6. ToDo:
-      0. Deploys are blocked as of 2026-10-07: the GHCR login step fails
-         ("denied") with the GHCR_PAT secret set on 2026-07-31; the last good
-         deploy was 2026-09-15. DevOps rotates the token (write:packages,
-         read:packages) and re-runs the workflow. Production runs the
-         15 September build until then.
+      0. Resolved 2026-10-07: the GHCR login failed ("denied") after the merge of
+         PR #32; DevOps rotated the token and the re-run deploy is green.
+         Confirm the live site by signing in once.
       1. PR #32 (phone sign-in, new-wallet registration, two fixes) merged
-         2026-10-07, not deployed yet (item 0). Set NEXT_PUBLIC_WC_PROJECT_ID as an Actions variable to
+         and deployed 2026-10-07. Set NEXT_PUBLIC_WC_PROJECT_ID as an Actions variable to
          switch the QR sign-in on. Then push or drop the rest of the unpushed
          work: one local-only branch (stats and script
          names, 3 commits), the labs folder and four helper scripts
@@ -898,8 +896,8 @@ As of 4 October 2026. No secret value is written here, only names and where to f
          job: ask Upendhar what calls it and who schedules the new one.
       7. Session 8 bounty is deployed but off: needs MOI_RPC_URL in
          deploy.yml, one real submission, then the flag. Open it or drop it.
-         Then make bounties extensible: a webinar host should be able to
-         create one from the admin side without a code change or a deploy.
+         Done 2026-10-08 (PR #22, open, not merged): a webinar host creates a
+         bounty from the admin page without a code change or a deploy.
       8. Pass X_TOKEN_ENCRYPTION_KEY (read x-credentials.ts first),
          CLIENT_IP_HEADER (nginx must set it) and GIT_SHA from the deploy,
          match the Dockerfile's pnpm (11.11.0) to package.json (10.34.5),

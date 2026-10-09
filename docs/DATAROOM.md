@@ -19,7 +19,7 @@ dataroom.moi.technology. The investor document room: the whitepaper, litepaper, 
 | Variable | Owner | Notes |
 |---|---|---|
 | Codebase | Me | sarvalabs/moi-dataroom0, public. Merging to main deploys. I push branches to it |
-| Supabase project and bucket | Me, to migrate to DevOps | Holds the documents (whitepaper, litepaper, decks, papers) and their index |
+| Supabase project and bucket | Company Supabase organisation (transferred 8 October) | Holds the documents (whitepaper, litepaper, decks, papers) and their index |
 | Server, nginx, the SSH key, the deploy script | DevOps | The deploy script lives on the server, not in the repo |
 | Domain dataroom.moi.technology | DevOps | |
 
@@ -132,4 +132,3 @@ What the skill never does without my yes: push, merge (a merge deploys), run a w
 - Push the README, the env template and the new AGENTS.md, and add a migration for the three tables and the column that were made by hand.
 - Get the deploy script into the repo, and add a check after each deploy.
 - Decide on the Events page, hidden since August, and on the second data room on Vercel.
-- Migrate the Supabase project to DevOps.
