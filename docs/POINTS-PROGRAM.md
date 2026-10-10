@@ -79,7 +79,7 @@ The older way to run a session bounty: a verifier file, a registry entry, a task
 - About 4 minutes. No staging. No rollback: only latest is pushed.
 - On start, in production, the app refuses to boot if the database has fewer migrations than the build, or if an enabled task is missing a setting. A merge that adds a migration or enables a task without its settings takes the site down until it is fixed.
 - No pull request runs any check. pnpm run ci is run by whoever ships.
-- A maintenance job route exists (/api/jobs/maintenance, called with CRON_SECRET). Nothing is known to call it.
+- A job route exists, /api/jobs/social-audit, called with CRON_SECRET (PR #21 replaces it with a purge-and-totals maintenance job). Nothing is known to call either.
 
 ## Stack
 
@@ -92,7 +92,7 @@ The older way to run a session bounty: a verifier file, a registry entry, a task
 | Reown + js-moi-signer | Wallet linking. Keys are read from the devnet RPC |
 | Resend | Sign-in emails from no-reply@moi.technology |
 | Docker + GitHub Actions + GHCR + Teleport | Build and deploy to the DevOps box, one container behind nginx |
-| /api/health and /api/jobs/maintenance | The health route (database and migration state) and the housekeeping job |
+| /api/health and /api/jobs/social-audit | The health route (database and migration state) and the nightly social audit job (a maintenance job replaces it in PR #21) |
 | vitest | 22 test files on the bounty branch, 249 tests |
 
 ## Variables
@@ -108,6 +108,7 @@ The older way to run a session bounty: a verifier file, a registry entry, a task
 
 ## Env vars
 
+The index across every product, with the consoles and who holds each login, is ENV-VARS.md.
 Where they live: GitHub, sarvalabs/moi-project, Settings, Secrets and variables, Actions (13 secrets and 20 variables on 4 October; secrets cannot be read back). At each deploy the variables are written into the app's env file on the box, rewritten from scratch, and the secrets go straight into the container, so the only readable copy of a secret is inside the running container (DevOps). Locally, .env.local copied from .env.example. A changed value needs a workflow run. A name that deploy.yml does not list never reaches the app, whatever is set in GitHub.
 
 | Variable | What it is | Where the value comes from |
@@ -232,11 +233,11 @@ What the skill never does without my yes: push, merge (a merge deploys productio
 - Ship the webinar bounties: PR #22 (branch feature/admin-bounties, now carrying the rule engine, 249 tests passing, no migration) is open against feature/ci-cd. Merging deploys. Then set MOI_RPC_URL as an Actions variable and redeploy, add the hosts to ADMIN_EMAILS, and run one bounty as a dry run with the Test box and a real submission before a webinar relies on it. The chain reader has been proven against devnet by hand but not in production. The checklist is in the PR.
 - Put the Supabase project on a paid plan with backups. Then drop the schema backup.tasks_before_0008.
 - Decide the open PRs: #21 (emails, leaderboard avatars, wallet keys, X likes cap, no nightly audit; clean to merge, no migration), #15 (CI/CD hardening, draft, conflicts with the tip: rebuild or close), #1 (Upendhar's first CI/CD, base feat/dev-challenges: retarget or close). Close sarvalabs/Points-Program #1 if that repo is unused.
-- Nothing is known to call the maintenance job. Ask Upendhar what calls it and who schedules the new one from #21.
+- Nothing is known to call the social audit job, and nothing will call the maintenance job that replaces it in #21. Ask Upendhar what runs on the box and who schedules it.
 - Session 8's challenge is deployed but off. Open it (MOI_RPC_URL, one real submission, the flag) or drop it.
 - Move every secret into a shared vault. A secret was exposed in an old build record in September and accepted on 15 September; delete those records and rotate before a real launch or if repo access widens.
 - The deploy logs in to the box as root and the container port answered over http from outside on 4 October. #15 fixes both after DevOps setup; confirm the firewall meanwhile.
-- Pass X_TOKEN_ENCRYPTION_KEY (read lib/x-credentials.ts first), CLIENT_IP_HEADER (nginx must set it) and GIT_SHA from the deploy.
+- Pass X_TOKEN_ENCRYPTION_KEY (read lib/integrations/x-credentials.ts first; today the key falls back to BETTER_AUTH_SECRET), CLIENT_IP_HEADER (nginx must set it; without it the per-address limit is skipped) and GIT_SHA from the deploy.
 - Match the Dockerfile's pnpm version to package.json.
 - Test a wallet link. The devnet RPC certificate expired on 4 October and was renewed by 5 October; the server reads wallet keys from that host.
 - main is stale since August and nothing deploys from it. Merge feature/ci-cd into main and deploy from main.

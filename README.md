@@ -16,6 +16,7 @@ Each one follows the same shape: status, owners, settings, the process step by s
 | `docs/AGENT-LAUNCHPAD.md` | The Agent Launchpad: stack, settings, shipping, what to redo after a devnet reset, and how to present it with the intro session deck. |
 | `docs/MCP-SERVER.md` | The MOI MCP server: how a chat assistant reads and writes MOI through it, the two repos, deploys, health, troubleshooting, the open publishing questions. |
 | `docs/POINTS-PROGRAM.md` | The Points Program: tasks, X campaigns, webinar bounties, deploys, settings, the database rules. |
+| `docs/ENV-VARS.md` | Every environment variable across the products in one index, with where each value comes from, the consoles, and who holds each login. |
 | `docs/LIST-OF-DEPENDENCIES.md` | Every dependency by name, with its owner, its settings and its to-dos, in Adithya's own words. |
 | `docs/MIGRATION-LIST.md` | What still moves to a company login, with the transfer steps, and what has already moved. |
 | `docs/VIDEOS.md` | The recorded walkthroughs, one per product, with the links. |

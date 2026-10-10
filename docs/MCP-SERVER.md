@@ -92,7 +92,8 @@ What they cannot see: the canary tests master's code against devnet, not the hos
 
 ## Env vars
 
-Where they live: production values are passed inline by the deploy workflow in sarvalabs/voyage-api (the pm2 start lines in moi-mcp.deploy.yml on feat/moi-mcp). There is no .env on the server. Secrets come from the voyage-api environment secrets and plain values are written in the workflow file, so the only copies are in GitHub and in the running process. Only the names the workflow passes reach the processes; a new setting needs a line in the workflow and a deploy. Locally, a .env copied from .env.example in the repo, or the env block of the desktop client's connector config.
+The index across every product, with the consoles and who holds each login, is ENV-VARS.md.
+Where they live: production values are passed inline by the deploy workflow in sarvalabs/voyage-api (the pm2 start lines in moi-mcp.deploy.yml on feat/moi-mcp). There is no .env on the server. Secrets come from the voyage-api repository secrets (repo level, not environment level: the production environment holds none) and plain values are written in the workflow file, so the only copies are in GitHub and in the running process. Only the names the workflow passes reach the processes; a new setting needs a line in the workflow and a deploy. Locally, a .env copied from .env.example in the repo, or the env block of the desktop client's connector config.
 
 | Variable | What it is | Where the value comes from |
 |---|---|---|
@@ -102,11 +103,11 @@ Where they live: production values are passed inline by the deploy workflow in s
 | MOI_DATA_DIR, HOSTED_PORT, LOG_LEVEL, NODE_ENV | The data directory, the write gateway port, log level, Node mode | Written in the workflow |
 | MOI_READ_CALLER | Any account that exists on devnet, used as the caller of read-only simulations. Required for the registry tools. Not passed by the workflow today, which is one reason agent lookup fails. Re-choose it after every reset | A funded devnet account |
 | MOI_AGENT_REGISTRY_LOGIC_ID | Overrides the registry id written in the code. Not passed today | Protocol team, after each reset |
-| MOI_LAUNCHPAD_URL | Needed by the Launchpad tools once they are deployed | The Launchpad's NEXT_PUBLIC_APP_URL |
-| MOI_SESSION_KEY | Not read by master yet. The encryption-at-rest change (split out of PR #27 into a later PR) makes it required at boot. The workflow must pass it before that change is synced, or the write gateway crash-loops | Generate with: openssl rand -base64 32 |
-| REDIS_URL, HOSTED_TIMEOUT_MS, MOI_EXPLORER_URL, PORT, MOI_MCP_HOME, REQUEST_TIMEOUT_MS | Optional: Redis for pairings (carries a password), the hosted call budget (default 240000 ms; above 300000 claude.ai gives up first), explorer links, the read gateway port, the local state folder and the local phone wait | Defaults in the code |
+| MOI_LAUNCHPAD_URL | Used by the Launchpad tools once they are deployed. The code defaults to https://launchpad.moi.technology, so pass it only if the Launchpad moves | The Launchpad's NEXT_PUBLIC_APP_URL |
+| MOI_SESSION_KEY | Not read by master yet. The encryption-at-rest change (split out of PR #27 into a later PR) makes it required at boot. The workflow must pass it before that change is synced, or the write gateway crash-loops. voyage-api already holds MCP_DEV_SESSION_KEY, MCP_PROD_SESSION_KEY and MCP_PREVIEW_SESSION_KEY as repository secrets; nothing passes them yet | Generate with: openssl rand -base64 32 |
+| REDIS_URL, HOSTED_TIMEOUT_MS, MOI_EXPLORER_URL, PORT, MOI_MCP_HOME, REQUEST_TIMEOUT_MS, MOI_WC_PARAM_STYLE | Optional: Redis for pairings (carries a password), the hosted call budget (default 240000 ms; above 300000 claude.ai gives up first), explorer links, the read gateway port, the local state folder, the local phone wait, and the WalletConnect payload style (leave unset) | Defaults in the code |
 | TELEPORT_PROXY, TELEPORT_JOIN_TOKEN, MCP_DEV_MACHINE, TELEPORT_PROD_PROXY, TELEPORT_PROD_JOIN_TOKEN, MCP_PROD_MACHINE | Deploy access, in voyage-api | DevOps |
-| UPSTREAM_READ_TOKEN, NPM_TOKEN | In sarvalabs/moi-mcp: the upstream watch, and publishing on a v* tag (unused so far) | A fine-grained GitHub token; the npm account owner |
+| UPSTREAM_READ_TOKEN, NPM_TOKEN | In sarvalabs/moi-mcp: the upstream watch, and publishing on a v* tag. Neither is set on the repo (checked 10 October 2026), so the watch has never been able to read go-moi or cocolang | A fine-grained GitHub token with read-only Contents on go-moi and cocolang; the npm account owner |
 
 The example file with comments is .env.example in the repo. Its default registry id is the wiped one.
 
@@ -265,7 +266,7 @@ What the skill never does without my yes: push, open or comment on a PR or issue
 - moi-mcp PR #4 (the code review itself, open since 11 September): close it once #27 lands. Dependabot PR #26 has failing checks.
 - Decide the npm name and owner with Rahul, then publish in the order above.
 - Run the transfer and create-asset writes once on a phone and record it. The last recorded phone check is from 1 September.
-- Confirm who owns the Reown project and UPSTREAM_READ_TOKEN, and whether go-moi and cocolang publish GitHub releases. The watch has never filed an issue for either.
+- UPSTREAM_READ_TOKEN is not set on sarvalabs/moi-mcp, so the upstream watch has never been able to read go-moi or cocolang. Create a fine-grained read-only token from an account that will stay (Rahul decides which) and set it. Confirm who owns the Reown project.
 - Agree who syncs the copy into voyage-api and who runs the deploy from now on, or replace the copy with an install of the published package once it exists.
 - Fix the repo docs: handoff-infra.md names the wrong repo, mcp.moi.technology is used as an example host and does not exist, and the README says 13 tools while its table lists 28.
 - Settle who is notified of moi-mcp issues. Issue #17 sat for two weeks with no comment.

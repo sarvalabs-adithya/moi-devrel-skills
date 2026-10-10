@@ -37,6 +37,7 @@ No worker runs in production on purpose: it would steal the Telegram webhook and
 
 ## Env vars
 
+The index across every product, with the consoles and who holds each login, is ENV-VARS.md.
 Where they live: production values are GitHub Actions secrets and variables on sarvalabs/moi-agent-launchpad (secrets cannot be read back; the readable copy is the env file on the VM, reached through DevOps). Locally, .env.local copied from .env.example. Anything starting NEXT_PUBLIC_ is baked into the image at build time, so it needs a rebuild, and only the names with a build arg reach the build. A new variable needs a line in deploy.yml, and a new NEXT_PUBLIC_ one also needs an ARG in the Dockerfile and a build arg in the build workflow. Setting a value deploys nothing: run the workflow.
 
 | Variable | What it is | Where the value comes from |
@@ -44,19 +45,19 @@ Where they live: production values are GitHub Actions secrets and variables on s
 | SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY | The database | Supabase dashboard, the project (company organisation), Settings, API |
 | SESSION_SECRET | Signs the session cookie | Generate with: openssl rand -hex 32 |
 | AGENT_KEY_ENCRYPTION_SECRET | Encrypts every stored agent key. Never generate a new one: every stored key would be lost | The VM env file, through DevOps |
-| MOI_PLATFORM_MNEMONIC | The funded platform wallet, for registry reads and the heartbeat | Actions secret and the VM env file, through DevOps |
-| MOI_RPC_URL | Leave empty. The code uses the SDK's built-in devnet endpoint | |
+| MOI_PLATFORM_MNEMONIC | The funded platform wallet, for registry reads and the heartbeat | deploy.yml reads it, but it is not in the repo's secrets list: an org-level secret, or the VM gets an empty value. Confirm with DevOps. Same for ADMIN_ALERT_TELEGRAM_CHAT_ID |
+| MOI_RPC_URL | Empty means the SDK's built-in devnet endpoint. The Actions variable is set to a value today: confirm it points at a host that resolves, or clear it | The devnet RPC address |
 | NEXT_PUBLIC_APP_URL | https://launchpad.moi.technology. Baked at build | |
 | TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_USERNAME, TELEGRAM_WEBHOOK_SECRET, ADMIN_ALERT_TELEGRAM_CHAT_ID | The bot, its webhook and the alert chat. After changing the webhook secret, run setWebhook again or messages stop. Unset, the secret is derived from SESSION_SECRET, so rotating that one would stop Telegram too | BotFather; the secret with openssl rand -hex 20 |
-| MOI_AGENT_REGISTRY_LOGIC_ID | The agent registry. The one value that changes after a devnet reset | Protocol team |
+| MOI_AGENT_REGISTRY_LOGIC_ID | The agent registry. The one value that changes after a devnet reset. No Actions variable exists today, so the code default in lib/moi/registry.ts runs; deploy.yml already reads the name, so create the variable at the next reset | Protocol team |
 | MOI_AGENT_MARKET_LOGIC_ID | The AgentMarket contract. deploy.yml does not pass it yet | Printed by contracts/agent_market/deploy.mjs |
 | MOI_REGISTRATION_MNEMONIC_1, _2, _3, or MOI_REGISTRATION_API_URL and MOI_REGISTRATION_API_KEY | The wallets that activate new users (the API pair is not in use) | DevOps. Never copy them around |
 | GROQ_API_KEY | The server's own key, internal paths only | console.groq.com |
-| GEMINI_API_KEY, OPENAI_API_KEY | In the template for local use. Whether the deploy passes them: confirm | The two consoles |
+| GEMINI_API_KEY, OPENAI_API_KEY | Second and third in the LLM fallback order. Not passed by the deploy, so unset in production | Google AI Studio, platform.openai.com |
 | CRON_SECRET | The manual cleanup trigger | Generate with: openssl rand -hex 32 |
-| INBOX_WAIT_MS, GLOBAL_DAILY_SPEND_CAP_CENTS | 20000 and 500, written in deploy.yml | |
+| INBOX_WAIT_MS, GLOBAL_DAILY_SPEND_CAP_CENTS | The inbox long-poll window (20000, written in deploy.yml) and the daily spend cap (an Actions variable, 500; an empty value reads as zero, so never blank it) | |
 | NEXT_PUBLIC_MOI_EXPLORER_URL, NEXT_PUBLIC_WALLET_INSTALL_URL | Explorer and wallet links. Baked at build | Values in .env.example |
-| NEXT_PUBLIC_WC_PROJECT_ID, NEXT_PUBLIC_MOI_CHAIN_ID | The phone QR sign-in (PR #32). Set them as Actions variables and rebuild to switch it on | cloud.reown.com, the project, Project ID; the devnet chain id |
+| NEXT_PUBLIC_WC_PROJECT_ID, NEXT_PUBLIC_MOI_CHAIN_ID | The phone QR sign-in (PR #32). The project id was set on 7 October after that day's build, so one more run of the CI/CD workflow switches it on. The chain id falls back to moi:14 | cloud.reown.com, the project, Project ID; moi:14 |
 
 The example file with comments is .env.example in the repo.
 
@@ -164,9 +165,10 @@ What the skill never does without my yes: push, merge (a merge deploys), change 
 
 ## Open items
 
-- Phone sign-in (PR #32) merged and deployed on 7 October after Upendhar rotated the registry login token. The QR sign-in is still off: add NEXT_PUBLIC_WC_PROJECT_ID as an Actions variable and run the deploy to switch it on. Test a real scan and a brand-new wallet first.
+- Phone sign-in (PR #32) merged and deployed on 7 October after Upendhar rotated the registry login token. The QR sign-in is still off because NEXT_PUBLIC_WC_PROJECT_ID was set after that build: run the CI/CD workflow once to switch it on. Test a real scan and a brand-new wallet first.
 - Move every secret into a shared vault. Today the server's env file is the only readable copy.
 - Transfer the Telegram bot to DevOps or a company Telegram account (steps in the migration list). The Supabase project was transferred on 8 October.
 - The live stats page says the registry is not answering (the registry id is stale since the September reset). Registration may fail for new users. Get the current id from the Protocol team and run the reset steps.
 - Push the README and handover doc fixes. The ones in the repo still describe Vercel.
+- Paid agents cannot be switched on through the pipeline: NEXT_PUBLIC_PAYMENTS_ENABLED has no build argument in the Dockerfile or the build workflow. Add one before the AgentMarket contract is redeployed.
 - Two PRs are open on the org repo: #31 (points the Docs link and llms.txt away from the removed Launchpad docs; merge it) and #10 (AgentMarket deploy budget for the storage fund, blocked since August; close it or keep it with the contract).

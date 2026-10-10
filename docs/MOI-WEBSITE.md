@@ -21,14 +21,15 @@ The full list of settings and secrets, by name, is in the dependencies doc and i
 
 ## Env vars
 
+The index across every product, with the consoles and who holds each login, is ENV-VARS.md.
 Where they live: production values are GitHub Actions secrets and variables on sarvalabs/MOI-Website (secrets cannot be read back; the readable copy is the env file the deploy script writes on the server, through DevOps). Locally, a .env at the repo root copied from .env.example, used only by the Express server and the ingest script: both sites build with none. Values starting VITE_ are baked in at build, so they need a rebuild. Only the names listed in the deploy workflow reach the server; a new one needs a line there.
 
 | Variable | What it is | Where the value comes from |
 |---|---|---|
 | SUPABASE_URL, SUPABASE_KEY | The chatbot's documents and the calendar's events | Supabase dashboard, the project (which one: confirm), Settings, API |
 | ANTHROPIC_API_KEY, OPENAI_API_KEY | The chatbot (inactive) | The two consoles, API keys |
-| VITE_CHATBOT_API | The address the browser calls for the API. The live value is the dev host, which is why the calendar fails | Should be https://moi.technology, or empty |
-| ADMIN_API_KEY | The calendar admin page. The deploy does not pass it yet; the change that does is local, not merged | Generate with: openssl rand -hex 32 |
+| VITE_CHATBOT_API | The address the browser calls for the API. The live value is the dev host, which is why the calendar fails. Empty sends the chatbot to localhost | https://moi.technology |
+| ADMIN_API_KEY | The calendar admin routes. The deploy does not pass it, and when it is unset the routes accept a built-in default written in the source (the repo is public). Pass it and remove the fallback | Generate with: openssl rand -hex 32 |
 | ALLOWED_ORIGINS, PORT | The Express server. Not passed by the deploy, so set on the server by DevOps (confirm) | Values in .env.example |
 | BUFFER_ACCESS_TOKEN, BUFFER_CHANNEL_X, BUFFER_CHANNEL_LINKEDIN, DISCORD_WEBHOOK_URL, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID | The "Distribute a post" workflow, one per channel. A missing one skips its channel | Buffer (Chandra), Discord server settings, BotFather |
 | TELEPORT_PROXY, TELEPORT_JOIN_TOKEN, TELEPORT_NODE, VM_USERNAME, PREVIEW_VM_HOST, PREVIEW_VM_USER | Deploy and preview access | DevOps |

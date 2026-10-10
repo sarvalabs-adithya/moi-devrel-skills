@@ -25,6 +25,7 @@ dataroom.moi.technology. The investor document room: the whitepaper, litepaper, 
 
 ## Env vars
 
+The index across every product, with the consoles and who holds each login, is ENV-VARS.md.
 Where they live: production values are GitHub Actions secrets on sarvalabs/moi-dataroom0 (they cannot be read back; the readable copy is on the server, through DevOps). Locally, moi-data-room/.env.local, copied from the example file. A changed secret needs a manual run of the deploy workflow. Anything starting NEXT_PUBLIC_ is baked in at build, so it needs a rebuild.
 
 | Variable | What it is | Where the value comes from |
@@ -36,7 +37,7 @@ Where they live: production values are GitHub Actions secrets on sarvalabs/moi-d
 | ADMIN_SECRET | The admin page. Never leave it empty | Generate with: openssl rand -hex 32 |
 | CLAUDE_PER_IP_HOURLY_LIMIT, CLAUDE_DAILY_TOKEN_BUDGET, CLAUDE_MAX_INPUT_TOKENS, CLAUDE_MAX_OUTPUT_TOKENS | Chat limits. Optional; defaults in the code (30, 500000, 8000, 2048), reset on every restart | Set by nothing today |
 | VM_HOST, VM_USERNAME, VM_SSH_KEY | Deploy access | DevOps |
-| ADMIN_TOKEN, DATAROOM_URL | Read by the code but set by no deploy: an old admin check (nothing reads it after the fix) and the whitepaper script's target, which defaults to the live site | Leave unset |
+| ADMIN_TOKEN, DATAROOM_URL | Read by the code, set by no deploy. ADMIN_TOKEN is a second admin check in the stats route on main; unset, that route answers any caller (the fix is on the fork branch). DATAROOM_URL is the whitepaper script's target, defaulting to the live site | Leave unset until the fix lands |
 
 The example file with comments is moi-data-room/.env.local.example (not pushed yet, see Open items).
 
@@ -158,7 +159,7 @@ What the skill never does without my yes: push, merge (a merge deploys), run a w
 
 ## Open items
 
-- The admin check is weak: the cookie carries the secret itself and is readable by scripts, and the comparison is not timing-safe. The fix (a safe comparison, an httpOnly cookie, empty secret means no admin) sits on the fork branch claude/security-vulnerability-analysis-dWvYu from 23 March, 62 files behind the current main: rebase it, keep the auth changes, open the PR, merge (deploys). ADMIN_SECRET was rotated and redeployed on 9 October; rotate it once more after that merge.
+- The admin check is weak: the cookie carries the secret itself and is readable by scripts, the comparison is not timing-safe, and the admin stats route on main accepts a built-in cookie value written in the source (the repo is public) and, with ADMIN_TOKEN unset, answers any caller with the question count and the top documents. The fix (a safe comparison, an httpOnly cookie, empty secret means no admin) sits on the fork branch claude/security-vulnerability-analysis-dWvYu from 23 March, 62 files behind the current main: rebase it, keep the auth changes, open the PR, merge (deploys). ADMIN_SECRET was rotated and redeployed on 9 October; rotate it once more after that merge.
 - There are two whitepaper rows, one on the home tile and one indexed. Find which is current, keep one. The swap script renames the tile's document on every run; fix that first.
 - The figures on the home page are typed into the code with no source. Source them or drop them.
 - PR #7 (the README, the env template and the migration for the adopters and document_leads tables and the require_email column) is open. Merge it (the deploy is a no-op rebuild), then run the migration file once in the SQL editor, where it changes nothing on production.

@@ -90,6 +90,7 @@ Only the blog build checks these fields. The website build does not, so a bad he
 
 ## Env vars
 
+The index across every product, with the consoles and who holds each login, is ENV-VARS.md.
 The blog itself needs none: the Astro build, the listing script, the feeds and llms.txt run with no secret, and Mailchimp holds its own settings. The Tag Manager container id is in the code. The only variables that touch a post are the announcing workflow's channel secrets, which belong to the website repo and are listed in the website doc (BUFFER_ACCESS_TOKEN and the two channel ids, DISCORD_WEBHOOK_URL, TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID).
 
 ## My process for a post
