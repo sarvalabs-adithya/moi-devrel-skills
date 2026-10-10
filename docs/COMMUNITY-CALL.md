@@ -1,6 +1,8 @@
 # Community Call
 
-**Status: active.** Monthly; the next one is CC15 in October.
+**Status: active.** Monthly, on a Friday. The next date is on Luma.
+
+Video: https://drive.google.com/file/d/14SSJ1bCHjiOu4d_J1_UDcsk3VNQZVkKP/view (the deck skill, recorded 9 October 2026).
 
 The monthly public call where MOI shows what shipped and what the team did. Calls usually happen on a Friday. I own the deck and the protocol and DevRel segments. Vardan owns the event.
 
@@ -8,7 +10,7 @@ The monthly public call where MOI shows what shipped and what the team did. Call
 
 | Variable | Owner | Notes |
 |---|---|---|
-| Slide deck | Me | Built with the moi-deck skill, in our branding |
+| Slide deck | DevRel | Built with the deck branch of the moi-webinar skill, in our branding |
 | Luma page | Vardan | Must contain the agenda, the date and the Riverside link |
 | Riverside room | Vardan | Every speaker is invited 2 days before the call |
 | Announcement posts and shorts | Vardan | Schedule below |
@@ -16,12 +18,18 @@ The monthly public call where MOI shows what shipped and what the team did. Call
 
 Luma already holds two large mailing lists: a developer list that Piyush provided and a general list. Both are invited to every community call.
 
+Where things live:
+
+- Decks: this repo, one folder per call, community-call-2 to community-call-14 (the PDF in each deck folder; call 1 has no deck on file; call 3 was the beta mainnet launch). From call 14 on, the HTML source is there too.
+- Recordings: every call is on the MOI YouTube channel, in one playlist: https://www.youtube.com/playlist?list=PL4-oiZj2acUPhBkDGm-8ue9jIVxh-NXvs. Past recordings are the reference for the shorts and for how a call runs.
+- Logins: Luma, Riverside and YouTube are shared accounts held by Vardan.
+
 What the deck needs, and by when:
 
 | Input | From | Due |
 |---|---|---|
-| Protocol updates | Protocol team | Friday of the week before |
-| DevRel updates | Me | Friday of the week before |
+| Protocol updates | Protocol team (Rahul) | Friday of the week before |
+| DevRel updates | DevRel | Friday of the week before |
 | Marketing updates | Marketing team (Sai Kiran) | Friday of the week before |
 | Partnerships updates | Piyush | Friday of the week before |
 | Product updates (not every call) | Pratik | Friday of the week before |
@@ -42,7 +50,7 @@ What the deck needs, and by when:
 - Keep the release note exactly as the protocol team sent it.
 - Write every figure down with its source and date before it goes on a slide.
 - Plan the slides: one idea per slide, the developer update in one or two slides.
-- Build the deck (moi-deck skill).
+- Build the deck (the deck branch of the moi-webinar skill).
 - Check the release slides against the release note.
 
 **Monday of the call week (4 days before)**
@@ -90,11 +98,10 @@ What the deck needs, and by when:
 
 ## Claude skill
 
-The deck is built with the **moi-deck** skill. The rest of the call (inputs, numbers, the release check, the recording description) is the community call guide in the **moi-webinar** skill. Say what you need in plain words: Claude loads them on phrases like "community call" or "make the deck".
+The deck is built with the deck branch of the **moi-webinar** skill. The rest of the call (inputs, numbers, the release check, the recording description) is the community call guide in the **moi-webinar** skill. Say what you need in plain words: Claude loads them on phrases like "community call" or "make the deck".
 
 | When | What to tell Claude | What the skill does |
 |---|---|---|
-| Asking for updates | "Draft the messages asking each owner for their update by Friday." | Drafts one message per owner. I send them; Claude never does. |
 | Friday, updates in | "Here are the updates. Start the numbers ledger and plan the slides." | Records each figure with its source and date, flags anything unconfirmed, and proposes the slide order. |
 | Building | "Build the deck." | Makes the deck in our branding, runs the checker and exports the PDF. The checker catches faults the PDF hides. |
 | Release slides | "Check the release slides against the note." | Compares every line with the release note. |

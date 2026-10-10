@@ -43,13 +43,17 @@ The database value decides what is awarded. TASK_POINTS in lib/rewards/tasks.ts 
 
 **Webinar bounties (PR #22)**
 
-Every Builders session can end with a bounty: something attendees do for points. The host creates it on the Points site, with no code change and no deploy. It is a tasks row with the id bounty:<uuid>, its settings (session, brief link, deadline, logic id) in the row's metadata, and each member's submission is an ordinary task completion. No new table, no migration.
+Every Builders session can end with a bounty: something attendees do for points. The host creates it on the Points site, with no code change and no deploy, and says what a proof must show as a list of checks. It is a tasks row with the id bounty:<uuid>, its settings (session, brief link, deadline, the proofs and their checks, the session code) in the row's metadata, and each member's submission is an ordinary task completion. No new table, no migration.
 
-Two ways to verify, chosen per bounty:
-- Review: the member sends a link, an interaction hash or both, plus a note. It waits as pending until a host approves (points awarded then) or rejects with a reason the member sees. A rejected member may send a new proof. When a hash comes with the proof, the server asks the chain whether the member's linked wallet sent it and shows the host the answer, with a warning if another bounty already holds that hash. The host decides.
-- On-chain: the member sends one interaction hash. The server reads it from the chain and awards straight away when the member's linked wallet sent it, it succeeded, and it called or deployed the bounty's logic. The logic id is required, because the chain gives no timestamp to tie an interaction to the webinar: deploy a logic for the session and use its id. One interaction pays one bounty.
+- A bounty has 1 to 4 proofs. Each proof has a label and up to 8 checks. The member submits one interaction hash per proof.
+- The checks, all read from the chain: the sender is the member's linked wallet; the receipt succeeded; the interaction carries an operation (deploy, invoke, asset create, asset transfer); it invokes a fixed logic id; it invokes the logic that an earlier proof deployed; the deployed logic's manifest exposes the named routines; the calldata contains a value; the interaction happened after the bounty opened.
+- Templates fill the list: Call the session's logic; Deploy any logic; Deploy a logic with these routines; Deploy, then call it with the session code; I review proofs. An advanced editor adds or removes checks.
+- The session code is generated when the bounty is created, shown only on the admin card, and announced live at the end of the session. A check for it in the calldata means an old interaction cannot be reused, which matters because the chain gives no other link to the webinar.
+- A proof with no checks waits in the host's queue, with whatever checks did run shown as advice. The host approves (points awarded then) or rejects with a reason the member sees.
+- A failed check writes nothing: the member sees the proof, the check and the reason. One interaction hash pays one bounty, across proofs and across bounties.
+- The Test box on the bounty card runs the same checks against the host's own hashes and writes nothing.
 
-Members see open bounties on their dashboard under Webinar bounties.
+Members see open bounties on their dashboard under Webinar bounties, one box per proof.
 
 **Dev challenges (code)**
 
@@ -89,13 +93,13 @@ The older way to run a session bounty: a verifier file, a registry entry, a task
 | Resend | Sign-in emails from no-reply@moi.technology |
 | Docker + GitHub Actions + GHCR + Teleport | Build and deploy to the DevOps box, one container behind nginx |
 | /api/health and /api/jobs/maintenance | The health route (database and migration state) and the housekeeping job |
-| vitest | 22 test files on the bounty branch, 190 tests |
+| vitest | 22 test files on the bounty branch, 249 tests |
 
 ## Variables
 
 | Variable | Owner | Notes |
 |---|---|---|
-| Codebase | Me | sarvalabs/moi-project, private. The branch feature/ci-cd deploys, not main. Repo admins on 4 October: gokul, chandra, git, adithya, upendhar |
+| Codebase | DevRel | sarvalabs/moi-project, private. The branch feature/ci-cd deploys, not main. Repo admins on 4 October: gokul, chandra, git, adithya, upendhar |
 | Supabase project | The Points email account | Free plan, no backups. It holds every member and every point |
 | Google OAuth client, X developer app (paid API), Discord app and bot, Telegram bot and group, Reown project, Resend account | Confirm who | Each provider's callback must match BETTER_AUTH_URL |
 | The box, nginx, TLS, Teleport, DNS, the GHCR image | DevOps (Upendhar) | Container moi-project on host port 31000. preview.points.moi.technology is the same box |
@@ -116,7 +120,7 @@ Where they live: GitHub, sarvalabs/moi-project, Settings, Secrets and variables,
 | DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, DISCORD_BOT_TOKEN, DISCORD_GUILD_ID, DISCORD_INVITE_URL | The Discord task | Discord developer portal |
 | TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_USERNAME, TELEGRAM_CHAT_ID, TELEGRAM_INVITE_MODE, TELEGRAM_WEBHOOK_SECRET | The Telegram task. Set the webhook again after a change | BotFather and the group; the secret with openssl rand -hex 32 |
 | MOI_NETWORK, REOWN_PROJECT_ID | Wallet linking. devnet is the only network the code accepts | Reown dashboard, the project |
-| MOI_RPC_URL | Chain reads for dev challenges and bounties. Not passed by the deploy on feature/ci-cd today; the bounty branch adds it to deploy.yml | The devnet RPC address |
+| MOI_RPC_URL | Chain reads for dev challenges and bounties. Needed for every bounty template except review. Not passed by the deploy on feature/ci-cd today; PR #22 adds it to deploy.yml | https://dev.voyage-rpc.moi.technology/devnet/ |
 | RESEND_API_KEY, EMAIL_FROM | Sign-in emails. Both, or none is sent | resend.com, API keys; the sender MOI Points <no-reply@moi.technology> |
 | CRON_SECRET | The maintenance job | Generate with: openssl rand -hex 32 |
 | ADMIN_EMAILS | Who gets the admin pages | Comma-separated emails |
@@ -147,18 +151,17 @@ The full list with comments is .env.example in the repo.
 - Check as a member with a verified X connection: the campaign shows on the dashboard. It does not appear in /api/tasks, which lists only the fixed tasks.
 - Close it when it is over.
 
-**Running a webinar bounty** (once the bounty branch is merged)
+**Running a webinar bounty** (once PR #22 is merged)
 
-- Before the session, if the bounty is on-chain: deploy a logic for the session on devnet and keep its id.
+- Before the session, if a proof will check a logic: deploy a logic for the session on devnet and keep its id.
 - Sign in with an admin account and open /admin, Webinar bounties.
-- Fill the composer: title, description, points (1 to 10,000), session number, brief link, an optional deadline, and how it is verified. For on-chain, the logic id. Create bounty. It starts closed.
-- When the session ends, press Open. Members see it on their dashboard. Opening an on-chain bounty first checks that the node answers, so a node that cannot answer is reported to you now, not to every member later.
-- Announce it (moi-webinar skill) with the brief link.
-- Review bounties: proofs appear under Waiting for review with the member's name, email, linked wallet, link, hash, note and what the chain said about the hash. Approve awards the points at once. Reject needs a reason. You cannot approve your own submission. If the member sent a new proof after your page loaded, the action is refused and the page reloads.
-- On-chain bounties award by themselves and need no review.
+- Pick a template and fill the composer: title, description, points (1 to 10,000), session number, brief link, an optional deadline, and the template's fields (a logic id, or routine names). Create bounty. It starts closed, and the card shows its session code.
+- Test it: paste your own hashes into the Test box on the card. Every check shows pass or the reason. Fix the bounty until it passes.
+- When the session ends, press Open and announce the session code with the brief link (moi-webinar skill). Members see the bounty on their dashboard.
+- Checked proofs award by themselves. Proofs without checks appear under Waiting for review with the member's name, email, linked wallet, hashes, link, note and the check results. Approve awards the points at once; Reject needs a reason. You cannot approve your own submission. If the member sent a new proof after your page loaded, the action is refused and the page reloads.
 - When it is over, press Close. A bounty with proofs waiting cannot be closed, so review them first.
-- Rules: points, verification type and logic id cannot change while the bounty is open or once a proof is waiting or approved. Title, description, brief link, deadline and session can change at any time. The deadline stops new submissions only. Approving needs the bounty open, so to approve a late proof re-open it first. Approving is permanent for the member's ledger.
-- The same can be done from the browser console with the admin API (documented in the README on the branch). There are no API tokens; the admin's session cookie protects every route.
+- Rules: proofs, checks, points and the session code cannot change while the bounty is open or once a proof is waiting or approved. Title, description, brief link, deadline and session can change at any time. The deadline stops new submissions only. Approving needs the bounty open, so to approve a late proof re-open it first. Approving is permanent for the member's ledger.
+- The same can be done from the browser console with the admin API (documented in the README). There are no API tokens; the admin's session cookie protects every route.
 
 **Switching a task on or off, or changing its points**
 
@@ -226,7 +229,7 @@ What the skill never does without my yes: push, merge (a merge deploys productio
 
 ## Open items
 
-- Ship the webinar bounties: PR #22 (branch feature/admin-bounties, 7 commits, 190 tests passing, no migration) is open against feature/ci-cd since 8 October. Merging deploys. Then set MOI_RPC_URL as an Actions variable once the devnet host is confirmed to serve the interaction methods, redeploy, and run one on-chain bounty as a dry run with my own hashes: one that calls the logic, one that reverted, one sent by someone else. The chain reader has not been proven live. The checklist is in the PR.
+- Ship the webinar bounties: PR #22 (branch feature/admin-bounties, now carrying the rule engine, 249 tests passing, no migration) is open against feature/ci-cd. Merging deploys. Then set MOI_RPC_URL as an Actions variable and redeploy, add the hosts to ADMIN_EMAILS, and run one bounty as a dry run with the Test box and a real submission before a webinar relies on it. The chain reader has been proven against devnet by hand but not in production. The checklist is in the PR.
 - Put the Supabase project on a paid plan with backups. Then drop the schema backup.tasks_before_0008.
 - Decide the open PRs: #21 (emails, leaderboard avatars, wallet keys, X likes cap, no nightly audit; clean to merge, no migration), #15 (CI/CD hardening, draft, conflicts with the tip: rebuild or close), #1 (Upendhar's first CI/CD, base feat/dev-challenges: retarget or close). Close sarvalabs/Points-Program #1 if that repo is unused.
 - Nothing is known to call the maintenance job. Ask Upendhar what calls it and who schedules the new one from #21.

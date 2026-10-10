@@ -81,12 +81,12 @@ What they cannot see: the canary tests master's code against devnet, not the hos
 
 | Variable | Owner | Notes |
 |---|---|---|
-| Codebase | Me | sarvalabs/moi-mcp, public. I push branches to it |
+| Codebase | DevRel | sarvalabs/moi-mcp, public. I push branches to it |
 | Production copy and the deploy workflow | Voyage team (Srikar) | sarvalabs/voyage-api, branch feat/moi-mcp, folder moi-mcp/. They own everything else in that repo |
 | Server, nginx, TLS, DNS, Teleport, the data directory | DevOps | Only DevOps logs in to the VM |
 | WalletConnect (Reown) project | Confirm who | A free project at cloud.reown.com. Its id is passed as WC_PROJECT_ID; losing it stops every pairing |
 | Agent registry id and the read caller account | Protocol team (Gokul) | Both change on every devnet reset |
-| The Launchpad | Me | The Launchpad tools sign in to it. MOI_LAUNCHPAD_URL must equal the Launchpad's own public URL |
+| The Launchpad | DevRel | The Launchpad tools sign in to it. MOI_LAUNCHPAD_URL must equal the Launchpad's own public URL |
 | UPSTREAM_READ_TOKEN | Confirm who | A fine-grained GitHub token, read-only on go-moi and cocolang, for the upstream watch |
 | npm package name | Rahul decides | @moi-protocol/mcp-server in package.json. Nothing is published and neither scope is claimed |
 

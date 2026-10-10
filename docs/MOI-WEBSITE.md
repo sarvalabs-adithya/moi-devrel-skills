@@ -8,13 +8,13 @@ moi.technology and the blog at blog.moi.technology. One repo, one deploy. The si
 
 | Variable | Owner | Notes |
 |---|---|---|
-| Codebase | Me | sarvalabs/MOI-Website, public. Merging to main deploys. I push branches to it, no fork |
+| Codebase | DevRel | sarvalabs/MOI-Website, public. Merging to main deploys. I push branches to it, no fork |
 | Server, nginx, TLS, DNS, the deploy script | DevOps | The deploy script lives on the server, not in the repo |
 | Supabase project | Confirm who | Holds the chatbot's documents and the calendar's events. It may be the Dataroom's project |
-| Blog posts | Me | Markdown files under blog/src/content/posts |
-| Community calendar | Me, dates from Vardan | Inactive. Edited at /admin/calendar; broken in production and parked for now |
-| Chatbot | Me | Inactive. Hidden on the live site since June 2026, no plans for now |
-| Papers | Me | PDFs the site serves under /papers |
+| Blog posts | DevRel | Markdown files under blog/src/content/posts |
+| Community calendar | DevRel, dates from Vardan | Inactive. Edited at /admin/calendar; broken in production and parked for now |
+| Chatbot | DevRel | Inactive. Hidden on the live site since June 2026, no plans for now |
+| Papers | DevRel | PDFs the site serves under /papers |
 | Analytics | The sarvalabsdeveloper@gmail.com account | Tag Manager and Analytics. Search Console: confirm |
 
 The full list of settings and secrets, by name, is in the dependencies doc and in `.env.example` in the repo.
@@ -98,8 +98,8 @@ What the skills never do without my yes: push, merge (a merge deploys), run a wo
 
 ## Open items
 
+- The old copy at moi-website.vercel.app still serves. A delete on 9 October did not take, so the Vercel project sits in a team not yet found. Find it and delete it.
 - Ask DevOps for the nginx changes: a real 404 for unknown pages, the discovery header, a download header for the papers.
 - Ask Upendhar to close his PR #8 (Cloudflare preview test from August).
 - Later: push the corrected README and deploy and content guides. The ones in the repo still describe the old setup.
-- Take down the old copy at moi-website.vercel.app (Adithya, in Vercel).
 - Move the Supabase project and the API keys to company logins.

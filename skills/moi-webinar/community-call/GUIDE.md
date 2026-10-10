@@ -75,7 +75,7 @@ Budget: about two hours of deck work once inputs are in hand (the manager's cap 
 Nothing below happens without the human's explicit yes in this conversation:
 - Sending any message, including the input requests. Claude drafts, the human sends.
 - Pushing, opening a pull request or merging the call folder. `moi-foundation/MOI-Webinars` is public as of 2026-10-01: say that a push publishes `SCRIPT.md`, the ledger and the host prep, and ask whether to keep the host prep out of the pushed copy.
-- Posting, scheduling or announcing anything, and uploading the recording or its description. Running `scripts/buffer.mjs` in any form, a dry run included (it sends the key to Buffer), is a GATE.
+- Posting, scheduling or announcing anything, and uploading the recording or its description. Running `"$SKILLS/moi-webinar/scripts/buffer.mjs"` in any form, a dry run included (it sends the key to Buffer), is a GATE.
 - Uploading, moving or sharing any file in Drive or other cloud storage, including the PDF and the second copy of the call folder.
 - Adding the call to the website calendar (`moi-web-products-ops/references/website-calendar.md`; an admin write to a public page), and setting or changing a repository secret or variable.
 - Downloading a file. Say the filename, source and size when asking.
@@ -90,7 +90,7 @@ Nothing below happens without the human's explicit yes in this conversation:
 Names only. Building and checking the deck needs no key. For where each lives, see `moi-devrel/references/keys-and-access.md`.
 - The website's community calendar takes admin writes. The holder of that access is not on record: `moi-devrel/references/keys-and-access.md`. ASK: a repo admin of `sarvalabs/MOI-Website`.
 - Website: A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin.
-- `BUFFER_API_KEY`: scheduled posts through `scripts/buffer.mjs`. It stays in a local `.env` and is never pasted into chat.
+- `BUFFER_API_KEY`: scheduled posts through `scripts/buffer.mjs` in the `moi-webinar` skill. It stays in a gitignored `.env` at `$SKILLS/moi-webinar/.env` and is never pasted into chat.
 - Slack and Drive access for the inputs and the planning sheet. ASK: Rahul.
 - The Scribble report login. Holder unknown. ASK: Sai Kiran.
 - The meeting account and the YouTube channel login. Owners unknown. ASK: Rahul.

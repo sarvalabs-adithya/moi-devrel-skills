@@ -1,6 +1,6 @@
 # Agent Launchpad
 
-**Status: active.** Live at launchpad.moi.technology. Paid agents (the AgentMarket contract) inactive.
+**Status: active.** Live at launchpad.moi.technology. Inactive: paid agents (the AgentMarket contract, not redeployed) and the phone QR sign-in (merged, switched off until its variables are set).
 
 The web app at launchpad.moi.technology where anyone can launch an AI agent on MOI: pick a template, register the agent on chain, and talk to it on Telegram. I built it and run it. DevOps owns the server it runs on.
 
@@ -8,16 +8,57 @@ The web app at launchpad.moi.technology where anyone can launch an AI agent on M
 
 | Variable | Owner | Notes |
 |---|---|---|
-| Codebase | Me | sarvalabs/moi-agent-launchpad deploys. I work in my fork, sarvalabs-adithya/moi-agent-launchpad |
+| Codebase | DevRel | https://github.com/sarvalabs/moi-agent-launchpad deploys. I work in my fork, sarvalabs-adithya/moi-agent-launchpad |
 | Database (Supabase) | Company Supabase organisation (transferred 8 October) | Holds all app state |
-| Telegram bot and the alert chat | Me | @moinetworkbot delivers agent messages to users |
-| AgentMarket contract on devnet | Me | Not redeployed since the devnet wipes, so paid agents are off. The code is there; the next owner redeploys it when it is needed |
+| Telegram bot and the alert chat | DevRel, transfer pending | @moinetworkbot delivers agent messages to users. Moves to DevOps or a company account in BotFather (steps in MIGRATION-LIST.md) |
+| AgentMarket contract on devnet | DevRel | Not redeployed since the devnet wipes, so paid agents are off. The code is there; the next owner redeploys it when it is needed |
 | Server, CI/CD, container registry, Teleport | DevOps | |
 | Domain launchpad.moi.technology | DevOps | |
 | Registration wallets that activate new users | DevOps | |
 | Agent registry on devnet | Protocol team | Its id changes on every devnet reset |
 
-The full list of settings and secrets, by name, is in the dependencies doc and in `.env.example` in the repo.
+## Stack
+
+| Piece | What it is |
+|---|---|
+| Next.js 14 + React 18 + TypeScript + Tailwind | The whole product: landing, connect, create, dashboard, agent pages, marketplace, stats, and about 45 API routes |
+| Supabase Postgres | All app state, server side only through the service-role key. Twelve SQL migration files in supabase/migrations |
+| js-moi-sdk, js-moi-identifiers, js-polo, js-moi-agent-registry | Chain reads and writes on devnet, in lib/moi |
+| AgentMarket contract (Coco) | contracts/agent_market: each paid agent's price and the payment. Not redeployed since the devnet wipes |
+| Wallet sign-in | The wallet signs a one-time code, the server issues a session cookie. WalletConnect adds the phone QR sign-in (PR #32) |
+| Telegram through grammy | @moinetworkbot, the webhook route and account linking |
+| Agent runtime | agent-runtime/index.ts bundled into public/runtime.cjs. Users download it and run it themselves; it polls the relay routes. Twelve templates in lib/templates |
+| AI keys | Each agent uses its owner's own key (Groq, Google or OpenAI). The server's Groq key serves internal paths only |
+| Docker + GitHub Actions + GHCR + Teleport | One container behind nginx on the DevOps box. Merging to master builds and deploys |
+| Cleanup | Runs inside the app every six hours. The cron route guarded by CRON_SECRET is only the manual trigger |
+| vitest | 28 test files. The atomicity tests need a database |
+
+No worker runs in production on purpose: it would steal the Telegram webhook and run every agent twice.
+
+## Env vars
+
+Where they live: production values are GitHub Actions secrets and variables on sarvalabs/moi-agent-launchpad (secrets cannot be read back; the readable copy is the env file on the VM, reached through DevOps). Locally, .env.local copied from .env.example. Anything starting NEXT_PUBLIC_ is baked into the image at build time, so it needs a rebuild, and only the names with a build arg reach the build. A new variable needs a line in deploy.yml, and a new NEXT_PUBLIC_ one also needs an ARG in the Dockerfile and a build arg in the build workflow. Setting a value deploys nothing: run the workflow.
+
+| Variable | What it is | Where the value comes from |
+|---|---|---|
+| SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY | The database | Supabase dashboard, the project (company organisation), Settings, API |
+| SESSION_SECRET | Signs the session cookie | Generate with: openssl rand -hex 32 |
+| AGENT_KEY_ENCRYPTION_SECRET | Encrypts every stored agent key. Never generate a new one: every stored key would be lost | The VM env file, through DevOps |
+| MOI_PLATFORM_MNEMONIC | The funded platform wallet, for registry reads and the heartbeat | Actions secret and the VM env file, through DevOps |
+| MOI_RPC_URL | Leave empty. The code uses the SDK's built-in devnet endpoint | |
+| NEXT_PUBLIC_APP_URL | https://launchpad.moi.technology. Baked at build | |
+| TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_USERNAME, TELEGRAM_WEBHOOK_SECRET, ADMIN_ALERT_TELEGRAM_CHAT_ID | The bot, its webhook and the alert chat. After changing the webhook secret, run setWebhook again or messages stop. Unset, the secret is derived from SESSION_SECRET, so rotating that one would stop Telegram too | BotFather; the secret with openssl rand -hex 20 |
+| MOI_AGENT_REGISTRY_LOGIC_ID | The agent registry. The one value that changes after a devnet reset | Protocol team |
+| MOI_AGENT_MARKET_LOGIC_ID | The AgentMarket contract. deploy.yml does not pass it yet | Printed by contracts/agent_market/deploy.mjs |
+| MOI_REGISTRATION_MNEMONIC_1, _2, _3, or MOI_REGISTRATION_API_URL and MOI_REGISTRATION_API_KEY | The wallets that activate new users (the API pair is not in use) | DevOps. Never copy them around |
+| GROQ_API_KEY | The server's own key, internal paths only | console.groq.com |
+| GEMINI_API_KEY, OPENAI_API_KEY | In the template for local use. Whether the deploy passes them: confirm | The two consoles |
+| CRON_SECRET | The manual cleanup trigger | Generate with: openssl rand -hex 32 |
+| INBOX_WAIT_MS, GLOBAL_DAILY_SPEND_CAP_CENTS | 20000 and 500, written in deploy.yml | |
+| NEXT_PUBLIC_MOI_EXPLORER_URL, NEXT_PUBLIC_WALLET_INSTALL_URL | Explorer and wallet links. Baked at build | Values in .env.example |
+| NEXT_PUBLIC_WC_PROJECT_ID, NEXT_PUBLIC_MOI_CHAIN_ID | The phone QR sign-in (PR #32). Set them as Actions variables and rebuild to switch it on | cloud.reown.com, the project, Project ID; the devnet chain id |
+
+The example file with comments is .env.example in the repo.
 
 ## Process
 
@@ -57,6 +98,54 @@ The full list of settings and secrets, by name, is in the dependencies doc and i
 - Look at the stats: registered agents should not be zero.
 - Send the Telegram bot a message.
 
+## Presenting the Launchpad
+
+The Launchpad is what new builders see first. It is presented in the MOI Builders intro session, "Your first agent on MOI": the session to send anyone to who has never touched MOI. It ends with the audience launching an agent that lives on chain and messages them on Telegram, with no code.
+
+**The deck**
+
+- In this repo: intro-session/deck. index.html is the deck (11 slides, 1920 by 1080, our branding), MOI_Builders_Intro.pdf the slides-only export. Built with the deck branch of the moi-webinar skill.
+- Open index.html in Chrome. Arrow keys or space to move. Press P for the presenter window: the full talk script per slide, the next slide's title and a clock. In Meet, share the deck window and keep the presenter window on your own screen.
+- The script lives in the NOTES array at the bottom of index.html, one entry per slide. Edit it there; the README in the folder has the command that regenerates the PDF.
+- Every claim in it was read from the Launchpad source on 9 September 2026 (the sign-in message, the registration call, the relay and Telegram rules, the runtime, the AgentMarket logic). Re-check against the current code before presenting again.
+
+**The flow**
+
+1. Welcome: an intro session; newcomers start here, everyone else stays for the second half.
+2. The problem: every agent today is a URL plus an API key. Nothing verifiable says who it is, a key hands over everything, and nobody can find or check it.
+3. Four ideas, one breath each: participants, interactions, native assets, logics.
+4. Why agents belong on MOI: what an agent needs to know about you lives on your account, not in an app's database.
+5. The Launchpad: a playground, not the protocol. Pick a template, register, link Telegram.
+6. Live demo (below).
+7. Two signatures: the sign-in message, free; the registration interaction, paid in fuel. What landed on chain.
+8. Where the agent runs: on your own machine, under pm2, with its key. The server is a relay.
+9. The marketplace: publish, price it, the AgentMarket logic moves the payment.
+10. Full circle: the agent is a participant, registering was an interaction, the payment is a native asset, the registry and the market are logics.
+11. Close: go and launch one. A wallet, a Telegram account, ten minutes.
+
+**The live demo cue**
+
+- Slide 6, switch to the browser at launchpad.moi.technology.
+- Connect: the wallet pops up with the sign-in message. No transaction, no fee.
+- Pick a template, fill the three fields.
+- Register: the wallet signs the interaction and pays the fuel. Show the agent id.
+- Link Telegram: the bot message arrives.
+- Open the agent page, then the explorer for the registration interaction.
+- Back to slide 7.
+
+**Before a session**
+
+- A wallet with devnet KMOI and a Telegram account you can show on screen.
+- Pick the template in advance, and have one agent already created as the fallback if the live registration fails.
+- Check the stats page: "The registry is not answering" means registration will fail. Fix the registry id first (After a devnet reset, above).
+- Run through the demo once the day before. Devnet changes.
+- Announce it like any Builders session (DEV-WEBINARS.md).
+
+**Recordings and video material**
+
+- The Launchpad launch video and its raw clips are in the Drive folder "Launchpad video" (owner adithya@moinetwork.io): clips 1 to 11, the edits Final video.mp4 and VIDEO.mp4 with and without the outro, and the Builder series and POD subfolders, made with the editor Krishna in August 2026. https://drive.google.com/drive/folders/1wlTotjRXeUpz9UNPp5T5qBBc-8QcZbwr
+- Session recordings go to the YouTube playlist (COMMUNITY-CALL.md has the link).
+
 ## Claude skill
 
 The **moi-launchpad-ops** skill covers running the Launchpad. After a devnet reset, start with the **moi-devnet-reset** skill, which gives the order of work across every product.
@@ -78,4 +167,6 @@ What the skill never does without my yes: push, merge (a merge deploys), change 
 - Phone sign-in (PR #32) merged and deployed on 7 October after Upendhar rotated the registry login token. The QR sign-in is still off: add NEXT_PUBLIC_WC_PROJECT_ID as an Actions variable and run the deploy to switch it on. Test a real scan and a brand-new wallet first.
 - Move every secret into a shared vault. Today the server's env file is the only readable copy.
 - Transfer the Telegram bot to DevOps or a company Telegram account (steps in the migration list). The Supabase project was transferred on 8 October.
+- The live stats page says the registry is not answering (the registry id is stale since the September reset). Registration may fail for new users. Get the current id from the Protocol team and run the reset steps.
 - Push the README and handover doc fixes. The ones in the repo still describe Vercel.
+- Two PRs are open on the org repo: #31 (points the Docs link and llms.txt away from the removed Launchpad docs; merge it) and #10 (AgentMarket deploy budget for the storage fund, blocked since August; close it or keep it with the contract).

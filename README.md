@@ -1,44 +1,60 @@
 # MOI DevRel handover
 
-Everything a new developer-relations hire at MOI needs, in one private repo: the Claude skills that do the work, and the docs that say how each product is run. Start with the install below, then open `skills/moi-devrel/SKILL.md`.
+Everything the next DevRel person at MOI needs, in one place: the docs that say how each product is run, and the Claude skills that do the work. Read the docs first. Install the skills when you are ready to act.
 
-## Where to go
+## The docs
 
-| You want to | Open |
+Each one follows the same shape: status, owners, settings, the process step by step, the Claude prompts to use, and what is still open.
+
+| Doc | What it holds |
 |---|---|
-| Start doing the job | `skills/moi-devrel/SKILL.md`. It holds the house rules, who is who, and points to every other skill |
-| Run a webinar or a community call | `skills/moi-webinar/` (branches `deck`, `community-call`) |
-| Write, ship or announce a blog post | `skills/moi-blog/` (branch `release-pack`) |
-| Work on the docs sites | `skills/moi-docs/` (branch `geo`) |
-| Operate the Agent Launchpad or the Explorer | `skills/moi-launchpad-ops/` (branch `explorer`) |
-| Operate the MCP server | `skills/moi-mcp-ops/` |
-| Operate the website, the Dataroom or the Points Program | `skills/moi-web-products-ops/` |
-| Recover every product after a devnet reset | `skills/moi-devnet-reset/` |
-| File a standards submission | `skills/moi-standards-submission/` |
-| Run an education program | `skills/moi-education-programs/` |
-| Read how a product is run: status, owners, settings, process, open items | `docs/COMMUNITY-CALL.md`, `docs/DEV-WEBINARS.md`, `docs/BLOG.md`, `docs/MOI-WEBSITE.md`, `docs/DATAROOM.md`, `docs/AGENT-LAUNCHPAD.md`, `docs/MCP-SERVER.md`, `docs/POINTS-PROGRAM.md` |
-| See every dependency by name, with its owner and to-dos | `docs/LIST-OF-DEPENDENCIES.md` |
-| See what still moves to a company login, and how | `docs/MIGRATION-LIST.md` |
-| Read the Launchpad's long-form handover | `docs/HANDOVER.md` |
-| Reuse past webinar material (demo plans, cheat sheets, the intro deck) | `docs/webinars/` |
-| Read the x402 standards submission package | `docs/standards/x402-review-package/` |
-| Understand how the library is shaped and how it was checked | `ARCHITECTURE.md` |
-| Change a skill | `SKILL-STANDARD.md` first |
-| See the research the skills were built from | `_research/` (provenance, not for installing) |
-| Find the old `moi-blog`, `moi-deck` and `moi-design` skills | `legacy-skills/` (superseded; kept for reference only) |
-| Turn any other repo into a handover skill | `extra-skills/repo-handover/` |
+| `docs/COMMUNITY-CALL.md` | The monthly call. Who owns what, the nine-day timeline, the announcement schedule, where the decks and recordings live. |
+| `docs/DEV-WEBINARS.md` | The Builders sessions. From the planning meeting with Rahul to the post-session blog, posting through Buffer, the session bounty, how a session folder is laid out. |
+| `docs/BLOG.md` | How the blog is built and deployed, the writing process, the monthly newsletter, images, editing a published post, the search rules. |
+| `docs/MOI-WEBSITE.md` | The website repo and the blog it carries: settings, deploys, publishing a post, the parked chatbot and calendar. |
+| `docs/DATAROOM.md` | The investor document room: the admin page, adding and replacing documents, how the home page picks its tiles, Supabase, and the steps to switch the chat and the Events page back on. |
+| `docs/AGENT-LAUNCHPAD.md` | The Agent Launchpad: stack, settings, shipping, what to redo after a devnet reset, and how to present it with the intro session deck. |
+| `docs/MCP-SERVER.md` | The MOI MCP server: how a chat assistant reads and writes MOI through it, the two repos, deploys, health, troubleshooting, the open publishing questions. |
+| `docs/POINTS-PROGRAM.md` | The Points Program: tasks, X campaigns, webinar bounties, deploys, settings, the database rules. |
+| `docs/LIST-OF-DEPENDENCIES.md` | Every dependency by name, with its owner, its settings and its to-dos, in Adithya's own words. |
+| `docs/MIGRATION-LIST.md` | What still moves to a company login, with the transfer steps, and what has already moved. |
+| `docs/VIDEOS.md` | The recorded walkthroughs, one per product, with the links. |
+| `docs/HANDOVER.md` | The Launchpad's long-form handover from September. |
+| `docs/webinars/` | Past session material worth reusing: the session 7 storyline and the intro deck. |
+| `docs/standards/` | The x402 standards submission package. |
+
+## The skills
+
+Ten skills. Each is a folder under `skills/` with a `SKILL.md`; a branch is a sub-folder with a `GUIDE.md`. Say what you need in plain words and Claude loads the right one.
+
+| Skill | What it does | Branches |
+|---|---|---|
+| `moi-devrel` | Start here. The house rules, who is who, and the map of every other skill. | `ship`, `design`, `claim-check`, `explain`, `call-digest`, `test-round` |
+| `moi-webinar` | Builders sessions and community calls, from planning to the day itself. Posting goes through its Buffer script. | `deck`, `community-call` |
+| `moi-blog` | Write, polish, ship and announce a post. | `release-pack` |
+| `moi-docs` | The docs sites and their search visibility. | `geo` |
+| `moi-launchpad-ops` | Run the Launchpad, and the Explorer beside it. | `explorer` |
+| `moi-mcp-ops` | Run the MCP server: health, shipping, connecting, rollback. | |
+| `moi-web-products-ops` | Run the website, the Dataroom and the Points Program. | |
+| `moi-devnet-reset` | The order of work across every product after a devnet reset. | |
+| `moi-standards-submission` | File a standards submission, such as a CAIP or the x402 scheme. | |
+| `moi-education-programs` | Run an education program with a university or a cohort. | |
+
+## Also here
+
+- `ARCHITECTURE.md`: how the library is shaped and how it was checked.
+- `SKILL-STANDARD.md`: the bar every skill meets. Read it before changing one.
+- `_research/`: the notes the skills were built from. Provenance, not for installing.
+- `legacy-skills/`: the old blog, deck and design skills. Superseded, kept for reference.
+- `extra-skills/repo-handover/`: a generic skill for turning any repo into a handover skill like these.
 
 ## Install
 
-Skills load from `~/.claude/skills/` (every project) or `<repo>/.claude/skills/` (one project). Link each skill folder and set `SKILLS`, which every skill expects:
+Skills load from `~/.claude/skills/`. Link each folder and set `SKILLS`, which every skill expects:
 
 ```bash
 for s in ~/moi-devrel-skills/skills/*/; do ln -s "$s" ~/.claude/skills/"$(basename "$s")"; done
 export SKILLS=~/moi-devrel-skills/skills
 ```
 
-Older skills may already be there under the same or a retired name (`moi-blog`, `moi-deck`, `moi-design`). List them with `ls -ld ~/.claude/skills/moi-*` and move any real folder aside first: an old `moi-blog` would stop the link, and an old `moi-deck` or `moi-design` would load beside the new branches and contradict them.
-
-## Use
-
-Say what you need in plain words: "I'm new to MOI DevRel, where do I start", "I own Community Call 15", "check this deck". Claude loads the matching skill, and the skill routes to the branch. Each skill ends with a hand-back: what was made, what remains, and whether it is ready.
+If older skills with the same names are already there (`moi-blog`, `moi-deck`, `moi-design`), move them aside first, or they will load beside the new ones and contradict them.

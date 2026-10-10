@@ -14,8 +14,8 @@ As of 6 October 2026. Names only, no values.
 | Moinkee NFT Minter | Minting wallet and the collection asset | My devnet wallet, seed in the Vercel env | Company wallet, or take the site down |
 | Contextual Compute website | The repo | sarvalabs-adithya/contextual-compute-foundation-website | sarvalabs org |
 | Dataroom | Supabase project and bucket | Done: transferred to the company Supabase organisation on 8 October | Same |
-| MOI Website | Old copy at moi-website.vercel.app | My Vercel | Take down |
-| Dataroom | Second static data room, sarva-dataroom.vercel.app | Vercel (whose account: confirm); code only on my Mac | Push to an org repo or take down |
+| MOI Website | Old copy at moi-website.vercel.app | A Vercel project, team not yet found (a delete on 9 October did not take; the site still serves) | Find the team that holds it and delete the project |
+| Dataroom | Second static data room, sarva-dataroom.vercel.app | A Vercel project, team not yet found (a delete on 9 October did not take; the site still serves) | Find the team that holds it and delete the project |
 
 ## How the Supabase projects move (done on 8 October; kept for the record)
 

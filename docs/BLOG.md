@@ -81,10 +81,10 @@ Only the blog build checks these fields. The website build does not, so a bad he
 
 | Variable | Owner | Notes |
 |---|---|---|
-| Posts | Me | blog/src/content/posts in sarvalabs/MOI-Website |
+| Posts | DevRel | blog/src/content/posts in sarvalabs/MOI-Website |
 | Review | Rahul | Every post before it merges |
 | Release note | Protocol team | The source for a release post. Kept exactly as sent |
-| Social copy | Me | social/<slug>.md, drafted by a workflow, rewritten by hand |
+| Social copy | DevRel | social/<slug>.md, drafted by a workflow, rewritten by hand |
 | Newsletter (Mailchimp) | Vardan has access | An RSS campaign, the 15th of every month |
 | Server and deploy script | DevOps | Shared with the website |
 
