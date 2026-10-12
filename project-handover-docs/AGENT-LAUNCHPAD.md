@@ -2,6 +2,8 @@
 
 **Status: active.** Live at launchpad.moi.technology. Inactive: paid agents (the AgentMarket contract, not redeployed) and the phone QR sign-in (merged, switched off until its variables are set).
 
+Video: https://drive.google.com/file/d/1FruKR8k6Wp_rplSFzIE8pZf8OBwBUfSI/view (recorded 12 October 2026).
+
 The web app at launchpad.moi.technology where anyone can launch an AI agent on MOI: pick a template, register the agent on chain, and talk to it on Telegram. I built it and run it. DevOps owns the server it runs on.
 
 ## Variables

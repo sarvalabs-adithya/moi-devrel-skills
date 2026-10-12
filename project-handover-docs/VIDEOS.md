@@ -9,7 +9,7 @@ One video per product, recorded after its doc is reviewed. Screen plus voice, 5 
 | Blog | BLOG.md | |
 | MOI Website | MOI-WEBSITE.md | |
 | Dataroom | DATAROOM.md | |
-| Agent Launchpad | AGENT-LAUNCHPAD.md | |
+| Agent Launchpad | AGENT-LAUNCHPAD.md | https://drive.google.com/file/d/1FruKR8k6Wp_rplSFzIE8pZf8OBwBUfSI/view |
 | MCP server | MCP-SERVER.md | |
 | Points Program | POINTS-PROGRAM.md | |
 
