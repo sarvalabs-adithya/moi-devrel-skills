@@ -11,7 +11,7 @@ The MOI Builders sessions: a live session where we build one project on MOI in f
 | Project to build | DevRel, with Rahul | Finalized with Rahul 9 days before the session |
 | Slide deck | DevRel | Built with the deck branch of the moi-webinar skill, in our branding |
 | Luma page | DevRel | Created on the Monday of the session week, with the Meet link |
-| Pre session posts | DevRel | X and LinkedIn, scheduled on Buffer (see Posting with Buffer below) |
+| Pre session posts | DevRel | X and LinkedIn, scheduled on Buffer after consulting marketing (see Posting with Buffer below) |
 | Session bounty | DevRel | Created on the Points site admin page, no code change (PR #22 on the Points repo, once merged). See POINTS-PROGRAM.md. Until then, proofs came in through a Google Form per session (Builders II, III, IV and VII), checked by hand; the responses sheet "MOI Builders II - Native Assets (Responses)" and the forms are on the adithya@moinetwork.io Drive. Who awarded the points for those: confirm |
 | Google Meet link | Vardan | |
 | Post session blog | DevRel | Written with the moi-blog skill and published on the website repo. See BLOG.md |
@@ -59,7 +59,7 @@ The MOI Builders sessions: a live session where we build one project on MOI in f
 
 **Posting with Buffer**
 
-Every pre session post goes out through Buffer, from the X and LinkedIn channels in the MOI organisation. Chandra owns the organisation.
+Every pre session post goes out through Buffer, from the X and LinkedIn channels in the MOI organisation. Chandra owns the organisation. Marketing owns what goes out on the company channels, so only use Buffer after consulting the marketing team.
 
 - Ask Chandra for a Buffer API key once. Only the owner can create one.
 - Put it in a file called .env at the root of your clone of https://github.com/moi-foundation/MOI-Webinars, as BUFFER_API_KEY=<the key>. Never commit it and never paste it in chat.
