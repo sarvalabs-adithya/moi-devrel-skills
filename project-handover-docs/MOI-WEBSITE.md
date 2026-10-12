@@ -13,7 +13,7 @@ moi.technology and the blog at blog.moi.technology. One repo, one deploy. The si
 | Blog posts | DevRel | Markdown files under blog/src/content/posts |
 | Community calls on the homepage | DevRel, dates from Vardan | A block that links to the MOI calendar on Luma. The link in the code is a placeholder (LUMA_URL_PLACEHOLDER in src/components/CommunityCalls.jsx) until the real calendar address goes in. The next call's date, title and link come from content/next-call.json; only the date is required, a past date hides the line |
 | Papers | DevRel | PDFs the site serves under /papers |
-| Analytics | The sarvalabsdeveloper@gmail.com account | Google Tag Manager is the script on every page that loads Analytics. Its container id is typed into the code (the site's index.html and the blog's Analytics component), so that account decides what runs on the site, and changing containers means editing those two files. Google Search Console (indexing and sitemaps for moi.technology): which Google account owns it is not recorded |
+| Analytics | The sarvalabsdeveloper@gmail.com account | Google Tag Manager is the script on every page that loads Analytics. Its container id is typed into the code (the site's index.html and the blog's Analytics component), so that account decides what runs on the site, and changing containers means editing those two files. Google Search Console (indexing and sitemaps for moi.technology) is under the same account |
 | Supabase project | Inactive | Held the calendar's events; which project, and under which login, is not recorded. The chatbot's documents lived in the Dataroom's Supabase project. Nothing on the site reads either any more |
 
 ## Stack

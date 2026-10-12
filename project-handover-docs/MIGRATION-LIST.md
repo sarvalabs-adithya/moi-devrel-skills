@@ -52,7 +52,7 @@ Not to migrate: the Points Program's Supabase project (it is on the Points email
 
 | Product | Account |
 |---|---|
-| MOI Website | Supabase project (may be the Dataroom's), Anthropic and OpenAI keys for the chatbot, Search Console, Cloudflare Pages. Settled: Tag Manager and Analytics are under sarvalabsdeveloper@gmail.com |
+| MOI Website | Cloudflare Pages. Settled: Tag Manager, Analytics and Search Console are under sarvalabsdeveloper@gmail.com; the chatbot keys and the calendar database are no longer used |
 | Dataroom | Anthropic and OpenAI keys |
 | Points Program | Google OAuth client, X developer app (paid), Discord app and bot, Telegram bot and group, Reown project, Resend account. Their secrets are in GitHub; who holds each account is not recorded |
 | Agent Explorer | Server devnet wallet, Reown project, Pinata account, the GitHub token used for images |
