@@ -10,16 +10,16 @@ Each one follows the same shape: status, owners, settings, the process step by s
 |---|---|
 | `docs/COMMUNITY-CALL.md` | The monthly call. Who owns what, the nine-day timeline, the announcement schedule, where the decks and recordings live. |
 | `docs/DEV-WEBINARS.md` | The Builders sessions. From the planning meeting with Rahul to the post-session blog, posting through Buffer, the session bounty, how a session folder is laid out. |
-| `docs/BLOG.md` | How the blog is built and deployed, the writing process, the monthly newsletter, images, editing a published post, the search rules. |
-| `docs/MOI-WEBSITE.md` | The website repo and the blog it carries: settings, deploys, publishing a post, the parked chatbot and calendar. |
+| `docs/BLOG.md` (draft) | How the blog is built and deployed, the writing process, the monthly newsletter, images, editing a published post, the search rules. |
+| `docs/MOI-WEBSITE.md` (draft) | The website repo and the blog it carries: settings, deploys, publishing a post, the parked chatbot and calendar. |
 | `docs/DATAROOM.md` | The investor document room: the admin page, adding and replacing documents, how the home page picks its tiles, Supabase, and the steps to switch the chat and the Events page back on. |
 | `docs/AGENT-LAUNCHPAD.md` | The Agent Launchpad: stack, settings, shipping, what to redo after a devnet reset, and how to present it with the intro session deck. |
-| `docs/MCP-SERVER.md` | The MOI MCP server: how a chat assistant reads and writes MOI through it, the two repos, deploys, health, troubleshooting, the open publishing questions. |
-| `docs/POINTS-PROGRAM.md` | The Points Program: tasks, X campaigns, webinar bounties, deploys, settings, the database rules. |
+| `docs/MCP-SERVER.md` (draft) | The MOI MCP server: how a chat assistant reads and writes MOI through it, the two repos, deploys, health, troubleshooting, the open publishing questions. |
+| `docs/POINTS-PROGRAM.md` (draft) | The Points Program: tasks, X campaigns, webinar bounties, deploys, settings, the database rules. |
 | `docs/ENV-VARS.md` | Every environment variable across the products in one index, with where each value comes from, the consoles, and who holds each login. |
 | `docs/LIST-OF-DEPENDENCIES.md` | Every dependency by name, with its owner, its settings and its to-dos, in Adithya's own words. |
 | `docs/MIGRATION-LIST.md` | What still moves to a company login, with the transfer steps, and what has already moved. |
-| `docs/VIDEOS.md` | The recorded walkthroughs, one per product, with the links. |
+| `docs/VIDEOS.md` (draft) | The recorded walkthroughs, one per product, with the links. |
 | `docs/webinars/` | Past session material worth reusing: the session 7 storyline and the intro deck. |
 | `docs/standards/` | The x402 standards submission package. |
 
