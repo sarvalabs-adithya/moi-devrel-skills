@@ -16,7 +16,7 @@ Rules that hold everywhere:
 | Service | What it gives | Where | Who holds the login (October 2026) |
 |---|---|---|---|
 | GitHub Actions secrets and variables | Every production value | Each repo, Settings, Secrets and variables, Actions | The repo admins. Org-level secrets: the org admins (Rahul, Upendhar) |
-| Supabase | Database URLs and keys | supabase.com, the organisation, the project, Settings, API (or Connect for the Postgres URL) | Launchpad and Dataroom: the company organisation (moved 9 October). Points: the Points email account. Website chatbot and calendar: confirm which project |
+| Supabase | Database URLs and keys | supabase.com, the organisation, the project, Settings, API (or Connect for the Postgres URL) | Launchpad and Dataroom: the company organisation (moved 9 October). Points: the Points email account. The website's calendar project is not recorded and no longer used; the website chatbot's documents lived in the Dataroom's project |
 | Google Cloud console | The Points Google OAuth client | console.cloud.google.com, APIs and Services, Credentials | Confirm who |
 | X developer portal | The Points X app (paid API) | developer.x.com | Confirm who |
 | Discord developer portal | The Points Discord app and bot | discord.com/developers | Confirm who |
