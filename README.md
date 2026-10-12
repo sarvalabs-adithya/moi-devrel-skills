@@ -55,6 +55,7 @@ Ten skills. Each is a folder under `skills/moi/` with a `SKILL.md`; a branch is 
 Skills load from `~/.claude/skills/`. Link each folder and set `SKILLS`, which every skill expects:
 
 ```bash
+git clone https://github.com/sarvalabs/moi-devrel-skills.git ~/moi-devrel-skills
 for s in ~/moi-devrel-skills/skills/moi/*/; do ln -s "$s" ~/.claude/skills/"$(basename "$s")"; done
 export SKILLS=~/moi-devrel-skills/skills/moi
 ```
