@@ -2,7 +2,7 @@
 
 **Status: active.** Nine sessions so far; the next one is not scheduled.
 
-The MOI Builders sessions: a live session where we build one project on MOI in front of developers. I own the session end to end. Vardan provides the Google Meet link.
+The MOI Builders sessions: a live session where we build one project on MOI in front of developers. DevRel owns the session end to end. Vardan provides the Google Meet link.
 
 ## Variables
 
@@ -89,7 +89,7 @@ The **moi-webinar** skill covers the session: lesson planning, the Luma text, th
 | 1 day before | "Run the session check." | Checks the project's setup and that devnet is reachable. |
 | After the session | "Draft the post session blog." | Writes the post from the session's code and notes, ready for the website. |
 
-What the skills never do without my yes: schedule or post anything, publish the blog, or push code (the webinars repo is public).
+What the skills never do without a yes from DevRel: schedule or post anything, publish the blog, or push code (the webinars repo is public).
 
 ## Open items
 
