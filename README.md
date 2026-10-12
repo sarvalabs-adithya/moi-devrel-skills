@@ -10,7 +10,7 @@ Each one follows the same shape: status, owners, settings, the process step by s
 |---|---|
 | `project-handover-docs/COMMUNITY-CALL.md` | The monthly call. Who owns what, the nine-day timeline, the announcement schedule, where the decks and recordings live. |
 | `project-handover-docs/DEV-WEBINARS.md` | The Builders sessions. From the planning meeting with Rahul to the post-session blog, posting through Buffer, the session bounty, how a session folder is laid out. |
-| `project-handover-docs/BLOG.md` (draft) | How the blog is built and deployed, the writing process, the monthly newsletter, images, editing a published post, the search rules. |
+| `project-handover-docs/BLOG.md` | How the blog is built and deployed, the writing process, the monthly newsletter, images, editing a published post, the search rules. |
 | `project-handover-docs/MOI-WEBSITE.md` | The website repo and the blog it carries: settings, deploys, publishing a post, the parked chatbot and calendar. |
 | `project-handover-docs/DATAROOM.md` | The investor document room: the admin page, adding and replacing documents, how the home page picks its tiles, Supabase, and the steps to switch the chat and the Events page back on. |
 | `project-handover-docs/AGENT-LAUNCHPAD.md` | The Agent Launchpad: stack, settings, shipping, what to redo after a devnet reset, and how to present it with the intro session deck. |
