@@ -11,7 +11,7 @@ moi.technology and the blog at blog.moi.technology. One repo, one deploy. The si
 | Codebase | DevRel | https://github.com/sarvalabs/MOI-Website, public. Merging to main deploys. I push branches to it, no fork |
 | Server, nginx, TLS, DNS, the deploy script | DevOps (Srikar) | The deploy script lives on the server, not in the repo |
 | Blog posts | DevRel | Markdown files under blog/src/content/posts |
-| Community calls on the homepage | DevRel, dates from Vardan | A block that links to the MOI calendar on Luma. The next call's date comes from content/next-call.json in the repo; a one-line change per month |
+| Community calls on the homepage | DevRel, dates from Vardan | A block that links to the MOI calendar on Luma. The link in the code is a placeholder (LUMA_URL_PLACEHOLDER in src/components/CommunityCalls.jsx) until the real calendar address goes in. The next call's date, title and link come from content/next-call.json; only the date is required, a past date hides the line |
 | Papers | DevRel | PDFs the site serves under /papers |
 | Analytics | The sarvalabsdeveloper@gmail.com account | Tag Manager and Analytics. The container id is written in the code. Search Console: confirm |
 | Supabase project | DevRel. Transferred to the sarvalabsdeveloper@gmail.com account on 12 October 2026; Gokul notified | Held the calendar's events and the chatbot's documents. Nothing on the site reads it any more; keep or delete |
@@ -49,7 +49,7 @@ The example file is .env.example in the repo.
 - Work on a branch and push it to the repo.
 - Run lint and both builds myself: the site and the blog. A pull request builds both for its preview links, but nothing runs lint.
 - Open a pull request. It gets a preview link for the site and one for the blog.
-- Merging to main deploys: GitHub Actions reaches the server and runs its script, which builds and serves the files.
+- Merging to main deploys: GitHub Actions reaches the server and runs its script, which builds and serves the files. The workflow passes nothing but the branch name any more.
 - Open the live page afterwards. A green run proves little.
 - There is no rollback. Revert in a new pull request.
 - A new page also needs a line in the sitemap file in the repo.
@@ -71,7 +71,7 @@ The example file is .env.example in the repo.
 
 **Updating the next community call on the homepage**
 
-- Edit content/next-call.json: the date, the title and the Luma link. Open a pull request, merge. If the date has passed or the file is empty, the block shows only the Luma button.
+- Edit content/next-call.json: `{ "date": "2026-11-18", "title": "Community call 16", "url": "https://lu.ma/..." }`. Only the date is required. Open a pull request, merge. If the date has passed or the file is empty, the block shows only the Luma button.
 
 **Changing a setting or a secret**
 

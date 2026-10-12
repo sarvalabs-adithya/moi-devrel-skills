@@ -8,24 +8,26 @@ Each one follows the same shape: status, owners, settings, the process step by s
 
 | Doc | What it holds |
 |---|---|
-| `docs/COMMUNITY-CALL.md` | The monthly call. Who owns what, the nine-day timeline, the announcement schedule, where the decks and recordings live. |
-| `docs/DEV-WEBINARS.md` | The Builders sessions. From the planning meeting with Rahul to the post-session blog, posting through Buffer, the session bounty, how a session folder is laid out. |
-| `docs/BLOG.md` (draft) | How the blog is built and deployed, the writing process, the monthly newsletter, images, editing a published post, the search rules. |
-| `docs/MOI-WEBSITE.md` | The website repo and the blog it carries: settings, deploys, publishing a post, the parked chatbot and calendar. |
-| `docs/DATAROOM.md` | The investor document room: the admin page, adding and replacing documents, how the home page picks its tiles, Supabase, and the steps to switch the chat and the Events page back on. |
-| `docs/AGENT-LAUNCHPAD.md` | The Agent Launchpad: stack, settings, shipping, what to redo after a devnet reset, and how to present it with the intro session deck. |
-| `docs/MCP-SERVER.md` (draft) | The MOI MCP server: how a chat assistant reads and writes MOI through it, the two repos, deploys, health, troubleshooting, the open publishing questions. |
-| `docs/POINTS-PROGRAM.md` (draft) | The Points Program: tasks, X campaigns, webinar bounties, deploys, settings, the database rules. |
-| `docs/ENV-VARS.md` | Every environment variable across the products in one index, with where each value comes from, the consoles, and who holds each login. |
-| `docs/LIST-OF-DEPENDENCIES.md` | Every dependency by name, with its owner, its settings and its to-dos, in Adithya's own words. |
-| `docs/MIGRATION-LIST.md` | What still moves to a company login, with the transfer steps, and what has already moved. |
-| `docs/VIDEOS.md` (draft) | The recorded walkthroughs, one per product, with the links. |
-| `docs/webinars/` | Past session material worth reusing: the session 7 storyline and the intro deck. |
-| `docs/standards/` | The x402 standards submission package. |
+| `project-handover-docs/COMMUNITY-CALL.md` | The monthly call. Who owns what, the nine-day timeline, the announcement schedule, where the decks and recordings live. |
+| `project-handover-docs/DEV-WEBINARS.md` | The Builders sessions. From the planning meeting with Rahul to the post-session blog, posting through Buffer, the session bounty, how a session folder is laid out. |
+| `project-handover-docs/BLOG.md` (draft) | How the blog is built and deployed, the writing process, the monthly newsletter, images, editing a published post, the search rules. |
+| `project-handover-docs/MOI-WEBSITE.md` | The website repo and the blog it carries: settings, deploys, publishing a post, the parked chatbot and calendar. |
+| `project-handover-docs/DATAROOM.md` | The investor document room: the admin page, adding and replacing documents, how the home page picks its tiles, Supabase, and the steps to switch the chat and the Events page back on. |
+| `project-handover-docs/AGENT-LAUNCHPAD.md` | The Agent Launchpad: stack, settings, shipping, what to redo after a devnet reset, and how to present it with the intro session deck. |
+| `project-handover-docs/MCP-SERVER.md` (draft) | The MOI MCP server: how a chat assistant reads and writes MOI through it, the two repos, deploys, health, troubleshooting, the open publishing questions. |
+| `project-handover-docs/POINTS-PROGRAM.md` (draft) | The Points Program: tasks, X campaigns, webinar bounties, deploys, settings, the database rules. |
+| `project-handover-docs/ENV-VARS.md` | Every environment variable across the products in one index, with where each value comes from, the consoles, and who holds each login. |
+| `project-handover-docs/LIST-OF-DEPENDENCIES.md` | Every dependency by name, with its owner, its settings and its to-dos, in Adithya's own words. |
+| `project-handover-docs/MIGRATION-LIST.md` | What still moves to a company login, with the transfer steps, and what has already moved. |
+| `project-handover-docs/VIDEOS.md` (draft) | The recorded walkthroughs, one per product, with the links. |
+| `others/webinars/` | Past session material worth reusing: the session 7 storyline and the intro deck. |
+| `others/standards/` | The x402 standards submission package. |
 
 ## The skills
 
-Ten skills. Each is a folder under `skills/` with a `SKILL.md`; a branch is a sub-folder with a `GUIDE.md`. Say what you need in plain words and Claude loads the right one.
+The folder `skills/` holds the ten MOI skills under `skills/moi/`, the generic repo-handover skill under `skills/extra/`, and the two notes that describe the library.
+
+Ten skills. Each is a folder under `skills/moi/` with a `SKILL.md`; a branch is a sub-folder with a `GUIDE.md`. Say what you need in plain words and Claude loads the right one.
 
 | Skill | What it does | Branches |
 |---|---|---|
@@ -42,19 +44,19 @@ Ten skills. Each is a folder under `skills/` with a `SKILL.md`; a branch is a su
 
 ## Also here
 
-- `ARCHITECTURE.md`: how the library is shaped and how it was checked.
-- `SKILL-STANDARD.md`: the bar every skill meets. Read it before changing one.
-- `_research/`: the notes the skills were built from. Provenance, not for installing.
-- `legacy-skills/`: the old blog, deck and design skills. Superseded, kept for reference.
-- `extra-skills/repo-handover/`: a generic skill for turning any repo into a handover skill like these.
+- `skills/ARCHITECTURE.md`: how the library is shaped and how it was checked.
+- `skills/SKILL-STANDARD.md`: the bar every skill meets. Read it before changing one.
+- `others/research/`: the notes the skills were built from. Provenance, not for installing.
+- `others/legacy-skills/`: the old blog, deck and design skills. Superseded, kept for reference.
+- `skills/extra/repo-handover/`: a generic skill for turning any repo into a handover skill like these.
 
 ## Install
 
 Skills load from `~/.claude/skills/`. Link each folder and set `SKILLS`, which every skill expects:
 
 ```bash
-for s in ~/moi-devrel-skills/skills/*/; do ln -s "$s" ~/.claude/skills/"$(basename "$s")"; done
-export SKILLS=~/moi-devrel-skills/skills
+for s in ~/moi-devrel-skills/skills/moi/*/; do ln -s "$s" ~/.claude/skills/"$(basename "$s")"; done
+export SKILLS=~/moi-devrel-skills/skills/moi
 ```
 
 If older skills with the same names are already there (`moi-blog`, `moi-deck`, `moi-design`), move them aside first, or they will load beside the new ones and contradict them.

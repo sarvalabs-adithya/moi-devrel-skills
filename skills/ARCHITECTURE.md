@@ -1,6 +1,6 @@
 # MOI DevRel skills: design
 
-A library of Claude skills that lets a new developer-relations hire at MOI do the whole job. Built from an investigation of how the work was actually done: ten research notes in `_research/`, covering 111 processes.
+A library of Claude skills that lets a new developer-relations hire at MOI do the whole job. Built from an investigation of how the work was actually done: ten research notes in `others/research/`, covering 111 processes.
 
 This is the private repo `sarvalabs-adithya/moi-devrel-skills`. `skills/` is the part people install; everything else is documentation, provenance or kept for reference.
 
@@ -77,7 +77,7 @@ Then the gaps are fixed. See `SKILL-STANDARD.md` for the bar.
 
 ## How the library was checked
 
-1. Every skill: a hostile reviewer tried to refute each statement against `_research/` and the source repos, ran every script on good and bad input, and fixed what it found.
+1. Every skill: a hostile reviewer tried to refute each statement against `others/research/` and the source repos, ran every script on good and bad input, and fixed what it found.
 2. The whole library: a consistency critic read all the skills against each other, two simulated new hires ran real tasks using only `skills/`, and a routing test put 30 plain requests against the descriptions.
 3. Findings were applied or rejected with a written reason, then every script was run again.
 

@@ -62,7 +62,7 @@ skills/<skill>/<branch>/
 
 ## Rules for content
 
-- **Evidence or nothing.** Every factual statement must be supported by the research notes in `_research/`, by `DEPENDENCIES.md`, or by a file you read yourself. If the evidence is silent, do not guess. Write an `ASK:` line naming who would know.
+- **Evidence or nothing.** Every factual statement must be supported by the research notes in `others/research/`, by `DEPENDENCIES.md`, or by a file you read yourself. If the evidence is silent, do not guess. Write an `ASK:` line naming who would know.
 - **Date volatile facts.** Anything that changes (versions, ids, URLs that are up, who owns what, open pull requests) carries "as of 2026-10-02".
 - **No secrets.** Never a key, token, password or seed phrase. Names of variables and where they are stored are fine.
 - **No paths from one person's Mac.** Nothing under `/Users/`. Refer to a GitHub repo and a path inside it (`sarvalabs/MOI-Website`, `blog/src/content/posts/`). Anything a skill needs at run time is copied into the skill's own `templates/`, `examples/` or `scripts/`.
