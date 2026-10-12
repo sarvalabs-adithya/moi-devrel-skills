@@ -94,4 +94,4 @@ What the skills never do without a yes from DevRel: schedule or post anything, p
 ## Open items
 
 - Finalize the existing bounty list and the bounty system on the Points Program.
-- Make the session bounty extensible: whoever runs a webinar creates its bounty on the Points site themselves, without a code change. Built, in sarvalabs/moi-project PR #22 (open since 8 October) and the rule-engine branch on top of it. Once that ships, add the bounty flow to the moi-webinar skill: create, test, open, review, close.
+- Make the session bounty extensible: whoever runs a webinar creates its bounty on the Points site themselves, without a code change. Built as a small form the host designs (interaction hash, number or text fields) and grades by hand, in sarvalabs/moi-project PR #22 (open since 8 October; the form version is on the local branch feature/bounty-form until it is pushed). Once that ships, add the bounty flow to the moi-webinar skill: create, open, grade, close.
