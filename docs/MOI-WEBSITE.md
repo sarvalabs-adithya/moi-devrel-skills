@@ -1,50 +1,55 @@
 # MOI Website
 
-**Status: active.** The site and the blog are live. Inactive: the chatbot (hidden since June 2026) and the community calendar (broken, parked).
+**Status: active.** The site and the blog are live. The chatbot and the community calendar are gone: the site is static files plus the blog, and the calls live on Luma.
 
-moi.technology and the blog at blog.moi.technology. One repo, one deploy. The site is a React app with its marketing pages prerendered (since 5 Oct 2026), a small Express server behind /api for the chatbot and the community calendar, and the blog built with Astro from the same repo. I own the code and the content. DevOps owns the server.
+moi.technology and the blog at blog.moi.technology. One repo, one deploy. The site is a React app whose marketing pages are prerendered at build time (since 5 October 2026); the blog is built with Astro from the same repo. There is no server: the chatbot and the calendar were removed in October 2026. I own the code and the content. DevOps owns the server.
 
 ## Variables
 
 | Variable | Owner | Notes |
 |---|---|---|
-| Codebase | DevRel | sarvalabs/MOI-Website, public. Merging to main deploys. I push branches to it, no fork |
-| Server, nginx, TLS, DNS, the deploy script | DevOps | The deploy script lives on the server, not in the repo |
-| Supabase project | Confirm who | Holds the chatbot's documents and the calendar's events. It may be the Dataroom's project |
+| Codebase | DevRel | https://github.com/sarvalabs/MOI-Website, public. Merging to main deploys. I push branches to it, no fork |
+| Server, nginx, TLS, DNS, the deploy script | DevOps (Srikar) | The deploy script lives on the server, not in the repo |
 | Blog posts | DevRel | Markdown files under blog/src/content/posts |
-| Community calendar | DevRel, dates from Vardan | Inactive. Edited at /admin/calendar; broken in production and parked for now |
-| Chatbot | DevRel | Inactive. Hidden on the live site since June 2026, no plans for now |
+| Community calls on the homepage | DevRel, dates from Vardan | A block that links to the MOI calendar on Luma. The next call's date comes from content/next-call.json in the repo; a one-line change per month |
 | Papers | DevRel | PDFs the site serves under /papers |
-| Analytics | The sarvalabsdeveloper@gmail.com account | Tag Manager and Analytics. Search Console: confirm |
+| Analytics | The sarvalabsdeveloper@gmail.com account | Tag Manager and Analytics. The container id is written in the code. Search Console: confirm |
+| Supabase project | DevRel. Transferred to the sarvalabsdeveloper@gmail.com account on 12 October 2026; Gokul notified | Held the calendar's events and the chatbot's documents. Nothing on the site reads it any more; keep or delete |
 
-The full list of settings and secrets, by name, is in the dependencies doc and in `.env.example` in the repo.
+## Stack
+
+| Piece | What it is |
+|---|---|
+| React 19 + Vite 7 + Tailwind 4 | The site. Four marketing routes, prerendered by scripts/ssg.mjs at build |
+| Astro 5 | The blog, in blog/, with its own package.json |
+| scripts/build-blog-index.js | Writes the site's /blog listing from the posts and copies the covers |
+| GitHub Actions + Teleport | A merge to main runs the deploy script on the VM, which builds both and serves the files. Pull requests get a preview of each |
+| Distribute and social-prepare workflows | Announce a post: draft copy as a PR, then Buffer drafts |
+| Tag Manager | Measurement, with the container id in the code |
 
 ## Env vars
 
 The index across every product, with the consoles and who holds each login, is ENV-VARS.md.
-Where they live: production values are GitHub Actions secrets and variables on sarvalabs/MOI-Website (secrets cannot be read back; the readable copy is the env file the deploy script writes on the server, through DevOps). Locally, a .env at the repo root copied from .env.example, used only by the Express server and the ingest script: both sites build with none. Values starting VITE_ are baked in at build, so they need a rebuild. Only the names listed in the deploy workflow reach the server; a new one needs a line there.
+
+Where they live: GitHub Actions secrets and variables on sarvalabs/MOI-Website. Both sites build with none. What is left serves the deploy and the announcement workflow.
 
 | Variable | What it is | Where the value comes from |
 |---|---|---|
-| SUPABASE_URL, SUPABASE_KEY | The chatbot's documents and the calendar's events | Supabase dashboard, the project (which one: confirm), Settings, API |
-| ANTHROPIC_API_KEY, OPENAI_API_KEY | The chatbot (inactive) | The two consoles, API keys |
-| VITE_CHATBOT_API | The address the browser calls for the API. The live value is the dev host, which is why the calendar fails. Empty sends the chatbot to localhost | https://moi.technology |
-| ADMIN_API_KEY | The calendar admin routes. The deploy does not pass it, and when it is unset the routes accept a built-in default written in the source (the repo is public). Pass it and remove the fallback | Generate with: openssl rand -hex 32 |
-| ALLOWED_ORIGINS, PORT | The Express server. Not passed by the deploy, so set on the server by DevOps (confirm) | Values in .env.example |
-| BUFFER_ACCESS_TOKEN, BUFFER_CHANNEL_X, BUFFER_CHANNEL_LINKEDIN, DISCORD_WEBHOOK_URL, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID | The "Distribute a post" workflow, one per channel. A missing one skips its channel | Buffer (Chandra), Discord server settings, BotFather |
+| BLOG_ORIGIN | Where the site's blog listing links to. Optional; defaults to https://blog.moi.technology | |
+| BUFFER_ACCESS_TOKEN, BUFFER_CHANNEL_X, BUFFER_CHANNEL_LINKEDIN, DISCORD_WEBHOOK_URL, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID | The "Distribute a post" workflow, one per channel. A missing one skips its channel. Only the three Buffer names are set today, so Discord and Telegram are skipped | Buffer (Chandra), Discord server settings, BotFather |
 | TELEPORT_PROXY, TELEPORT_JOIN_TOKEN, TELEPORT_NODE, VM_USERNAME, PREVIEW_VM_HOST, PREVIEW_VM_USER | Deploy and preview access | DevOps |
-| VITE_GA_ID, PUBLIC_GA_ID, DATA_ROOM_CHAT_URL, DATA_ROOM_API_KEY | Passed or listed, but read by nothing in production (Tag Manager measures instead; the Dataroom pair served the old host only) | Leave as they are |
+| SUPABASE_URL, SUPABASE_KEY, ADMIN_API_KEY, VITE_CHATBOT_API, ANTHROPIC_API_KEY, OPENAI_API_KEY, DATA_ROOM_CHAT_URL, VITE_GA_ID, PUBLIC_GA_ID | Dead once the removal merges: nothing reads them | Delete them from the repo's secrets |
 
-The example file with comments is .env.example in the repo.
+The example file is .env.example in the repo.
 
 ## Process
 
 **Shipping a change**
 
 - Work on a branch and push it to the repo.
-- Run lint and both builds myself: the site and the blog. No pull request runs them.
+- Run lint and both builds myself: the site and the blog. A pull request builds both for its preview links, but nothing runs lint.
 - Open a pull request. It gets a preview link for the site and one for the blog.
-- Merging to main deploys: GitHub Actions reaches the server and runs its script, which builds and restarts.
+- Merging to main deploys: GitHub Actions reaches the server and runs its script, which builds and serves the files.
 - Open the live page afterwards. A green run proves little.
 - There is no rollback. Revert in a new pull request.
 - A new page also needs a line in the sitemap file in the repo.
@@ -53,37 +58,35 @@ The example file with comments is .env.example in the repo.
 
 - Write the post as a markdown file in the blog folder, from the post template.
 - Check every claim against the source.
-- Run the blog build. Only it checks the post's header fields.
+- Run the blog build: `cd blog && npm install && npm run build`. It is the only check of the post's header fields (title, summary and date are required; a misspelt optional field is silently ignored). A failing build names the file and the field.
 - Open a pull request, read the preview, get Rahul's review.
 - Merge. The post is live a few minutes later. Merging announces nothing.
 
 **Announcing a post**
 
 - After the merge, a workflow opens a pull request with draft social copy. Rewrite it by hand and merge it.
-- Run the Distribute workflow as a dry run, then once for real. It makes Buffer drafts for X and LinkedIn.
-- Publish the drafts in Buffer by hand.
-- The newsletter is a Mailchimp RSS campaign: on the 15th of every month it emails the posts that are new.
+- Run the Distribute workflow: GitHub, Actions, "Distribute", Run workflow. It asks for the slug: the post's file name without .md, for example moi-september-2026-release, which is also the end of the post's address. Dry run is on by default: the run prints what it would send and sends nothing. Read that output.
+- To send for real, run it again with dry run set to false and the slug typed a second time in the confirm box; the workflow refuses to send if the two do not match. It then creates drafts in Buffer for X and LinkedIn from the post's social copy file. Drafts, not posts. Discord and Telegram would post straight away, but their secrets are not set, so those channels are skipped.
+- Open Buffer and publish the two drafts by hand, at the time you want.
 
-**Adding a community call to the calendar**
+**Updating the next community call on the homepage**
 
-- Sign in to /admin/calendar with the admin key and add the date, time and link.
-- Today this fails: the calendar API returns an error and the live site calls the wrong host, so the homepage shows dates written in the code.
+- Edit content/next-call.json: the date, the title and the Luma link. Open a pull request, merge. If the date has passed or the file is empty, the block shows only the Luma button.
 
 **Changing a setting or a secret**
 
-- Set it in GitHub, under the repo's Actions secrets and variables.
-- Redeploy. Values that start with VITE_ are baked in at build, so they need a rebuild.
+- Set it in GitHub, under the repo's Actions secrets and variables, then redeploy.
 - A new secret also needs a line in the deploy workflow, or it never reaches the server.
 
 **Checking it is healthy**
 
 - Open moi.technology, blog.moi.technology and one post.
-- Check the homepage calendar shows real dates, not the fallback.
 - Check robots.txt, llms.txt and the sitemap answer.
+- Check the homepage's community calls block links to Luma.
 
 ## Claude skill
 
-The **moi-web-products-ops** skill covers running the site: shipping, the calendar, the chatbot, settings and health. The **moi-blog** skill covers posts: writing, publishing, announcing and the newsletter. The search and AI-visibility layer of the site is in **moi-docs** (its geo part).
+The **moi-web-products-ops** skill covers running the site: shipping, settings and health. Its calendar and chatbot runbooks describe what was removed in October 2026 and are kept only for the history. The **moi-blog** skill covers posts: writing, publishing, announcing and the newsletter. The search and AI-visibility layer of the site is in **moi-docs** (its geo part).
 
 | When | What to tell Claude | What the skill does |
 |---|---|---|
@@ -91,16 +94,7 @@ The **moi-web-products-ops** skill covers running the site: shipping, the calend
 | Shipping | "Ship this website change." | Walks the branch, the local checks and the pull request, and says what merging will deploy. |
 | A post | "Write a blog post on ..." | Drafts it in the house style, checks every claim, and prepares the pull request. |
 | Announcing | "Announce the post." | Rewrites the social copy and walks the Distribute run. I publish the drafts. |
-| The calendar | "Add the October call to the calendar." | Gives the steps, and says plainly that the calendar is broken today and what fixes it. |
+| The next call | "Update the next community call on the homepage." | Edits content/next-call.json and opens the pull request for me to merge. |
 | A setting | "I need to change this website setting: ..." | Says where it is set and whether it needs a rebuild. It never sees the secret's value. |
-| The chatbot | "What do I do about the chatbot?" | Lays out the two choices, bring it back or remove it, and the steps for each. |
 
 What the skills never do without my yes: push, merge (a merge deploys), run a workflow, post, send or change a secret.
-
-## Open items
-
-- The old copy at moi-website.vercel.app still serves. A delete on 9 October did not take, so the Vercel project sits in a team not yet found. Find it and delete it.
-- Ask DevOps for the nginx changes: a real 404 for unknown pages, the discovery header, a download header for the papers.
-- Ask Upendhar to close his PR #8 (Cloudflare preview test from August).
-- Later: push the corrected README and deploy and content guides. The ones in the repo still describe the old setup.
-- Move the Supabase project and the API keys to company logins.

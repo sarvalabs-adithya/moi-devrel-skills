@@ -171,6 +171,7 @@ Once a month, one email goes to every subscriber with all the posts published si
 - Every build of the blog generates the email feed from the post files. Each post is one item in the feed: its title, its summary (not the full body), its publish date, and its link.
 - The link in the email feed carries tags (source newsletter, medium email, campaign the post's slug), so when a reader clicks through, Analytics files the visit as newsletter traffic, separate from X, LinkedIn and search.
 - The normal feed, /rss.xml, has the same posts with plain links and is what feed readers use. The two are separate on purpose, so feed-reader clicks are not counted as email.
+- The Subscribe box on the blog posts straight to Mailchimp's list endpoint, so the Mailchimp account is what lets people subscribe at all, not only what sends the monthly email.
 - There is no newsletter code and no Mailchimp key anywhere in the repo. The feed is the whole interface.
 
 **What happens on the 15th**

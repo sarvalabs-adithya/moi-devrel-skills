@@ -69,3 +69,16 @@ Reference: the intro session deck in intro-session/deck (press P for the script)
 9. Health: the site, an upload that indexes, the Supabase advisors.
 10. Logins: GitHub, Supabase (company), the VM (DevOps only), the admin secret (in the password manager).
 
+## MOI Website (target 10 minutes)
+
+1. What it is: moi.technology and blog.moi.technology, one repo, one deploy. Show the Variables table and what is inactive.
+2. The repo: src (the React site and its prerendered routes), server (the Express app behind /api), blog (Astro), scripts, the four workflows.
+3. Shipping: branch, lint, both builds, the PR with its two preview links, merge, the Actions run reaching the server. Open the live page afterwards.
+4. Publishing a post: the markdown file, the header fields, the preview, Rahul's review, merge. Point at the Blog video for the writing process.
+5. Announcing: the social copy PR the workflow opens, the Distribute dry run, the Buffer drafts.
+6. The calendar: /admin/calendar with the admin key, and why the homepage shows the fallback dates today.
+7. Settings: the Actions secrets by name, the VITE_ rule, a new secret needs a line in the workflow.
+8. The chatbot: off on the server, the four steps to bring it back.
+9. Health: the three pages, /api/health, robots and llms and the sitemap.
+10. Logins: GitHub, Supabase (confirm which project), the Analytics account, DevOps for the server.
+

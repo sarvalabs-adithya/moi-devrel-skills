@@ -1,6 +1,6 @@
 # What to migrate off my accounts
 
-As of 6 October 2026. Names only, no values.
+As of 11 October 2026. Names only, no values.
 
 ## Under my own accounts today: move to DevOps or a company login
 
@@ -8,10 +8,10 @@ As of 6 October 2026. Names only, no values.
 |---|---|---|---|
 | Agent Launchpad | Supabase project (all app state) | Done: transferred to the company Supabase organisation on 8 October | Check the plan has backups on |
 | Agent Launchpad | Telegram bot @moinetworkbot and the alert chat | My Telegram, via BotFather | Company Telegram account |
-| Agent dating plugin | The repo | sarvalabs-adithya/agent-dating | sarvalabs org |
-| Agent dating plugin | The relay VPS | Mine, being cancelled | Nothing to migrate. Remove the code that points at it (the relay address in install.sh and src/network.ts, the deploy workflow and its secrets) and leave the relay unconfigured. The project is inactive |
-| Moinkee NFT Minter | The repo | sarvalabs-adithya/moinkee-nft-minter | sarvalabs org |
-| Moinkee NFT Minter | Minting wallet and the collection asset | My devnet wallet, seed in the Vercel env | Company wallet, or take the site down |
+| Agent dating plugin | The repo | sarvalabs-adithya/agent-dating | sarvalabs org, after PR #1 is merged: one transfer call, an org owner may have to accept |
+| Agent dating plugin | The relay VPS | Mine, being cancelled | Done in sarvalabs-adithya/agent-dating PR #1 (11 October): no baked-in relay address, the installer asks for DATING_RELAY_URL, the deploy workflow and VPS scripts removed, the three VPS secrets deleted, a "Pick it up" guide in the README. Merge the PR |
+| Moinkee NFT Minter | The repo | sarvalabs-adithya/moinkee-nft-minter | sarvalabs org, after PR #1 (the handover: README, env template, the April recovery routes behind a secret) is merged |
+| Moinkee NFT Minter | Minting wallet and the collection asset | My devnet wallet, seed in the Vercel env | Nothing to move: the next owner makes a new devnet wallet and a new collection (README, Pick it up). What does move: the Vercel project (four variables) and the Pinata account, or its pins re-pinned under a company account; the CIDs stay the same |
 | Contextual Compute website | The repo | sarvalabs-adithya/contextual-compute-foundation-website | sarvalabs org |
 | Dataroom | Supabase project and bucket | Done: transferred to the company Supabase organisation on 8 October | Same |
 | MOI Website | Old copy at moi-website.vercel.app | A Vercel project, team not yet found (a delete on 9 October did not take; the site still serves) | Find the team that holds it and delete the project |
@@ -44,7 +44,7 @@ The Points Program has its own bot and group; who owns them is not recorded.
 
 ## Secrets
 
-The secrets themselves sit in each repo's GitHub Actions settings, not with me. What is missing is a note of where to get each one again if it is lost (which dashboard, which account). The names are already listed per product in the skills library (moi-devrel, keys-by-product); the "where to find it" part is still to write.
+The secrets themselves sit in each repo's GitHub Actions settings, not with me. Where to get each one again if it is lost (which dashboard, which account) is written: ENV-VARS.md, one section per product, with the consoles and who holds each login.
 
 Not to migrate: the Points Program's Supabase project (it is on the Points email account, not mine; it is still on the free plan with no backups, so a paid plan is worth doing when someone takes it over), the AgentMarket contract (the current one is not in use; whoever redeploys it does so from their own wallet), and Groq (the shared relay that needed it is gone).
 
