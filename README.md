@@ -20,7 +20,6 @@ Each one follows the same shape: status, owners, settings, the process step by s
 | `docs/LIST-OF-DEPENDENCIES.md` | Every dependency by name, with its owner, its settings and its to-dos, in Adithya's own words. |
 | `docs/MIGRATION-LIST.md` | What still moves to a company login, with the transfer steps, and what has already moved. |
 | `docs/VIDEOS.md` | The recorded walkthroughs, one per product, with the links. |
-| `docs/HANDOVER.md` | The Launchpad's long-form handover from September. |
 | `docs/webinars/` | Past session material worth reusing: the session 7 storyline and the intro deck. |
 | `docs/standards/` | The x402 standards submission package. |
 

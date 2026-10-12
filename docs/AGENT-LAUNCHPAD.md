@@ -61,6 +61,18 @@ Where they live: production values are GitHub Actions secrets and variables on s
 
 The example file with comments is .env.example in the repo.
 
+**What to hand over in person**
+
+- Readable only from the VM env file, through DevOps: the Supabase service-role key, AGENT_KEY_ENCRYPTION_SECRET, MOI_PLATFORM_MNEMONIC, TELEGRAM_BOT_TOKEN, GROQ_API_KEY.
+- Safe to rotate instead of copying: SESSION_SECRET, CRON_SECRET, TELEGRAM_WEBHOOK_SECRET.
+- Request from DevOps rather than copy: the three registration mnemonics, the Teleport and GHCR credentials, the VM host.
+
+**Read first, in the repo**
+
+- docs/HANDOFF.md, the operator guide, especially its secrets checklist and hosting economics.
+- docs/E2E-TESTING.md before any launch.
+- supabase/migrations applies in order.
+
 ## Process
 
 **Shipping a change**
@@ -170,5 +182,6 @@ What the skill never does without my yes: push, merge (a merge deploys), change 
 - Transfer the Telegram bot to DevOps or a company Telegram account (steps in the migration list). The Supabase project was transferred on 8 October.
 - The live stats page says the registry is not answering (the registry id is stale since the September reset). Registration may fail for new users. Get the current id from the Protocol team and run the reset steps.
 - Push the README and handover doc fixes. The ones in the repo still describe Vercel.
+- Still unpushed from the fork: the labs folder (app/labs and its API routes) and the one-off chain scripts for clearing stuck nonces, counting installed agents and finding a blocked nonce. Whoever takes over decides what ships and what was scratch.
 - Paid agents cannot be switched on through the pipeline: NEXT_PUBLIC_PAYMENTS_ENABLED has no build argument in the Dockerfile or the build workflow. Add one before the AgentMarket contract is redeployed.
 - Two PRs are open on the org repo: #31 (points the Docs link and llms.txt away from the removed Launchpad docs; merge it) and #10 (AgentMarket deploy budget for the storage fund, blocked since August; close it or keep it with the contract).
