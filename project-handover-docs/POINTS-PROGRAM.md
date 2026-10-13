@@ -1,6 +1,6 @@
 # Points Program
 
-**Status: active.** Live at points.moi.technology with four tasks on: join X (verified), join Discord, join Telegram, create wallet. Inactive: the faucet task, the deploy-agent task, session 8's dev challenge (deployed, switched off), and the webinar bounties (PR #22, open, not merged yet).
+**Status: active.** Live at points.moi.technology with four tasks on: join X (verified), join Discord, join Telegram, create wallet. Inactive: the faucet task, the deploy-agent task, session 8's dev challenge (deployed, switched off), 
 
 MOI Community Points. Members sign in with Google, link their X, Discord and Telegram accounts and a MOI wallet, complete tasks and earn points, and see where they stand on a public leaderboard. Admins run X like campaigns and, once the bounty branch ships, webinar bounties from an admin page. Harsh Gupta wrote the first version and Upendhar the CI/CD; I run it. DevOps owns the box it runs on.
 
@@ -226,7 +226,7 @@ What the skill never does without my yes: push, merge (a merge deploys productio
 
 ## Open items
 
-- Ship the webinar bounties: PR #22 (branch feature/admin-bounties, the form version, 170 tests passing, no migration) is open against feature/ci-cd. The form rewrite is on the local branch feature/bounty-form and goes onto the PR on the word "push". Merging deploys. Then set MOI_RPC_URL as an Actions variable and redeploy (optional: it only adds the chain's note next to hash answers), add the hosts to ADMIN_EMAILS, and run one bounty end to end with a real submission before a webinar relies on it.
+- Webinar bounties shipped: PR #22 merged and deployed on 13 October (the first deploy run failed on an expired GHCR_PAT; DevOps replaced the token and the re-run went through). Left to do: add the hosts to ADMIN_EMAILS on the server, run one bounty end to end with a real submission before a webinar relies on it, and optionally set MOI_RPC_URL as an Actions variable and redeploy for the chain's note next to hash answers.
 - Put the Supabase project on a paid plan with backups. Then drop the schema backup.tasks_before_0008.
 - Decide the open PRs: #21 (emails, leaderboard avatars, wallet keys, X likes cap, no nightly audit; clean to merge, no migration), #15 (CI/CD hardening, draft, conflicts with the tip: rebuild or close), #1 (Upendhar's first CI/CD, base feat/dev-challenges: retarget or close). Close sarvalabs/Points-Program #1 if that repo is unused.
 - Nothing is known to call the social audit job, and nothing will call the maintenance job that replaces it in #21. Ask Upendhar what runs on the box and who schedules it.
