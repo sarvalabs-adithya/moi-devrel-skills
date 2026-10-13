@@ -45,13 +45,16 @@ The first six rows were removed from CC14 during 23 to 25 September 2026 with no
 | Third-party enterprise or tender stories | The Algix and MeitY slide was removed |
 | A product update | The Proofly slide was removed |
 | Per-engine up and down arrows | Removed from the engine tiles. The sentence quoting the movements stayed on slide 6 |
-| A guest slide | The guest slide was removed. The guest's title was never supplied and was left off |
+| A guest slide | The CC14 guest slide was removed before the call. The guest's title was never supplied and was left off. This does not bar guests: when one is confirmed, see "A guest" below |
 | Event outcomes and who attended, without a source | The assistant declined to name Futuremode speakers or claim outcomes. One carried-over sentence about "the people we met there" has no source |
 | Anything that mentions cancelled or internal plans | Standing rule from the 31 August 2026 corrections: public content never mentions them |
 | A claim the network does not yet show | Source-only features are not live. See `release-slide-checks.md` |
 | A release candidate described as shipped | Caught at CC13 |
 | Live counts that go stale | The intro session (a Builders session deck, on the previous operator's machine only; ASK: Adithya for a copy) removed its stats row. The reason is inferred |
 | A promise about a future call | The CC13 draft description named guests from Coinfest Asia, Bali for CC14. The CC14 deck had neither. Whether the draft was posted is unknown |
+
+## A guest
+A confirmed guest gets one slide, built from the deck branch's guest component (`moi-webinar/deck/references/guest-slide.md`): a large headshot, then name, role, company, company logo and topic. Place it where the guest speaks; at CC14 the draft put it after the updates and before the close. The inputs and file names are in `inputs-checklist.md`, "The guest slide". The worked example is slide 12 of `../examples/cc14/deck/index-guest.html`.
 
 ## Starting skeleton for the next call
 A suggestion, not a rule. Delete any row with no confirmed input.
@@ -63,6 +66,7 @@ A suggestion, not a rule. Delete any row with no confirmed input.
 | 3 | DevRel | 1 | The DevRel operator (as at CC14; confirm in the line-up) | words / 140 | |
 | 4 | Marketing: visibility, community, events | as inputs allow | ASK: Sai Kiran | ASK | |
 | 5 | What is next | 1 | ASK | 1 | |
+| 5a | Guest, if confirmed | 1 | The guest | ASK: Vardan | Host hands over |
 | 6 | Close | 1 | The host | 0.5 | |
 
 Minutes come from the script: words divided by 140 (a pace inferred from CC14, check it by reading aloud once). CC14 notes ran 1,091 words, about 8 minutes of script, and slides 2 to 4 (the previous operator's) ran 560 words, about 4 minutes. The length of the call is not on record. This table is the run-of-show the KRA document asks for. ASK: Rahul whether a separate document is still required.

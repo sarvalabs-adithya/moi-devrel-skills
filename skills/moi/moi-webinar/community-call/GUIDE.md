@@ -42,6 +42,7 @@ Budget: about two hours of deck work once inputs are in hand (the manager's cap 
 | Who presents, the date, what is unknown | `references/segments-and-roles.md` |
 | Asking each owner for their part, ledger columns and statuses | `references/inputs-checklist.md`, `templates/input-request-messages.md` |
 | Deciding what goes on slides and what stays off | `references/slide-plan.md` |
+| A guest speaker: what to ask for, the file names, the slide | `references/inputs-checklist.md` ("The guest slide"), then `moi-webinar/deck/references/guest-slide.md` |
 | Writing the words to be read aloud | `references/call-script.md`, then `moi-webinar/deck/references/spoken-script.md` |
 | Checking protocol and release slides | `references/release-slide-checks.md` |
 | Preparing for the host's planted question | `references/host-qa-prep.md` |

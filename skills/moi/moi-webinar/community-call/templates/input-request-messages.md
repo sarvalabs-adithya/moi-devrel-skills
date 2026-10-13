@@ -51,9 +51,14 @@ Use the reply to: run the method in `references/host-qa-prep.md`.
 ## 7. A guest, if there is one
 Channel: whoever invited the guest. ASK: Vardan.
 
-> Hi <NAME>, we are looking forward to having you on Community Call <N> on <DATE>. For the slide could you send your name and title the way you want them written, a portrait and your company logo? A short line on what you will talk about would also help.
+> Hi <NAME>, we are looking forward to having you on Community Call <N> on <DATE>. For your slide, could you send these by <DATE>?
+> 1. A headshot: square, at least 1200 by 1200 pixels, face centred, head and shoulders.
+> 2. Your company logo: SVG, or a PNG with a transparent background, at least 600 by 200 pixels (a square mark is fine at 400 by 400). The version for a light background, please.
+> 3. Your name, your role and your company, exactly as you want them written.
+> 4. One line on what you will talk about.
+> Is it all right for your photo to appear in the recording and in the slides we share afterwards?
 
-Never write a title the guest has not given.
+Never write a title the guest has not given. Save the files as `deck/assets/guest/headshot.jpg` and `deck/assets/guest/logo.svg` (`moi-webinar/deck/references/guest-slide.md`).
 
 ## 8. The previous operator: where things live
 Channel: `#dev-chat`, where `moi-devrel/references/people-and-teams.md` places him. If he is not there, ASK: Rahul how to reach him.

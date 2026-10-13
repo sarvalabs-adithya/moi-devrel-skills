@@ -190,6 +190,59 @@ table.cmp { border-collapse:separate; border-spacing:0; width:100%; font-size:30
 .stat .elogo { display:block; height:42px; width:auto; max-width:200px; object-fit:contain; margin-bottom:16px; }
 .stats.four { gap:28px; }
 .stats.four .stat { padding:28px 32px; }
+
+/* guest speaker: the headshot leads, top-aligned beside name, role, company, logo and topic.
+   Both images are files the host supplies; until they exist the frames say which file and size. */
+.guest { display:grid; grid-template-columns:720px 1fr; column-gap:110px; align-items:start; }
+.gshot { position:relative; width:720px; height:720px; }
+.gshot::before { content:""; position:absolute; inset:-120px; border-radius:50%; pointer-events:none;
+  background:radial-gradient(closest-side, rgba(152,113,242,.34), rgba(152,113,242,0)); }
+.gshot .frame { position:absolute; inset:0; border-radius:56px; overflow:hidden;
+  background:rgba(255,255,255,.04); border:2px dashed rgba(188,166,255,.5);
+  box-shadow:0 0 80px rgba(152,113,242,.30), 0 40px 90px -30px rgba(75,23,229,.55); }
+.gshot .frame:has(img) { border:2px solid rgba(188,166,255,.4); }
+.gshot img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 30%; display:block; }
+.gshot .ph, .glogo .ph { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace; color:var(--snow-low); }
+.gshot .ph { gap:12px; font-size:22px; line-height:1.4; }
+.gshot .ph svg { width:220px; height:auto; margin-bottom:22px; color:rgba(188,166,255,.55); }
+.gshot .ph b { font-weight:600; color:var(--lav-accent); font-size:24px; }
+.gtext { padding-top:6px; }
+.gname { font-weight:600; font-size:96px; line-height:1.05; letter-spacing:-.015em; margin:40px 0 0; color:var(--snow-hi); }
+.grole { font-weight:500; font-size:38px; line-height:1.35; margin-top:26px; color:var(--snow-hi); }
+.gco { font-weight:600; font-size:38px; line-height:1.35; margin-top:4px; color:var(--lav-accent); }
+.glogo { position:relative; margin-top:44px; width:400px; height:132px; border-radius:24px; box-sizing:border-box;
+  background:rgba(255,255,255,.04); border:2px dashed rgba(188,166,255,.5); }
+.glogo:has(img) { background:#fff; border:2px solid #fff; }
+.glogo img { position:absolute; inset:24px 36px; width:calc(100% - 72px); height:calc(100% - 48px); object-fit:contain; display:block; }
+.glogo .ph { gap:6px; font-size:19px; line-height:1.35; }
+.glogo .ph b { font-weight:600; color:var(--lav-accent); font-size:20px; }
+.gshot .frame:has(img) .ph, .glogo:has(img) .ph { display:none; }
+.grole:has(.slot), .gco:has(.slot) { margin-bottom:10px; }
+.glogo.mark { width:132px; }
+.glogo.mark img { inset:18px; width:calc(100% - 36px); height:calc(100% - 36px); }
+.glogo.mark .ph { font-size:15px; padding:0 8px; }
+.glogo.mark .ph b { font-size:15px; }
+.glogo.knock:has(img) { background:var(--moi-black); border-color:rgba(188,166,255,.35); }
+.gtopic { margin-top:56px; padding-left:32px; border-left:4px solid var(--lav-accent); }
+.gtopic .k { font-weight:600; font-size:22px; letter-spacing:.08em; text-transform:uppercase; color:var(--lav-accent); }
+.gtopic .t { font-weight:500; font-size:38px; line-height:1.35; margin-top:12px; color:var(--snow-hi); }
+.slot { display:inline-block; font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace; font-weight:400; font-size:24px;
+  letter-spacing:0; line-height:1.4; padding:8px 18px; border-radius:12px; border:2px dashed rgba(188,166,255,.5); color:var(--snow-low); vertical-align:middle; }
+/* the same component on a light or lav slide */
+.slide.light .gshot .frame, .slide.lav .gshot .frame { background:var(--moi-white); border-color:var(--lav-accent);
+  box-shadow:0 0 80px rgba(152,113,242,.22), 0 40px 90px -36px rgba(75,23,229,.40); }
+.slide.light .gshot .frame:has(img), .slide.lav .gshot .frame:has(img) { border:2px solid var(--bg-pastel-purple); }
+.slide.light .gshot::before, .slide.lav .gshot::before { background:radial-gradient(closest-side, rgba(152,113,242,.22), rgba(152,113,242,0)); }
+.slide.light .gshot .ph, .slide.lav .gshot .ph, .slide.light .glogo .ph, .slide.lav .glogo .ph, .slide.light .slot, .slide.lav .slot { color:var(--ink-low); }
+.slide.light .gshot .ph svg, .slide.lav .gshot .ph svg { color:var(--lav-accent); }
+.slide.light .gshot .ph b, .slide.lav .gshot .ph b, .slide.light .glogo .ph b, .slide.lav .glogo .ph b { color:var(--moi-main); }
+.slide.light .gname, .slide.lav .gname, .slide.light .grole, .slide.lav .grole, .slide.light .gtopic .t, .slide.lav .gtopic .t { color:var(--ink-hi); }
+.slide.light .gco, .slide.lav .gco, .slide.light .gtopic .k, .slide.lav .gtopic .k { color:var(--moi-main); }
+.slide.light .gtopic, .slide.lav .gtopic { border-left-color:var(--moi-main); }
+.slide.light .glogo, .slide.lav .glogo { background:var(--moi-white); border-color:var(--lav-accent); }
+.slide.light .glogo:has(img), .slide.lav .glogo:has(img) { border:2px solid var(--bg-pastel-purple); }
+.slide.light .slot, .slide.lav .slot { border-color:var(--lav-accent); }
 </style>
 </head>
 <body>

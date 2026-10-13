@@ -40,6 +40,7 @@ After any step that deletes, inserts or moves a slide, do the checklist in `refe
 | --- | --- |
 | The rules every deck follows (sources, photos, badges, one idea per slide) | `references/rules.md` |
 | Writing slides: every component, the spacing budget | `references/components.md` |
+| A guest speaker slide: headshot, role, company, logo, topic, and what to ask the guest for | `references/guest-slide.md` |
 | Checking, rendering, editing an existing deck, variants, photos, logos, presenting live | `references/build.md` |
 | Writing the script, cues, keeping `NOTES` and `SCRIPT.md` identical | `references/spoken-script.md` |
 | Something looks wrong, or before editing a deck built earlier | `references/traps.md` |

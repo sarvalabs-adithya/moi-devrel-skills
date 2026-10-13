@@ -19,10 +19,24 @@ Per segment: the artefact, who owns it, where it arrives, and what to ask for. F
 | AI visibility | The monthly Scribble report and dashboard screenshots | Scribble produces it. Sai Kiran passed it on for CC14 | Slack. ASK: Sai Kiran which channel | New figures with their date. The query list and whether it is still 47. The five engines by name. Coverage. The CC14 figures still unverified (see `../examples/cc14/numbers-ledger.csv`) |
 | Community | Growth key pointers | Sai Kiran | Slack | Discord joins and active members with the period they cover. Game Night dates, run number and attendance. Pip status. Ask him to confirm they are the month's latest |
 | Events and partnerships | Photos and event facts | Marketing. ASK: Sai Kiran who owns events and who holds the photos. The CC14 photos came from the previous operator | Slack attachments, the event's own site | Event name, dates, venue, what the team actually did there. Real photos with permission to show them. No guest names or outcomes without a source |
-| Guest, if any | Confirmation, slide content | Whoever invited the guest. ASK: Vardan | Slack | Confirmation they will attend, name, title as the guest wants it written, portrait file, company logo file, topic |
+| Guest, if any | Confirmation, the six guest-slide inputs | Whoever invited the guest. ASK: Vardan | Slack | Confirmation they will attend, then the list under "The guest slide" below |
 | Host | Question list and clip plan | The host. ASK: Vardan who hosts | Slack, as a message to the operator | The planted question word for word, whether to expect it at a given slide, and the clip plan. See `host-qa-prep.md` |
 | What is next | Next month's plans | Marketing for its half, the operator for DevRel | Slack | Items that are decided. Anything undecided stays off |
 | Sign-off | Segment order, line-up, rehearsal day | The call's manager, taken to be Rahul (inferred; see `segments-and-roles.md`) | Discord or a call | A yes on the order |
+
+## The guest slide
+Ask for all six in one message (message 7 in `../templates/input-request-messages.md`). The slide is the deck branch's guest component (`moi-webinar/deck/references/guest-slide.md`).
+
+| Input | Save as, or where it goes | What to ask for |
+|---|---|---|
+| Headshot | `community-call-<N>/deck/assets/guest/headshot.jpg` | Square, at least 1200 by 1200 px, face centred, head and shoulders. JPG, PNG or WebP |
+| Company logo | `community-call-<N>/deck/assets/guest/logo.svg` | SVG, or PNG on a transparent background, at least 600 by 200 px. A square mark: at least 400 by 400 px. The version for a light background |
+| Name | The slide's name line | As the guest writes it |
+| Role | The line under the name | As the guest writes it. Never guessed or taken from a profile |
+| Company | The line under the role | As the guest writes it |
+| Topic | "Talking about" | One line in the guest's words, two at most |
+
+Until a file arrives its frame shows the file name and size wanted, so the deck can be reviewed early. A text field nobody supplied is a dashed slot in drafts and is deleted before the call. Also ask the guest whether the photo may appear in the recording and the PDF.
 
 ## When an input arrives
 1. Save attachments under `community-call-<N>/deck/assets/` with the names the slide will read. On the previous operator's Mac, tools could not read `~/Downloads` (27 August 2026; this may no longer apply). If a file will not open, ask the human to copy it into the call folder with `cp`. Downloading any file needs the human's yes.

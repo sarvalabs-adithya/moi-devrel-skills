@@ -6,6 +6,7 @@ A cleaned copy of the one deck built in the current HTML framework for a communi
 | File | What it is |
 |---|---|
 | `deck/index.html` | The 12-slide deck, with three fixes (below). Open it in Chrome, press `P` for the presenter window |
+| `deck/index-guest.html` | The same deck with a guest slide as slide 12 and the close as 13: the worked example of the deck branch's guest component (`moi-webinar/deck/references/guest-slide.md`). The guest is Mohit Bansal of Krexa, the CC14 guest whose slide was removed before the call. Only his name and company are on record, so his role and topic are dashed slots and both image frames are empty (`assets/guest/headshot.jpg`, `assets/guest/logo.svg`). Built 2026-10-13 by adding the slide, its `TITLES` and `NOTES` entries and the component CSS to a copy of `index.html`; nothing else differs |
 | `deck/assets/engines/` | The four AI engine logos used on slide 6 |
 | `deck/assets/` (no photos) | The two event photos of slide 10 are not here. They show identifiable third parties and no permission to show them is on record, so they were deleted from this copy. Slide 10 shows two empty frames that read their filenames (`assets/futuremode-1.png`, `assets/futuremode-2.png`), the deck framework's accepted pattern (`moi-webinar/deck/references/build.md`, "Photos and logos"). Check j of the deck checker warns about them, as intended. To restore real photos, ASK: Sai Kiran whether the event organisers allow reuse |
 | `SCRIPT.md` | The script for slides 2 to 4, the slides the previous operator presented. Text unchanged, headers changed to the `PRESS NEXT` banner format |
@@ -14,7 +15,7 @@ A cleaned copy of the one deck built in the current HTML framework for a communi
 
 The September release post is published in `sarvalabs/MOI-Website` as `blog/src/content/posts/moi-september-2026-release.md` (file name confirmed by the library research on 2026-10-02). It is not copied here: open it in that repo. The ledger cites it by section.
 
-Left out on purpose: the guest portrait, the guest company logo, the "no guest" variant (byte-identical to the main file), both PDFs and the old README. To render a PDF into a scratch folder, with `SKILLS` set as `moi-devrel/SKILL.md` describes:
+Left out on purpose: the guest portrait and the guest company logo (no permission to republish is on record; drop the files into `deck/assets/guest/` to see them), the "no guest" variant (byte-identical to the main file), both PDFs and the old README. To render a PDF into a scratch folder, with `SKILLS` set as `moi-devrel/SKILL.md` describes:
 `d=$(mktemp -d) && bash "$SKILLS/moi-webinar/deck/scripts/render.sh" --force "$SKILLS/moi-webinar/community-call/examples/cc14/deck/index.html" "$d/MOI_Community_Call_14.pdf"`
 The renderer refuses this deck while check d fails, so the example passes `--force`. On a real call, fix the backgrounds first. `--force` needs the human's yes.
 
@@ -53,6 +54,7 @@ Proof, run on 2026-10-02, with `SKILLS` as above and `EX="$SKILLS/moi-webinar/co
 9. The script file used plain headers, so slide changes were not explicit. The copy here uses the banner format.
 10. The deck took about 45 hours of wall clock against a two-hour cap, most of it waiting for inputs and changing decisions.
 11. No post-call artefact is on record. See `references/after-the-call.md`.
+12. The draft guest slide was a column of text with a 380 px portrait under it and a 86 px logo tile. On 9 October 2026 the previous operator called it poor and asked for a large headshot with role, company and a logo placeholder. `index-guest.html` shows the replacement.
 
 ## Sentences that must not be copied
 | Where | Sentence | Why |

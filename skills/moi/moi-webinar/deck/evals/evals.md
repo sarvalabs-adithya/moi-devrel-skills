@@ -29,10 +29,10 @@ Prompt: Render it.   (the deck has a FAIL)
 Expect: `render.sh` refuses, and the reply shows the FAIL lines and fixes them. It uses `--force` only if the operator says to render anyway. If a render reports REJECTED, it says the old PDF is untouched, names the `.pdf.rejected` file and finds the malformed `<section>` or the slide that spills.
 Why: the stray `</div>` on community call 14 slide 10 passed the old render script, node check and page count.
 
-### 6. A version without the guest
-Prompt: Make me one version with the guest speaker and one without.
-Expect: edits `index.html` as the primary and cuts `index-no-guest.html` from it, renumbering badges and `NOTES`; renders each to its own named PDF one at a time (`render.sh <s>/deck/a.html Name.pdf`, which lands beside the deck); names the primary on hand-back. If the two files later become identical it says so (check l) and asks before deleting. Takes the guest's title only from the operator.
-Why: community call 14 shipped two byte-identical HTML files and two PDFs with identical text, and its README still said "13 slides".
+### 6. A guest speaker, and a version without
+Prompt: Our guest this month is Priya from Acme. Add a guest slide, and give me one version with the guest speaker and one without.
+Expect: builds the slide from the guest component in `references/guest-slide.md` (large headshot, name, role, company, logo, topic), not from `photos`; points the images at `assets/guest/headshot.jpg` and `assets/guest/logo.svg` and asks for both with the sizes, plus the role, company as written and topic; leaves role and topic as dashed slots until supplied and never looks them up; lists the missing files from check j on hand-back. Then edits `index.html` as the primary and cuts `index-no-guest.html` from it, renumbering badges and `NOTES`; renders each to its own named PDF one at a time (`render.sh <s>/deck/a.html Name.pdf`, which lands beside the deck); names the primary on hand-back. If the two files later become identical it says so (check l) and asks before deleting.
+Why: community call 14 shipped two byte-identical HTML files and two PDFs with identical text, and its README still said "13 slides". Its draft guest slide, a small portrait under a column of text, was rejected on 2026-10-09 in favour of a large headshot with role, company and a logo placeholder.
 
 ### 7. A deck of three slides fails check c
 Prompt: check-deck.py says "slide 3 (close) carries badge 03" on my community call deck of a cover and two content slides. That is expected for a call deck, right?
@@ -173,6 +173,10 @@ A mini-deck copy with a real line break inserted in its first `NOTES` string: ch
 ### components.md spacing budget (re-measured 2026-10-02)
 
 A scratch page held the template's own CSS and its Google Fonts link, and one slide per piece built from the markup in `components.md`. Heights were read with `getBoundingClientRect` after `document.fonts.ready` and a 500 ms wait. Poppins was confirmed loaded: its 400, 500, 600 and 700 faces reported `loaded`, `document.fonts.check` was true for each weight, and a 40px test string measured 1126px in Poppins, 1025px in `sans-serif` and 941px in `serif`. The same pieces were also measured with the font forced to `sans-serif`: that run reproduced the old table (chip 47, three cards 227, three stats 160, table 61 and 91, steps 149), which shows the old numbers came from a fallback font. Text pieces were fitted to an exact line count by adding words until the next word would wrap. One old row, "beats 333", could not be reproduced with the documented markup under either font (fallback 265 and 326, Poppins 274 and 349). The old "two cards, three-line `d`" figure of 263 equals the fallback height of two lines (three lines measured 299, and each line is 36); the new table states the line counts it measured.
+
+### Guest component (2026-10-13)
+
+A scratch copy of `templates/template.html` with a cover, five guest slides (`light`, `dark grad`, `lav` with `mark`, `dark grad`, `light` with `mark`; one-line and two-line names; text slots and real text) and a close, built once with no image files and once with a stand-in square image and a wordmark SVG. `render.sh` on each: `RESULT: ok`, 7 slides, 7 pages, match; check o PASS; the no-image copy warned j for the missing files, as intended. The CC14 example `index-guest.html` through `check-deck.py --layout`: a, b, c, e, f, g, h, k, l, m, n PASS; d FAIL and o WARN only for slides 7 to 10 (the faults kept on purpose); j WARN lists the two guest files and the two event photos. `render.sh --force` on it: 13 slides, 13 pages, match. The PDF pages were read back as images: the glow, the top alignment and both images print. Heights in `references/guest-slide.md` were read in Chrome with `document.fonts.check('600 96px Poppins')` true. The stage was also opened at 1280 by 800 in a browser and scaled to fit with the slide intact.
 
 ### Not yet tested
 

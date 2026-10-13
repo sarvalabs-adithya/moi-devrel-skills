@@ -101,6 +101,7 @@ Two versions of one deck, for example with and without a guest, are two files in
 
 - Real files only, under `deck/assets/`, named for what they are (`futuremode-1.png`). Any web format works. A frame with no file shows its filename, so a deck can ship with holes. Check j lists them: put them in the hand-back.
 - Never generate or substitute an image on a slide about a real event or person. Do not guess a guest's job title; leave it off.
+- A guest's headshot and company logo go in `deck/assets/guest/` as `headshot.jpg` and `logo.svg`, the names the guest component reads (`guest-slide.md`).
 - Gather guest and partner logos early. They are easy to forget.
 - On macOS a tool can be blocked from reading `~/Downloads` or the Desktop. Ask the operator to `cp` the file into the session folder first.
 - Brand logos come from the owner's own site or Wikimedia Commons. Downloading a logo is a gate: name the file and its source and wait for a yes. Find the exact file name first, because a wrong guess saves an HTML 404 page as the logo. The search prints and saves nothing; the second command saves a file, so it needs the yes:

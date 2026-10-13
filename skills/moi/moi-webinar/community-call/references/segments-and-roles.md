@@ -43,7 +43,7 @@ Agreed on the 24 August 2026 planning call for CC13: protocol updates, DevRel up
 | Rishal | Research | Deferred at CC13. Whether it ran at CC14 is unknown |
 | Piyush | Marketing roadmap | First CC14 draft only |
 | Sai Kiran | Wrote the inputs for the marketing slides | The Scribble report summary and "Community Growth - Key Pointers" in Slack, 2026-09-24. Did not necessarily present |
-| A guest from Krexa | Guest slide | Built into a CC14 draft with a portrait and logo, then removed at the previous operator's request. His title was never supplied and was left off |
+| A guest from Krexa | Guest slide | Built into a CC14 draft with a portrait and logo, then removed at the previous operator's request. His title was never supplied and was left off. Rebuilt with the guest component as the worked example `../examples/cc14/deck/index-guest.html` |
 | The host | Opens, closes, moderates Q&A, may plant a question | Drive scripts for the September 2025 and March 2026 calls name a host written "Ruta" or "Rutha". A Slack message of 2026-09-25 said the host might plant a question; its author and the host's name are not on record. The research does not tie the two together |
 
 Finding the CC15 host, in order:

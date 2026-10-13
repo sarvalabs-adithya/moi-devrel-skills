@@ -142,6 +142,10 @@ A row of status labels: `pill live` is filled, `pill res` is outlined. The outli
 
 The frame shows its filename until the file exists, and the border turns solid once an image loads. Frames share the row, so use two (3 by 2) or three (the default 4 by 3). A single frame spans the whole width and runs off the slide. Real files only, see `build.md`.
 
+## Guest speaker
+
+A large headshot with the guest's name, role, company, logo and topic beside it, with marked empty states for the two image files (`assets/guest/headshot.jpg`, `assets/guest/logo.svg`). The markup, the inputs and its spacing are in `guest-slide.md`. Do not build a guest slide from `photos`: CC14's draft did, with a small portrait under the text, and was rejected.
+
 ## Diagrams
 
 Draw them as inline SVG, so they scale and print. Inside a card use `cdia`, on a slide of their own use `dia` (1620 wide). Use `currentColor` for strokes and text: it is dark on light slides and light on dark ones. Give every diagram `role="img"` and an `aria-label` that says what it shows.
