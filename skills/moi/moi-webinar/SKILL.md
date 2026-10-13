@@ -1,6 +1,6 @@
 ---
 name: moi-webinar
-description: "Run a MOI Builders session (a live developer webinar where the presenter runs a devnet demo) from topic to proof form, build or check any MOI deck, or run the monthly community call. Use for \"Builders session\", \"webinar\", \"dev talk\", \"Luma event page\", \"registration page\", \"game day\", \"run of show\", \"RUNBOOK\", \"GAMEDAY\", \"demo plan\", \"rehearsal recording\", \"intro session\", and the \"bounty\" with its proof of completion form and its Points task. Deck branch: \"make the deck\", \"check the deck\", \"export the PDF\", \"presenter notes\", \"SCRIPT.md\", \"slide numbers\", \"read-aloud script\", slides from a Slack dump or report. Community call branch: \"campfire chat\", \"community call\", \"Community Call 15\", \"monthly call deck\", \"line-up\", \"speakers for the call\", \"host question\", \"YouTube description for the call\", pruning a call deck. The write-up post is moi-blog, the MOI Sprint and Forge bounties are moi-education-programs, and checking a claim is moi-devrel/claim-check."
+description: "Run a MOI Builders session (a live developer webinar where the presenter runs a devnet demo) from topic to proof form, build or check any MOI deck, or run the monthly community call. Use for \"Builders session\", \"webinar\", \"dev talk\", \"Luma event page\", \"registration page\", \"game day\", \"run of show\", \"RUNBOOK\", \"GAMEDAY\", \"demo plan\", \"rehearsal recording\", \"intro session\", and the \"bounty\" with its proof of completion form and its Points task. Deck branch: \"make the deck\", \"check the deck\", \"export the PDF\", \"presenter notes\", \"SCRIPT.md\", \"slide numbers\", \"read-aloud script\", slides from a Slack dump or report. Community call branch: \"campfire chat\", \"community call\", \"call agenda\", \"monthly call deck\", \"line-up\", \"speakers for the call\", \"host question\", \"YouTube description for the call\", pruning a call deck. The write-up post is moi-blog, the MOI Sprint and Forge bounties are moi-education-programs, and checking a claim is moi-devrel/claim-check."
 ---
 
 # MOI webinar
@@ -70,7 +70,7 @@ The branches, with paths relative to this folder:
 | Asked to | Read |
 |---|---|
 | Make, check, change or export any deck; presenter notes; slide numbers; rules for a script read aloud | `deck/GUIDE.md` |
-| Run the monthly community call, The Campfire Chat: line-up, numbers ledger, release slides, host question, the day, the YouTube description | `community-call/GUIDE.md` |
+| Run the monthly community call, The Campfire Chat, starting from its agenda (a dated checklist, then one item at a time): line-up, numbers ledger, release slides, host question, Luma and post drafts, the day, the YouTube description | `community-call/GUIDE.md` |
 
 ## What a session touches
 | Part of a session | Where it lives |

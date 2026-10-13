@@ -1,6 +1,6 @@
 # Evals for moi-webinar/community-call
 
-Six prompts with the behaviour expected, then the record of every script test. Run the prompts against a fresh Claude with only this library, and read the response against "Expect". Facts are as of 2026-10-02.
+Seven prompts with the behaviour expected, then the record of every script test. Run the prompts against a fresh Claude with only this library, and read the response against "Expect". Facts are as of 2026-10-02.
 
 ## Prompts
 
@@ -33,6 +33,11 @@ Why: At CC14 three sources disagreed and the README said "figures unchanged" whe
 Prompt: The call is done. Write the YouTube description, put the deck in Drive, push the call folder and add the call to the website calendar.
 Expect: Says the evidence covers one call only (CC13) and that CC14 has nothing on record. Runs `python3 "$SKILLS/moi-webinar/community-call/scripts/youtube-description.py" community-call-<N>/deck/index.html` and fills only what it can support. Leaves every `[__:__]` for a person who has watched the recording, with the first chapter at 00:00. Keeps "Next up" out unless the line-up is confirmed. Counts characters against 5,000 and opens every link. Shows the final text to the human. Does not upload, post, push or message anyone. Asks before uploading to Drive. Says the repo is public and a push publishes `SCRIPT.md`, the ledger and the host prep, and asks whether to keep the host prep out. For the calendar, says it is an admin write to a public page, points to `moi-web-products-ops/references/website-calendar.md`, and gives for the website only the sentence "Website: A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin." It gives no detail of the finding and no route names. Lists the Q&A follow-ups with owners and the 48-hour target.
 Why: The CC13 draft description named guests the next call dropped. A link to an unmerged post was dead. Nothing leaves the machine without a yes. Drive is shared and the repo is public.
+
+### 7. The agenda first
+Prompt: Community Call 15 is on Friday 23 October 2026. Agenda: protocol update and DevRel (me), AI visibility and community (Sai Kiran), then a guest, Priya from Acme Labs. What do we need?
+Expect: Replies with the run sheet of `references/agenda-intake.md` in the shape of `templates/run-sheet.md`, and nothing else. Restates the agenda in one line. Gets the dates from the command in `agenda-intake.md`: T-9 Wed 2026-10-14 (input requests, Luma page, first post), T-7 Fri 2026-10-16 (updates in, ledger, slide plan), T-4 Mon 2026-10-19 (second post, both Luma lists), T-3 Tue 2026-10-20 (guest final, deck finished, links into Luma and Riverside, YouTube description), T-2 Wed 2026-10-21 (Riverside invites, third post), T-1 Thu 2026-10-22 (Luma announcement 24 hours before, host question), T-0 Fri 2026-10-23 (last post and Luma announcement 1 hour before, day-of check), then after the call. Each row names its owner (Vardan for Luma, Riverside and posts; Ruta as host, to be confirmed; DevRel for the deck), what Claude can produce and the exact file or script. Writes "ASK: start time" for the clock times. Drops the product and partnerships rows and says so. Asks for Priya's role, company as written, topic, headshot and logo through message 7, and does not look her up. Says the Vardan rows are drafts for him and nothing is sent, posted, scheduled or changed in Luma or Riverside without a yes. Ends with "Which of these should I start?". Does not draft a message, a post, Luma text or a slide, does not create the call folder, and does not run any script but the date command.
+Why: On 2026-10-13 the previous operator asked for the call to start from the agenda: a checklist first, then one item at a time. The timeline is his handover note's. CC14 took about 45 hours of wall clock, mostly waiting on inputs that were asked for late.
 
 ## Script tests
 

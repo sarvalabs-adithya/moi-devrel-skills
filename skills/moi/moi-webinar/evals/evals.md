@@ -42,7 +42,7 @@ Read-only checks of the front door. Each phrase should open the file named, and 
 |---|---|
 | "Plan Builders session 10" | `SKILL.md`, then `references/topic-and-storyline.md` |
 | "Make the deck for the session", "check the deck", "export the PDF", "the presenter notes look stale" | `deck/GUIDE.md` |
-| "Run Community Call 15", "campfire chat", "monthly call deck", "the host question", "YouTube description for the call" | `community-call/GUIDE.md` |
+| "Run Community Call 15", "here is the call agenda", "campfire chat", "monthly call deck", "the host question", "YouTube description for the call" | `community-call/GUIDE.md` |
 | "Make the deck for the campfire chat" | `SKILL.md`, whose "What this covers" sends a deck or the monthly call to the branch table, then `community-call/GUIDE.md`; its step 5 hands the slide mechanics to `deck/GUIDE.md` |
 | "Add next month's call to the website calendar" | `community-call/GUIDE.md`, then `moi-web-products-ops/references/website-calendar.md`; a GATE |
 | "Commit the session folder and open a PR" | `moi-devrel/ship`, after the gates of `SKILL.md`; nothing is pushed on that message |

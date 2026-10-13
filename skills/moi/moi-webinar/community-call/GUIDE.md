@@ -3,11 +3,12 @@
 Branch of `moi-webinar`. `$SKILLS`, the operator, `ASK:`, the house rules and the gates are in `moi-webinar/SKILL.md` and `moi-devrel/SKILL.md`; this guide adds what is specific.
 
 ## What this covers
-The monthly public call, from the line-up and the deck to the host's planted question, the day-of run and the recording description. CC14 (25 September 2026, inferred; ASK: Adithya for history, or Vardan for the sheet) is the worked example in `examples/cc14/`. The operator owns the deck and the line-up and approves every step that leaves the machine; facts are as of 2026-10-02.
+The monthly public call, from the line-up and the deck to the host's planted question, the day-of run and the recording description. CC14 (25 September 2026, inferred; ASK: Adithya for history, or Vardan for the sheet) is the worked example in `examples/cc14/`. The operator owns the deck and the line-up and approves every step that leaves the machine; facts are as of 2026-10-02. Every call starts from its agenda: step 0 turns it into a dated checklist and asks which item to start.
 Not covered: deck mechanics are the deck branch, `moi-webinar/deck`; a Builders session is `moi-webinar`; publishing and announcing posts is `moi-blog`; checking claims in general is `moi-devrel/claim-check`; house rules, people and keys are `moi-devrel`.
 
 ## Before you start
 File names such as `references/x.md` are inside this branch's folder. Run every command from the working copy of `moi-foundation/MOI-Webinars` you are working in. Call folders (`community-call-<N>`) sit at its root. Whether they are committed, and on which branch, is the open policy in `moi-devrel/SKILL.md`, and nothing is pushed without a yes (Gates). People and channels are in `moi-devrel/references/people-and-teams.md`. Ask with message N of `templates/input-request-messages.md`.
+- [ ] The agenda (segments, presenters, guest if any) and the call date. Step 0 starts from these; without a date it lists offsets and asks for one.
 - [ ] The call number and month. The planning sheet expects CC15 on Friday 2026-10-23, reserve 2026-10-30. Unconfirmed. Vardan owns the sheet: ASK: Vardan, then the call's manager (the record points to Rahul, inferred). Message 1.
 - [ ] The line-up signed off by the call's manager (taken to be Rahul, inferred; ASK): the segments and who presents each. Message 2.
 - [ ] The month's release note as the protocol team sent it. Owner: the protocol team (Gokul for chain facts). Message 3.
@@ -21,6 +22,7 @@ Budget: about two hours of deck work once inputs are in hand (the manager's cap 
 
 | # | Step | What to do, and where | Done when |
 |---|---|---|---|
+| 0 | Agenda intake | `references/agenda-intake.md`: reply with the dated run sheet in the shape of `templates/run-sheet.md`, each item with its owner, what Claude produces and the tool, then ask "Which of these should I start?". Draft nothing else | The human has named an item. Do only that item, then show the sheet again |
 | 1 | Confirm date and segments | Draft messages 1 and 2 (GATE to send: the operator sends). Settle date, start time, length, platform, host, segment order and rehearsal day | The manager has said yes to the order. Every open item is an ASK line |
 | 2 | Collect inputs per segment | `references/inputs-checklist.md`, messages 3 to 8 (GATE to send: the operator sends). Save photos under `community-call-<N>/deck/assets/` | Each segment has its artefact or is dropped |
 | 3 | Numbers ledger | `mkdir -p community-call-<N>` then `cp "$SKILLS/moi-webinar/community-call/templates/numbers-ledger.csv" community-call-<N>/numbers-ledger.csv`. One row per figure: slide, figure, value, source, as_of, confirmed_by, status. Write why in `confirmed_by` for an unverified row | Every figure has a row. Unverified rows are shown to the human |
@@ -39,6 +41,8 @@ Budget: about two hours of deck work once inputs are in hand (the manager's cap 
 ## Which file to read
 | Doing | Read |
 |---|---|
+| Starting from the agenda: the dated checklist and who owns each item | `references/agenda-intake.md`, `templates/run-sheet.md` |
+| The Luma page, the Luma announcements and the posts, as drafts for Vardan | `templates/LUMA.md`, `templates/SOCIAL.md`, message 9 of `templates/input-request-messages.md` |
 | Who presents, the date, what is unknown | `references/segments-and-roles.md` |
 | Asking each owner for their part, ledger columns and statuses | `references/inputs-checklist.md`, `templates/input-request-messages.md` |
 | Deciding what goes on slides and what stays off | `references/slide-plan.md` |
@@ -76,6 +80,7 @@ Budget: about two hours of deck work once inputs are in hand (the manager's cap 
 Nothing below happens without the human's explicit yes in this conversation:
 - Sending any message, including the input requests. Claude drafts, the human sends.
 - Pushing, opening a pull request or merging the call folder. `moi-foundation/MOI-Webinars` is public as of 2026-10-01: say that a push publishes `SCRIPT.md`, the ledger and the host prep, and ask whether to keep the host prep out of the pushed copy.
+- Creating or editing the Luma page or the Riverside room, and sending a Luma announcement. Vardan owns both; Claude drafts.
 - Posting, scheduling or announcing anything, and uploading the recording or its description. Running `"$SKILLS/moi-webinar/scripts/buffer.mjs"` in any form, a dry run included (it sends the key to Buffer), is a GATE.
 - Uploading, moving or sharing any file in Drive or other cloud storage, including the PDF and the second copy of the call folder.
 - Adding the call to the website calendar (`moi-web-products-ops/references/website-calendar.md`; an admin write to a public page), and setting or changing a repository secret or variable.

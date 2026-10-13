@@ -54,6 +54,7 @@ Finding the CC15 host, in order:
 Earlier calls (2025 to March 2026) ran another shape: host opener, dev updates, a speaker block, a guest fireside of three questions, community updates. Dev updates were three slides in March 2026 (language, VS Code extension, SDK and infrastructure).
 
 ## Where the call is held
+- Newer, from the previous operator's handover note (as of 2026-10-13): the page is on Luma and the room on Riverside, both run by Vardan, who also owns the posts; the host is Ruta. Where the lines below say unknown, this note is the latest word. Confirm it with Vardan each call. The timeline is in `agenda-intake.md`.
 - Observed: the deck README says "In Meet, share the deck window". Drive shows Meet recordings under the shared info account. The website calendar form defaults its link label to "Join on Zoom".
 - Unknown: which platform the public call uses today, whether there is a Luma page or Discord event, and how it is announced. The announcement copy "MOI Community Call #14 is happening tomorrow" was pasted on 2026-09-24 and its author is unknown.
 - ASK: Vardan for the meeting link owner and the platform. ASK: Sai Kiran who writes and posts the announcement.

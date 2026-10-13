@@ -66,3 +66,10 @@ Channel: `#dev-chat`, where `moi-devrel/references/people-and-teams.md` places h
 > Hi Adithya, I am running Community Call <N>. Could you send me a copy of DEPENDENCIES.md, and of the call 14 folder and the protocol-release-0.13.0 folder, which I understand are only on your machine? Where do the Community Call 13 and 14 decks live now, beyond your machine? Which Slack channel do the call inputs arrive in, who holds the Scribble login, and was the planted question at 14 asked and the clip cut? Anything else from the last call I should know?
 
 Use the reply to: fill the "Not yet known" lists in `references/`.
+
+## 9. Vardan: the Luma page, the Riverside room, the posts and the speaker list
+Channel: Slack. Send at T-9, with the run sheet's dates filled in.
+
+> Hi Vardan, here is the agenda for Community Call <N> on <DATE> at <TIME> IST: <one line per segment, with the presenter><, and our guest <NAME> from <COMPANY> if confirmed>. Could you send me the Luma link and the Riverside link once they are up? I can draft the Luma text, the four posts and the two Luma announcements if that helps; tell me if you would rather write them. For the Riverside invites on <T-2 DATE>, the speakers are <NAMES>. Do you need their emails from me?
+
+Use the reply to: put the Luma and Riverside links in `community-call-<N>/LUMA.md` and `SOCIAL.md`, and mark the Vardan rows of the run sheet as his or as drafts for him.
