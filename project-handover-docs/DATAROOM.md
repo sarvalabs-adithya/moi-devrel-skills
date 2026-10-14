@@ -12,7 +12,7 @@ dataroom.moi.technology is the investor document room: the whitepaper, litepaper
 
 ### The admin page
 
-- Sign in at the admin page with the admin secret, in a private window that you close afterwards. There is no user login anywhere else on the site; the admin page is the only gate.
+- Sign in at the admin page with the admin secret (Chandrasekhar has it), in a private window that you close afterwards. There is no user login anywhere else on the site; the admin page is the only gate.
 - The page offers: Add Document; a row per document with Edit, the Download and **Email gate** toggles (the email gate makes visitors leave an email before they can download), Re-index and Delete; Captured Leads; Calendar events; Adopters Management (a form, or Import CSV); and summary figures (documents, indexed, views, chat questions, leads).
 - The toggles and the Re-index button swallow errors, so re-read the state after every click.
 
