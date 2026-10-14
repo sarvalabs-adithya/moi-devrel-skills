@@ -17,7 +17,7 @@ The hackathon (`forge-hacks.md`) is the selection stage between them. The owner 
 | PCCOE (the college's name as Drive titles abbreviate it) | Planning call 2025-12-23. Launch 2026-01-14. Follow-up 01-22. Onboarding workshop 01-30. Review call 2026-05-07 |
 | Presidency College | Kickoff 2026-03-17 (30 participants present). Submission form created 03-16, due 03-31. Responses to 04-16 |
 | Oxford and others | Named as upcoming on the Presidency kickoff call. Nothing else found |
-The most recent dated trace of any Forge activity is the PCCOE review call on 2026-05-07. Whether any cohort is running now is not known. ASK: Rahul and Sai Kiran. Recordings sit in the Drive folders "MOI Forge Recordings" and "Meet Recordings" (ASK: Adithya for access). Gemini writes MOI Forge as "My Forge" and Sarva Labs as "Server Labs": check every name taken from those notes.
+The most recent dated trace of any Forge activity is the PCCOE review call on 2026-05-07. Whether any cohort is running now is not known. ASK: Rahul and Sai Kiran. Recordings sit in the Drive folders "MOI Forge Recordings" and "Meet Recordings" (who can open them is not recorded; ASK: Rahul). Gemini writes MOI Forge as "My Forge" and Sarva Labs as "Server Labs": check every name taken from those notes.
 
 ## The lifecycle (from the Presidency and PCCOE calls)
 | # | Stage | What happens | Who | GATE |
@@ -33,7 +33,7 @@ The most recent dated trace of any Forge activity is the PCCOE review call on 20
 The campus roadshow decks ("MOI Campus Road Show", a doc and a PDF in Drive) were listed by title only and not opened.
 
 ## The onboarding guide
-The Drive document "MOI Forge Developer Onboarding Guide" is the "12-Week MOI University Developer Cohort" guide. The text read stopped at Step 2 (the document is large; the read may be incomplete). An uncommitted rewrite of `resources/moi-sprint/README.md` in the previous operator's clone of `moi-foundation/awesome-moi` carries the same guide. It is not on GitHub: a `git checkout .` there would lose it. ASK: Adithya for a copy.
+The Drive document "MOI Forge Developer Onboarding Guide" is the "12-Week MOI University Developer Cohort" guide. The text read stopped at Step 2 (the document is large; the read may be incomplete). An uncommitted rewrite of `resources/moi-sprint/README.md` in the previous operator's clone of `moi-foundation/awesome-moi` carries the same guide. It is not on GitHub: a `git checkout .` there would lose it. Not recorded (the previous DevRel's notes); ASK: Rahul.
 What it says:
 1. First things first: fill the onboarding form (it "helps us track your progress"), join Discord (daily chatter, mentor DMs) and Telegram (announcements).
 2. Step 1, Voyage: create a wallet ("Generate IOMe Id", save the 12-word mnemonic), claim the faucet (stated as 20K KMOI), explore the network.
@@ -62,4 +62,4 @@ The Drive version also holds a personal phone number and invite links. Copy neit
 - Who owns Forge now, and whether any campus is in progress. ASK: Rahul, Sai Kiran.
 - The terms of the MOU, and who signs. ASK: Rahul.
 - Which Discord invite and channel are canonical. ASK: Rahul.
-- What the PCCOE onboarding form asks (Drive forms cannot be read through the tools used). ASK: Adithya to open it.
+- What the PCCOE onboarding form asks (Drive forms cannot be read through the tools used). ASK: Rahul who can open it.

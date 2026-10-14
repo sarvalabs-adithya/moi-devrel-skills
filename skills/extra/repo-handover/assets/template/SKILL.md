@@ -1,6 +1,6 @@
 ---
 name: {{repo-slug}}-ops
-description: Operating, debugging, deploying or changing {{Repo name}} ({{remote}}) — the {{one-line what}}. Use this whenever a task mentions {{repo-slug}}, {{public host}}, {{a distinctive env var}}, {{a distinctive dir or service}}, or anything that runs on {{where it runs}}, even if the repo is not named.
+description: "Operating, debugging, deploying or changing {{Repo name}} ({{remote}}), the {{one-line what}}. Use this whenever a task mentions {{repo-slug}}, {{public host}}, {{a distinctive env var}}, {{a distinctive dir or service}}, or anything that runs on {{where it runs}}, even if the repo is not named."
 ---
 
 # {{Repo name}}
@@ -37,7 +37,7 @@ Rollback: {{command or steps}}.
 
 - {{The one rule that breaks things if ignored, e.g. a secret that cannot be rotated}}
 - {{The second}}
-- Run `scripts/verify.sh` first. It is read-only and tells you whether this skill still matches the repo.
+- Run `bash ~/moi-devrel-skills/skills/extra/repo-handover/scripts/verify.sh {{path}} ~/.claude/skills/{{repo-slug}}-ops` first (the script lives in the handover library, not in this skill). It is read-only and tells you whether this skill still matches the repo.
 
 ## Modules
 

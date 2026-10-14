@@ -1,6 +1,6 @@
 # Traps: facts that fail silently in a standards submission
 
-Facts are as of 2026-10-03 unless dated. Each row is a rule with the incident or the evidence behind it. `ASK: <person>` is defined in `moi-devrel/SKILL.md`. Back to `../SKILL.md`. The package files this file cites by name (`AUDIT-2026-09-10.md`) are untracked and exist only on the previous operator's machine; ASK: Adithya for a copy (`umbrella.md`, generation 4).
+Facts are as of 2026-10-03 unless dated. Each row is a rule with the incident or the evidence behind it. `ASK: <person>` is defined in `moi-devrel/SKILL.md`. Back to `../SKILL.md`. The package file this file cites by name (`AUDIT-2026-09-10.md`) is in the handover repo at `others/standards/x402-review-package/`. `FINDINGS.md`, `UPSTREAM.md`, `STATUS.md` and `caip2-submission/` are not in the handover repo (the previous DevRel's local x402-compat folder; the public branch holds an older copy); ASK: Rahul.
 
 ## Process
 | # | Rule | Incident or evidence |
@@ -21,7 +21,7 @@ Facts are as of 2026-10-03 unless dated. Each row is a rule with the incident or
 | # | Rule | Incident or evidence |
 |---|---|---|
 | 12 | Recount every number after every edit, and write the date beside it | Namespaces 55, then 50, then 49. Unit tests 28, 13, 36. RPC methods 36, then 42. `moi:devnet` in six files on 2026-09-10 and 15 on 2026-10-03. `exact` specs "17" against 18 files. Mechanisms 12 against 13 |
-| 13 | After a decision, grep every copy for the old string, including the reviewer copies | The 14 Sep correction reached the PR 1 files (1 Oct, uncommitted) and not `docs/*.md`, `FINDINGS.md` line 145, `caip2-submission/NOTES.md` line 21, or the spec appendix. `UPSTREAM.md` says the spec is written in its header and not written in its last section |
+| 13 | After a decision, grep every copy for the old string, including the reviewer copies | The 14 Sep correction reached the PR 1 files (1 Oct) and not the `.docx` and `.pdf` exports in `docs/` (6 Oct, still "account-centric"), `FINDINGS.md` line 145, `caip2-submission/NOTES.md` line 21, or the spec appendix. `UPSTREAM.md` says the spec is written in its header and not written in its last section | <!-- slop-lint: ignore -->
 | 14 | State only what was verified, in its narrow form | "MOI has no chain id" was refuted by the SDK enum. "No genesis artefact" was refuted by probing | <!-- slop-lint: ignore -->
 | 15 | Never write a placeholder dressed as a specification | A curl example for `net.Network`, a method that does not exist, was removed (`5b2d089`). A reviewer reads it as a claim |
 | 16 | Public text names no private repo, no local path, no reviewer, no internal checkbox and no untrue "filed" | "The node software is in public repositories" was refuted (go-moi is not readable), and the CASA README draft still says it. All three PR description drafts carry "Internal review (<reviewer's name>) complete"; the `TODO` CASA number sits in `caip2.md` and in the spec PR text, not in the other two. A code comment in `constants.ts` says the namespace was "filed with" CASA (read 2026-10-03) | <!-- slop-lint: ignore -->
@@ -35,7 +35,7 @@ Facts are as of 2026-10-03 unless dated. Each row is a rule with the incident or
 ## The chain
 | # | Rule | Incident or evidence |
 |---|---|---|
-| 23 | Devnet is not the source tip | `fee_payer` was in the `develop` tip on 2026-09-07 and devnet answered `payer` and 0.12.0 on 2026-09-10. On 2026-10-03 devnet answers `fee_payer` and 0.13.0. js-moi-sdk 0.9.0-rc2 was reported on 2026-09-10 to still send `payer`. Read the wire the day you write the line |
+| 23 | Devnet is not the source tip | `fee_payer` was in the `develop` tip on 2026-09-07 and devnet answered `payer` and 0.12.0 on 2026-09-10. On 2026-10-03 devnet answers `fee_payer` and 0.13.0; `net.NetworkID` still returns -32601 on 14 October 2026. js-moi-sdk 0.9.0-rc2 was reported on 2026-09-10 to still send `payer`. Read the wire the day you write the line |
 | 24 | A reset wipes state | Accounts, assets and receipts do not survive a wipe. `FINDINGS.md` 10 (written 9 Sep) records one; the moipod v0.13.0 release wiped devnet again on 2026-09-11 (`moi-devrel/references/devnet.md`). Refresh the `SETTLED` fixture in the integration test; keep the unit fixture self-contained |
 | 25 | A hash is not a payment | A refused transfer still returns an interaction hash and a mined receipt. The facilitator must read `receipt.status` 0 |
 | 26 | The same identifier exists on every MOI network | A participant identifier derives from the public key. A transfer sent to the wrong endpoint may succeed, which is why `network` sits inside the signed claim |

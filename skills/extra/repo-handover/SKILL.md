@@ -1,6 +1,6 @@
 ---
 name: repo-handover
-description: Turn one repository into a handover skill — a `<repo>-ops` skill a successor (or Claude) can run the project from without the original author. Use this whenever someone asks to hand over, document for a successor, offboard, write a runbook, capture "how this is deployed", inventory env vars, or "make a skill for this repo", even if they don't say the word handover. Read-only on the repo; never pushes or opens PRs.
+description: "Turn one repository into a handover skill: a `<repo>-ops` skill a successor (or Claude) can run the project from without the original author. Use this whenever someone asks to hand over, document for a successor, offboard, write a runbook, capture \"how this is deployed\", inventory env vars, or \"make a skill for this repo\", even if they do not say the word handover. Read-only on the repo; never pushes or opens PRs."
 ---
 
 # Repo handover
@@ -9,12 +9,12 @@ A handover is not a document, it is a set of things a successor can *run*. The r
 skill (see `references/research.md`) says the same four pieces keep appearing in every checklist,
 runbook guide and decision-record practice, and a handover fails when one is missing:
 
-1. **Orientation** — what it is, where it runs, where the data and secrets live, who owns it.
-2. **A runbook** — deploy, rollback, health checks, failures already seen. Copy-pasteable, with
+1. **Orientation**: what it is, where it runs, where the data and secrets live, who owns it.
+2. **A runbook**: deploy, rollback, health checks, failures already seen. Copy-pasteable, with
    expected output.
-3. **Decisions** — why it is built this way, including what was learned the hard way, so the
+3. **Decisions**: why it is built this way, including what was learned the hard way, so the
    successor does not reverse it.
-4. **The inventory** — every env var with its source, every asset outside git, every account.
+4. **The inventory**: every env var with its source, every asset outside git, every account.
 
 A Claude skill is the right container because it is consulted at the moment of action, carries
 runnable checks, and loads progressively: the orientation is always in context, the references only
@@ -24,11 +24,11 @@ when needed.
 
 | # | Do | How |
 | --- | --- | --- |
-| 1 | Inventory the repo, read-only | `scripts/inventory.sh <repo>`. Gives branch state, deploy files, env names, and the names the code reads that no template documents |
+| 1 | Inventory the repo, read-only | `bash ~/moi-devrel-skills/skills/extra/repo-handover/scripts/inventory.sh <repo>` (the library clone from the root README). Gives branch state, deploy files, env names, and the names the code reads that no template documents |
 | 2 | Read what already exists | any `HANDOFF.md`, `RUNBOOK.md`, `docs/`, workflow files under `.github/`, the Dockerfile and compose file. **Trust workflows over READMEs**: READMEs describe where a project started, workflows describe where it deploys today |
-| 3 | Ask the author the unknowables | who owns it, who to escalate to, which accounts exist and who holds them, what is outside git, what was scratch versus intended. Nothing in the repo answers these |
-| 4 | Fill the template | copy `assets/template/` to `~/.claude/skills/<repo-slug>-ops/`, replace every `{{placeholder}}`, delete sections that do not apply rather than leaving them hollow |
-| 5 | Verify | `scripts/verify.sh <repo> <skill dir>` compares documented env vars to the ones the code reads and prints the branch state, so the first draft is already checked against reality |
+| 3 | Ask the owner the unknowables | who owns it, who to escalate to, which accounts exist and who holds them, what is outside git, what was scratch versus intended. Nothing in the repo answers these. The owner is the person recorded in the repo's README or CODEOWNERS; if neither names one, ASK: Rahul |
+| 4 | Fill the template | copy `~/moi-devrel-skills/skills/extra/repo-handover/assets/template/` to `~/.claude/skills/<repo-slug>-ops/`, replace every `{{placeholder}}`, delete sections that do not apply rather than leaving them hollow |
+| 5 | Verify | `bash ~/moi-devrel-skills/skills/extra/repo-handover/scripts/verify.sh <repo> <skill dir>` compares documented env vars to the ones the code reads and prints the branch state, so the first draft is already checked against reality |
 | 6 | Hand back | the skill path plus a list of what you could not source. Say which claims came from the author, which from the code |
 
 ## What the template enforces
@@ -46,7 +46,7 @@ when needed.
 - **Decisions keep the why.** Context, options, decision, consequences. "Learned the hard way"
   entries are the most valuable in the whole skill.
 
-## Rules that come from the author's own preferences
+## Rules from the first handover
 
 Stay local and read-only. Never push, open a PR, or run a `gh` command against the repo; the point
 is to prepare, not to announce. Keep personal repos out of work handovers. When the README and the

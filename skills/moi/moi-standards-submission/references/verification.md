@@ -1,6 +1,6 @@
 # Verification: what "verified" meant, and the passes that were run
 
-Facts are as of 2026-10-03 unless dated. `ASK: <person>` is defined in `moi-devrel/SKILL.md`. The claim ledger and its verdicts belong to `moi-devrel/claim-check`; this file says what to check in a standards package and how the September 2026 passes went. Back to `../SKILL.md`. The package files this file cites by name (`AUDIT-2026-09-10.md`, `ESCROW-RESEARCH-2026-09-10.md` and `escrow-poc/`) are untracked and exist only on the previous operator's machine; ASK: Adithya for a copy (`umbrella.md`, generation 4).
+Facts are as of 2026-10-03 unless dated. `ASK: <person>` is defined in `moi-devrel/SKILL.md`. The claim ledger and its verdicts belong to `moi-devrel/claim-check`; this file says what to check in a standards package and how the September 2026 passes went. Back to `../SKILL.md`. The package files this file cites by name (`AUDIT-2026-09-10.md` and `ESCROW-RESEARCH-2026-09-10.md`) are in the handover repo at `others/standards/x402-review-package/`. `FINDINGS.md`, `STATUS.md` and `escrow-poc/` are not in the handover repo (the previous DevRel's local x402-compat folder); ASK: Rahul.
 
 ## What "verified" means
 The brief on 2026-09-09 was: build the documents properly first, then review every claim against actual MOI source, then run verification until satisfied. Three rules came out of it.

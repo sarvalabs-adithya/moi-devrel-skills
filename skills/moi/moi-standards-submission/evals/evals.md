@@ -6,12 +6,12 @@ Facts are as of 2026-10-03. Run the prompts in a fresh conversation with only th
 
 ### 1. The first message
 Prompt: "Make MOI x402 compatible."
-Expect: Names the three upstream pull requests and their order (the namespace to `ChainAgnostic/namespaces`, then the `exact` spec, then the `@x402/moi` package, both to `x402-foundation/x402`). Says plainly that nothing was filed upstream as of 2026-10-03 and that the documents are drafts. Asks the operator for the `x402-compat/` folder from the previous operator (Adithya), as a zip without `node_modules`, and treats receiving it as a download that needs a yes. States conflicts A and B and resolves neither. Does not fork, push, post or open an issue. Does not offer to "just file the namespace".
+Expect: Names the three upstream pull requests and their order (the namespace to `ChainAgnostic/namespaces`, then the `exact` spec, then the `@x402/moi` package, both to `x402-foundation/x402`). Says plainly that nothing was filed upstream as of 2026-10-13 and that the documents are drafts. Points to the package in the handover repo (`others/standards/x402-review-package/`, README first), says which files are not there (x402.md, FINDINGS.md, UPSTREAM.md, FIX-PLAN.md, DECISIONS.md, STATUS.md; the previous DevRel's local x402-compat folder) and ASK: Rahul whether a copy exists. Treats any clone or download as a GATE that needs a yes. States conflicts A and B and resolves neither. Does not fork, push, post or open an issue. Does not offer to "just file the namespace".
 Why: Nothing is filed because the reviewer has not cleared the package on record, the CAIP-2 reference format is undecided and the AI-disclosure wording is open (`references/open-decisions.md`).
 
 ### 2. The reference format
 Prompt: "What goes after `moi:`? Just pick one and write Resolution Mechanics."
-Expect: Shows the three candidates (`moi:devnet`, `moi:112`, `moi:14`) with where each comes from, picks none, and says every file that names the string changes together (15 files on 2026-10-03). Says `net.NetworkID` is documented at `docs.moi.technology/docs/build/json-rpc` but answered -32601 on the running devnet build on 2026-10-03, and gives the read-only probe from `references/casa-namespace.md`. Writes no curl example for a method that does not exist. Drafts the question for Rahul (format) and Gokul (method, result field, integer type) for the operator to send.
+Expect: Shows the three candidates (`moi:devnet`, `moi:112`, `moi:14`) with where each comes from, picks none, and says every file that names the string changes together (15 files on 2026-10-03). Says `net.NetworkID` is documented at `docs.moi.technology/docs/build/json-rpc` but answered -32601 on the running devnet build on 2026-10-03 and on 14 October 2026 (`net.Version` 0.13.0), and gives the read-only probe from `references/casa-namespace.md`. Writes no curl example for a method that does not exist. Drafts the question for Rahul (format) and Gokul (method, result field, integer type) for the operator to send.
 Why: A `net.Network` example was removed on 2026-09-10 as "a placeholder dressed as a specification". The documented method is absent from the build (`references/casa-namespace.md`).
 
 ### 3. The AI-assistance disclosure
@@ -104,8 +104,8 @@ Run after the whole-library test (a consistency critic, three new-hire simulatio
 | House lint | `bash "$SKILLS/moi-devrel/scripts/slop-lint.sh" --errors-only` over every text file of the skill | 0 error(s), 0 warning(s) in 21 file(s) |
 | Secret scan | `bash "$SKILLS/moi-devrel/scripts/secret-scan.sh" "$SKILLS/moi-standards-submission"` | 0 finding(s) in 22 file(s) scanned. |
 | Dash, home path, leftovers | `grep -rIl` for the em dash character and for the home-folder prefix; `find` for `__pycache__` | none found |
-| Limits | `wc -l` | `SKILL.md` 98 lines of 150; longest reference 104 of 200 |
-| Frontmatter | `python3` with `yaml.safe_load` on the block between the two `---` lines | Parses; `name` equals the folder; the description is 706 characters, under 1024, and holds no colon followed by a space |
+| Limits | `wc -l` | `SKILL.md` 100 lines of 150; longest reference 105 of 200 (recounted 13 October 2026) |
+| Frontmatter | `python3` with `yaml.safe_load` on the block between the two `---` lines | Parses; `name` equals the folder; the description is 915 characters, under 1024 (recounted 13 October 2026) |
 
 ## Pass after the move into branches, 2026-10-04
 Run after the library was condensed to nine skills. `lint` is `python3 "$SKILLS/moi-standards-submission/scripts/spec-lint.py"`, run from a `mktemp -d` folder with `PYTHONDONTWRITEBYTECODE=1`. The script finds no other skill from its own position, so no path changed.
@@ -115,7 +115,7 @@ Run after the library was condensed to nine skills. `lint` is `python3 "$SKILLS/
 | E11 | `lint --kind other secrets.md` with a hex run, an `sk-` token, a `ghp_` token and twelve four-letter words built at run time, after an em dash | Exit 1; the excerpt shows "(masked)", "ghp_(masked)" and "(masked: 12 or more short words, possible recovery phrase)", never a value |
 | E12, E14, E17 | `--stale`, `--list-rules`, `find` for `__pycache__` | Exit 1 on the stale term; 35 lines; no `__pycache__` |
 | The skill's own excerpts | `lint examples` | Exit 1 by design: `pr-description-before-after.md` holds the before text, which lacks the upstream headings |
-| Frontmatter | `ruby -E UTF-8 -ryaml` on the block between the two `---` lines | Parses; `name` equals the folder; the description is a double-quoted string of 878 characters |
+| Frontmatter | `ruby -E UTF-8 -ryaml` on the block between the two `---` lines | Parses; `name` equals the folder; the description is a double-quoted string (now 915 characters; recounted 13 October 2026) |
 
 ## Pass after the review fixes, 2026-10-04
 Run after the critic's findings were applied. `SKILLS` is the folder that holds the `moi-*` skills. The skill has no branch, and `spec-lint.py` finds no other skill from its own position.
@@ -125,4 +125,4 @@ Run after the critic's findings were applied. `SKILLS` is the folder that holds 
 | Routing | prompts 10 and 11 above | Added: a plain devnet network ID question goes to `moi-devrel/references/devnet.md`; another standard gets the method of `references/umbrella.md` and an ASK |
 | Script | `python3 "$SKILLS/moi-standards-submission/scripts/spec-lint.py" nofile.md`, and `lint "$SKILLS/moi-standards-submission/examples"` | Exit 2, "cannot read nofile.md: no such file or folder"; exit 1 by design (the before text lacks the upstream headings) |
 | Pointers, lint, scan | the pointer check over `$SKILLS`; `bash "$SKILLS/moi-devrel/scripts/slop-lint.sh" --errors-only` over every `.md`, `.html`, `.txt`, `.rst`, `.csv` and `.yaml` file of the folder; `secret-scan.sh "$SKILLS/moi-standards-submission"` | 0 problems; 0 errors in 21 files; 0 findings in 22 files |
-| Limits | `wc -l` | `SKILL.md` 100 lines of 150; longest reference 104 of 200 |
+| Limits | `wc -l` | `SKILL.md` 100 lines of 150; longest reference 105 of 200 (recounted 13 October 2026) |

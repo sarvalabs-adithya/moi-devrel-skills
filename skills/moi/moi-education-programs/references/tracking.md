@@ -1,6 +1,6 @@
 # Tracking: the plans, weekly metrics and content calendar that were kept, and where
 
-Facts are as of 2026-10-02 (the Drive research), re-dated where checked on 2026-10-03. Everything here lives in the previous operator's Google Drive or in sheets shared with him. None of it is in git, and none was opened by the tools used for this skill except where noted. The sheets hold other people's data and some are owned by personal accounts. ASK: Adithya for the links, and Rahul for access. Back to `../SKILL.md`.
+Facts are as of 2026-10-02 (the Drive research), re-dated where checked on 2026-10-03. Everything here lives in the previous operator's Google Drive or in sheets shared with him. None of it is in git, and none was opened by the tools used for this skill except where noted. The sheets hold other people's data and some are owned by personal accounts. The links are not recorded (the previous DevRel's notes); ASK: Rahul for the links and for access. Back to `../SKILL.md`.
 
 ## What exists, and where
 | Artefact | Type, owner | What it holds | Last dated trace |
@@ -18,7 +18,7 @@ Facts are as of 2026-10-02 (the Drive research), re-dated where checked on 2026-
 ## Who owned which programme in the MOI Programs sheet (early 2026)
 | Owner | Programmes |
 |---|---|
-| Adithya (the previous operator) | MOI Forge, Advance; MOI Community Updates (one call and one X AMA a month); MOI DevX monthly hackathon; MOI Sprint |
+| Adithya (the previous operator, left 14 October 2026) | MOI Forge, Advance; MOI Community Updates (one call and one X AMA a month); MOI DevX monthly hackathon; MOI Sprint (scratched 13 October 2026) |
 | Sai Kiran | MOI Forge, Basic; Moinkee |
 | Vardan | The podcast; KOL outreach with Louis |
 | Rahul | Tech Spotlight |
@@ -60,6 +60,6 @@ Every sheet is edited by hand. Nothing reads them automatically.
 
 ## Not yet known
 - Which programmes are still active, who fills the weekly metrics now and whether they moved elsewhere after April 2026. ASK: Rahul, Sai Kiran.
-- Whether the DevX monthly hackathon ran at all. Nothing found. ASK: Adithya.
+- Whether the DevX monthly hackathon ran at all. Nothing found. ASK: Rahul.
 - Whether the KRAs are still the targets. ASK: Rahul.
 - Who holds the Drive folders and the Google account behind forms and Meet. See `moi-devrel/references/keys-and-access.md`.

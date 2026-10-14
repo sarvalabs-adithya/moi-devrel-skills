@@ -11,8 +11,8 @@ Compiled 29 September 2026 from four external sources and two internal documents
 | OpsLevel, [Production readiness in depth](https://www.opslevel.com/resources/production-readiness-in-depth) | a production readiness review checklist | ownership and contact per service, on-call, logging and metrics locations, deploy automation, backups |
 | Google Cloud, [Architecture decision records overview](https://docs.cloud.google.com/architecture/architecture-decision-records) | the ADR practice | the decisions module: context, options, decision, consequences; why newcomers need the *why* |
 | OneUptime, [How to create effective runbooks](https://oneuptime.com/blog/post/2026-02-02-effective-runbooks/view) | SRE runbook guidance | copy-paste commands, expected outputs, rollback, ownership, the anti-patterns |
-| `nno code agentapp/docs/HANDOFF.md` | the launchpad's own operator guide, written while building | the local exemplar: secrets recovery checklist, "learned the hard way" hosting economics, file map |
-| `MOI-Webinars/session-8-policies/RUNBOOK.md` | a live-session run sheet | timed steps, "if it breaks live", likely questions with short answers |
+| `nno code agentapp/docs/HANDOFF.md` (the previous DevRel's local copy; the handover version is `project-handover-docs/AGENT-LAUNCHPAD.md`) | the launchpad's own operator guide, written while building | the local exemplar: secrets recovery checklist, "learned the hard way" hosting economics, file map |
+| `skills/moi/moi-webinar/examples/session-8/RUNBOOK.md` | a live-session run sheet | timed steps, "if it breaks live", likely questions with short answers |
 
 ## What every source agrees on
 

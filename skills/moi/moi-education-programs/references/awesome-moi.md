@@ -11,8 +11,8 @@ A curated markdown list of docs, papers, tools and tutorials for building on MOI
 - Default owners in `.github/CODEOWNERS`: `@moi-rahul @sarvalabs-adithya @sarvalabs-rahul`. Who reviews now is not settled. ASK: Rahul.
 - There is no CI, no link checker, no `CONTRIBUTING.md` and no pull request template. IDE files under `.idea/` are committed.
 - Layout: `README.md` (index, Sprint chapter table, resource table, quick links), `essentials/` (docs, papers, community), `js-sdk/`, `coco-language/`, `developer-tools/` (Voyage, playgrounds, faucet), `resources/moi-sprint/` (a short Sprint README), and `solved-patterns/` and `web3-reimagined/` (both "Coming Soon", no content).
-- Local only, on the previous operator's machine: a clone on branch `add-tswap-resource` (already on GitHub at `83653b1`) with two uncommitted edits: the Forge onboarding guide written over `resources/moi-sprint/README.md` (`forge-cohort.md`), and a trim of two links and one word in `js-sdk/README.md`. ASK: Adithya for a copy before anyone runs `git checkout .` there.
-`DEPENDENCIES.md` (2026-10-01, the previous operator's file: ASK: Adithya for a copy) says the links have not been checked since January 2026, so the findings below are nine months of drift.
+- Local only, on the previous operator's machine: a clone on branch `add-tswap-resource` (already on GitHub at `83653b1`) with two uncommitted edits: the Forge onboarding guide written over `resources/moi-sprint/README.md` (`forge-cohort.md`), and a trim of two links and one word in `js-sdk/README.md`. Not recorded (the previous DevRel's notes); ASK: Rahul.
+The previous operator's dependencies list (2026-10-01; not in the handover repo) says the links have not been checked since January 2026, so the findings below are nine months of drift.
 
 ## What belongs (proposed: the repo states no criteria)
 The only written rule is "Fork the repo, add your resource, and submit a PR", with these fields: name, short description, link, category (Paper, Network, Community). Proposed tests for a new entry. ASK: Rahul to confirm them.
@@ -43,7 +43,7 @@ Work in a working copy of `moi-foundation/awesome-moi`. The repo's own rule is f
 | `README.md` 23 | The Chapter 1 link points to `resources/moi-sprint/Chapter 1 - Native Assets.md`. The file was deleted on 2026-01-13. Chapter 1 now lives in `moi-foundation/moi-sprint` (`01-native-assets`). Chapters 2 and 3 are "Coming Soon" with no file |
 | `coco-language/README.md` 28 | The Coco download link `github.com/sarvalabs/coco/releases` answers 404. The install page is cocolang.dev/docs/install and the releases are at cocolang.dev/docs/releases |
 | `coco-language/README.md` 69 | The link `../resources/tswap/TUTORIAL.md` does not exist (the folder was removed). A `TUTORIAL.md` exists on tSwapper's `solution` branch, beside the full solutions: decide if that should be linked |
-| `coco-language/README.md` | The install steps use `coco-0.7.0`. Coco v0.9.2 was released 2026-09-28 |
+| `coco-language/README.md` | The install steps use `coco-0.7.0`. The newest release is Coco 0.9.3 (targets PISA 0.8.2) as of 2026-10-13; 0.9.2 was released 2026-09-28 |
 | `js-sdk/README.md` 16 | `docs.moi.technology/docs/build/packages/js-moi-sdk/` answers 404 (the local edit already drops it) |
 | `js-sdk/README.md` 29 | The code sample uses the old `.../babylon/v0` RPC address, which timed out twice. The sample must be rewritten against the current SDK and run |
 | `developer-tools/README.md` | Playground links use `?network=babylon`; the faucet text says 20K KMOI. A link check cannot catch either, because Voyage answers 200. Open them by hand |
@@ -56,7 +56,7 @@ Totals: 56 links, 47 fine, 3 redirected, 5 dead (2 missing local files), 1 to op
 |---|---|---|
 | A devnet reset | Any id, sample address or "live" sentence | `moi-devrel/references/devnet.md`, "Before you say live" |
 | A js-moi-sdk release | Install lines and code samples. the newest on npm was `0.9.0-rc2` on 2026-10-03 | `npm view js-moi-sdk dist-tags time` |
-| A Coco release | Install pin, language samples (v0.9.2 rejects `enlist` endpoints) | cocolang.dev/docs/releases |
+| A Coco release | Install pin, language samples (0.9.2 rejected `enlist` endpoints when tested; 0.9.3 is the newest and was not retested) | cocolang.dev/docs/releases |
 | A docs reorganisation | Paths on docs.moi.technology and the SDK docs | the link check |
 | A network or product rename | `babylon`, "IOMe" (Voyage moved to MOI Wallet in late August 2026), "testnet" | `grep -n -i "babylon\|iome\|testnet" <file>` |
 | A deleted or moved file in this repo | Relative links | the link check (it also tests letter case, which GitHub enforces) |
@@ -65,4 +65,4 @@ Totals: 56 links, 47 fine, 3 redirected, 5 dead (2 missing local files), 1 to op
 ## Not yet known
 - Whether this is the Sprint home or the Foundation's general list. The January README tried to be both. ASK: Rahul.
 - Who keeps it current and who may merge. ASK: Rahul.
-- Whether the previous operator's local trim of `js-sdk/README.md` was meant to ship. ASK: Adithya.
+- Whether the previous operator's local trim of `js-sdk/README.md` was meant to ship. ASK: Rahul.

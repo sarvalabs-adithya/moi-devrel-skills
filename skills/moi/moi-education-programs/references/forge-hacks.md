@@ -1,6 +1,6 @@
 # MOI Forge Hacks: running a campus mini-hackathon
 
-Facts are as of 2026-10-03. One run is on record: Presidency College, kickoff Tuesday 2026-03-17, submissions due Tuesday 2026-03-31 at 11:59 PM. Sources: the public repo `sarvalabs-adithya/moi-forge-hacks-demo` (README, the deck PDF and the playbook PDF, read 2026-10-03), the Drive research of 2026-10-02 (Gemini notes of the kickoff call, the submission sheet's headers) and `DEPENDENCIES.md` section 22. Back to `../SKILL.md`.
+Facts are as of 2026-10-03. One run is on record: Presidency College, kickoff Tuesday 2026-03-17, submissions due Tuesday 2026-03-31 at 11:59 PM. Sources: the public repo `sarvalabs-adithya/moi-forge-hacks-demo` (README, the deck PDF and the playbook PDF, read 2026-10-03), the Drive research of 2026-10-02 (Gemini notes of the kickoff call, the submission sheet's headers) and the previous operator's dependencies list of 2026-10-01 (section 22; not in the handover repo). Back to `../SKILL.md`.
 
 ## What it is
 A two-week student hackathon that introduces participant-centric state. The prompt: each of three tracks already exists on Ethereum, so build it on MOI and show how participant-centric state changes it. No prior blockchain experience required. It is also the selection stage of the 12-week Forge cohort: winners are told they enter MOI Forge (`forge-cohort.md`).
@@ -21,7 +21,7 @@ Whether another campus will run it is not decided. No later run is on record. AS
 ## Before the event
 Work from `../templates/event-checklist.md`; the README skeleton, kickoff agenda and track brief are in `../templates/hackathon-pack.md`. The demo repo's first commit is dated 2026-03-16, the day before the kickoff, and the PDFs were rebuilt on the kickoff morning and again on 2026-03-20. Earlier planning may exist elsewhere. That is too little time to copy.
 1. **Settle the facts with the owner first.** Campus, date, student count, who mentors, who judges, what is promised to winners. The playbook leaves judges and prizes blank. ASK: Rahul. Logistics: Sai Kiran, through the operator. Any college agreement (the PCCOE cohort had a draft MOU, shared 2025-12-22): the operator only; Claude drafts nothing legal.
-2. **Run the devnet preflight** (`../SKILL.md` step 2) and run the demo once on today's devnet. The Presidency demo was last pushed 2026-03-20. Its token logic uses an `enlist` endpoint, which Coco v0.9.2 (2026-09-28) rejects; not compiled by me. Its SDK pin is `^0.7.0-rc10`.
+2. **Run the devnet preflight** (`../SKILL.md` step 2) and run the demo once on today's devnet. The Presidency demo was last pushed 2026-03-20. Its token logic uses an `enlist` endpoint, which Coco 0.9.2 rejected when tested (2026-09-28); Coco 0.9.3 (targets PISA 0.8.2) is the newest as of 2026-10-13 and was not retested; not compiled by me. Its SDK pin is `^0.7.0-rc10`.
 3. **Rebuild the materials, do not reuse them.** Defects found in the March files are in the table below.
 4. **One form per campus.** The Presidency form carries the college's name. A second campus needs a new form and a new README. Creating a form is a GATE.
 5. **Decide the cut-off and the duplicate rule before announcing.** Rows kept arriving after the deadline (to 2026-04-16) and one team appeared twice with the same repo. Dedupe by repository link, and decide in writing whether a late row counts.
@@ -61,7 +61,7 @@ Nothing is recorded after the form closed. Proposed, to be confirmed with Rahul:
 | Repo | A "Security" note (15 low-severity transitive findings, and "Never commit `.env` or mnemonics") was added and removed on 2026-03-17, the kickoff day | Keep a recovery-phrase warning in every student document |
 
 ## Not yet known
-- Judges, winners, prizes, headcount, how students were recruited, who mentored. ASK: Adithya, then Sai Kiran.
+- Judges, winners, prizes, headcount, how students were recruited, who mentored. Not recorded (the previous DevRel's notes); ASK: Rahul, then Sai Kiran.
 - Why commits in the student repos run to 2026-04-28 (an extension, or late commits).
 - Whether another campus (Oxford was mentioned on the kickoff call) is planned. ASK: Rahul.
-- The authoring tool of the deck and playbook, and the brand font and palette. ASK: Adithya. For brand, `moi-devrel/design`.
+- The authoring tool of the deck and playbook, and the brand font and palette. Not recorded (the previous DevRel's notes); ASK: Rahul. For brand, `moi-devrel/design`.

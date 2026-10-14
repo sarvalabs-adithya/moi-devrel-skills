@@ -22,7 +22,7 @@ No PR template file was found in the namespaces repo at the two usual `.github` 
 The author in both is the previous operator, set on 2026-09-09: "CASA chases the listed author on the PR, so this is a commitment to answer". Whether the next operator replaces the name is open (`open-decisions.md` 4).
 
 ## The decision that blocks it: the reference format
-Do not resolve it here. The formats are numbered 1 to 3 here so they are not confused with conflicts A and B of `open-decisions.md`. Candidates, with what each means (`DECISIONS.md` 1 and `docs/PR-1-chain-id-edits.md` of 2026-09-14 are in the review package; `FIX-PLAN.md` "New decisions" 1 is the previous operator's file, local to his machine and not in git; ASK: Adithya for a copy): <!-- slop-lint: ignore -->
+Do not resolve it here. The formats are numbered 1 to 3 here so they are not confused with conflicts A and B of `open-decisions.md`. Candidates, with what each means (`docs/PR-1-chain-id-edits.md` of 2026-09-14 and the package README's "Decide before filing" table are in `others/standards/x402-review-package/`; `DECISIONS.md` 1 and `FIX-PLAN.md` "New decisions" 1 are not in the handover repo (the previous DevRel's local x402-compat folder); ASK: Rahul): <!-- slop-lint: ignore -->
 | Format | Identifier | Where it comes from | Regex | Test cases |
 |---|---|---|---|---|
 | 1. Names | `moi:devnet`, `moi:mainnet` (reserved) | The draft. Matches `stellar:pubnet` | `^[a-z0-9]([a-z0-9-]{0,30}[a-z0-9])?$` | 4 valid, 8 invalid |
@@ -49,7 +49,7 @@ Participant-centric, the MDAG sentence, the governance sentence, network ID, the
 1. GATE: fork `ChainAgnostic/namespaces` under the work account, then follow `umbrella.md`, "Filing mechanics" (clone, identity, signing). 2. Copy the two files into `moi/` and run `spec-lint.py`. 3. Fill `discussions-to` with the URL that will be monitored; the draft's route is the PR's own URL, which exists only after step 5. 4. Tick no box that is not true. 5. GATE: open the PR with the title `Add moi namespace (CAIP-104 profile + CAIP-2 chains profile)`. 6. Answer at `discussions-to` the same day questions arrive: the only real CASA failure was an author silent for 587 days.
 
 ## State of the work (as of 2026-10-03)
-Text complete except: Resolution Mechanics, `discussions-to` number, the reference format, and the wording defects above. The 2026-10-01 corrections are uncommitted on the previous operator's machine. `docs/PR-1-CASA-namespace.md` (reviewer-facing, 10 Sep) still says "account-centric" and "chain id" and was not regenerated. Internal review is not recorded. Nothing is filed. <!-- slop-lint: ignore -->
+Text complete except: Resolution Mechanics, `discussions-to` number, the reference format, and the wording defects above. The 2026-10-01 corrections are in `docs/PR-1-CASA-namespace.md` of the handover package (the markdown, dated 13 October 2026, says participant-centric). Its `.docx` and `.pdf` exports (6 October) were not regenerated and still say "account-centric" (checked in the `.docx`, 14 October 2026): regenerate them before anyone reviews them. Internal review is not recorded. Nothing is filed. <!-- slop-lint: ignore -->
 
 ## Not yet known
 - The RPC method, result field and type; whether devnet reports 112. ASK: Gokul.

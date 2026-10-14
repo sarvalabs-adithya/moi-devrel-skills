@@ -1,6 +1,6 @@
 # Bounties: the four kinds, how they were tracked, what nobody has written down
 
-Facts are as of 2026-10-03. Sources: the Drive research of 2026-10-02 (the content-bounty sheet, read for structure only; the response sheet of Builders session II; the January 2026 Sprint plan), the webinar research and `moi-webinar/references/after-the-session.md`. No payout record exists in any source. Back to `../SKILL.md`.
+Facts are as of 2026-10-03, updated 13 October 2026 for the Points webinar bounty (PR #22). Sources: the Drive research of 2026-10-02 (the content-bounty sheet, read for structure only; the response sheet of Builders session II; the January 2026 Sprint plan), the webinar research and `moi-webinar/references/after-the-session.md`. No payout record exists in any source. Back to `../SKILL.md`.
 
 ## Rule one: Claude never pays
 Claude does not send a reward, a transfer or a payment, and does not hold a wallet. It prepares the verified list. The operator pays from their own account, after Rahul's yes, and a payment of devnet funds is a GATE that names the paying account. Real money is outside this skill.
@@ -8,20 +8,22 @@ Claude does not send a reward, a transfer or a payment, and does not hold a wall
 ## The four kinds
 | Kind | What | Tracked in | Rules owned by | State |
 |---|---|---|---|---|
-| 1. Builders session bounty | A task that reproduces the session's demo, from session 2 to session 8 | One Google Form per session, in the previous operator's Drive | `moi-webinar` (table of tasks in `moi-webinar/references/after-the-session.md`) | Session 8's task moved to a challenge on the Points app, shipped disabled behind a flag on game day |
+| 1. Builders session bounty | A task that reproduces the session's demo | Sessions 2 to 7: one Google Form each, in the previous operator's Drive. Since 13 October 2026: a hand-graded form in the Points app (fields of type interaction hash, link, number or text, points per field), made in `/admin`, Webinar bounties | `moi-webinar` (`moi-webinar/references/after-the-session.md`) and `moi-web-products-ops/references/points-tasks.md` | Live since 13 October 2026 (PR #22). No bounty has been created on production yet |
 | 2. Content campaign | Creators publish articles and posts on a topic and submit links | The Drive sheet "MOI Technology - Bounty Content Submissions" | unknown. ASK: Rahul | Sheet created 2026-09-08, modified 2026-09-09, shared on 2026-09-09. Most recent trace of any bounty |
 | 3. Sprint-plan proposals | A two-tier "liveness" reward and a Bounty Board of wanted reference apps | The Drive doc "MOI Sprint: Strategic Launch Plan" (January 2026) | unknown. ASK: Rahul | Proposals. No evidence any launched |
-| 4. Points challenge | A bounty as a task on the Points app, verified by reading the chain | The Points database | `moi-web-products-ops` | Disabled in production when last read |
+| 4. Points dev challenge | Session 8's task: four interaction hashes checked from chain reads, 500 points | The Points database | `moi-web-products-ops` | Deployed but off (13 October 2026). Webinar bounties (kind 1) replace it for ordinary sessions |
 
-Points: A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin.
+Points: a security finding is open on this product as of 2026-10-02. The previous DevRel's note on it is not recorded; ASK: Rahul before touching its admin.
 
-## 1. Builders session bounty and its proof form
-- **Purpose.** On-chain proof that an attendee did the session's exercise, so a reward can be checked. It is not a sign-up form. Registration is on the event page.
+## 1. Builders session bounty
+- **Now (since 13 October 2026).** The host creates a webinar bounty in the Points app: `/admin`, Webinar bounties, one to six fields (interaction hash, link, number or text), points per field, required or optional. Members with a linked wallet fill it in, the answers wait in a queue and the host grades them by hand; nothing is awarded by a machine. Steps: `moi-web-products-ops/references/points-tasks.md`, "Run: a webinar bounty". The brief and the announcement: `moi-webinar/references/after-the-session.md`. Not tried end to end on production yet: run one with a real submission before a webinar relies on it.
+- **Before (sessions 2 to 7).** The rest of this section describes the Google Form proof form, kept because old response sheets still exist.
+- **Purpose (old form).** On-chain proof that an attendee did the session's exercise, so a reward can be checked. It is not a sign-up form. Registration is on the event page.
 - **Created** by the previous operator: session II about 3.5 days before the session (2026-06-08), III about 75 minutes before it, IV on 2026-07-03, VII on the day (2026-08-07). Create it by the day of the event at the latest and link it from the event page. Creating a form is a GATE.
 - **Fields observed** in the one response sheet that exists (session II, two tabs): timestamp, email, wallet address, then asset ids (tab 1) or a transaction hash (tab 2). Session III asked for an agent id and the owning wallet. Questions of IV and VII are unknown; the tools used could not read Google Forms.
 - **Tabs.** A form edited after launch gets a new response tab. Session II's second tab holds a different question set. Read both.
-- **No master form was found.** Later forms were probably copies, renamed (timestamps suggest it, nothing proves it). Three untitled forms exist, so an un-renamed copy looks like a stray. ASK: Adithya which form to copy.
-- **Responses went missing.** Only session II has a response sheet in Drive. For III, IV and VII the destination is unknown. ASK: Adithya.
+- **No master form was found.** Later forms were probably copies, renamed (timestamps suggest it, nothing proves it). Three untitled forms exist, so an un-renamed copy looks like a stray. A new session does not need one: use the Points webinar bounty.
+- **Responses went missing.** Only session II has a response sheet in Drive. For III, IV and VII the destination is not recorded (the previous DevRel's notes); ASK: Rahul.
 - **Rewards** are written in the session READMEs and slides (token amounts, one cash bonus). Whether they are still current is not known. Do not quote an amount in a new announcement.
 
 ## 2. The content campaign
@@ -38,6 +40,7 @@ Points: A security finding is open on this product as of 2026-10-02. ASK: Adithy
 
 ## How to verify a submission (proposed: no verifier script exists, and the record shows only manual checks)
 **On-chain proof (kinds 1 and 4)**
+For a Points webinar bounty the grading happens in `/admin`: a hash answer shows what the chain said about it only when the server has `MOI_RPC_URL`, which is not set on production (13 October 2026), so read the receipt yourself. The steps below are the manual check and apply to old forms too.
 1. Read the response tabs for headers and counts. Copy no name, email or wallet into a note, a repo or a chat.
 2. For each row, look the id up on the explorer (voyage.moi.technology) or through the SDK. Read the receipt status: a refused transfer still has a hash. "I'm going to verify each and every agent myself" is the previous operator's rule from session III.
 3. Check the thing the task asked for: the asset exists, the wallet that submitted it owns or created it, the hash is in the window, one asset is not claimed by two wallets.
@@ -56,6 +59,6 @@ Points: A security finding is open on this product as of 2026-10-02. ASK: Adithy
 - Who owns bounties now, and the budget. ASK: Rahul.
 - Reward amounts that still stand, who pays, from what account, and where payouts are recorded. ASK: Rahul.
 - How the content campaign scored entries, who won and whether anyone was paid. ASK: Rahul.
-- What the forms of sessions III, IV and VII asked and where their answers went. ASK: Adithya.
+- What the forms of sessions III, IV and VII asked and where their answers went. Not recorded (the previous DevRel's notes); ASK: Rahul.
 - Whether the Sprint-plan proposals and the content campaign are one programme.
 - Whether eligibility rules, tax or identity checks exist. Nothing in the sources mentions them. ASK: Rahul.

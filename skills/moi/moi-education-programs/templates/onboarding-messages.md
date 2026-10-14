@@ -2,7 +2,7 @@
 
 Claude drafts these. The operator reads each one, fills the `{{...}}` fields and sends it. Claude never sends a message, never messages a student or a college, and never promises anything on MOI's behalf. Plain text for chat: no emoji, no em dashes, no bold markers. Write times as a date, 24-hour UTC and IST: `bash "$SKILLS/moi-devrel/scripts/time-table.sh" "{{YYYY-MM-DD HH:MM}}" Asia/Kolkata` (it reads the time as India time; give `UTC` as the zone if you decided it in UTC). Before sending, run `bash "$SKILLS/moi-devrel/scripts/slop-lint.sh" <file>` over the filled text and open every link by hand. Say "devnet", "KMOI" and "MOI Wallet". Quote no faucet amount. Mention no internship, job, prize or payment unless Rahul has approved that sentence in writing.
 
-Source for the Week 1 steps: the Forge onboarding guide (Drive, and an uncommitted rewrite in the previous operator's clone of awesome-moi; ASK: Adithya for a copy). Its wallet name and network links are stale, so the steps below are rewritten (`references/forge-cohort.md`).
+Source for the Week 1 steps: the Forge onboarding guide (Drive, and an uncommitted rewrite in the previous operator's clone of awesome-moi; not recorded (the previous DevRel's notes); ASK: Rahul). Its wallet name and network links are stale, so the steps below are rewritten (`references/forge-cohort.md`).
 
 ## 1. Invitation (via the campus contact)
 Channel: email or the campus group. Send once the event is approved.

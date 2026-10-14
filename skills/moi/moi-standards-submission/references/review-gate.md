@@ -45,13 +45,13 @@ An ignore rule does not hide a file already tracked. As of 2026-10-03 the first 
 
 ## Traps
 1. The Drive copy goes stale. The 9 Sep index said "50 namespaces", "js-moi-sdk 0.9.0-rc1", "typechecks against 2.23.0 - retest" and PR 3 "~1/3 built". The package then moved to 49, rc2, 2.25.0 and a finished PR 3. Regenerate and recount before every share.
-2. Four similarly named Drive folders exist: `x402 review package (MOI)` (9 Sep), `x402 PR review docs (10 Sep 2026)`, an empty `x402 PR review docs`, and `x402` (10 Sep, with three `.docx` and a Google Doc of 14 Sep for PR 1). The one named `x402` was last viewed 14 Sep and is taken as current (inferred). No link is recorded in this library: ASK: Adithya.
-3. `review-package/docs/*.md` (10 Sep) still say "account-centric" and "Option B, use the chain id", and were not regenerated after the 1 Oct corrections. The README of the package still says 28 and 13 unit tests. <!-- slop-lint: ignore -->
+2. Four similarly named Drive folders exist: `x402 review package (MOI)` (9 Sep), `x402 PR review docs (10 Sep 2026)`, an empty `x402 PR review docs`, and `x402` (10 Sep, with three `.docx` and a Google Doc of 14 Sep for PR 1). The one named `x402` was last viewed 14 Sep and is taken as current (inferred). No link is recorded in this library: ASK: Rahul.
+3. In the handover package the `docs/*.md` were corrected (13 Oct) but the `.docx` and `.pdf` exports of 6 Oct were not regenerated and still say "account-centric" (checked in the PR 1 `.docx`). The old `review-package/README.md` on the public branch still says 28 and 13 unit tests. <!-- slop-lint: ignore -->
 4. A review document for PR 3 was split "part 1 of 4" and only part 1 was uploaded; the later `.docx` replaced it.
 5. Drive documents are snapshots. The on-disk package is newer, except possibly the 14 Sep Google Doc for PR 1 (`umbrella.md`, Drive row): read both and say which is current.
 6. STATUS and the escrow note cite private source by path or line range. They are internal-only and stay out of the upstream tree and out of public git.
 
 ## Not yet known
 - Whether Rahul read the package, which generation, and what he answered. ASK: Rahul.
-- The Drive folder link and who has access. ASK: Adithya.
-- The exact pandoc options and reference document used for the Word copies. ASK: Adithya for the command.
+- The Drive folder link and who has access: not recorded (the previous DevRel's notes); ASK: Rahul.
+- The exact pandoc options and reference document used for the Word copies: not recorded (the previous DevRel's notes); ASK: Rahul. The `.docx` exports are in the handover package.

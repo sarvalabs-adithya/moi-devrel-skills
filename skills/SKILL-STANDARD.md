@@ -6,12 +6,12 @@ Read this before writing or changing any skill here.
 
 Claude, working beside a MOI developer-relations person who has never done this task before. Assume the human is new: they do not know the repos, the people, the accounts or the history. The skill carries the process so they do not have to ask anyone.
 
-The skill is not written for Adithya. His name appears only where he is a fact (author of a past artefact, a person to ask). Never write "the user prefers"; write the rule.
+The skill is not written for Adithya. His name appears only where he is a fact (author of a past artefact; he left on 14 October 2026, so a person to ask is Rahul or the owner the product doc names). Never write "the user prefers"; write the rule.
 
 ## Folder shape
 
 ```
-skills/<skill-name>/
+skills/moi/<skill-name>/
   SKILL.md          entry point, 150 lines at most
   references/       one topic per file, 200 lines at most, read on demand
   templates/        files to copy and fill in
@@ -20,14 +20,14 @@ skills/<skill-name>/
   evals/evals.md    test prompts with the behaviour expected
 ```
 
-Only `SKILL.md` is required. Add the others when they earn their place.
+Only `SKILL.md` is required. Add the others when they earn their place. MOI skills sit under `skills/moi/<skill>/`; helpers that are not about MOI sit under `skills/extra/` (today: `repo-handover`).
 
 ## Branches
 
 The library has ten skills. Everything else is a branch: a sub-tool that lives inside the skill that uses it most.
 
 ```
-skills/<skill>/<branch>/
+skills/moi/<skill>/<branch>/
   GUIDE.md        the branch's runbook: same anatomy as a SKILL.md, no frontmatter, 150 lines at most
   references/  templates/  scripts/  examples/  evals/
 ```
@@ -62,7 +62,7 @@ skills/<skill>/<branch>/
 
 ## Rules for content
 
-- **Evidence or nothing.** Every factual statement must be supported by the research notes in `others/research/`, by `DEPENDENCIES.md`, or by a file you read yourself. If the evidence is silent, do not guess. Write an `ASK:` line naming who would know.
+- **Evidence or nothing.** Every factual statement must be supported by the research notes in `others/research/`, by `project-handover-docs/LIST-OF-DEPENDENCIES.md` (the 4 October 2026 snapshot) and the product docs beside it, or by a file you read yourself. If the evidence is silent, do not guess. Write an `ASK:` line naming who would know.
 - **Date volatile facts.** Anything that changes (versions, ids, URLs that are up, who owns what, open pull requests) carries "as of 2026-10-02".
 - **No secrets.** Never a key, token, password or seed phrase. Names of variables and where they are stored are fine.
 - **No paths from one person's Mac.** Nothing under `/Users/`. Refer to a GitHub repo and a path inside it (`sarvalabs/MOI-Website`, `blog/src/content/posts/`). Anything a skill needs at run time is copied into the skill's own `templates/`, `examples/` or `scripts/`.

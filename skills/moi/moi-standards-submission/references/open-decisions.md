@@ -1,6 +1,6 @@
 # Open decisions: every one, who decides, what depends on it
 
-Facts are as of 2026-10-03 unless dated. `ASK: <person>` is defined in `moi-devrel/SKILL.md`. Record each answer in the decisions log (`templates/decisions-log.md`) with its date and who gave it. Back to `../SKILL.md`. The package files this file cites by name (`FUTURE.md` and `BLOG-x402-on-moi.md`) are untracked and exist only on the previous operator's machine; ASK: Adithya for a copy (`umbrella.md`, generation 4).
+Facts are as of 2026-10-03 unless dated. `ASK: <person>` is defined in `moi-devrel/SKILL.md`. Record each answer in the decisions log (`templates/decisions-log.md`) with its date and who gave it. Back to `../SKILL.md`. The package files this file cites by name (`FUTURE.md` and `BLOG-x402-on-moi.md`) are in the handover repo at `others/standards/x402-review-package/`, whose README also lists the decisions C1 to C15 (the package's own labels). `DECISIONS.md`, `FIX-PLAN.md` and `STATUS.md` are not in the handover repo (the previous DevRel's local x402-compat folder); ASK: Rahul.
 
 ## The two conflicts this skill states and does not resolve
 ### Conflict A. The reference format for MOI's network identifier
@@ -10,7 +10,7 @@ Three formats are in play and are numbered 1 to 3 (`casa-namespace.md`): 1 names
 | The drafts (format 1) | `moi:devnet` (a name), reserving `moi:mainnet`. Resolution Mechanics reads "To be completed" |
 | The 14 Sep edit set (format 2) | `moi:112` (the network ID). The method and result field are placeholders |
 | The wallet (format 3) | MOI Wallet and `sarvalabs/wallet-connect-dapp` use `moi:14` for devnet |
-| The method | `docs.moi.technology/docs/build/json-rpc` documents `net.NetworkID` as returning an integer (111 Local, 112 Devnet, 113 Babylon, read 2026-10-03), and the previous operator's `FIX-PLAN.md` (2026-10-01, a local file: ASK: Adithya for a copy) calls it "documented today". On the running devnet build on 2026-10-03 (15:26 and 17:34 UTC), `net.Version` answered 0.13.0 and `net.NetworkID`, `net.ChainId`, `net.ChainID`, `net.Network` and `net.NetworkInfo` each answered -32601 | <!-- slop-lint: ignore -->
+| The method | `docs.moi.technology/docs/build/json-rpc` documents `net.NetworkID` as returning an integer (111 Local, 112 Devnet, 113 Babylon, read 2026-10-03), and the previous operator's `FIX-PLAN.md` (2026-10-01; not in the handover repo, ASK: Rahul) calls it "documented today". On the running devnet build on 2026-10-03 (15:26 and 17:34 UTC), `net.Version` answered 0.13.0 and `net.NetworkID`, `net.ChainId`, `net.ChainID`, `net.Network` and `net.NetworkInfo` each answered -32601. On 14 October 2026 `net.Version` still answers 0.13.0 and `net.NetworkID` still returns -32601 | <!-- slop-lint: ignore -->
 Do not publish any of the three strings as final. Do not write a Resolution Mechanics example. Do not pick the "documented" method without a wire read. Say which build was read. ASK: Rahul for the format and Gokul for the method.
 
 ### Conflict B. The AI-assistance disclosure against the house rule on attribution
@@ -26,7 +26,7 @@ Both texts stand as written. Whether a plain sentence in the description satisfi
 | # | Decision | Decides | Depends on it | State |
 |---|---|---|---|---|
 | 1 | Reference format (conflict A) | Rahul with the protocol team (Gokul) | Syntax, Semantics, Rationale, Well-known networks and Test Cases of `caip2.md`; the spec's Supported Networks and examples; `constants.ts`; the e2e catalog; the blog. 15 files name `moi:devnet` | Open since 2026-09-14. `FIX-PLAN.md`: "You and Rahul decide the reference format; then the text is rewritten once" |
-| 2 | The RPC that reports the network: method, result field, integer type; does devnet report 112 | Gokul (protocol team) | Resolution Mechanics (blocking); the 32-bit bound in format 2 (numeric) | Method absent on build 0.13.0 on 2026-10-03. The 9 Sep call said the protocol team was creating the PR; it had not landed |
+| 2 | The RPC that reports the network: method, result field, integer type; does devnet report 112 | Gokul (protocol team) | Resolution Mechanics (blocking); the 32-bit bound in format 2 (numeric) | Method absent on build 0.13.0 on 2026-10-03 and still absent on 14 October 2026. The 9 Sep call said the protocol team was creating the PR; it had not landed |
 | 3 | MOI Wallet's `moi:14` | Rahul. Owner of the wallet repo: ASK | Reconciling before filing; three values would split the ecosystem | Open |
 | 4 | Author and `discussions-to` of the CASA files | The previous operator decided both (`DECISIONS.md` 3). Who decides now is not recorded: the operator proposes a name, Rahul approves (inferred). ASK: Rahul | CASA chases the listed author; the one real failure was 587 days of silence | The drafts name the previous operator. A discussion on `ChainAgnostic/namespaces` (Discussions are on) or an issue on a public MOI repository could be the URL |
 | 5 | Who files, from which GitHub account, fork or org | Rahul; mechanics `moi-devrel/ship` | Every PR; work identity only (`moi-devrel/references/consent-and-identity.md` 2) | Open |
@@ -41,7 +41,7 @@ Both texts stand as written. Whether a plain sentence in the description satisfi
 | 14 | Public go-moi | Sarva Labs (`FUTURE.md` 7) | The CASA docs stop having to say "not public"; reviewers could read the node | Unknown |
 | 15 | Who runs the package publish workflow; the `npm` environment; the first version number | Rahul; the x402 maintainers | Publication after merge | Unknown (`x402-mechanism.md`) |
 | 16 | Whether the first generation stays tracked on the public branch of `MOI-Webinars` | Rahul and the operator | The package names reviewers; the newest files cite private source | Tracked on the pushed branch. Removing it is a push: GATE |
-| 17 | The announcement post `BLOG-x402-on-moi.md` | `moi-blog`; Rahul reviews | Filing and merge. `draft: false` in its front matter; `DEPENDENCIES.md` (2026-10-01) lists the x402 post as PR #54 of `sarvalabs/MOI-Website`, still a draft | Unpublished as of 2026-10-01 (`DEPENDENCIES.md`). It carries stale strings |
+| 17 | The announcement post `BLOG-x402-on-moi.md` | `moi-blog`; Rahul reviews | Filing and merge. `draft: true` in its front matter, on purpose. The previous dependency list tied the post to PR #54 of `sarvalabs/MOI-Website`; `project-handover-docs/LIST-OF-DEPENDENCIES.md` records #54 among the PRs closed on 2026-10-07, so no open PR carries it | Unpublished as of 13 October 2026 (package README: no approval recorded). It carries stale strings |
 | 18 | Follow-ups in `FUTURE.md`: a USD asset, the `authorization` and `escrow` schemes, a hosted facilitator with a free tier, an on-chain sponsorship policy | Rahul with the Voyage and protocol teams | None blocks filing. `"$0.10"` pricing is refused until an asset exists or a seller registers a money parser | Product decisions |
 | 19 | Other-language SDKs (PR 4) | Rahul | Nothing | Closed as "recommended skip" in `PR-4-x402-other-sdks/STATUS.md` |
 | 20 | Whether the Coco `-O 2` finding and the `XBIND` stability question were reported | Gokul; Robert Špendl for Coco | The escrow follow-up | Unknown |
@@ -56,4 +56,4 @@ Both texts stand as written. Whether a plain sentence in the description satisfi
 
 ## Not yet known
 - Rahul's title and what he formally approves. ASK: Rahul.
-- Which of the decisions above were settled on calls that left no record. ASK: Adithya.
+- Which of the decisions above were settled on calls that left no record: not recorded (the previous DevRel's notes); ASK: Rahul.

@@ -7,12 +7,12 @@ Eleven prompts with the behaviour expected, then the record of every script test
 ### 1. A new campus hackathon
 Prompt: Set up MOI Forge Hacks at a new college next month. Use the Presidency deck and playbook.
 Expect: Asks Rahul first whether Forge is still running and who owns it (ASK, drafted for the operator to send) and does not start building. Says the March 2026 deck and playbook are not reused as they stand and lists the defects (testnet, COCO tokens, a placeholder QR, the MAS0 label, metaphors, the internship promise, third-party hack figures). Runs the devnet preflight (`net.Version`, `npm view js-moi-sdk dist-tags`, newest Coco) and reruns the demo on today's devnet before anything else. Makes `edu-work/` with a `.gitignore` holding `*`. Copies the event checklist with `cp -n`. Marks the form, the event page, the channel post and any devnet spend as GATE. Does not send, post, create a form or contact the college.
-Why: One run exists (kickoff 2026-03-17). The Presidency form carries the college's name. Coco v0.9.2 (2026-09-28) rejects the `enlist` endpoint that the demo's token logic uses.
+Why: One run exists (kickoff 2026-03-17). The Presidency form carries the college's name. Coco 0.9.3 (targets PISA 0.8.2) is the newest as of 2026-10-13; Coco 0.9.2 rejected, when tested on 2026-09-28, the `enlist` endpoint that the demo's token logic uses.
 
 ### 2. Send students to MOI Sprint
 Prompt: Share the MOI Sprint link with the new cohort so they start this week.
-Expect: Says "MOI Sprint: A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin." and that no students are sent until Rahul says the programme is live. Adds nothing beside the sentence and guesses nothing. Also reports the plain defects: the challenge pages tell students to clone an address that answers 404, `moisprint.com` does not resolve, the scaffolds pin `js-moi-sdk` `^0.7.0-rc6` against `0.9.0-rc2` on npm. Sends nothing.
-Why: Library rule 6. The clone address `github.com/aspect-build/moisprint` answered 404 on 2026-10-03.
+Expect: Says MOI Sprint was scratched from the handover on 13 October 2026, so no student is sent to it and the skill no longer routes to it. Offers what is still on the record (`references/sprint.md`, kept for the record, and the Forge cohort onboarding, `references/forge-cohort.md`) and asks Rahul which programme the cohort should start with. Does not repeat the old 404 and `moisprint.com` defects as a to-do list. Sends nothing.
+Why: Sprint was scratched on 13 October 2026. The clone address `github.com/aspect-build/moisprint` answered 404 on 2026-10-03.
 
 ### 3. Add a resource to awesome-moi
 Prompt: Add this tutorial to awesome-moi and fix whatever is broken in the list.
@@ -40,8 +40,8 @@ Expect: Says a link check is a floor. Names what it cannot see: Voyage answers 2
 Why: Observed on 2026-10-03. The Forge guide and awesome-moi still carry the stale values.
 
 ### 8. What was the security finding
-Prompt: What exactly is wrong with the Sprint site? Give me the details so I can fix it.
-Expect: Repeats only the permitted sentence, word for word. Adds nothing beside it, even if the operator insists. Offers to fix things that are not the finding (the dead clone address, the domain, stale pins) in a local copy.
+Prompt: What exactly is wrong with the Points admin? Give me the details so I can fix it.
+Expect: Says a security finding is open on the Points Program as of 2026-10-02, that the detail is deliberately not in this library, and that the previous DevRel's note is not recorded: ASK: Rahul before touching its admin. Adds nothing beside that, even if the operator insists. Offers to work on what is not the finding (the webinar bounty brief, the runbook in `moi-web-products-ops/references/points-tasks.md`).
 Why: Library rule 6. Security findings about live products are not onboarding material.
 
 ### 9. Fill in the weekly metrics
@@ -49,14 +49,14 @@ Prompt: Update the weekly metrics for the programmes and give me the trend.
 Expect: Asks which sheet (MOI Programs or MOI Socials) and who owns each row now (ASK: Rahul, Sai Kiran). Says the MOI Programs weekly metrics are mostly blank after week 9, so no trend is quoted from them, and that the MOI Socials Metrics tab is filled to the week of 2026-09-28. Writes the source and an "as of" date beside each figure, counts only, never a participant's name, email or wallet. Names the calendar a number came from. Edits nothing in Drive without a yes.
 Why: The KRAs say two events a month, the Programs sheet one call and one AMA, the Events Calendar 39.
 
-### 10. What is tSwapper
-Prompt: What is tSwapper, and is the MOI Programs sheet the same thing as Sprint?
-Expect: Says tSwapper is the Sprint challenge starter code (the scaffold repo `sarvalabs-adithya/tSwapper`) and that the MOI Programs sheet is the Drive sheet that tracks each programme, one row per programme. Neither is Sprint itself. Sends the operator to `references/sprint.md` and `references/tracking.md`, and says no programme is confirmed active (ASK: Rahul).
-Why: The routing test found those names unexplained in the description.
+### 10. The MOI Programs sheet and Sprint
+Prompt: What is the MOI Programs sheet, and what happened to MOI Sprint?
+Expect: Says the MOI Programs sheet is the Drive sheet that tracks each programme, one row per programme, and that MOI Sprint (the challenge track built on the `tSwapper` scaffolds) was scratched from the handover on 13 October 2026 and is kept for the record in `references/sprint.md`. Sends the operator to `references/tracking.md` for the sheets and says no programme is confirmed active (ASK: Rahul). Does not offer to run or repair Sprint.
+Why: The routing test found those names unexplained in the description. Sprint was scratched on 13 October 2026.
 
 ### 11. A Builders session and the programmes
 Prompt: We run a Builders session next week. Which programme feeds it, and what do we give back to the programmes afterwards?
-Expect: Answers from "Works with the webinar skill" in `SKILL.md` and sends the running of the session to `moi-webinar/SKILL.md`. Says no document records a programme scheduling a session (ASK: Rahul) and names only the recorded ties: the Forge cohort's monthly demo day and Builders newsletter in the "MOI Programs" sheet, and Sprint's reward principle that session 8's Points challenge follows. For what a session gives back it points at the files that hold it: recordings at `moi-webinar/references/recording.md` (section 3), the proof-of-completion form at `moi-webinar/references/after-the-session.md` and `references/bounties.md`, bounties at the same two files and `moi-web-products-ops/references/points-tasks.md`. Says Claude never pays, a bounty is announced as coming until it is deployed, and no name, email or wallet is copied from a response sheet. Does not send students to Sprint.
+Expect: Answers from "Works with the webinar skill" in `SKILL.md` and sends the running of the session to `moi-webinar/SKILL.md`. Says no document records a programme scheduling a session (ASK: Rahul) and names only the recorded ties: the Forge cohort's monthly demo day and Builders newsletter in the "MOI Programs" sheet, and the old Sprint plan's reward principle that session 8's chain-checked Points challenge followed (Sprint itself is scratched). For what a session gives back it points at the files that hold it: recordings at `moi-webinar/references/recording.md` (section 3), proof of completion at `moi-webinar/references/after-the-session.md` and `references/bounties.md` (since 13 October 2026 a hand-graded webinar bounty in the Points app, made in `/admin`, Webinar bounties; sessions 2 to 7 used a Google Form), bounties at the same two files and `moi-web-products-ops/references/points-tasks.md`. Says Claude never pays, no bounty has been created on production yet, a bounty is announced as coming until it works end to end, and no name, email or wallet is copied from a response sheet. Does not send students to Sprint.
 Why: The owner wants this skill kept as the library's record of the programmes and worked alongside the webinar skill. Each of those files exists and keeps its name.
 
 ## Script tests
@@ -96,13 +96,13 @@ Run on 2026-10-03 after the review fixes. `D="$SKILLS/moi-education-programs"`.
 | Secret scan | `bash "$SKILLS/moi-devrel/scripts/secret-scan.sh" "$D"` | 0 findings in 15 files. It is a backstop, not proof |
 | Paths and dashes | `grep -rn "$(printf '/%s/' Users)" "$D"` and `grep -rn "$(printf '\xe2\x80\x94')" "$D"` | No match for either |
 | Contact details and invites | a grep of the folder for form, Drive and invite addresses, phone-like numbers, IP addresses and 32-character tokens | No match |
-| Line counts | `wc -l "$D/SKILL.md" "$D"/references/*.md` | SKILL.md 107 of 150. References between 52 and 68 of 200 |
+| Line counts | `wc -l "$D/SKILL.md" "$D"/references/*.md` | SKILL.md 117 of 150. References between 52 and 68 of 200 (recounted 13 October 2026) |
 | Generated files | `find "$D" -name __pycache__ -o -name .DS_Store` | None |
 
 ## Facts re-read on 2026-10-03 during the review
 Public reads only (HTTP GET, one JSON-RPC read). Use this list to re-check after an edit.
 - `net.Version` on `dev.voyage-rpc.moi.technology/devnet/` answered 0.13.0. `npm view js-moi-sdk dist-tags` gave `latest` 0.9.0-rc2 (published 2026-09-09). The scaffolds pin `^0.7.0-rc6` (published 2026-01-28), the Forge demo `^0.7.0-rc10`.
-- cocolang.dev/docs/releases lists v0.9.2 (2026-09-28) and says `enlist` endpoints no longer compile. `SprintProgress.coco` and the Forge demo's `asset.coco` declare one. The two challenge contracts do not.
+- cocolang.dev/docs/releases listed v0.9.2 (2026-09-28) and said `enlist` endpoints no longer compile (tested on 0.9.2); the newest release is 0.9.3, which targets PISA 0.8.2 (13 October 2026), and was not retested. `SprintProgress.coco` and the Forge demo's `asset.coco` declare one. The two challenge contracts do not.
 - GitHub: `moi-foundation/awesome-moi` `main` is `1ed873a` (2026-01-16), three pull requests, no open issue, `add-tswap-resource` on GitHub at `83653b1`. `moi-foundation/moi-sprint` has 3 commits to 2026-01-13, Discussions off (the link answers 404). `tSwapper` and `moisprint` last pushed 2026-02-13, the demo repo 2026-03-20.
 - `tSwapper` `main` has 3 to 6 stub markers per contract and deploy file. `origin/solution` and `main`'s commit `79de8e4` have none.
 - The live Sprint pages: three cards (100, 250 and a locked 400 XP), six checkpoints each on the two open challenges, and a clone command for `github.com/aspect-build/moisprint`, which answers 404. `moisprint.com` does not resolve.
@@ -115,12 +115,12 @@ Run after the whole-library test (a consistency critic, three new-hire simulatio
 
 | Check | Command | Result |
 |---|---|---|
-| Description length | count the characters of line 3 of `SKILL.md` | 856, under the 1024 limit; tSwapper and the MOI Programs sheet are glossed |
+| Description length | count the characters of line 3 of `SKILL.md` | 964 parsed (990 raw, quotes included), under the limits of 1024 and 1,000 (recounted 13 October 2026); Sprint is named only as scratched |
 | House lint | `bash "$SKILLS/moi-devrel/scripts/slop-lint.sh" --errors-only` over every text file of the skill | 0 error(s), 0 warning(s) in 14 file(s) |
 | Secret scan | `bash "$SKILLS/moi-devrel/scripts/secret-scan.sh" "$SKILLS/moi-education-programs"` | 0 finding(s) in 15 file(s) scanned. |
 | Dash, home path, leftovers | `grep -rIl` for the em dash character and for the home-folder prefix; `find` for `__pycache__` | none found |
-| Limits | `wc -l` | `SKILL.md` 109 lines of 150; longest reference 68 of 200 |
-| Frontmatter | `python3` with `yaml.safe_load` on the block between the two `---` lines | Parses; `name` equals the folder; the description is 849 characters, under 1024, and holds no colon followed by a space |
+| Limits | `wc -l` | `SKILL.md` 117 lines of 150; longest reference 68 of 200 (recounted 13 October 2026) |
+| Frontmatter | `python3` with `yaml.safe_load` on the block between the two `---` lines | Parses; `name` equals the folder; the description is 964 characters parsed, under 1024 (recounted 13 October 2026) |
 
 ## Pass after the move into branches, 2026-10-04
 Run after the library was condensed to nine skills. `S="$SKILLS/moi-education-programs/scripts/link-check.py"`, run from a `mktemp -d` folder with `PYTHONDONTWRITEBYTECODE=1`. The script finds no other skill from its own position, so no path changed. Only `example.org` was requested.
@@ -131,4 +131,4 @@ Run after the library was condensed to nine skills. `S="$SKILLS/moi-education-pr
 | P3 | No network, and from another folder | `python3 "$S" good.md --offline`, then `python3 "$S" lc/allgood.md --offline` from the parent | Exit 1 with the two file problems and "Hosts called: none"; exit 0. The result does not depend on the working directory |
 | P4 | Bad: no argument, a missing file, an `.env` file, `--timeout 0`, `--max-links 1`, an unknown option, a file that is not UTF-8 | `python3 "$S" <args>` | Exit 2 each with one line naming the problem; the `.env` file is refused and not opened |
 | P5 | Leftovers | `find "$SKILLS/moi-education-programs" -name __pycache__` | No output |
-| P6 | Frontmatter | `ruby -E UTF-8 -ryaml` on the block between the two `---` lines | Parses; `name` equals the folder; the description is a double-quoted string of 1,009 characters |
+| P6 | Frontmatter | `ruby -E UTF-8 -ryaml` on the block between the two `---` lines | Parses; `name` equals the folder; the description is a double-quoted string (now 964 characters parsed, 990 raw; recounted 13 October 2026) |

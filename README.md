@@ -69,12 +69,17 @@ Ten skills. Each is a folder under `skills/moi/` with a `SKILL.md`; a branch is 
 
 ## Install
 
-Skills load from `~/.claude/skills/`. Link each folder and set `SKILLS`, which every skill expects:
+Skills load from `~/.claude/skills/`. The repo is private, so clone it with the GitHub CLI (`gh auth login` first if `gh auth status` fails). Link each folder, and make `SKILLS` permanent, because every skill expects it:
 
 ```bash
-git clone https://github.com/sarvalabs/moi-devrel-skills.git ~/moi-devrel-skills
-for s in ~/moi-devrel-skills/skills/moi/*/; do ln -s "$s" ~/.claude/skills/"$(basename "$s")"; done
-export SKILLS=~/moi-devrel-skills/skills/moi
+gh repo clone sarvalabs/moi-devrel-skills ~/moi-devrel-skills
+mkdir -p ~/.claude/skills
+for s in ~/moi-devrel-skills/skills/moi/*/; do ln -sfn "$s" ~/.claude/skills/"$(basename "$s")"; done
+echo 'export SKILLS="$HOME/moi-devrel-skills/skills/moi"' >> ~/.zshrc
+source ~/.zshrc
+echo "$SKILLS"
 ```
+
+The last line should print the path ending in `skills/moi`. `ln -sfn` makes a re-run safe: it replaces the links instead of failing. Add the `export` line to `~/.zshrc` once only.
 
 If older skills with the same names are already there (`moi-blog`, `moi-deck`, `moi-design`), move them aside first, or they will load beside the new ones and contradict them.
