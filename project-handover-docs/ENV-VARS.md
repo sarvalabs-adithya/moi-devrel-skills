@@ -1,17 +1,19 @@
 # Env vars, every product
 
-**Status: index.** Checked on 10 October 2026 against each repo's example file, its workflows and its code; the console ownership and the points flagged below were updated on 13 October 2026.
+**Status: index.** Checked on 10 October 2026 against each repo's example file, its workflows and its code. The console ownership and the points flagged below were updated on 13 October 2026.
 
-The index. Each product doc keeps its own table; this one puts them side by side, says where every value comes from, and lists the consoles and who holds the login. Names only, never values. Agent Explorer, the Agent dating plugin, the Moinkee NFT Minter and the Contextual Compute website have no section here; their variables are listed in LIST-OF-DEPENDENCIES.md, a snapshot from 4 October.
+Marketing: The consoles, and who holds them; Dev Webinars and Community Call. Developers: every product section, and Open items.
+
+This is the index. Each product doc keeps its own table; this one puts them side by side, says where every value comes from, and lists the consoles and who holds each login. Names only, never values. Agent Explorer, the Agent dating plugin, the Moinkee NFT Minter and the Contextual Compute website have no section here. Their variables are in LIST-OF-DEPENDENCIES.md, a snapshot from 4 October.
 
 Rules that hold everywhere:
 
-- Production values are GitHub Actions secrets and variables on the deploying repo (Settings, Secrets and variables, Actions). A secret cannot be read back once set. The only readable copy is on the server, through DevOps, or inside the running container.
-- Setting a value deploys nothing. Run the deploy workflow by hand, or merge, after any change.
-- Anything starting NEXT_PUBLIC_ or VITE_ is baked into the build. Changing it needs a rebuild, not a restart, and it only reaches the build if the workflow passes it as a build argument.
-- A name the deploy workflow does not pass never reaches the app, whatever is set in GitHub.
+- Production values are GitHub Actions secrets and variables on the deploying repo (Settings, Secrets and variables, Actions). A secret cannot be read back once set. The only readable copy is on the server (ask DevOps) or inside the running container.
+- Setting a value deploys nothing. After any change, run the deploy workflow by hand or merge.
+- Anything starting NEXT_PUBLIC_ or VITE_ is baked into the build. Changing it needs a rebuild, not a restart, and it reaches the build only if the workflow passes it as a build argument.
+- A name the deploy workflow does not pass never reaches the app, whatever GitHub holds.
 - Never paste a value into chat, a doc or a commit. New random values come from `openssl rand -hex 32` unless a row says otherwise.
-- There is no shared vault: no company password manager or secrets store holds these values, and none of the production secrets sits in DevRel's own password manager. That is an open item on every product.
+- There is no shared vault. No company password manager or secrets store holds these values, and none of the production secrets sits in DevRel's own password manager. That is an open item on every product.
 
 ## The consoles, and who holds them
 
@@ -69,7 +71,7 @@ Deploy and CI only, held by DevOps: GHCR_PAT, TELEPORT_PROXY, TELEPORT_JOIN_TOKE
 
 ## Points Program
 
-Repo sarvalabs/moi-project, branch feature/ci-cd deploys. 13 secrets and 20 variables (SOCIAL_AUDIT_BATCH_SIZE among them), and the deploy passes exactly those: the variables are written into the env file on the box, the secrets go straight into the container. The Docker build gets five of them as build secrets (DATABASE_URL, BETTER_AUTH_SECRET, BETTER_AUTH_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET).
+Repo sarvalabs/moi-project; the branch feature/ci-cd deploys. It has 13 secrets and 20 variables (SOCIAL_AUDIT_BATCH_SIZE among them), and the deploy passes exactly those. The variables are written into the env file on the box, and the secrets go straight into the container. The Docker build gets five of them as build secrets (DATABASE_URL, BETTER_AUTH_SECRET, BETTER_AUTH_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET).
 
 | Name | Kind | What it is | Where the value comes from | Set for production |
 |---|---|---|---|---|
@@ -81,7 +83,7 @@ Repo sarvalabs/moi-project, branch feature/ci-cd deploys. 13 secrets and 20 vari
 | DISCORD_CLIENT_ID, DISCORD_GUILD_ID, DISCORD_INVITE_URL, DISCORD_CLIENT_SECRET, DISCORD_BOT_TOKEN | Variables and secrets | The Discord task | Discord developer portal | Set |
 | TELEGRAM_BOT_USERNAME, TELEGRAM_CHAT_ID, TELEGRAM_INVITE_MODE, TELEGRAM_BOT_TOKEN, TELEGRAM_WEBHOOK_SECRET | Variables and secrets | The Telegram task. Invite mode is direct or join_request. Set the webhook again after changing the secret | BotFather and the group; the secret with openssl rand -hex 32 | Set |
 | MOI_NETWORK, REOWN_PROJECT_ID | Variable | Wallet linking. devnet is the only network the code accepts | Reown dashboard, the project | Set |
-| MOI_RPC_URL | Variable | Chain reads for challenges and bounties | https://dev.voyage-rpc.moi.technology/devnet/ | deploy.yml has passed it since PR #22 (merged and deployed 13 October), but the Actions variable is not set as of 13 October. Create the variable, then run the deploy |
+| MOI_RPC_URL | Variable | Reads from the network for challenges and bounties | https://dev.voyage-rpc.moi.technology/devnet/ | deploy.yml has passed it since PR #22 (merged and deployed 13 October), but the Actions variable is not set as of 13 October. Create the variable, then run the deploy |
 | ADMIN_EMAILS | Variable | Who gets the admin pages. The admin_users table on the Points database is empty (13 October), so this variable is the only source of admin access | Comma-separated Google emails of the admins | Set |
 | CRON_SECRET | Secret | The job route /api/jobs/maintenance, live (401 without the secret) and called by nothing today; the social audit job is gone | openssl rand -hex 32 | Set |
 | VERIFICATION_WINDOW_MINUTES, VERIFICATION_LIMIT_PER_USER, VERIFICATION_LIMIT_PER_IP | Variable | Attempt limits | Plain numbers (10, 6, 30) | Set. The per-address limit only works once CLIENT_IP_HEADER is passed |
@@ -99,7 +101,7 @@ Repo sarvalabs/MOI-Website. Four workflows: deploy.yml (merge to main), preview.
 | Name | Kind | What it is | Where the value comes from | Set for production |
 |---|---|---|---|---|
 | SUPABASE_URL, SUPABASE_KEY | Secret | The chatbot's documents and the old calendar's events (the homepage calendar is now a Luma block, PR #60, but the server's calendar routes remain) | Supabase, the project (which one: probably the Dataroom's, confirm), Settings, API | Set; deploy.yml passes them |
-| ANTHROPIC_API_KEY, OPENAI_API_KEY | Secret | The chatbot (hidden on the site; the route still calls both). Not company keys | The two consoles; the next owner creates company keys | The two consoles | Set; deploy.yml passes them |
+| ANTHROPIC_API_KEY, OPENAI_API_KEY | Secret | The chatbot (hidden on the site; the route still calls both). Not company keys | The two consoles; the next owner creates company keys | Set; deploy.yml passes them |
 | VITE_CHATBOT_API | Build value | The address the browser calls for the API. Empty sends the chatbot to localhost, so set the origin | https://moi.technology | Set; deploy.yml passes it. The live value is believed to be the dev host; confirm what it holds |
 | ADMIN_API_KEY | Secret | The calendar admin routes. When unset, the routes accept a built-in default written in the source, and the repo is public | openssl rand -hex 32 | Not passed by the deploy. Pass it and remove the fallback |
 | ALLOWED_ORIGINS, PORT | Variable | The Express server's CORS list and port | Values in .env.example | Not passed by the deploy; set on the server by DevOps, confirm |
@@ -110,7 +112,7 @@ Repo sarvalabs/MOI-Website. Four workflows: deploy.yml (merge to main), preview.
 
 ## Dataroom
 
-Repo sarvalabs/moi-dataroom0. Ten secret names, nine set and one unset (ADMIN_TOKEN), and no variables; deploy.yml passes six into the server script and uses three to reach the VM. The chat limits are read by the code and set by nothing.
+Repo sarvalabs/moi-dataroom0. It has ten secret names (nine set, one unset: ADMIN_TOKEN) and no variables. deploy.yml passes six into the server script and uses three to reach the VM. The code reads the chat limits, and nothing sets them.
 
 | Name | Kind | What it is | Where the value comes from | Set for production |
 |---|---|---|---|---|
@@ -146,4 +148,15 @@ Test and CI names, not production: MOI_E2E, MOI_CANARY_ACCOUNT (the nightly cana
 
 ## Dev Webinars and Community Call
 
-No app. One key: BUFFER_API_KEY, for the Buffer script that schedules the session posts. It ships inside the moi-webinar skill and in the webinars repo; the value goes in a gitignored .env at the skill root or the repo root. Chandra, who owns the Buffer organisation, creates it. It is not the website's BUFFER_ACCESS_TOKEN. Everything else here is a login, not a variable: Luma (event pages and sign-up), Riverside (call recording), Google Meet and YouTube are shared accounts held by Vardan.
+There is no app, and one key: BUFFER_API_KEY, for the Buffer script that schedules the session posts. The script ships inside the moi-webinar skill and in the webinars repo. The value goes in a gitignored .env at the skill root or the repo root. Chandra, who owns the Buffer organisation, creates the key. It is not the website's BUFFER_ACCESS_TOKEN. Everything else here is a login, not a variable: Luma (event pages and sign-up), Riverside (call recording), Google Meet and YouTube are shared accounts held by Vardan.
+
+## Open items
+
+- No shared vault holds any production secret. This is open on every product.
+- No company Groq, Anthropic or OpenAI account exists. The keys now set (Launchpad Groq; website and Dataroom Anthropic and OpenAI) are not company keys. The next owner creates company keys.
+- Pinata: Srikar is creating a company account; today it is Adithya's. The BotFather transfer of the Launchpad bot is pending (steps in MIGRATION-LIST.md). The npm package has no owner yet: Rahul decides the name and the account.
+- Agent Launchpad: confirm ADMIN_ALERT_TELEGRAM_CHAT_ID and MOI_PLATFORM_MNEMONIC (read by deploy.yml, not in the repo's secrets list), and confirm MOI_RPC_URL points at a host that resolves. After the next devnet reset, create the MOI_AGENT_REGISTRY_LOGIC_ID variable or change the constant in lib/moi/registry.ts.
+- Points Program: create the MOI_RPC_URL Actions variable, then run the deploy. Remove SOCIAL_AUDIT_BATCH_SIZE and its line in deploy.yml. Pass CLIENT_IP_HEADER so the per-address limit works.
+- MOI Website: confirm which Supabase project SUPABASE_URL points at (probably the Dataroom's), what VITE_CHATBOT_API holds (believed to be the dev host), whether the DATA_ROOM_CHAT_URL route is served by the VM (probably not), and whether the Discord and Telegram secrets are set (this doc says set, MOI-WEBSITE.md says not). Confirm what DevOps set for ALLOWED_ORIGINS and PORT. Pass ADMIN_API_KEY and remove the source fallback.
+- Dataroom: ADMIN_TOKEN stays unset until the fix on the fork branch lands; the stats route answers any caller until then.
+- MCP server: MOI_READ_CALLER and MOI_AGENT_REGISTRY_LOGIC_ID are not passed, which is one reason agent lookup fails. UPSTREAM_READ_TOKEN and NPM_TOKEN are not set, so the upstream watch has never read the two private repos. The workflow does not pass the three session keys voyage-api already holds.

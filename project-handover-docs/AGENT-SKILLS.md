@@ -1,8 +1,39 @@
 # Agent Skills
 
-**Status: active.** Two public skill bundles teach coding agents how to build on MOI: the **Coco** skill (Coco is MOI's contract language; compiler 0.9.3, built for **PISA** 0.8.2, MOI's execution engine; current) and the js-moi-sdk skill (rebuilt against SDK v0.9.0-rc2, a release candidate, on 13 October 2026; that work sits on a branch only on Adithya's laptop, not pushed, and the published copies still say v0.7.1 until it lands). Inactive: the write test of the SDK examples on **devnet** (MOI's shared test network; no funded post-reset account), and the **R2** copy of the SDK skill (R2 is Cloudflare's file storage), whose public URL nobody has confirmed.
+**Status: active.** Two public skill bundles teach coding agents how to build on MOI: the **Coco** skill and the js-moi-sdk skill. Coco is MOI's contract language. The Coco skill is current: compiler 0.9.3, built for **PISA** 0.8.2 (PISA is MOI's execution engine). The js-moi-sdk skill was rebuilt against SDK v0.9.0-rc2 (a release candidate) on 13 October 2026, but that work sits on a branch only on Adithya's laptop, not pushed, so the published copies still say v0.7.1 until it lands. Inactive: the write test of the SDK examples on **devnet** (MOI's shared test network; there is no funded post-reset account), and the **R2** copy of the SDK skill (R2 is Cloudflare's file storage), whose public URL nobody has confirmed.
+
+Marketing: Variables, Open items. Developers: How it works, Stack, Env vars, Process, Open items.
 
 A **skill** is a folder of Markdown that an agent (Claude Code, Cursor, OpenClaw) loads before writing code: an entry file it reads first, references it reads on demand, and runnable examples. Both skills exist so that an agent writing Coco or js-moi-sdk code gets the real API of a named version instead of guessing from stale npm docs. Robert Spendl maintains the Coco skill. Adithya built the js-moi-sdk skill, and DevRel maintains the docs-site pages that hand both out.
+
+## How it works
+
+**Coco skill.** Each reference file describes one language area for a named compiler version, and the examples and standards are real programs. The bundle claims "this compiles with 0.9.3 at PISA 0.8.2", so the check is to compile every .coco in it. The 0.9.3 bundle passed on 13 October 2026: all six examples and all three standards exit 0 and emit a manifest. The entry file's "what's new" tables are the migration notes between compiler versions (0.9.2 dropped `endpoint enlist`; 0.9.3 added `sweep` on primitives and rejects write-after-sweep and recursive classes). Nothing in it names the SDK.
+
+**js-moi-sdk skill.** The skill's own rule (AGENTS.md) is that every claim traces to a file under packages/*/src.ts at the tagged version; release notes are a map of where to look, not a source (the 0.8.0 notes say `predictAssetId`, the code says `deriveAssetId`). The rebuild to v0.9.0-rc2 read the full diff between v0.7.1 and the rc2 tag and corrected these: the LogicState/ActorState rename, the MAS0/1/2 `create` signatures and the MASX-only AssetFactory, KMOI as MASN with its new asset id, the fee payer, the sender no longer being a participant, the `decimals` argument position, fuel defaults 50 and 100000, the 10 KMOI storage fund bundled into every deploy or create, `deriveAssetId`/`deriveLogicId`, and the storage and access-policy interactions. The rc3 tag (GitHub only, not on npm) renames `payer` to `fee_payer` and adds key weight and asset call decoding fixes; those are noted inline so an agent can tell which it is running. The CHANGELOG entry lists the change per reference.
+
+**Where each copy lives.** The SDK skill has three copies that can drift: the folder in the SDK repo (source of truth), the R2 zips (written by the release workflow, public URL unconfirmed), and the static zip on the docs site (manual). On 13 October the two public copies were byte-identical and both said v0.7.1 while npm `latest` was 0.9.0-rc2. The Coco skill has two: the repo folder and the versioned CDN zip, which matched.
+
+### Terms
+
+- **Coco**, **PISA**, **devnet**, **R2**: see the Status line. The Coco compiler targets one PISA version, set in the project's coco.nut; **nut** is Coco's module format and coco.nut its manifest.
+- **logic**: MOI's word for a smart contract. **Interaction**: a signed request that changes state. **Participant**: anyone or anything with an identity on MOI.
+- **KMOI**: the network's native token. **Fuel**: what an interaction pays for the work it causes, in KMOI.
+- **MAS0**, **MAS1**, **MAS2**, **MASX**: MOI's native asset standards. MAS0 is fungible assets, MAS1 non-fungible ones (NFTs), MAS2 a further protocol standard, MASX the custom standard. **MASN** is the standard KMOI itself uses, reserved for protocol code. Check the docs Assets page before quoting any of this.
+- **fee payer**: an account other than the sender that pays an interaction's fuel. **Storage fund**: a KMOI amount bundled into every deploy or create, for the storage it uses.
+- **js-polo**, **POLO**: POLO is MOI's binary encoding, js-polo the JavaScript library for it.
+- **rc2**, **rc3**: release candidate 2 and 3, tags before the final release.
+- **CDN**: content delivery network; cdn.moi.technology serves the Coco zip. **moidocs**: the repo of the docs site.
+
+## Stack
+
+| Piece | What it is |
+|---|---|
+| Coco skill bundle | SKILLS.md (entry, with a "what's new" table per release), AGENTS.md (maintenance), reference/ (16 numbered topics from language basics to access control), examples/ (six .coco programs), standards/ (mas0, mas1, mas2 sources with their coco.nut). Verified by compiling, not by reading |
+| js-moi-sdk skill bundle | SKILL.md (entry: migration table, 60-second flow, gotchas, reference map), AGENTS.md (maintenance: read the sources, never memory), references/ (ten files, one per SDK area, each stamped "verified against vX"), examples/ (four devnet flows in plain JavaScript with their Coco sources), README.md, CHANGELOG.md, LICENSE (MIT) |
+| Publish path, Coco | Robert builds the zip from coco-skills/ and puts it on the CDN; the docs page is edited to the new file name |
+| Publish path, js-moi-sdk | .github/workflows/publish.yml in sarvalabs/js-moi-sdk, job upload-agent-skill: after the npm publish it zips js-moi-skills/ twice (js-moi-sdk-<version>-skills.zip and js-moi-sdk-skills.zip) and uploads both to R2 with the AWS CLI. The docs site does not read R2; its copy is manual |
+| Test tooling | The Coco compiler itself (`coco nut init`, `coco compile`); for the SDK, a scratch npm project with the exact package version, dotenv for the mnemonic, js-polo for decoding, and a Node script that builds every example's interaction offline |
 
 ## Variables
 
@@ -16,38 +47,9 @@ A **skill** is a folder of Markdown that an agent (Claude Code, Cursor, OpenClaw
 | Devnet account for running the SDK examples | DevRel | The old DevRel test wallet's accounts no longer exist after the 11 September reset. Whoever reruns the examples needs an account that exists and holds KMOI |
 | Coco compiler binaries | Cocolang team | 0.9.3 was built from the private repo for this audit; the public download is the one the Coco page points at |
 
-## Stack
-
-| Piece | What it is |
-|---|---|
-| Coco skill bundle | SKILLS.md (entry, with a "what's new" table per release), AGENTS.md (maintenance), reference/ (16 numbered topics from language basics to access control), examples/ (six .coco programs), standards/ (mas0, mas1, mas2 sources with their coco.nut). Verified by compiling, not by reading |
-| js-moi-sdk skill bundle | SKILL.md (entry: migration table, 60-second flow, gotchas, reference map), AGENTS.md (maintenance: read the sources, never memory), references/ (ten files, one per SDK area, each stamped "verified against vX"), examples/ (four devnet flows in plain JavaScript with their Coco sources), README.md, CHANGELOG.md, LICENSE (MIT) |
-| Publish path, Coco | Robert builds the zip from coco-skills/ and puts it on the CDN; the docs page is edited to the new file name |
-| Publish path, js-moi-sdk | .github/workflows/publish.yml in sarvalabs/js-moi-sdk, job upload-agent-skill: after the npm publish it zips js-moi-skills/ twice (js-moi-sdk-<version>-skills.zip and js-moi-sdk-skills.zip) and uploads both to R2 with the AWS CLI. The docs site does not read R2; its copy is manual |
-| Test tooling | The Coco compiler itself (`coco nut init`, `coco compile`); for the SDK, a scratch npm project with the exact package version, dotenv for the mnemonic, js-polo for decoding, and a Node script that builds every example's interaction offline |
-
 ## Env vars
 
 None. No secrets: both skills are public. The only secrets near them are the R2 keys that the publish workflow in sarvalabs/js-moi-sdk uses, held by the SDK team and DevOps. Running the SDK examples on devnet needs a funded devnet mnemonic in a local .env, never committed.
-
-## Terms
-
-- **Coco**, **PISA**, **devnet**, **R2**: see the Status line. The Coco compiler targets one PISA version, set in the project's coco.nut; **nut** is Coco's module format and coco.nut its manifest.
-- **logic**: MOI's word for a smart contract. **Interaction**: a signed request that changes state. **Participant**: anyone or anything with an identity on MOI.
-- **KMOI**: the network's native token. **Fuel**: what an interaction pays for the work it causes, in KMOI.
-- **MAS0**, **MAS1**, **MAS2**, **MASX**: MOI's native asset standards. MAS0 is fungible assets, MAS1 non-fungible ones (NFTs), MAS2 a further protocol standard, MASX the custom standard. **MASN** is the standard KMOI itself uses, reserved for protocol code. Check the docs Assets page before quoting any of this.
-- **fee payer**: an account other than the sender that pays an interaction's fuel. **Storage fund**: a KMOI amount bundled into every deploy or create, for the storage it uses.
-- **js-polo**, **POLO**: POLO is MOI's binary encoding, js-polo the JavaScript library for it.
-- **rc2**, **rc3**: release candidate 2 and 3, tags before the final release.
-- **CDN**: content delivery network; cdn.moi.technology serves the Coco zip. **moidocs**: the repo of the docs site.
-
-## How it works
-
-**Coco skill.** Each reference file describes one language area for a named compiler version, and the examples and standards are real programs. The claim the bundle makes is "this compiles with 0.9.3 at PISA 0.8.2", so the check is to compile every .coco in it. The 0.9.3 bundle passed on 13 October 2026: all six examples and all three standards exit 0 and emit a manifest. The entry file's "what's new" tables are the migration notes between compiler versions (0.9.2 dropped `endpoint enlist`; 0.9.3 added `sweep` on primitives and rejects write-after-sweep and recursive classes). Nothing in it names the SDK.
-
-**js-moi-sdk skill.** The skill's own rule (AGENTS.md) is that every claim must be traceable to a file under packages/*/src.ts at the tagged version; release notes are a map of where to look, not a source (the 0.8.0 notes say `predictAssetId`, the code says `deriveAssetId`). The rebuild to v0.9.0-rc2 read the full diff between v0.7.1 and the rc2 tag and corrected: the LogicState/ActorState rename, the MAS0/1/2 `create` signatures and the MASX-only AssetFactory, KMOI as MASN with its new asset id, the fee payer, the sender no longer being a participant, the `decimals` argument position, fuel defaults 50 and 100000, the 10 KMOI storage fund bundled into every deploy or create, `deriveAssetId`/`deriveLogicId`, and the storage and access-policy interactions. The rc3 tag (GitHub only, not on npm) renames `payer` to `fee_payer` and adds key weight and asset call decoding fixes; those are noted inline so an agent can tell which it is running. The CHANGELOG entry lists the change per reference.
-
-**Where each copy lives.** The SDK skill has three copies that can drift: the folder in the SDK repo (source of truth), the R2 zips (written by the release workflow, public URL unconfirmed), and the static zip on the docs site (manual). On 13 October the two public copies were byte-identical and both said v0.7.1 while npm `latest` was 0.9.0-rc2. The Coco skill has two: the repo folder and the versioned CDN zip, which matched.
 
 ## Process
 

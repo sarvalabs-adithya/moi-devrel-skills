@@ -4,20 +4,9 @@
 
 Video: https://drive.google.com/file/d/1FruKR8k6Wp_rplSFzIE8pZf8OBwBUfSI/view (recorded 12 October 2026).
 
-The web app at launchpad.moi.technology where anyone can launch an AI agent on MOI: pick a template, register the agent on chain, and talk to it on Telegram. Adithya built it and DevRel runs it. DevOps owns the server it runs on.
+Marketing: Variables, Process (including Presenting the Launchpad), Open items. Developers: Stack, Env vars, Process, Claude skill, Open items.
 
-## Variables
-
-| Variable | Owner | Notes |
-|---|---|---|
-| Codebase | DevRel | https://github.com/sarvalabs/moi-agent-launchpad deploys. DevRel works in a personal fork (Adithya's was sarvalabs-adithya/moi-agent-launchpad; the next owner makes their own) |
-| Database (Supabase) | Company Supabase organisation (transferred 8 October) | Holds all app state |
-| Telegram bot and the alert chat | DevRel, transfer pending | @moinetworkbot delivers agent messages to users. Moves to DevOps or a company account in BotFather (steps in MIGRATION-LIST.md) |
-| AgentMarket contract on **devnet** (MOI's shared test network, wiped from time to time) | DevRel | Not redeployed since the devnet wipes, so paid agents are off. The code is there; the next owner redeploys it when it is needed |
-| Server, CI/CD, container registry, **Teleport** (the gateway DevOps uses to reach the server) | DevOps | |
-| Domain launchpad.moi.technology | DevOps | |
-| Registration wallets that activate new users | DevOps | |
-| Agent registry on devnet | Protocol team | Its id changes on every devnet reset |
+The Launchpad is the web app at launchpad.moi.technology where anyone can launch an AI agent on MOI: pick a template, register the agent on chain, and talk to it on Telegram. Adithya built it and DevRel runs it. DevOps owns the server it runs on.
 
 ## Stack
 
@@ -36,6 +25,19 @@ The web app at launchpad.moi.technology where anyone can launch an AI agent on M
 | vitest | 28 test files. The atomicity tests need a database |
 
 No worker runs in production on purpose: it would steal the Telegram webhook and run every agent twice.
+
+## Variables
+
+| Variable | Owner | Notes |
+|---|---|---|
+| Codebase | DevRel | https://github.com/sarvalabs/moi-agent-launchpad deploys. DevRel works in a personal fork (Adithya's was sarvalabs-adithya/moi-agent-launchpad; the next owner makes their own) |
+| Database (Supabase) | Company Supabase organisation (transferred 8 October) | Holds all app state |
+| Telegram bot and the alert chat | DevRel, transfer pending | @moinetworkbot delivers agent messages to users. Moves to DevOps or a company account in BotFather (steps in MIGRATION-LIST.md) |
+| AgentMarket contract on **devnet** (MOI's shared test network, wiped from time to time) | DevRel | Not redeployed since the devnet wipes, so paid agents are off. The code is there; the next owner redeploys it when it is needed |
+| Server, CI/CD, container registry, **Teleport** (the gateway DevOps uses to reach the server) | DevOps | |
+| Domain launchpad.moi.technology | DevOps | |
+| Registration wallets that activate new users | DevOps | |
+| Agent registry on devnet | Protocol team | Its id changes on every devnet reset |
 
 ## Env vars
 
@@ -73,7 +75,7 @@ The example file with comments is .env.example in the repo.
 
 - docs/HANDOFF.md, the operator guide, especially its secrets checklist and hosting economics.
 - docs/E2E-TESTING.md before any launch.
-- supabase/migrations applies in order.
+- supabase/migrations: apply the files in order.
 
 ## Process
 
@@ -113,9 +115,9 @@ The example file with comments is .env.example in the repo.
 - Look at the stats: registered agents should not be zero.
 - Send the Telegram bot a message.
 
-## Presenting the Launchpad
+### Presenting the Launchpad
 
-The Launchpad is what new builders see first. It is presented in the MOI Builders intro session, "Your first agent on MOI": the session to send anyone to who has never touched MOI. It ends with the audience launching an agent that lives on chain and messages them on Telegram, with no code.
+The Launchpad is what new builders see first. DevRel presents it in the MOI Builders intro session, "Your first agent on MOI". Send anyone who has never touched MOI to that session. It ends with the audience launching an agent that lives on chain and messages them on Telegram, with no code.
 
 **The deck**
 

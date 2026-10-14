@@ -1,8 +1,10 @@
 # What to migrate off Adithya's accounts
 
-**Status: in progress.** Both Supabase projects moved on 8 October and the agent dating plugin no longer depends on a VPS. The repo transfers wait on Rahul's answer on which organisation each repo goes to; the Telegram bot, the Pinata account and two orphan Vercel projects are still to move or delete. Names only, no values.
+**Status: in progress.** Both Supabase projects moved on 8 October and the agent dating plugin no longer depends on a VPS. The repo transfers wait on Rahul's answer on which organisation each repo goes to. The Telegram bot, the Pinata account and two orphan Vercel projects are still to move or delete.
 
-As of 13 October 2026.
+Marketing: Owner not on record: settle who holds the login, and Open items. Developers: every section.
+
+As of 13 October 2026, this lists what still sits under Adithya's own accounts and where each item should go, plus the steps for the two moves that need a walkthrough (Supabase, done; Telegram, pending). Names only, no values.
 
 ## Under Adithya's own accounts today: move to DevOps or a company login
 
@@ -21,12 +23,12 @@ As of 13 October 2026.
 
 ## How the Supabase projects move (done on 8 October; kept for the record)
 
-The Launchpad and Dataroom projects sat in Adithya's personal Supabase organisation. Supabase moves a project between organisations in place: the project reference, the URL, the **anon and service keys** (the public key the browser uses and the private key only servers use), the database, the storage bucket and the auth users all stay the same, so nothing in either app or in GitHub changes and there is no downtime.
+The Launchpad and Dataroom projects sat in Adithya's personal Supabase organisation. Supabase moves a project between organisations in place. The project reference, the URL, the **anon and service keys** (the public key the browser uses and the private key only servers use), the database, the storage bucket and the auth users all stay the same, so nothing in either app or in GitHub changes and there is no downtime.
 
-1. DevOps creates the company Supabase organisation (or picks the existing one) on a paid plan. The transfer needs a paid plan on the receiving side, and a paid plan is what gives the projects daily backups, which they have never had.
+1. DevOps creates the company Supabase organisation (or picks the existing one) on a paid plan. The transfer needs a paid plan on the receiving side, and a paid plan is what gives the projects the daily backups they have never had.
 2. DevOps invites Adithya's Supabase login to that organisation. The rule is: owner of the organisation the project leaves, member of the one it joins.
-3. In the Supabase dashboard, for each project: Project Settings, General, Transfer project, choose the company organisation, confirm. Once for the Launchpad project, once for the Dataroom project.
-4. What does not move and has to be redone by hand: organisation members (DevOps invites whoever needs the dashboard), any **log drain** (a feed that ships a project's logs to another service), and project-scoped roles. Neither app uses the Supabase GitHub integration, so nothing there.
+3. In the Supabase dashboard, for each project: Project Settings, General, Transfer project, choose the company organisation, confirm. Do it once for the Launchpad project and once for the Dataroom project.
+4. Some things do not move and have to be redone by hand: organisation members (DevOps invites whoever needs the dashboard), any **log drain** (a feed that ships a project's logs to another service) and project-scoped roles. Neither app uses the Supabase GitHub integration, so nothing there.
 5. Check both apps: open launchpad.moi.technology and sign in, open dataroom.moi.technology and read a document. Both should behave exactly as before, because nothing they point at changed.
 6. DevOps removes Adithya's login from the organisation. Billing for the two projects now lands on the company account.
 
@@ -34,21 +36,21 @@ Not part of this: the Points Program project is on the points@moinetwork.io acco
 
 ## How the Telegram bot moves
 
-The Launchpad bot @moinetworkbot was created from Adithya's Telegram account in BotFather. Ownership moves inside BotFather; the token and the chat id stay the same, so nothing in the app changes.
+Adithya created the Launchpad bot @moinetworkbot from his Telegram account in BotFather. Ownership moves inside BotFather, and the token and the chat id stay the same, so nothing in the app changes.
 
 1. The receiving account (DevOps, or a company Telegram account) opens the bot and sends it a message, so Telegram knows it. It must not have the bot blocked.
-2. Adithya's account needs two-step verification switched on for at least 7 days before the transfer, with the password unchanged, and the Telegram session the transfer is made from has to be at least 24 hours old.
+2. Adithya's account needs two-step verification switched on for at least 7 days before the transfer, with the password unchanged. The Telegram session the transfer is made from has to be at least 24 hours old.
 3. In BotFather: /mybots, the bot, Transfer Ownership, choose the recipient, confirm. It cannot be undone.
-4. The bot keeps running: the token in the GitHub secret stays valid and the **webhook** (the address Telegram posts the bot's new messages to) stays set. The new owner can later regenerate the token in BotFather; if they do, update TELEGRAM_BOT_TOKEN in the Launchpad's Actions secrets and run the webhook setup again, or messages stop arriving.
+4. The bot keeps running: the token in the GitHub secret stays valid and the **webhook** (the address Telegram posts the bot's new messages to) stays set. The new owner can later regenerate the token in BotFather. If they do, update TELEGRAM_BOT_TOKEN in the Launchpad's Actions secrets and run the webhook setup again, or messages stop arriving.
 5. The alert chat: add the new owner's account to it. The chat id in ADMIN_ALERT_TELEGRAM_CHAT_ID does not change.
 
-The Points Program has its own bot, held under sarvalabsdeveloper@gmail.com; who owns its group is not recorded.
+The Points Program has its own bot, held under sarvalabsdeveloper@gmail.com. Who owns its group is not recorded.
 
 ## Secrets
 
-The secrets themselves sit in each repo's GitHub Actions settings, not with Adithya. Where to get each one again if it is lost (which dashboard, which account) is written: ENV-VARS.md, one section per product, with the consoles and who holds each login.
+The secrets themselves sit in each repo's GitHub Actions settings, not with Adithya. If one is lost, ENV-VARS.md says where to get it again (which dashboard, which account): one section per product, with the consoles and who holds each login.
 
-Not to migrate: the Points Program's Supabase project (it is on the points@moinetwork.io account (managed by Sai Kiran; kept there because the company organisation is at its free-plan limit, see POINTS-PROGRAM.md), not Adithya's; it is still on the free plan with no backups, so a paid plan is worth doing when someone takes it over) and the **AgentMarket** contract (the paid-agent marketplace contract; the current one is not in use, and whoever redeploys it does so from their own wallet).
+Not to migrate: the Points Program's Supabase project and the **AgentMarket** contract. The Points project is on the points@moinetwork.io account (managed by Sai Kiran; kept there because the company organisation is at its free-plan limit, see POINTS-PROGRAM.md), not Adithya's. It is still on the free plan with no backups, so a paid plan is worth doing when someone takes it over. The AgentMarket contract is the paid-agent marketplace contract; the current one is not in use, and whoever redeploys it does so from their own wallet.
 
 Groq: no company-owned Groq key exists. The key the Launchpad server uses is not a company key, and whose account holds it is not recorded. The next owner creates a company key at console.groq.com/keys and sets GROQ_API_KEY before relying on it.
 
@@ -64,7 +66,7 @@ Groq: no company-owned Groq key exists. The key the Launchpad server uses is not
 | Contextual Compute website | Vercel project, the domain registration (renews by 2027-03-28), the join-form webhook. The Cloudflare zone is company-owned |
 | Shared | Luma, Riverside, Google Meet and YouTube: Vardan holds them per ENV-VARS.md; confirm the account. Settled: Chandra owns the Buffer organisation; Vardan has Mailchimp access |
 
-## Open questions
+## Open items
 
 - Which organisation each repo transfer goes to (agent dating plugin, Moinkee NFT Minter, Contextual Compute website): waiting on Rahul.
 - Where the MOI Website is deployed. MOI-WEBSITE.md describes a VM; the MOI Website row above says Cloudflare Pages. Neither is verified; ask DevOps (Srikar).

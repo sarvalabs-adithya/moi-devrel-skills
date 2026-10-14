@@ -4,19 +4,21 @@
 
 Video: webinar bounties walkthrough (create, open, submit, award, close) https://drive.google.com/file/d/1MOs61CECZt6SRQhH9Zro0t2avq0-XPsy/view (recorded 14 October 2026).
 
-MOI Community Points. Members sign in with Google, link their X, Discord and Telegram accounts and a MOI wallet, complete tasks and earn points, and see where they stand on a public leaderboard. Admins run X like campaigns and webinar bounties from an admin page. The Points team built the app (Harsh Gupta wrote the first version, Upendhar the CI/CD); DevRel added only the webinar bounties (PR #22) and the review batch fixes (PR #23). Questions about anything other than the webinar bounties go to the Points team: connect with Piyush. DevOps (Upendhar) owns the box it runs on.
+Marketing: How it works (What a member sees, Tasks, X like campaigns, Webinar bounties, Admin), Process (Running an X like campaign, Running a webinar bounty), Claude skill, Open items. Developers: How it works, Stack, Variables, Env vars, Process, Claude skill, Open items.
+
+MOI Community Points. Members sign in with Google, link their X, Discord and Telegram accounts and a MOI wallet, complete tasks to earn points, and see where they stand on a public leaderboard. Admins run X like campaigns and webinar bounties from an admin page. The Points team built the app (Harsh Gupta wrote the first version, Upendhar the CI/CD). DevRel added only the webinar bounties (PR #22) and the review batch fixes (PR #23). Questions about anything other than the webinar bounties go to the Points team: connect with Piyush. DevOps (Upendhar) owns the box it runs on.
 
 ## How it works
 
 **What a member sees**
 
-- Sign in with Google. It is the only login. A sign-in email goes out through **Resend** (an email-sending service) when both email names are set.
+- Sign in with Google, the only login. A sign-in email goes out through **Resend** (an email-sending service) when both email names are set.
 - The dashboard shows the task board. Each task is a card with its points and a button that verifies it.
 - Join X: an X sign-in, then the app checks the member follows the account in X_TARGET_URL. The X connection stays linked and is what campaigns use later.
 - Join Discord: a Discord sign-in, then the bot checks the member is in the guild.
 - Join Telegram: the member joins the group through the bot (invite mode join_request or direct), and the bot's webhook confirms it.
 - Create wallet: the member links a MOI wallet through **Reown** (the WalletConnect service that connects wallets to apps). The server reads the wallet's keys from the **devnet** (MOI's test network) RPC and accepts any active key.
-- Points land in a ledger the moment a task is verified. The leaderboard and the member's total read from it.
+- Points land in a ledger the moment a task is verified. The leaderboard and the member's total both read from it.
 - Verification attempts are limited per member and per address (defaults: 6 per member and 30 per address in 10 minutes).
 
 **Tasks**
@@ -45,19 +47,19 @@ The database value decides what is awarded. TASK_POINTS in lib/rewards/tasks.ts 
 
 **Webinar bounties (PR #22)**
 
-Every **Builders session** (MOI's live-build webinar for developers) can end with a bounty: something attendees do for points. The host creates it on the Points site, with no code change and no deploy. A bounty is a small form: one to six fields, each an **interaction hash** (the ID of a transaction on MOI), a link, a number or a line of text, required or optional, and each worth its own points; the bounty's points are the sum. Members with a linked wallet fill it in, the answers wait in a queue, and the host grades them by hand, ticking the answers that earn their points. So "100 for the interaction, 100 for a demo video, 100 for the write-up" is three fields with the video optional: a member can earn up to 300 and must send the interaction. Nothing is awarded by a machine.
+Every **Builders session** (MOI's live-build webinar for developers) can end with a bounty: something attendees do for points. The host creates it on the Points site, with no code change and no deploy. A bounty is a small form: one to six fields, each an **interaction hash** (the ID of a transaction on MOI), a link, a number or a line of text, required or optional, and each worth its own points; the bounty's points are the sum. Members with a linked wallet fill it in, the answers wait in a queue, and the host grades them by hand, ticking the answers that earn their points. For example, "100 for the interaction, 100 for a demo video, 100 for the write-up" is three fields with the video optional: a member can earn up to 300 and must send the interaction. Nothing is awarded automatically.
 
 - It is a tasks row with the id bounty:<uuid>, its settings (session, brief link, deadline, fields) in the row's metadata, and each member's answers in an ordinary task completion. No new table, no migration.
 - The fields and their points are locked while the bounty is open and once a submission is waiting or approved. Title, description, brief link, deadline and session can change any time.
-- A hash answer is checked against the chain when the server has MOI_RPC_URL (did the member's wallet send it, did it succeed; not set on production as of 13 October, so that note is off) and the answer is shown to the host as advice. A hash another bounty already holds is flagged. Neither blocks the submission; the host decides.
-- Approve pays the ticked answers' points at once through the same path as every task, so a member is paid once per bounty. Required answers are always ticked (a wrong one means Reject); untick an optional answer to leave its points out. Reject needs a reason the member sees, and the member can send new answers. Approving records what was accepted, drops the text answers from the record and keeps the hashes, links and numbers as the evidence.
+- When the server has MOI_RPC_URL, a hash answer is checked against the chain (did the member's wallet send it, did it succeed) and the result is shown to the host as advice. It is not set on production as of 13 October, so that note is off. A hash another bounty already holds is flagged. Neither blocks the submission; the host decides.
+- Approve pays the ticked answers' points at once through the same path as every task, so a member is paid once per bounty. Required answers are always ticked (a wrong one means Reject); untick an optional answer to leave its points out. Reject needs a reason the member sees, and the member can send new answers. Approving records what was accepted. It drops the text answers from the record and keeps the hashes, links and numbers as the evidence.
 
 Members see open bounties on their dashboard under Webinar bounties, one box per field.
 
 **Admin**
 
 - An admin is an email in ADMIN_EMAILS (once Google has verified it) or a row in the admin_users table. On 13 October the admin_users table was empty, so access comes only from ADMIN_EMAILS.
-- To add an admin: append their Google email to the ADMIN_EMAILS Actions variable (keeping the existing ones), redeploy, then check the count. The change only reaches the app after the redeploy (about 4 minutes):
+- To add an admin, append their Google email to the ADMIN_EMAILS Actions variable (keeping the existing ones), redeploy, then check the count. The change reaches the app only after the redeploy (about 4 minutes):
 
 ```bash
 gh variable set ADMIN_EMAILS --repo sarvalabs/moi-project --body "$(gh variable get ADMIN_EMAILS --repo sarvalabs/moi-project),name@example.com"
@@ -74,26 +76,26 @@ gh variable get ADMIN_EMAILS --repo sarvalabs/moi-project | tr ',' '\n' | grep -
   To remove someone, set the variable to the full list without them (gh variable set ADMIN_EMAILS --repo sarvalabs/moi-project --body "a@x.com,b@y.com") and redeploy. The person signs out and in again after the redeploy.
 - There is one admin role. An admin can run campaigns and bounties, erase a member and unlink a member's social accounts.
 - Every admin action writes a row in admin_audit_events.
-- A member without admin access who opens /admin is sent to the dashboard. That is by design.
+- A member without admin access who opens /admin is sent to the dashboard, by design.
 
 **Why the database stays in the points@moinetwork.io Supabase account**
 
-Launchpad and Dataroom moved into the company Supabase organisation on 8 October, but Points did not: the company organisation is on the free plan, which allows two active projects, and those two slots are taken. Moving Points would need the company organisation on a paid plan, which is Rahul's call. Until then the project stays in the points@moinetwork.io account, which Sai Kiran manages. The cost of this choice: the free plan has no automatic backups. For access, ask Sai Kiran to add people (DevOps, Rahul) to that Supabase organisation so nothing depends on one login.
+Launchpad and Dataroom moved into the company Supabase organisation on 8 October, but Points did not. The company organisation is on the free plan, which allows two active projects, and those two slots are taken. Moving Points would need the company organisation on a paid plan, which is Rahul's call. Until then the project stays in the points@moinetwork.io account, which Sai Kiran manages. The cost is that the free plan has no automatic backups. For access, ask Sai Kiran to add people (DevOps, Rahul) to that Supabase organisation so nothing depends on one login.
 
 **The database rules** (drizzle/TRIGGERS.md; **Drizzle** is the database toolkit behind the schema and migrations)
 
 - The points ledger is append-only. An award cannot be edited or deleted; a wrong points value only affects future awards.
-- A verified completion can only move to rejected. Pending to verified, pending to rejected and rejected to pending are allowed.
+- A verified completion can only move to rejected. The moves pending to verified, pending to rejected and rejected to pending are allowed.
 - A linked social account cannot be reassigned to another member. A bound wallet cannot change except inside an erasure.
 - Members with points are anonymised on erasure, never deleted. What a member sent to a bounty is cleared unless the proof was approved, because then it is the evidence for the points.
 
 **How a deploy works**
 
 - A push to feature/ci-cd (not main) runs the CI/CD workflow: build the Docker image, push it to **GHCR** (GitHub's container registry) as latest, log in to the box through **Teleport** (the secure access gateway to the box), rewrite the app's env file from the GitHub variables, hand the secrets straight to the container, remove the old container and start the new one.
-- About 4 minutes. No staging. No rollback: only latest is pushed.
-- On start, in production, the app refuses to boot if the database has fewer migrations than the build, or if an enabled task is missing a setting. A merge that adds a migration or enables a task without its settings takes the site down until it is fixed.
-- No pull request runs any check. Whoever ships runs pnpm run ci (**pnpm** is the Node package manager; ci is lint, typecheck, tests and the migration check).
-- The social audit job is gone (/api/jobs/social-audit answers 404). /api/jobs/maintenance, a purge-and-totals job, is live (401 without CRON_SECRET). No scheduler calls the maintenance job; confirm with Upendhar. PR #23 also removed point clawbacks.
+- A deploy takes about 4 minutes. There is no staging and no rollback, because only latest is pushed.
+- On start, in production, the app refuses to boot if the database has fewer migrations than the build, or if an enabled task is missing a setting. A merge that adds a migration or enables a task without its settings takes the site down until someone fixes it.
+- No pull request runs any check, so whoever ships runs pnpm run ci (**pnpm** is the Node package manager; ci is lint, typecheck, tests and the migration check).
+- The social audit job is gone (/api/jobs/social-audit answers 404). /api/jobs/maintenance, a purge-and-totals job, is live (401 without CRON_SECRET), but no scheduler calls it; confirm with Upendhar. PR #23 also removed point clawbacks.
 
 ## Stack
 
@@ -150,9 +152,9 @@ The full list with comments is .env.example in the repo.
 **Shipping a change**
 
 - Branch from feature/ci-cd, not main.
-- Run pnpm run ci: lint with zero warnings, typecheck, tests, migration check. No check runs on a PR.
+- Run pnpm run ci: lint with zero warnings, typecheck, tests and the migration check. No check runs on a PR.
 - If the change adds a migration or enables a task, do the database or settings steps below first. The merge is the deploy and the new build refuses to start on an older database.
-- Open one PR against feature/ci-cd. Review tweaks go on the same branch, not a PR each.
+- Open one PR against feature/ci-cd. Put review tweaks on the same branch, not in a PR each.
 - Merge. This builds the image and replaces the running container: production changes now.
 - Wait for the run, then read /api/health: healthy true, applied equals expected, origin https://points.moi.technology. Sign in and open the page that changed.
 - A redeploy without a code change: Actions, "MOI Project CI/CD", Run workflow, branch feature/ci-cd.
@@ -221,8 +223,8 @@ The full list with comments is .env.example in the repo.
 - No answer at all: the container is down or crash-looping at startup, usually a missing task setting or a wrong BETTER_AUTH_URL. Ask DevOps for the container log.
 - Sign-in loops or the health origin is wrong: BETTER_AUTH_URL.
 - A member's verify fails for everyone on one provider: that provider's app or callback. Check the provider console.
-- Do not redeploy to see if it helps until the cause is known: a redeploy replaces the container again.
-- Rollback: none. Revert in a new PR and merge.
+- Do not redeploy to see if it helps before you know the cause, because a redeploy replaces the container again.
+- There is no rollback. Revert in a new PR and merge.
 
 ## Claude skill
 

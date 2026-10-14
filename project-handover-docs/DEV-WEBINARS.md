@@ -2,9 +2,9 @@
 
 **Status: active.** Nine sessions so far (see Open items); the next one is not scheduled.
 
-Marketing: Variables, Posting with Buffer, Announcement schedule. Developers: Process, Claude skill, Open items.
+Marketing: Variables, Process (Posting with Buffer, Announcement schedule). Developers: Env vars, Process, Claude skill, Open items.
 
-The MOI Builders sessions: a live session where DevRel builds one project on MOI in front of developers. DevRel owns the session end to end. Vardan provides the Google Meet link.
+The MOI Builders sessions are live sessions where DevRel builds one project on MOI in front of developers. DevRel owns each session end to end. Vardan provides the Google Meet link.
 
 ## Variables
 
@@ -13,15 +13,15 @@ The MOI Builders sessions: a live session where DevRel builds one project on MOI
 | Project to build | DevRel, with Rahul | Finalized with Rahul 9 days before the session |
 | Slide deck | DevRel | Built with the deck branch of the moi-webinar skill, in MOI branding |
 | **Luma** page (the event page and sign-up service) | DevRel | For Builders sessions. Created on the Monday of the session week, with the Meet link. Community calls are different: Vardan owns their Luma page (COMMUNITY-CALL.md) |
-| Pre session posts | DevRel | X and LinkedIn, scheduled on **Buffer** (a post-scheduling service) after consulting marketing (see Posting with Buffer below) |
-| Session **bounty** (something attendees do for points) | DevRel | Created on the admin page of the **Points site** (points.moi.technology, the MOI Community Points app), no code change. Bounties went live with PR #22 on sarvalabs/moi-project, merged and deployed on 13 October 2026; a test bounty was run end to end on 14 October 2026 (created, opened, answered, awarded, closed). See POINTS-PROGRAM.md. Before that, proofs came in through a Google Form per session (Builders II, III, IV and VII), checked by hand, and Adithya awarded those points. The responses sheet "MOI Builders II - Native Assets (Responses)" and the forms are on the adithya@moinetwork.io Drive (see Open items) |
+| Pre session posts | DevRel | X and LinkedIn, scheduled on **Buffer** (a post-scheduling service) after consulting marketing (see Posting with Buffer, under Process) |
+| Session **bounty** (something attendees do for points) | DevRel | Created on the admin page of the **Points site** (points.moi.technology, the MOI Community Points app), with no code change. Bounties went live with PR #22 on sarvalabs/moi-project, merged and deployed on 13 October 2026, and a test bounty was run end to end on 14 October 2026 (created, opened, answered, awarded, closed). See POINTS-PROGRAM.md. Before that, proofs came in through a Google Form per session (Builders II, III, IV and VII), were checked by hand, and Adithya awarded those points. The responses sheet "MOI Builders II - Native Assets (Responses)" and the forms are on the adithya@moinetwork.io Drive (see Open items) |
 | Google Meet link | Vardan | |
 | Post session blog | DevRel | Written with the moi-blog skill and published on the website repo. See BLOG.md |
 | Codebase | DevRel | https://github.com/moi-foundation/MOI-Webinars, one folder per session: the README with the steps, the code, and the session notes. Event pages and forms number sessions in Roman numerals, the folders in plain numbers: Builders II is session-2, III is session-3, IV is session-4, VII is session-7, and VIII is session-8-policies. session-8-policies is the fullest example (README, LUMA.md, RUNBOOK.md, GAMEDAY.md, NOTES.md, BLOG.md) |
 
 ## Env vars
 
-One key: BUFFER_API_KEY, for the Buffer script that schedules the session posts. Chandra, who owns the Buffer organisation, creates it. It is not the BUFFER_ACCESS_TOKEN that the blog's announcing workflow uses (BLOG.md): the two are different keys for different tools. Luma, Google Meet and YouTube are shared logins held by Vardan, not variables. The index across every product is ENV-VARS.md.
+One key: BUFFER_API_KEY, for the Buffer script that schedules the session posts. Chandra, who owns the Buffer organisation, creates it. It is not the BUFFER_ACCESS_TOKEN that the blog's announcing workflow uses (BLOG.md): the two keys belong to different tools. Luma, Google Meet and YouTube are shared logins held by Vardan, not variables. The index across every product is ENV-VARS.md.
 
 ## Process
 
@@ -39,7 +39,7 @@ One key: BUFFER_API_KEY, for the Buffer script that schedules the session posts.
 **From 9 days to 2 days before**
 
 - Build the project and test it on **devnet** (MOI's shared test network).
-- Plan the lesson: what the session teaches, in what order.
+- Plan the lesson: what the session teaches, and in what order.
 - Build the deck (the deck branch of the moi-webinar skill).
 - Set the session bounty on the Points admin page (POINTS-PROGRAM.md, "Running a webinar bounty").
 
@@ -63,9 +63,9 @@ One key: BUFFER_API_KEY, for the Buffer script that schedules the session posts.
 - Write the post session blog and publish it (BLOG.md).
 - Push the session's code to the repo.
 
-**Posting with Buffer**
+### Posting with Buffer
 
-Every pre session post goes out through Buffer, from the X and LinkedIn channels in the MOI organisation. Chandra owns the organisation. Marketing owns what goes out on the company channels, so only use Buffer after consulting the marketing team.
+Every pre session post goes out through Buffer, from the X and LinkedIn channels in the MOI organisation. Chandra owns the organisation. Marketing owns what goes out on the company channels, so consult the marketing team before using Buffer.
 
 - Ask Chandra for a Buffer API key once. Only the owner can create one.
 - Put it in a file called .env at the root of the moi-webinar skill folder, as BUFFER_API_KEY=<the key>. Never commit it and never paste it in chat.
@@ -73,7 +73,7 @@ Every pre session post goes out through Buffer, from the X and LinkedIn channels
 - Draft a post: `node scripts/buffer.mjs post --file <post.txt> --channel <id> --draft`. Without --confirm it only prints what it would do; add --confirm to send. Without --draft a scheduled post publishes by itself, so use --draft unless the exact time matters. A time for --at must end in Z (UTC).
 - The moi-webinar skill drafts the four posts and drives this script after you approve each one.
 
-## Announcement schedule
+### Announcement schedule
 
 | When | What |
 |---|---|
@@ -84,7 +84,7 @@ Every pre session post goes out through Buffer, from the X and LinkedIn channels
 
 ## Claude skill
 
-The **moi-webinar** skill covers the session: lesson planning, the Luma text, the pre session posts and the day itself. The deck is built with its deck branch, and the post session blog with the **moi-blog** skill. Say what you need in plain words: Claude loads them on phrases like "builders session", "make the deck" or "write the blog".
+The **moi-webinar** skill covers the session: lesson planning, the Luma text, the pre session posts and the day itself. Its deck branch builds the deck, and the **moi-blog** skill writes the post session blog. Say what you need in plain words: Claude loads them on phrases like "builders session", "make the deck" or "write the blog".
 
 | When | What to tell Claude | What the skill does |
 |---|---|---|
@@ -95,11 +95,11 @@ The **moi-webinar** skill covers the session: lesson planning, the Luma text, th
 | 1 day before | "Run the session check." | Checks the project's setup and that devnet is reachable. |
 | After the session | "Draft the post session blog." | Writes the post from the session's code and notes, ready for the website. |
 
-What the skills never do without a yes from DevRel: schedule or post anything, publish the blog, or push code (the webinars repo is public).
+Without a yes from DevRel, the skills never schedule or post anything, publish the blog, or push code (the webinars repo is public).
 
 ## Open items
 
 - Finalize the existing bounty list and the bounty system on the Points Program.
-- Bounties are live (PR #22, 13 October 2026): whoever runs a webinar creates its bounty on the Points site themselves, without a code change, as a small form the host designs (an **interaction hash**, which is the identifier of a signed request on the chain and shows in the explorer; a link; number or text fields, each worth its own points) and grades by hand. Next step: add the bounty flow to the moi-webinar skill: create, open, grade, close.
+- Bounties are live (PR #22, 13 October 2026). Whoever runs a webinar creates its bounty on the Points site, without a code change, as a small form the host designs and grades by hand: an **interaction hash** (the identifier of a signed request on the chain, shown in the explorer), a link, and number or text fields, each worth its own points. Next step: add the bounty flow to the moi-webinar skill: create, open, grade, close.
 - The forms and the responses sheet from the old Google Form bounties sit on the adithya@moinetwork.io Drive, Adithya's company Google account, which may close after he leaves. Move them to a shared company Drive before Adithya leaves on 14 October.
-- Status says nine sessions. The session history in the moi-webinar skill (as of 2 October 2026) records sessions 1 to 4, 7 and 8 as held, no record that 5 and 6 were, and 9 as planned. Confirm the count.
+- Status says nine sessions. The session history in the moi-webinar skill (as of 2 October 2026) records sessions 1 to 4, 7 and 8 as held, has no record that 5 and 6 were, and lists 9 as planned. Confirm the count.

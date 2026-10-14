@@ -2,48 +2,11 @@
 
 **Status: active.** Six posts live; the monthly newsletter runs on the 15th.
 
-Marketing: Variables, step 8 (Announce) and 9 (Newsletter) of Writing a post, The monthly newsletter, Open items. Developers: Stack, Env vars, How the blog works, Writing a post, Other kinds of post, Images, Editing or deleting a published post, Claude skills.
+Marketing: Variables, Process (step 8 Announce and step 9 Newsletter of Writing a post, and The monthly newsletter), Open items. Developers: How it works, Stack, Env vars, Process (Writing a post, Other kinds of post, Images, Editing or deleting a published post), Claude skill.
 
 blog.moi.technology, a separate site from moi.technology that lives in the same repo and deploys with it. Every post is one markdown file, and the blog is built with **Astro** (a tool that turns the files into a static website). Two kinds of post recur: the write-up after a **Builders session** (MOI's live developer webinar, covered in DEV-WEBINARS.md), and the monthly release post written from the protocol team's release note. DevRel writes the posts, Rahul reviews them, and the announcement goes out through a workflow in the same repo. As of October 2026 there are six posts live; the September release post is the one to copy.
 
-## Variables
-
-| Variable | Owner | Notes |
-|---|---|---|
-| Posts | DevRel | blog/src/content/posts in sarvalabs/MOI-Website |
-| Review | Rahul | Every post before it merges |
-| Release note | Protocol team | The source for a release post. Kept exactly as sent |
-| Social copy | DevRel | social/<slug>.md, drafted by a workflow, rewritten by hand. Marketing owns the company channels, so check with them before anything goes out |
-| Newsletter (**Mailchimp**, the email service) | Vardan | Has the Mailchimp login. An **RSS** campaign (RSS is a standard feed format that other tools can poll for new posts), the 15th of every month |
-| Server and deploy script | DevOps | Shared with the website |
-
-## Stack
-
-| Piece | What it is |
-|---|---|
-| Astro 5 | Builds the blog from the markdown files, in blog/ of the website repo. Node 22 |
-| Markdown with a header block | One file per post. The header fields are checked by the blog build |
-| Astro sitemap plugin, two RSS feeds, **llms.txt** (a plain-text list of posts for AI assistants) | Generated at build time from the same files |
-| scripts/build-blog-index.js | Builds the static listing at moi.technology/blog for the React site |
-| GitHub Actions + **Teleport** (the gateway DevOps uses to reach the server) | The deploy: a merge to main runs a script on the server that builds both sites |
-| GitHub Actions workflows | "Prepare social copy" drafts the announcement file; "Distribute a post" sends it: X and LinkedIn to **Buffer** (a post-scheduling service) as drafts, Discord and Telegram straight to the channel |
-| Buffer | Where the X and LinkedIn announcements land as drafts for a person to approve and publish. The same account the webinar posts go through; the login is Chandra's and the setup is in DEV-WEBINARS.md |
-| Mailchimp | An RSS campaign: on the 15th of every month it reads the email feed and sends the posts that are new. No code in the repo |
-| Google Tag Manager and Analytics | Measurement on both hosts. Both are under the sarvalabsdeveloper@gmail.com account |
-
-## Env vars
-
-The index across every product, with the consoles and who holds each login, is ENV-VARS.md. The blog has no secrets of its own: the Astro build, the listing script, the feeds and llms.txt run with none, and Mailchimp holds its own settings. These are the only values that touch a post. All of them live on the website repo, and the full table for that repo, including the deploy access, is in MOI-WEBSITE.md.
-
-| Variable | What it is | Where the value comes from |
-|---|---|---|
-| BLOG_ORIGIN | Where the listing at moi.technology/blog links to. Optional; defaults to https://blog.moi.technology | Actions variable on sarvalabs/MOI-Website |
-| BUFFER_ACCESS_TOKEN, BUFFER_CHANNEL_X, BUFFER_CHANNEL_LINKEDIN | The "Distribute a post" workflow: X and LinkedIn, queued in Buffer as drafts | Buffer (Chandra). Set as of October 2026 |
-| DISCORD_WEBHOOK_URL, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID | The same workflow: Discord and Telegram, posted directly. A missing one skips its channel | Discord server settings, BotFather. Not set as of October 2026, so both channels are skipped |
-| Tag Manager container id | Measurement on both hosts | In the code, not a variable. The container is under sarvalabsdeveloper@gmail.com |
-| Mailchimp (feed address, schedule, sender, audience) | The monthly newsletter | Settings on the RSS campaign in Mailchimp (Vardan), nothing in the repo |
-
-## How the blog works
+## How it works
 
 **Two sites, one repo**
 
@@ -92,7 +55,46 @@ Only the blog build checks these fields: its content schema rejects a missing ti
 - The listing at moi.technology/blog is static HTML with its own structured data, so AI crawlers that do not run JavaScript still see it.
 - Every announcement link carries **UTM** tags (query parameters such as utm_source that Analytics reads), and so does every link in the newsletter, so Analytics can tell X, LinkedIn, email and search apart.
 
-## Writing a post, step by step
+## Stack
+
+| Piece | What it is |
+|---|---|
+| Astro 5 | Builds the blog from the markdown files, in blog/ of the website repo. Node 22 |
+| Markdown with a header block | One file per post. The header fields are checked by the blog build |
+| Astro sitemap plugin, two RSS feeds, **llms.txt** (a plain-text list of posts for AI assistants) | Generated at build time from the same files |
+| scripts/build-blog-index.js | Builds the static listing at moi.technology/blog for the React site |
+| GitHub Actions + **Teleport** (the gateway DevOps uses to reach the server) | The deploy: a merge to main runs a script on the server that builds both sites |
+| GitHub Actions workflows | "Prepare social copy" drafts the announcement file; "Distribute a post" sends it: X and LinkedIn to **Buffer** (a post-scheduling service) as drafts, Discord and Telegram straight to the channel |
+| Buffer | Where the X and LinkedIn announcements land as drafts for a person to approve and publish. The same account the webinar posts go through; the login is Chandra's and the setup is in DEV-WEBINARS.md |
+| Mailchimp | An RSS campaign: on the 15th of every month it reads the email feed and sends the posts that are new. No code in the repo |
+| Google Tag Manager and Analytics | Measurement on both hosts. Both are under the sarvalabsdeveloper@gmail.com account |
+
+## Variables
+
+| Variable | Owner | Notes |
+|---|---|---|
+| Posts | DevRel | blog/src/content/posts in sarvalabs/MOI-Website |
+| Review | Rahul | Every post before it merges |
+| Release note | Protocol team | The source for a release post. Kept exactly as sent |
+| Social copy | DevRel | social/<slug>.md, drafted by a workflow, rewritten by hand. Marketing owns the company channels, so check with them before anything goes out |
+| Newsletter (**Mailchimp**, the email service) | Vardan | Has the Mailchimp login. An **RSS** campaign (RSS is a standard feed format that other tools can poll for new posts), the 15th of every month |
+| Server and deploy script | DevOps | Shared with the website |
+
+## Env vars
+
+The index across every product, with the consoles and who holds each login, is ENV-VARS.md. The blog has no secrets of its own: the Astro build, the listing script, the feeds and llms.txt run with none, and Mailchimp holds its own settings. These are the only values that touch a post. All of them live on the website repo, and the full table for that repo, including the deploy access, is in MOI-WEBSITE.md.
+
+| Variable | What it is | Where the value comes from |
+|---|---|---|
+| BLOG_ORIGIN | Where the listing at moi.technology/blog links to. Optional; defaults to https://blog.moi.technology | Actions variable on sarvalabs/MOI-Website |
+| BUFFER_ACCESS_TOKEN, BUFFER_CHANNEL_X, BUFFER_CHANNEL_LINKEDIN | The "Distribute a post" workflow: X and LinkedIn, queued in Buffer as drafts | Buffer (Chandra). Set as of October 2026 |
+| DISCORD_WEBHOOK_URL, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID | The same workflow: Discord and Telegram, posted directly. A missing one skips its channel | Discord server settings, BotFather. Not set as of October 2026, so both channels are skipped |
+| Tag Manager container id | Measurement on both hosts | In the code, not a variable. The container is under sarvalabsdeveloper@gmail.com |
+| Mailchimp (feed address, schedule, sender, audience) | The monthly newsletter | Settings on the RSS campaign in Mailchimp (Vardan), nothing in the repo |
+
+## Process
+
+### Writing a post, step by step
 
 **How the AI fits in, and what worked**
 
@@ -169,9 +171,9 @@ Only the blog build checks these fields: its content schema rejects a missing ti
 
 **9. Newsletter**
 
-- Nothing to do. If the post is live at least three hours before the 15th's send, the monthly email picks it up. See "The monthly newsletter" below.
+- Nothing to do. If the post is live at least three hours before the 15th's send, the monthly email includes it. See "The monthly newsletter" below.
 
-## Other kinds of post
+### Other kinds of post
 
 **The protocol release post**
 
@@ -188,9 +190,9 @@ Only the blog build checks these fields: its content schema rejects a missing ti
 - The session's own BLOG.md is not a blog file: its header has to be rewritten to the blog's fields or the build fails.
 - Link the recording and the repo folder.
 
-## The monthly newsletter
+### The monthly newsletter
 
-One email a month, on the 15th, with every post published since the last one. Nobody writes it and nobody sends it. It is a Mailchimp RSS campaign: a standing automation inside Mailchimp that is pointed at a feed address and given a schedule. On the schedule Mailchimp fetches the feed, compares the items with what it sent last time, and if anything is new it builds one email from those items and sends it to the audience. If nothing is new, it sends nothing that month. Vardan has the Mailchimp login. Nothing about the newsletter lives in the repo, so a new DevRel needs that login, not a secret.
+One email a month, on the 15th, with every post published since the last one. Nobody writes it and nobody sends it. It is a Mailchimp RSS campaign, a standing automation inside Mailchimp with a feed address and a schedule. On the schedule Mailchimp fetches the feed, compares the items with what it sent last time, and if anything is new it builds one email from those items and sends it to the audience. If nothing is new, it sends nothing that month. Vardan has the Mailchimp login. Nothing about the newsletter lives in the repo, so a new DevRel needs that login, not a secret.
 
 **What is set up, once**
 
@@ -232,21 +234,21 @@ One email a month, on the 15th, with every post published since the last one. No
 
 - An email outside the monthly schedule (the August validator notice about the Voyage login was one) is a separate regular campaign: drafted from the same template parts, sent to a chosen segment, after a test send to the team. Sent by hand from Mailchimp.
 
-## Images
+### Images
 
 - Body images go in blog/src/assets/<slug>/ and are referenced from the post as ../../assets/<slug>/<file>, with alt text.
 - The cover image goes in blog/public/covers/. It is the picture shown when the link is shared on X or LinkedIn, and the thumbnail on the moi.technology/blog listing. If the cover is an SVG, a PNG with the same name must sit beside it, or the share image points at a missing file.
 - An image that changes gets a new filename. Email clients and social caches keep the old file under the old name for a long time.
 - No post on main sets a cover, so shares carry no picture as of October 2026. That is by choice; there is nothing to backfill.
 
-## Editing or deleting a published post
+### Editing or deleting a published post
 
 - An edit goes through the same flow: branch, pull request, review, merge. Set the updated field only if the post changed after publication. An edit never re-announces and never re-sends the newsletter.
 - Never rename a published slug. The slug is the URL, the canonical address, and the id in both feeds; renaming breaks every link and makes the newsletter treat the post as new.
 - To delete, remove the file (or set draft to true), merge, and after the deploy check that the page is really gone. Deleted posts survived deploys once, in August 2026.
 - The main site answers 200 for any address, so a page that looks like it exists there proves nothing. Check on blog.moi.technology, which answers 404 for an unknown article.
 
-## Claude skills, and how they are used
+## Claude skill
 
 | Skill | Used for | How |
 |---|---|---|
