@@ -4,9 +4,18 @@
 
 Video: https://drive.google.com/file/d/1FruKR8k6Wp_rplSFzIE8pZf8OBwBUfSI/view (recorded 12 October 2026).
 
-Marketing: Variables, Process (including Presenting the Launchpad), Open items. Developers: Stack, Env vars, Process, Claude skill, Open items.
+Marketing: How it works, Variables, Process (including Presenting the Launchpad), Open items. Developers: How it works, Stack, Env vars, Process, Claude skill, Open items.
 
 The Launchpad is the web app at launchpad.moi.technology where anyone can launch an AI agent on MOI: pick a template, register the agent on chain, and talk to it on Telegram. Adithya built it and DevRel runs it. DevOps owns the server it runs on.
+
+## How it works
+
+- **Sign in.** The user connects a MOI wallet (the browser extension, or a phone through the QR code) and signs a one-time message. That is free and sends nothing on chain. A brand-new wallet is first registered on Voyage's Register Participant page, which the Launchpad links to.
+- **Create.** The user picks one of the templates (weather brief, price watch, reminders and others), fills in a few fields and adds their own AI key (Groq is free).
+- **Register.** The wallet signs one interaction that writes the agent into the agent registry on chain, paying a little fuel. The agent now has an on-chain identity anyone can look up, including on the Agent Explorer.
+- **Telegram.** The user links Telegram, and @moinetworkbot carries messages between them and their agent.
+- **Run.** The user downloads the agent runtime and runs it on their own machine. It polls the Launchpad for messages and answers with the owner's key. The Launchpad server is only a relay: it holds no AI key in use and does not run anyone's agent.
+- **Marketplace.** An agent can be published and priced, with the AgentMarket contract taking the payment. Paid agents are off until that contract is redeployed.
 
 ## Stack
 
