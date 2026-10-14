@@ -23,7 +23,7 @@ dataroom.moi.technology is MOI's investor document room. It holds the whitepaper
 - Which document a tile opens is set by pinning. "Show on home" in a document's form pins it to a slot. Each slot holds one document, and pinning a new one unpins the old one. A tile with nothing pinned guesses by title (the matchCategory and matchTitleHint fields in the same list), so two documents with similar titles can swap places. Always pin.
 - Under the tiles, documents are listed by section: Contextual Compute, Engineering, Business & GTM, Tokenomics, Research and Use cases. A document's section is its category.
 - A document's title and description appear in that list and on its own page. To change them, click Edit on its row in the admin page, change what you need and Save. Editing never re-indexes the file. Changing the category wipes the title and description, so set the category first.
-- The figures under "Network & Community" (Accounts, Interactions, Consensus Nodes, Community, KMOI TVL) are typed by hand into the STATS list in moi-data-room/src/lib/constants.ts. Nothing calculates them. Update them in the code, add a source, or remove them.
+- The figures under "Network & Community" (Accounts, Interactions, Consensus Nodes, Community, KMOI TVL) are typed by hand into the STATS list in moi-data-room/src/lib/constants.ts. Nothing calculates them, and they have not been updated in a while, so they may be out of date. To change them, edit that list.
 - The Adopters page shows whatever the admin Adopters section holds.
 
 **How Supabase is used**
@@ -165,8 +165,3 @@ Without your yes, the skill never pushes, merges (merging deploys), runs a workf
 ## Open items
 
 - The admin check is weak. The admin cookie carries the secret itself and page scripts can read it, the secret is not compared safely, and the stats route on main accepts a fixed cookie value written in the public source. While ADMIN_TOKEN is unset, that route shows anyone the question count and the top documents. A fix (safe comparison, an httpOnly cookie, and no admin at all if the secret is empty) is on the branch claude/security-vulnerability-analysis-dWvYu of Adithya's fork, from 23 March and 62 files behind main. Copy the branch to sarvalabs/moi-dataroom0, rebase it, keep the login changes, open a PR and merge it, then rotate ADMIN_SECRET once more.
-- There are two whitepaper rows, one on the home tile and one indexed. Work out which is current and keep one. Fix the swap script's rename step first.
-- The home page figures are typed into the code with no source. Add sources or remove them.
-- PR #7 (merged 13 October 2026) added a migration for the adopters and document_leads tables and the require_email column. Run it once in the SQL editor if nobody has; on production it changes nothing.
-- The deploy runs /root/scripts/deploy-moi-dataroom.sh, which exists only on the server, so nobody can review what a deploy does. Copy it into the repo and have the workflow run that copy. Then add a step that opens the site and checks a wrong admin key is refused, so a broken deploy shows red instead of green.
-- Nobody has recorded which account owns the Anthropic and OpenAI keys now in the repo's secrets. Find out, then replace both with company keys.
