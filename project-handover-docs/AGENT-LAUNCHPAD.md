@@ -37,7 +37,7 @@ No worker runs in production on purpose: it would steal the Telegram webhook and
 | Server, CI/CD, container registry, **Teleport** (the gateway DevOps uses to reach the server) | DevOps | |
 | Domain launchpad.moi.technology | DevOps | |
 | Registration wallets that activate new users | DevOps | |
-| Agent registry on devnet | Protocol team | Its id changes on every devnet reset |
+| Agent registry on devnet | Protocol team (Gokul) | Its id changes on every devnet reset |
 
 ## Env vars
 
@@ -53,7 +53,7 @@ Where they live: production values are GitHub Actions secrets and variables on s
 | MOI_RPC_URL | Empty means the SDK's built-in devnet endpoint. The Actions variable is set to https://dev.voyage-rpc.moi.technology/devnet/, which answers (checked 14 October 2026) | The devnet RPC address |
 | NEXT_PUBLIC_APP_URL | https://launchpad.moi.technology. Baked at build | |
 | TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_USERNAME, TELEGRAM_WEBHOOK_SECRET, ADMIN_ALERT_TELEGRAM_CHAT_ID | The bot, its webhook and the alert chat. After changing the webhook secret, run setWebhook again or messages stop. Unset, the secret is derived from SESSION_SECRET, so rotating that one would stop Telegram too | BotFather; the secret with openssl rand -hex 20 |
-| MOI_AGENT_REGISTRY_LOGIC_ID | The agent registry. The one value that changes after a devnet reset. As of October 2026 no Actions variable exists, so the code default in lib/moi/registry.ts runs; deploy.yml already reads the name, so create the variable at the next reset | Protocol team |
+| MOI_AGENT_REGISTRY_LOGIC_ID | The agent registry. The one value that changes after a devnet reset. As of October 2026 no Actions variable exists, so the code default in lib/moi/registry.ts runs; deploy.yml already reads the name, so create the variable at the next reset | Protocol team (Gokul) |
 | MOI_AGENT_MARKET_LOGIC_ID | The AgentMarket contract. deploy.yml does not pass it yet | Printed by contracts/agent_market/deploy.mjs |
 | MOI_REGISTRATION_MNEMONIC_1, _2, _3, or MOI_REGISTRATION_API_URL and MOI_REGISTRATION_API_KEY | The wallets that activate new users (the API pair is not in use) | DevOps. Never copy them around |
 | GROQ_API_KEY | The server's own key, internal paths only. Not a company key: no company-owned Groq key exists as of October 2026, so create one before relying on this | console.groq.com |
@@ -102,7 +102,7 @@ The example file with comments is .env.example in the repo.
 
 **After a devnet reset**
 
-- Get the new agent registry id from the Protocol team.
+- Get the new agent registry id from the Protocol team (Gokul).
 - Update it in the repo variables.
 - Run the deploy workflow by hand.
 - Check with DevOps that the registration wallets are funded again.
