@@ -1,6 +1,6 @@
 # Session 8 social posts (cleaned copies)
 
-Thirteen of the 25 files under `social/` in session 8 (local only: the folder is ignored by git and exists only on the previous operator's machine, ASK: Adithya for a copy), in the order
+Thirteen of the 25 files under `social/` in session 8 (local only: the folder is ignored by git and is not in the repo; the originals are not recorded in the handover, and these are the cleaned copies), in the order
 a reader meets them: the announcement pair first, then one pair a day, then the day-of posts. Each file is a
 post; a `-reply` or `-comment` file carries the event page link. Plain text, no emoji, no em dashes. The two
 posts about the Voyage login move and the variant files are left out. `examples/session-8/README.md` lists

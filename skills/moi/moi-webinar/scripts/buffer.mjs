@@ -5,9 +5,12 @@
 //   node scripts/buffer.mjs channels                     list your connected channels
 //   node scripts/buffer.mjs post --file post.txt --channel <id> --at "2026-09-03T09:00:00Z"
 //   node scripts/buffer.mjs post ... --confirm           actually schedule it
+//   node scripts/buffer.mjs post --thread-dir <dir> ...  an X thread from 1.txt, 2.txt, ...
 //
 // Buffer's API is GraphQL over a single endpoint, authenticated with a bearer token.
-// Get a key at https://publish.buffer.com/settings/api and put it in .env at the repo root:
+// Only the owner of the Buffer organisation (Chandra) can create a key, at
+// https://publish.buffer.com/settings/api. Put it in .env at the root of this skill
+// ($SKILLS/moi-webinar/.env, the folder above scripts/):
 //
 //   BUFFER_API_KEY=...
 //
@@ -29,7 +32,7 @@ const API = "https://api.buffer.com";
  * Minimal .env reader. Avoids a dependency for one variable.
  *
  * LAST occurrence wins. Rotating a key means appending the new one, which leaves the dead key
- * above it in the file — and first-wins would silently keep authenticating with the revoked one.
+ * above it in the file, and first-wins would silently keep authenticating with the revoked one.
  * The error you get for that ("access token is not valid") gives no hint that a stale duplicate
  * is the cause. An existing process env var still beats the file.
  */
@@ -43,13 +46,36 @@ function loadEnv() {
   }
   for (const [k, v] of Object.entries(fromFile)) if (!process.env[k]) process.env[k] = v;
 }
+
+const USAGE = `
+  node scripts/buffer.mjs channels
+  node scripts/buffer.mjs post --file <path> --channel <id> [--at <iso8601>] [--draft] [--confirm]
+  node scripts/buffer.mjs post --text "..." --channel <id> [--at <iso8601>] [--draft] [--confirm]
+  node scripts/buffer.mjs post --thread-dir <dir> --channel <id> [--at <iso8601>] [--draft] [--confirm]
+
+  --confirm     actually send it. Without this, nothing is posted. The channel lookup still
+                calls Buffer with your key.
+  --draft       save it as a draft for you to publish by hand, instead of
+                scheduling it to go out on its own. Ignores --at.
+  --follow      a second text file attached the way the platform wants it:
+                on X as the thread's second post, on LinkedIn as the first comment.
+  --thread-dir  an X thread: a folder of 1.txt, 2.txt, ... (the first is the root post).
+                Use it instead of --file and --follow.
+  --help        print this text and exit
+`;
+if (process.argv.includes("--help") || process.argv.includes("-h")) {
+  console.log(USAGE);
+  process.exit(0);
+}
+
 loadEnv();
 
 const KEY = process.env.BUFFER_API_KEY;
 if (!KEY) {
   console.error(
     "\nBUFFER_API_KEY is not set.\n\n" +
-    "  1. Get a key at https://publish.buffer.com/settings/api\n" +
+    "  1. Ask Chandra, who owns the Buffer organisation, for a key (only the owner can create one:\n" +
+    "     https://publish.buffer.com/settings/api)\n" +
     `  2. Add it to ${path.join(ROOT, ".env")} as:  BUFFER_API_KEY=...\n\n` +
     "That file is gitignored. Do not paste the key into a chat or a commit.\n",
   );
@@ -119,7 +145,7 @@ async function cmdPost() {
   const follow = followFile ? fs.readFileSync(path.resolve(followFile), "utf8").trim() : null;
 
   if (!text) throw new Error("need --file <path> or --text \"...\"");
-  if (!channel) throw new Error("need --channel <id> — run `channels` to list them");
+  if (!channel) throw new Error("need --channel <id> (run `channels` to list them)");
   if (at && Number.isNaN(Date.parse(at))) throw new Error(`--at is not a valid date: ${at}`);
 
   const named = (await channels()).find((c) => c.id === channel);
@@ -143,7 +169,7 @@ async function cmdPost() {
   // own at dueAt with nobody in the loop. Very different things, so say which out loud.
   const draft = has("draft");
   const fate = draft
-    ? "DRAFT — sits in Buffer until you publish it yourself"
+    ? "DRAFT: sits in Buffer until you publish it yourself"
     : at
       ? `PUBLISHES AUTOMATICALLY at ${new Date(at).toUTCString()}, nobody reviews it`
       : "PUBLISHES AUTOMATICALLY in the next queue slot, nobody reviews it";
@@ -164,7 +190,7 @@ async function cmdPost() {
     console.log(`  thread of ${thread.length} posts: ` + thread.map((t) => t.length).join(" / ") + " chars");
   }
   if (!has("confirm")) {
-    console.log("  Dry run. Nothing was sent to Buffer at all.");
+    console.log("  Dry run. Nothing was posted. The channel lookup did call Buffer with your key.");
     console.log("  Add --confirm to send it, and --draft to send it as a draft instead of scheduling it.\n");
     return;
   }
@@ -214,17 +240,7 @@ const cmd = process.argv[2];
 const run = { channels: cmdChannels, post: cmdPost }[cmd];
 
 if (!run) {
-  console.log(`
-  node scripts/buffer.mjs channels
-  node scripts/buffer.mjs post --file <path> --channel <id> [--at <iso8601>] [--draft] [--confirm]
-  node scripts/buffer.mjs post --text "..." --channel <id> [--at <iso8601>] [--draft] [--confirm]
-
-  --confirm   actually send it. Without this, nothing reaches Buffer at all.
-  --draft     save it as a draft for you to publish by hand, instead of
-              scheduling it to go out on its own. Ignores --at.
-  --follow    a second text file attached the way the platform wants it:
-              on X as the thread's second post, on LinkedIn as the first comment.
-`);
+  console.log(USAGE);
   process.exit(1);
 }
 

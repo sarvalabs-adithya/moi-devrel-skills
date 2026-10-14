@@ -76,7 +76,7 @@ Slide 1 uses `## OPENING SLIDE 1 · Title`. The header must contain `SLIDE` and 
 2. `python3 "$SKILLS/moi-webinar/deck/scripts/sync-notes.py" <s>/deck/index.html <s>/SCRIPT.md` prints which entries would change. Add `--confirm` to write them. Entries for slides the script does not cover stay as they are, and a slide with no `NOTES` entry at all gets `""`. It never writes `TITLES`: add one title per slide by hand.
 3. `python3 "$SKILLS/moi-webinar/deck/scripts/check-deck.py" <s>/deck/index.html --script <s>/SCRIPT.md`. Checks a, e and h must pass.
 
-Why not edit by hand: `NOTES` entries are JavaScript strings. A real line break inside one, a missing comma between two, or an unescaped double quote is a syntax error that kills the whole inline script. The deck still looks fine and the PDF still prints, because print CSS needs no JavaScript, but the arrow keys, the dots and the presenter window stop. As of 2026-10-02 the intro session deck, held by the previous operator, is in exactly this state (ASK: Adithya for a copy). `sync-notes.py` writes each entry with `json.dumps`, so line breaks become `\n` and quotes are escaped. If you must edit by hand, write `\n` for a break and `\"` for a quote. Save files as UTF-8: a script once reached a voiceover tool with an em dash turned into `â`.
+Why not edit by hand: `NOTES` entries are JavaScript strings. A real line break inside one, a missing comma between two, or an unescaped double quote is a syntax error that kills the whole inline script. The deck still looks fine and the PDF still prints, because print CSS needs no JavaScript, but the arrow keys, the dots and the presenter window stop. As of 2026-10-02 the intro session deck (`others/webinars/intro-session-deck/` in the handover repo) is in exactly this state. `sync-notes.py` writes each entry with `json.dumps`, so line breaks become `\n` and quotes are escaped. If you must edit by hand, write `\n` for a break and `\"` for a quote. Save files as UTF-8: a script once reached a voiceover tool with an em dash turned into `â`.
 
 ## Before you hand the script back
 
@@ -88,4 +88,4 @@ Why not edit by hand: `NOTES` entries are JavaScript strings. A real line break 
 ## Not yet known
 
 - Who writes and checks scripts for slides presented by other speakers on a community call. ASK: Rahul (inferred to manage the call; the sources name no owner).
-- Whether the planted host question was asked on call 14. ASK: Adithya.
+- Whether the planted host question was asked on call 14 is not recorded (the previous DevRel's notes); ASK: Vardan.

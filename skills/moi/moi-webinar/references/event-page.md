@@ -4,7 +4,7 @@ Facts are as of 2026-10-02. The public page for a session is made by hand on Lum
 
 ## The fixed shape
 
-Taken from session 8's `LUMA.md` (local only: ASK: Adithya for the original; a cleaned copy is in `../examples/session-8/LUMA.md`, template in `../templates/LUMA.md`).
+Taken from session 8's `LUMA.md` (local only: gitignored and not in the repo, original not recorded in the handover; a cleaned copy is in `../examples/session-8/LUMA.md`, template in `../templates/LUMA.md`).
 
 | Field | Rule |
 |---|---|
@@ -15,7 +15,7 @@ Taken from session 8's `LUMA.md` (local only: ASK: Adithya for the original; a c
 | Bring | Node and the version that was tested, a devnet wallet funded at voyage.moi.technology, the repo `github.com/moi-foundation/MOI-Webinars` |
 | One honest note | What is not live yet, said up front. Session 8: "Better said now than discovered later" |
 | Practical | A table: date, time, duration, format ("Live, online. Free"), page |
-| Short version | Three short lines for a repost, ending "Friday. Free." |
+| Short version | Three short lines for a repost, ending with the weekday and "Free." |
 
 ## Copy rules
 
@@ -46,17 +46,17 @@ The title numeral has been wrong once, and it is written in two forms.
 
 ## Steps
 
-1. Draft `LUMA.md` the day the topic locks. Show it to the operator with the date, the UTC and IST times and the numeral written out.
+1. Draft `LUMA.md` as soon as the topic locks. The page itself is created on the Monday of the session week, with the Meet link from Vardan (`project-handover-docs/DEV-WEBINARS.md`). Show it to the operator with the date, the UTC and IST times and the numeral written out.
 2. The operator creates the event and the meeting link, pastes the copy, and sends back the page URL. Confirm date, time, numeral and duration on the page before it circulates.
 3. Put the URL in `LUMA.md`, in `SOCIAL.md` (every pre-event post links the page) and in `GAMEDAY.md`.
-4. After the session, add the proof-of-completion form and the repo instructions to the page, and send the recap (`after-the-session.md`). Both are next steps recorded for session III.
+4. After the session, add the bounty brief link and the repo instructions to the page, and send the recap (`after-the-session.md`). Both are next steps recorded for session III.
 
 ## Not yet known
 
 The account behind the page is the biggest gap. None of this is in the repo or in Drive.
 
-- Who owns the Luma login, and whether the page sits under a personal or an organisation account. `moi-devrel/references/keys-and-access.md` lists Luma with the owner unknown. ASK: Rahul.
-- Which Google account hosts the meeting. Session 8's checklist names a Meet, and the recordings and Gemini notes of two sessions sit under `info@moi.technology`, so that account probably hosts (inferred). ASK: Rahul.
-- Whether the page uses approval or a capacity limit, how the meeting link reaches registrants, whether reminder emails go out, and where the registration list is exported to. No Luma export is in Drive. ASK: Adithya.
+- Vardan holds the Luma login and creates the community call pages. A Builders session page is created by DevRel on the Monday of the session week (`project-handover-docs/DEV-WEBINARS.md`). Whether it sits under a personal or an organisation account is not recorded. ASK: Vardan.
+- Which Google account hosts the meeting. Vardan provides the Google Meet link and holds the login (`DEV-WEBINARS.md`). The recordings and Gemini notes of two sessions sit under `info@moi.technology`. ASK: Vardan.
+- Whether the page uses approval or a capacity limit, how the meeting link reaches registrants, whether reminder emails go out, and where the registration list is exported to. No Luma export is in Drive; not recorded (the previous DevRel's notes). ASK: Vardan.
 - Whether a recording link is sent afterwards, and how attendance is tracked. Nothing records either.
 - Who may approve the page before it goes public. ASK: Rahul.

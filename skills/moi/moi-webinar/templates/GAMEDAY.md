@@ -51,7 +51,7 @@ Tracked in the session 8 branch, so a push publishes it: no reviewer names, no s
 
 Fill this in the day before, each line dated. These are the things that were wrong on the last game day:
 
-- The bounty: live or not, and if not, the steps still open. Announce an unfinished bounty as coming, never as open.
+- The bounty: created on the Points admin page (it starts closed) or not, and the steps still open: the host's email in `ADMIN_EMAILS`, one test submission. It is opened at the session end. Announce an unfinished bounty as coming, never as open.
 - The docs: which pages exist on docs.moi.technology today. Do not point people at a page that is not merged.
 - The repo link on the closing slide: open it and confirm it loads.
 - The write-up: published or not. Do not say "published" about a post that is a draft.
@@ -60,5 +60,5 @@ Fill this in the day before, each line dated. These are the things that were wro
 
 - The recording and the deck PDF: where they go, and who uploads them (an upload needs the operator's yes).
 - The write-up: hand to `moi-blog`. Target: within 48 hours.
-- The bounty: open it once its deploy steps are done.
-- The proof-of-completion form: link it from the event page and the recap.
+- The bounty: the host opens it at the session end and shares the brief link (a gated post), then grades it by hand (`references/after-the-session.md`, "The webinar bounty").
+- The bounty brief link: add it to the event page and the recap. The Google proof form is superseded (13 October 2026).

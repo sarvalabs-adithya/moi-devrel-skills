@@ -1,10 +1,10 @@
-# Pre-event social: the campaign shape and timing
+# Pre-event social: the schedule and the copy rules
 
-Facts are as of 2026-10-02. Posts that drive registrations to the event page, on X and LinkedIn, drafted before the session. How Buffer, drafts, schedules and channels work is `moi-blog`'s: read `moi-blog/references/buffer.md`, and do not restate it here. This file holds the shape of a session's campaign and its copy rules. Nothing is scheduled, saved as a draft or posted without the operator's explicit yes for that post (`moi-devrel/references/consent-and-identity.md`, section 1). Back to `../SKILL.md`.
+Facts are as of 2026-10-02, except the schedule and the Buffer rules, which follow `project-handover-docs/DEV-WEBINARS.md` (13 October 2026). Posts that drive registrations to the event page, on X and LinkedIn, drafted before the session. How Buffer, drafts, schedules and channels work is `moi-blog`'s: read `moi-blog/references/buffer.md`, and do not restate it here. This file holds the schedule of a session's campaign and its copy rules. Marketing owns what goes out on the company channels: consult the marketing team before anything goes out through Buffer. Nothing is scheduled, saved as a draft or posted without the operator's explicit yes for that post (`moi-devrel/references/consent-and-identity.md`, section 1). Back to `../SKILL.md`.
 
-## What session 8 did (observed from file names and file times)
+## What session 8 did (observed from file names and file times; history, not the rule)
 
-All copy lived in `SOCIAL.md` (a first pack) and then in one file per post under `social/` (local only: it exists only on the previous operator's machine, ASK: Adithya for a copy). Whether every file went out as scheduled is not recorded: on 3 Sep `GAMEDAY.md` still said "Nothing is scheduled".
+All copy lived in `SOCIAL.md` (a first pack) and then in one file per post under `social/` (local only: gitignored and not in the repo; the originals are not recorded in the handover, and `../examples/session-8/social-posts.md` holds 13 cleaned copies). Whether every file went out as scheduled is not recorded: on 3 Sep `GAMEDAY.md` still said "Nothing is scheduled".
 
 | Day | Files | Note |
 |---|---|---|
@@ -15,9 +15,18 @@ All copy lived in `SOCIAL.md` (a first pack) and then in one file per post under
 
 Times mentioned for scheduling: 5:30 pm IST on 1 Sep, 11:00 IST and 15:30 IST on 4 Sep. The same folder holds two unrelated posts about the Voyage login move (`voyage-x.txt`, `voyage-linkedin.txt`): ignore them for this session.
 
-## The shape to follow (library default, inferred from session 8)
+## The schedule to follow
 
-`../templates/SOCIAL.md` has the schedule table. In short: an announcement pair on the day the topic locks, one pair a day until the day before, then posts at four moments on the day (5 hours out, 1 hour out, 30 minutes out, live). Every post before the session links the event page. Every post after links the write-up (`after-the-session.md`).
+The rule is `DEV-WEBINARS.md` (Announcement schedule): one X post and one LinkedIn post at each of four moments, and `../templates/SOCIAL.md` has the table.
+
+| When | Posts |
+|---|---|
+| Monday of the session week, the day the Luma page is created | X and LinkedIn, with the Luma link |
+| 2 days before | X and LinkedIn |
+| 1 day before | X and LinkedIn |
+| 1 hour before | X and LinkedIn |
+
+Every post before the session links the event page. Every post after links the write-up (`after-the-session.md`). Session 8 used a heavier pattern (a pair a day, then four posts on the day): it is history, not the default.
 
 ## Copy rules
 
@@ -38,9 +47,9 @@ For a post that matters, write variants and let the operator pick: A (stop-slop 
 
 ## Tools in the session folder
 
-`scripts/buffer.mjs` ships in this skill (`$SKILLS/moi-webinar/scripts/buffer.mjs`; the same file is in `moi-foundation/MOI-Webinars` on the branch, not on main as of 2026-10-02). It needs only Node 18 or later. Run it as `node "$SKILLS/moi-webinar/scripts/buffer.mjs" channels` first. Its surface: `channels`, then `post --file <path> --channel <id> [--at <iso8601>] [--draft] [--confirm] [--follow <file>]`. Without `--confirm` it prints what it would send and stops. Its `--thread-dir` option (an X thread from numbered files) is in a local commit that was never pushed. ASK: Adithya for a copy. Its key is `BUFFER_API_KEY` in a local `.env`. That is a different name from the website pipeline's `BUFFER_ACCESS_TOKEN`: the two do not share a variable. Run it from the repo root, because running it from inside a session folder failed on 31 Aug 2026. It cannot delete a post.
+`scripts/buffer.mjs` ships in this skill (`$SKILLS/moi-webinar/scripts/buffer.mjs`; the same file is in `moi-foundation/MOI-Webinars` on the branch, not on main as of 2026-10-02). It needs only Node 18 or later. Every run that reaches Buffer is gated: ask first, and only after the marketing team has been consulted. That includes `channels`, which lists the X and LinkedIn channels with their ids and sends the key to Buffer, and a dry run, which still does the channel lookup. Its surface: `channels`, then `post --file <path> --channel <id> [--at <iso8601>] [--draft] [--confirm] [--follow <file>]`, or `--thread-dir <dir>` in place of `--file` for an X thread from numbered files (`1.txt`, `2.txt`, and so on; shipped in this copy). `--help` prints the usage and sends nothing. Without `--confirm` it prints what it would send and stops. Its key is `BUFFER_API_KEY` in `$SKILLS/moi-webinar/.env`, a gitignored file at the root of this skill; Chandra, who owns the Buffer organisation, creates the key. That is a different name from the website pipeline's `BUFFER_ACCESS_TOKEN`: the two do not share a variable. Run it from the repo root, because running it from inside a session folder failed on 31 Aug 2026. It cannot delete a post.
 
-Which route a session's posts should take, this script or `moi-blog`'s, is not settled. ASK: Adithya, then Rahul.
+A session's pre-event posts go out through this script (`DEV-WEBINARS.md`, Posting with Buffer). The blog announcement is `moi-blog`'s route.
 
 ## Incidents
 
@@ -50,6 +59,6 @@ Which route a session's posts should take, this script or `moi-blog`'s, is not s
 
 ## Not yet known
 
-- Which session 8 posts went out, and when. ASK: Adithya.
+- Which session 8 posts went out, and when: not recorded (the previous DevRel's notes). ASK: Rahul.
 - Whether hashtags are banned or only unused, and whether UTM tags apply to webinar posts. The session 8 files use bare event page links. ASK: Rahul.
-- Who besides the operator approves a post.
+- Who besides the operator approves a post. Marketing is consulted first (`DEV-WEBINARS.md`); who signs off beyond that is not recorded. ASK: Rahul.

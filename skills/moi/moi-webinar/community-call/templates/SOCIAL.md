@@ -1,8 +1,8 @@
 <!-- TEMPLATE NOTES (delete this comment when the file is filled in)
-Posts for one community call, on the schedule in the previous operator's handover note (as of
-2026-10-13): T-9 first post with the Luma link, T-4, T-2, T-0 one hour before, then after the call.
+Posts for one community call, on the schedule in the handover note
+(`project-handover-docs/COMMUNITY-CALL.md`, as of 2026-10-13): T-9 first post with the Luma link, T-4, T-2, T-0 one hour before, then after the call.
 Vardan owns the posts. Claude drafts only: nothing is posted, scheduled or saved as a Buffer draft,
-and `"$SKILLS/moi-webinar/scripts/buffer.mjs"` is not run in any form, without the human's yes for
+and `node "$SKILLS/moi-webinar/scripts/buffer.mjs"` is not run in any form, without the human's yes for
 that post. Copy rules: `moi-webinar/references/pre-event-social.md` ("Copy rules"): plain text, no emoji,
 no em dashes, each post stands alone, the link in the LinkedIn body and in an X reply. Buffer
 mechanics are `moi-blog/references/buffer.md`. A teaser names only confirmed speakers and guests.

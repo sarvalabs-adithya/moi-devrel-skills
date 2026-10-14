@@ -25,7 +25,7 @@ One line per check, PASS, WARN, FAIL or SKIPPED. Exit 1 on any FAIL. Letters are
 
 `--skip LETTERS` skips checks (shown as SKIPPED). `--require-node` turns a missing node into a FAIL. A WARN is a question for a person, not a block: read it and decide.
 
-What it said about the real decks on 2026-10-02, run on the previous operator's copies. Community call 14 and the intro session exist only on his machine, untracked (ASK: Adithya for a copy; a cleaned community call 14 is in `moi-webinar/community-call/examples/cc14`). Session 8 is in `session-8-policies/` on branch `claude/agent-payments-simple` of `moi-foundation/MOI-Webinars`. Community call 14 failed b, c, d and f (a stray `</div>` on slide 10, slides 7-8 and 9-10 sharing backgrounds, a presenter title reading "MOI Builders · Intro"). The intro session failed a (a real line break in the slide 4 notes) and g. Session 8 failed d, g and o (the last line of the slide 10 code block is clipped) and warned on b, f, h and i; its `NOTES` use a different cue notation from its `SCRIPT.md`. Details in `references/traps.md`.
+What it said about the real decks on 2026-10-02, run on the previous operator's copies. Community call 14's deck is now in `moi-foundation/MOI-Webinars` under `community-call-14/deck/` (merged 13 October 2026; a cleaned copy is in `moi-webinar/community-call/examples/cc14`), and the intro session deck is in the handover repo at `others/webinars/intro-session-deck/`. Session 8 is in `session-8-policies/` on branch `claude/agent-payments-simple` of `moi-foundation/MOI-Webinars`. Community call 14 failed b, c, d and f (a stray `</div>` on slide 10, slides 7-8 and 9-10 sharing backgrounds, a presenter title reading "MOI Builders · Intro"). The intro session failed a (a real line break in the slide 4 notes) and g. Session 8 failed d, g and o (the last line of the slide 10 code block is clipped) and warned on b, f, h and i; its `NOTES` use a different cue notation from its `SCRIPT.md`. Details in `references/traps.md`.
 
 ## Render
 
@@ -120,5 +120,5 @@ Open `<s>/deck/index.html` in Chrome. Arrow keys, space or a click to move, Home
 
 ## Not yet known
 
-- Which repo and branch the session folders belong in. As of 2026-10-02 `community-call-14/` and `intro-session/` exist only in the previous operator's working copy, untracked. His handover notes list putting the deck tooling in the repo as a to-do; they are not in this library. ASK: Adithya for the answer and for a copy of the notes.
+- Which repo and branch the session folders belong in. Community call decks 2 to 14 are in `moi-foundation/MOI-Webinars` under `community-call-N/deck/` (merged 13 October 2026). The intro session deck is in the handover repo (`others/webinars/intro-session-deck/`); whether it also belongs in the webinars repo is not recorded (the previous DevRel's notes); ASK: Rahul. Those notes list putting the deck tooling in the repo as a to-do; they are not in this library.
 - Whether macOS still blocks tools from reading `~/Downloads`. It did in August and September 2026.

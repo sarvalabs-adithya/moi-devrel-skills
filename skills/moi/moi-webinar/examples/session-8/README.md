@@ -4,7 +4,9 @@ The one finished run on file that has the full document set: the cleanest exampl
 
 The session: an agent makes the same call three times and it is refused, allowed, then refused, because the only thing that changes is an access policy on the owner's account. 60 minutes at 16:00 IST (10:30 UTC), live on devnet, one funded wallet. Source folder: `session-8-policies/` on the branch `claude/agent-payments-simple`. Where each document lives is in `../../references/session-history.md`.
 
-"Local only" below means the original exists only on the previous operator's machine (ASK: Adithya for a copy).
+"Local only" below means the original is gitignored or untracked and is not in the repo; the originals are not recorded in the handover, so the copies here are the only ones.
+
+Superseded 13 October 2026: this session's bounty was a code challenge in the Points app (deployed, switched off), and `sarvalabs/Points-Program`, named in `GAMEDAY.md` here, is archived: the Points app is `sarvalabs/moi-project`. Sessions now end with a webinar bounty on the Points site (`../../references/after-the-session.md`).
 
 ## What is in this folder
 
@@ -14,7 +16,7 @@ The session: an agent makes the same call three times and it is refused, allowed
 | `NOTES.md` | `NOTES.md` | the presenter | `NOTES.md` |
 | `RUNBOOK.md` | `RUNBOOK.md` (local only) | the presenter | `RUNBOOK.md` |
 | `GAMEDAY.md` | `GAMEDAY.md` | the presenter | `GAMEDAY.md` |
-| `SCRIPT.md` | `SCRIPT.md` | the presenter, read aloud | `moi-webinar/deck/templates/SCRIPT.md` |
+| `SCRIPT.md` | `SCRIPT.md` | the presenter, read aloud | `$SKILLS/moi-webinar/deck/templates/SCRIPT.md` |
 | `LUMA.md` | `LUMA.md` (local only) | the event page | `LUMA.md` |
 | `SOCIAL.md`, `social-posts.md` | `SOCIAL.md`, 13 of 25 files in `social/` (local only) | X and LinkedIn | `SOCIAL.md` |
 
@@ -27,6 +29,7 @@ Not copied: the code, `.env.example`, the deck, the recording and voiceover, and
 3. The three account and logic addresses in `NOTES.md` were left out.
 4. "Voyage devnet" became "devnet" in one line of `NOTES.md`. The network is called devnet. <!-- slop-lint:ignore -->
 5. `SOCIAL.md` lines that were kept on purpose carry a lint ignore marker.
+6. En dashes in the slide ranges of `RUNBOOK.md` became "to" (13 October 2026).
 
 Nothing else was edited (checked against the originals on 2026-10-02), so the faults below are the original's.
 

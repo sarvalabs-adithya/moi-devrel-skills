@@ -1,10 +1,12 @@
 <!-- TEMPLATE NOTES (delete this comment when the file is filled in)
-Derived from the session 8 social pack, plus a schedule table built from the file names the previous
-operator used under social/. First drafts live here; each approved post then gets its own file
-under social/, named <day>-<platform>[-reply|-comment|-t5h|-t1h|-t30|-live].txt. Plain text: no
+Derived from the session 8 social pack. The schedule table follows project-handover-docs/DEV-WEBINARS.md
+(Announcement schedule): four moments, one X post and one LinkedIn post each. First drafts live here; each
+approved post then gets its own file under social/, named <slot>-<platform>[-reply|-comment].txt, where the
+slot is mon, t2d, t1d or t1h. Plain text: no
 emoji, no em dashes, no backticks or bold on X and LinkedIn. Pre-event posts link the event page,
 post-event posts link the write-up. Mechanics (drafts, scheduling, channels) are moi-blog's
-(`moi-blog/references/buffer.md`). Nothing is scheduled or saved as a draft without the operator's yes.
+(`moi-blog/references/buffer.md`). Consult the marketing team before anything goes out through Buffer.
+Nothing is scheduled or saved as a draft without the operator's yes.
 -->
 # Social pack: MOI Builders #{{NUMBER}}
 
@@ -51,17 +53,14 @@ EVENT_URL
 
 ## Schedule
 
-Times: date, 24-hour UTC and IST from `time-table.sh`. Library default, inferred from session 8's file names: a pair on the day the topic locks, one pair a day for the days before, then four posts on the day.
+Times: date, 24-hour UTC and IST from `time-table.sh`. The rule is DEV-WEBINARS.md: the Monday of the session week (the day the Luma page is created), 2 days before, 1 day before and 1 hour before.
 
-| Day | Time UTC (IST) | Channel | File under `social/` | Status |
+| When | Time UTC (IST) | Channel | File under `social/` | Status |
 |---|---|---|---|---|
-| T-5 | FILL | X and LinkedIn | announcement pair, link in a reply or first comment | draft |
-| T-4 to T-2 | FILL | X and LinkedIn | one pair a day | draft |
-| T-1 | FILL | X and LinkedIn | "tomorrow" pair, last call | draft |
-| Day, T-5h | FILL | LinkedIn | longer explainer | draft |
-| Day, T-1h | FILL | LinkedIn | the whole session in three sentences | draft |
-| Day, T-30m | FILL | X | "we're live in 30" plus link | draft |
-| Day, live | FILL | X and LinkedIn | "we're live" plus link | draft |
+| Monday of the session week | FILL | X and LinkedIn | announcement pair with the Luma link | draft |
+| T-2 days | FILL | X and LinkedIn | one pair | draft |
+| T-1 day | FILL | X and LinkedIn | "tomorrow" pair, last call | draft |
+| T-1 hour | FILL | X and LinkedIn | "we're live in an hour" plus link | draft |
 
 ## Notes
 

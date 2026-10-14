@@ -17,7 +17,7 @@ How to read this file
 ## OPENING SLIDE 1 · Title
 ==============================================================
 
-<The host opens. Leave empty unless the host asks for words. ASK: who hosts>
+<The host (Ruta; confirm each call) opens. Leave empty unless the host asks for words>
 
 ---
 

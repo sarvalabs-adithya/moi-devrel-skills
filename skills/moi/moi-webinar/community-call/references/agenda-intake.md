@@ -2,12 +2,12 @@
 
 Step 0 of the run. When the host or the operator gives the call's agenda, the first reply is a dated checklist of everything the call needs and one question. Nothing else is drafted, written or run until the human picks an item. Back to `../GUIDE.md`.
 
-The timeline and the owners come from the previous operator's handover note for the call (`project-handover-docs/COMMUNITY-CALL.md` in `sarvalabs/moi-devrel-skills`, as of 2026-10-13). They are copied here so the branch does not depend on that file. Where the note and an older reference in this branch disagree, the note is newer.
+The timeline and the owners come from the handover note for the call (`project-handover-docs/COMMUNITY-CALL.md` in `sarvalabs/moi-devrel-skills`, as of 2026-10-13). They are copied here so the branch does not depend on that file. Where the note and an older reference in this branch disagree, the note is newer.
 
 ## The input
 
 - **The agenda:** the segments in order, who presents each, and the guest if there is one. Take names, roles and topics only as given. A guest's role, company and topic come from the guest (`inputs-checklist.md`, "The guest slide").
-- **The call date** and the start time, in IST. The call is usually a Friday.
+- **The call date** and the start time, in IST. The call is usually a Friday. CC15 has no date yet (expected in the last week of October 2026): ASK: Vardan. With no agenda at all, ASK: Vardan too.
 - **The call number.** If it is missing, ASK: Vardan (message 1 of `../templates/input-request-messages.md`).
 
 If no date is given, the reply lists the items with their offsets only (T-9, T-7 and so on) and asks for the date as well as the closing question.
@@ -23,10 +23,10 @@ Do not draft a message, a post, the Luma copy or a slide in this reply. Do not c
 
 ## Dates
 
-Count back from the call day. Use this command for the weekdays; do not work them out by hand:
+Count back from the call day. Use this command for the weekdays, with the call date as `YYYY-MM-DD` in place of `<call date>`; do not work them out by hand:
 
 ```
-python3 -c 'import datetime as d,sys; c=d.date.fromisoformat(sys.argv[1]); [print("T-%d" % k, (c-d.timedelta(days=k)).strftime("%a %Y-%m-%d")) for k in (9,7,4,3,2,1,0)]' 2026-10-23
+python3 -c 'import datetime as d,sys; c=d.date.fromisoformat(sys.argv[1]); [print("T-%d" % k, (c-d.timedelta(days=k)).strftime("%a %Y-%m-%d")) for k in (9,7,4,3,2,1,0)]' <call date>
 ```
 
 If the call is not on a Friday, keep the day offsets and say the weekdays moved. An item whose date has already passed is marked `LATE` and listed first. For a Luma announcement at 24 hours and 1 hour before, and the last post, write the clock time in IST and UTC from `bash "$SKILLS/moi-devrel/scripts/time-table.sh" "<YYYY-MM-DD HH:MM>" Asia/Kolkata`. Write "ASK: start time" when the time is unknown.
@@ -69,11 +69,12 @@ A write-up post about the call is `moi-blog`, not this branch.
 | Protocol updates | Protocol team (Rahul) |
 | Marketing updates | Marketing (Sai Kiran) |
 | Partnerships updates | Piyush |
-| Product updates, not every call | Pratik (spelled Prateek in `segments-and-roles.md`) |
-| Guest speaker | Decided on the cadence call |
+| Product updates, not every call | Pratik (spelled Prateek in `segments-and-roles.md`; the spelling is open) |
+| Guest speaker | Agreed on the weekly marketing sync (confirm the name; earlier notes called it the cadence call). Final by the Tuesday before the call |
 
 ## Not yet known
 
 - Whether Vardan wants post and Luma drafts from DevRel, or writes his own. Ask before drafting them (message 9). ASK: Vardan.
 - How Riverside invites are sent and whether each speaker gets their own link. ASK: Vardan.
-- Whether "Ruta" is the host for every call. `segments-and-roles.md` records the name as unconfirmed. Confirm it each call.
+- Whether Ruta (the host, per the handover note) hosts every call. Confirm it each call.
+- How the audience watches (Riverside live, or the Luma page). ASK: Vardan.

@@ -6,7 +6,7 @@ Facts are as of 2026-10-02. How two topics were chosen and turned into a storyli
 
 - **Session 7.** A strategy call on 4 Aug 2026 set the rules. A dev talk carries one idea ("if you give everything in a single dev talk, everyone will lose it"). Every dev talk gets a blog post, aha first and how-to second. The lead asked for the storyline in writing as phase one, two and three, and for it to be sent for review.
 - **Session 8.** A short call with the lead on 31 Aug 2026 (9:47, 7 minutes) replaced the first design. The new topic came from a docs pull request on access policies (`sarvalabs/moidocs` PR 120, files `access-control.md` and `access-policy-tutorial.md`). Its status on 2026-10-02 was not checked. ASK: Gokul.
-- **The lead** in this skill is the person who sets the topic on a call. The 4 Aug call summary calls that person "the manager", and session 7's own `STORYLINE.md` says Rahul left part 3 open on that call. The record names nobody for session 8's call. ASK: Rahul who sets the topic now.
+- **The lead** in this skill is the person who sets the topic on a call. The 4 Aug call summary calls that person "the manager", and session 7's own `STORYLINE.md` says Rahul left part 3 open on that call. The record names nobody for session 8's call. ASK: Rahul who sets the topic now. The timing is fixed: DevRel and Rahul finalise the project idea 9 days before the session (`project-handover-docs/DEV-WEBINARS.md`).
 - **Who signs off a topic** is not recorded. Two reviewers appear by first name: Rahul, who supplied the narrative framing and asked for the deck and the post, and Ram, who rejected the first session 8 design (role not stated). ASK: Rahul.
 
 ## The procedure
@@ -40,7 +40,7 @@ Facts are as of 2026-10-02. How two topics were chosen and turned into a storyli
 | Part 2 | 8 | Authority | The chain refuses what the owner never permitted: the same call, refused, allowed, refused |
 | Part 3 | 9 | A standard (planned) | Any x402 client can read the invoice. Only a client that implements the scheme can pay it |
 
-The first plan for part 3 was conditional settlement: money moves only when the goods arrive, built on MOI's native lockup and release, with the buyer made whole if the seller fails to deliver. The lead had left part 3 open on the 4 Aug call ("you do something else"). The plan on file for session 9 is the x402 envelope instead. It rests on session 8's allowance, which was dropped, so it needs a new plan before anyone builds it. ASK: Adithya which plan is current, then Rahul.
+The first plan for part 3 was conditional settlement: money moves only when the goods arrive, built on MOI's native lockup and release, with the buyer made whole if the seller fails to deliver. The lead had left part 3 open on the 4 Aug call ("you do something else"). The plan on file for session 9 is the x402 envelope instead. It rests on session 8's allowance, which was dropped, so it needs a new plan before anyone builds it. Which plan is current: ASK: Rahul. Session 7's storyline and facilitator note, which hold the conditional settlement plan, are in the handover repo at `others/webinars/session-7/`.
 
 ## What has been covered, and what has not
 

@@ -14,4 +14,4 @@ A complete six-slide deck with neutral placeholder content. It claims no facts. 
 | photos | none |
 | variants | none |
 | script | `SCRIPT.md`, identical to `NOTES` |
-| left out | photos and the beats, pills and diagram components; their markup is in `references/components.md` |
+| left out | photos and the beats, pills and diagram components; their markup is in `../../references/components.md` |

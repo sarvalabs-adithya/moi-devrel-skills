@@ -14,7 +14,7 @@ Facts are as of 2026-10-02. The code standard for a live demo, taken from sessio
 
 ## Build order
 
-1. **Scaffold from the previous session.** Copy the folder forward, then rename. Fix the `.env.example` header: the first-design `session-8/` folder and `session-9/` still say "#7" (`session-preflight.sh` warns). Pin an SDK version that you have run against the current node: earlier sessions pin 0.7.x to ^0.8.0, and as of 2026-10-02 the SDK repo is at 0.9.0-rc3 while the Launchpad, Explorer and MCP pin 0.9.0-rc2. Check npm for the published version before quoting one. ASK: Gokul which version targets node 0.13.0.
+1. **Scaffold from the previous session.** Copy the folder forward, then rename. Fix the `.env.example` header: the first-design `session-8/` folder and `session-9/` still say "#7" (`session-preflight.sh` warns). Pin an SDK version that you have run against the current node: earlier sessions pin 0.7.x to ^0.8.0, and as of 13 October 2026 npm latest for `js-moi-sdk` is 0.9.0-rc2 (rc3 is on GitHub only), and the Launchpad, Explorer and MCP pin 0.9.0-rc2. Coco 0.9.3 targets PISA 0.8.2. Check npm for the published version before quoting one. ASK: Gokul which version targets node 0.13.0.
 2. **Spike the mechanism alone.** `scripts/spike-<name>.ts` states in its header what it proves or kills. Session 8: `npm run spike:policy` creates, reads, updates and deletes one policy. A node can be probed without spending: a missing RPC method answers `-32601`, a present one answers a domain error.
 3. **Verify SDK claims with keys the script generates itself.** Session 7's `verify-sdk.ts` produced every claim marked verified live (63 assertions per its README) and reports "unverifiable without funds" rather than assuming.
 4. **Numbered, idempotent setup scripts that write ids back to `.env`.** Session 8: `00-fund-agent.ts` (the owner creates the agent with `ParticipantCreate` and sends KMOI), `01-deploy-ticker.ts` (deploys the logic, writes `LOGIC_ID`). A rerun reuses what exists. Compile first with `coco compile` (not `coco build`), which needs a `coco.nut` beside the source.
@@ -106,5 +106,5 @@ Everything here was measured on node 0.12.0 before v0.13.0, unless it says other
 ## Not yet known
 
 - Whether the session 8 demo passes on devnet 0.13.0 today. It needs a rehearsal and the operator's yes.
-- Which Node versions run `node scripts/tick.ts`. The author's shell was Node 24 and `engines` says 20 or newer. ASK: Adithya.
+- Which Node versions run `node scripts/tick.ts`. The author's shell was Node 24 and `engines` says 20 or newer. Not recorded (the previous DevRel's notes): run the script on the Node version you will quote, in the rehearsal, before the event page names one.
 - The explorer URL pattern for a hash. ASK: Gokul.

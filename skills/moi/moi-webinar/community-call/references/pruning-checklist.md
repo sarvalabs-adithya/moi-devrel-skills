@@ -45,4 +45,4 @@ Run the checklists once per batch of edits, not once per edit. Batch the changes
 Moving a slide means the deck branch's checklist (`moi-webinar/deck/references/build.md`) plus steps 4 to 8 here, and renumbering the `PRESS NEXT` headers. On CC14 the previous operator moved DevRel to slide 4, "after action required". The "next slide" line in the presenter window comes from `TITLES`, so moving a slide without moving its title gives the presenter the wrong preview.
 
 ## Not yet known
-- Whether the CC14 residue (slide 8 bullet, slide 11 bullet, slide 6 sentence) was meant to stay. The previous operator was asked about the Lit Protocol bullet and the slide 6 sentence and did not answer. ASK: Adithya.
+- Whether the CC14 residue (slide 8 bullet, slide 11 bullet, slide 6 sentence) was meant to stay. The previous operator was asked about the Lit Protocol bullet and the slide 6 sentence and did not answer; not recorded. Decide it with the call's manager (Rahul).

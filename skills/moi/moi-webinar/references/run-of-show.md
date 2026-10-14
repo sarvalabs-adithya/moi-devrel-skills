@@ -1,6 +1,6 @@
 # Run of show: the live plan documents and how they differ
 
-Facts are as of 2026-10-02. Sessions 7 to 9 produced five kinds of live plan. They overlap, and the overlap caused drift. This file says what each one is, where the real ones disagree, and which set a new session writes. The words of the talk are not here: they belong to `SCRIPT.md`, written by `moi-webinar/deck/references/spoken-script.md`. "Local only" below means the file exists only on the previous operator's machine (ASK: Adithya for a copy). Back to `../SKILL.md`.
+Facts are as of 2026-10-02. Sessions 7 to 9 produced five kinds of live plan. They overlap, and the overlap caused drift. This file says what each one is, where the real ones disagree, and which set a new session writes. The words of the talk are not here: they belong to `SCRIPT.md`, written by `moi-webinar/deck/references/spoken-script.md`. "Local only" below means the file is gitignored and not in the repo; the originals are not recorded in the handover, and cleaned copies are in `../examples/session-8/`. Back to `../SKILL.md`.
 
 ## The five documents
 
@@ -51,5 +51,5 @@ The scaffold makes `RUNBOOK.md` and `GAMEDAY.md` from `../templates/`. A cleaned
 
 ## Not yet known
 
-- Which talk length was real for session 8, and whether the session was recorded and by whom. ASK: Adithya.
+- Which talk length was real for session 8, and whether the session was recorded and by whom: not recorded (the previous DevRel's notes). ASK: Rahul.
 - Who moderated Q&A, and whether a co-host exists. The documents mention none, so the presenter was probably alone (inferred). ASK: Rahul.

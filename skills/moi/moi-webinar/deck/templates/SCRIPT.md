@@ -20,7 +20,7 @@ Speaker script for slide 1.
 
 ```
 Copy this block once for each further slide, in slide order. Delete this fenced
-block when the script is complete. Rules: references/spoken-script.md.
+block when the script is complete. Rules: ../references/spoken-script.md.
 
 ==============================================================
 ## PRESS NEXT --> SLIDE 2 · Short title of slide two

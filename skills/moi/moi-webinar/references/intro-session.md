@@ -1,10 +1,10 @@
 # The Builders intro session: MOI in four ideas, then the Agent Launchpad live
 
-Facts are as of 2026-10-02. A one-off session whose deck was built on 12 to 15 Sep 2026, probably for students or newcomers (inferred from the previous operator calling the Launchpad "a way for students to get exposed to agents"). Whether it was held, and its date, platform, size and whether it was recorded or announced, are not recorded. ASK: Adithya. Everything about the Launchpad as a product is `moi-launchpad-ops` (planned): until it exists ASK: Adithya for the app and Upendhar for anything on its VM. Back to `../SKILL.md`.
+Facts are as of 2026-10-02. A one-off session whose deck was built on 12 to 15 Sep 2026, probably for students or newcomers (inferred from the previous operator calling the Launchpad "a way for students to get exposed to agents"). Whether it was held, and its date, platform, size and whether it was recorded or announced, are not recorded (the previous DevRel's notes). ASK: Rahul. Everything about the Launchpad as a product is `moi-launchpad-ops` and `project-handover-docs/AGENT-LAUNCHPAD.md`; ASK: Upendhar for anything on its VM. Back to `../SKILL.md`.
 
 ## Where it lives, and its state
 
-- **Local only.** `intro-session/` (a deck `index.html`, `MOI_Builders_Intro.pdf` and a `README.md`) is untracked and exists only on the previous operator's machine. ASK: Adithya for a copy, and keep a second one.
+- **Where it lives.** The deck `index.html`, `MOI_Builders_Intro.pdf` and a `README.md` are in the handover repo at `others/webinars/intro-session-deck/`. They are not in `moi-foundation/MOI-Webinars`. Keep a second copy.
 - **Do not present from it as it stands.** `check-deck.py` on the file, run read-only on 2026-10-02, reports 2 FAIL.
   - Check a: slide 4's `NOTES` entry has real line breaks, so the inline script does not parse. The arrow keys, the dots and the presenter window are dead. The PDF still prints. The break probably came from the 15 Sep rewrite of slide 4 (inferred).
   - Check g: em dashes in the document title, the presenter title and a code comment on slide 9.
@@ -32,15 +32,15 @@ Slide 4 replaced an earlier slide that presented a scoped grant as a Launchpad f
 
 ## The demo beats (slide 6)
 
-The cue in the notes is to switch to the browser at `launchpad.moi.technology`.
+The cue in the notes is to switch to the browser at `launchpad.moi.technology`. The Launchpad's public docs are at `launchpad.moi.technology/docs` (PR #31, 13 October 2026).
 
-1. **Connect.** The wallet shows a sign-in message. No transaction and no fee. The site checks that the signature recovers to the address.
+1. **Connect.** The wallet shows a sign-in message: in the extension, or by phone QR (the Launchpad signs in by phone QR too, with or without the extension installed; PR #33, merged 13 October 2026). No transaction and no fee. The site checks that the signature recovers to the address.
 2. **Pick.** The Weather Brief template: a city, a delivery time, a name. Deploy. The server creates a keypair for the agent, and that key is to end up on the presenter's laptop, not on the server.
 3. **Register.** A second wallet popup, this one costing fuel: a `RegisterAgent` interaction on the registry logic. The owner is the presenter.
 4. **Run.** Link Telegram and press Start, download the setup script and run it (pm2 starts the runtime), and the first message arrives.
 5. **Read it back.** Open the agent page or the explorer and read the owner, the agent wallet, the status and the card URI off the chain. Then back to the slides.
 
-Needs: the MOI Wallet extension with an account that exists on devnet, a Telegram account, `@moinetworkbot`, pm2 and node on the laptop. Never show or read a recovery phrase on the call.
+Needs: the MOI Wallet extension, or a phone for the QR sign-in, with an account that exists on devnet, a Telegram account, `@moinetworkbot`, pm2 and node on the laptop. Never show or read a recovery phrase on the call.
 
 ## Before every run
 
@@ -67,7 +67,7 @@ Wording: say participant-centric, never account-centric, and say devnet and netw
 
 ## Not yet known
 
-- When it was held, for whom, on what platform, whether recorded, and whether it repeats. ASK: Adithya.
+- When it was held, for whom, on what platform, whether recorded, and whether it repeats: not recorded (the previous DevRel's notes). ASK: Rahul.
 - Whether it had an event page, a post or social copy. Nothing on file says so.
 - Whether it was presented from the HTML or the PDF.
 - What the demo does when the wallet popup does not appear.

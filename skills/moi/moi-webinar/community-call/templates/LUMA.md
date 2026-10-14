@@ -1,6 +1,6 @@
 <!-- TEMPLATE NOTES (delete this comment when the file is filled in)
 Paste-ready text for the community call's Luma page and its two announcements to everyone signed
-up. Vardan owns the page and sends the announcements (handover note, as of 2026-10-13); Claude
+up. Vardan owns the page and sends the announcements (`project-handover-docs/COMMUNITY-CALL.md`, as of 2026-10-13); Claude
 drafts, and nothing is created, edited or sent in Luma without the human's yes. The only copy on
 record for a call is the CC14 line "MOI Community Call #14 is happening tomorrow", then "The Campfire
 Chat. Ideas. Updates. Community. Conversations." Write times in IST and UTC with
@@ -27,6 +27,8 @@ On the agenda:
 - Your questions
 
 <One sentence on the main thing of the month, only if it is confirmed. Delete otherwise.>
+
+<!-- Confirm with Vardan how the audience watches, and whether "Cost: Free" is right. -->
 
 | | |
 |---|---|

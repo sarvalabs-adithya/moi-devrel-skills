@@ -50,7 +50,7 @@ The first six rows were removed from CC14 during 23 to 25 September 2026 with no
 | Anything that mentions cancelled or internal plans | Standing rule from the 31 August 2026 corrections: public content never mentions them |
 | A claim the network does not yet show | Source-only features are not live. See `release-slide-checks.md` |
 | A release candidate described as shipped | Caught at CC13 |
-| Live counts that go stale | The intro session (a Builders session deck, on the previous operator's machine only; ASK: Adithya for a copy) removed its stats row. The reason is inferred |
+| Live counts that go stale | The intro session (a Builders session deck, not in the public repo) removed its stats row. The reason is inferred |
 | A promise about a future call | The CC13 draft description named guests from Coinfest Asia, Bali for CC14. The CC14 deck had neither. Whether the draft was posted is unknown |
 
 ## A guest

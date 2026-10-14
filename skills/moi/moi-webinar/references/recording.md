@@ -42,13 +42,13 @@ Known defects in what is stored. Wavs exist only for slides 1 to 9 and 13, so th
 
 ## 3. The live session recording
 
-- **Platform and host.** Sessions II, III and 8 are on record as Google Meet calls (the Gemini notes of II and III, and session 8's checklist). The Gemini notes of Builders II and III, and the recording of II, sit in Drive under the shared account `info@moi.technology`, shared into the previous operator's Drive. Gemini notes or a Meet recording for IV to VII were not found in Drive (an edited session VII video exists, see below). Who starts the recording, and whether it was started for IV to VIII, is unknown. ASK: Rahul.
+- **Platform and host.** Sessions II, III and 8 are on record as Google Meet calls (the Gemini notes of II and III, and session 8's checklist). The Gemini notes of Builders II and III, and the recording of II, sit in Drive under the shared account `info@moi.technology`, shared into the previous operator's Drive. Gemini notes or a Meet recording for IV to VII were not found in Drive (an edited session VII video exists, see below). Vardan provides the Google Meet link (`project-handover-docs/DEV-WEBINARS.md`). Who starts the recording, and whether it was started for IV to VIII, is not recorded. ASK: Rahul.
 - **Gemini notes.** They mishear names and amounts ("Moy" for MOI, "KOI" for KMOI, "Grock" for Groq, "Open Claw", "Server Labs"). Never copy a name, figure or token amount from them without checking. A Meet started twice makes two notes documents: use the longer one.
 - **Seed words.** Never read recovery words on a recorded call. They end up in the notes (2026-09-24).
 - **Where it is published.** Not recorded for any session.
 - **The external editor.** An editor outside the org domain cuts the videos from a personal account. A standup on 7 Aug names an editor, "Krishna" (the match is inferred). The edit of session 7 appears as `Builder series/MOI BUILDERS SEARIES VII.mp4` (866 MB, 2026-09-07), inside a folder named for another project (`Launchpad video`), owned by the editor. The file name has a typo. It took about a month. Raw clips and finals are hundreds of megabytes: do not copy them into other folders, and do not search only `owner = 'me'` in Drive, because the editor owns them.
-- **The brief.** No brief format is on record. For the launch video the editor needed a script and numbered screen clips. ASK: Adithya for the editor's contact and what was sent.
-- **YouTube.** A 7 Aug 2026 standup decided to post video AMA clips only. Whether that covers Builders recordings is unknown. The channel owner is unknown. ASK: Rahul.
+- **The brief.** No brief format is on record. For the launch video the editor needed a script and numbered screen clips. The editor's contact and what was sent are not recorded (the previous DevRel's notes). ASK: Rahul.
+- **YouTube.** A 7 Aug 2026 standup decided to post video AMA clips only. Whether that covers Builders recordings is unknown. Vardan holds the YouTube login (`DEV-WEBINARS.md`).
 
 ## Checklist
 
@@ -61,5 +61,5 @@ Known defects in what is stored. Wavs exist only for slides 1 to 9 and 13, so th
 ## Not yet known
 
 - Whether Builders sessions are recorded every time, where they are published, and whether a link goes to registrants. ASK: Rahul.
-- Whether sessions I and IV to VIII were all edited. ASK: Adithya.
+- Whether sessions I and IV to VIII were all edited: not recorded (the previous DevRel's notes). ASK: Rahul.
 - Whether the voiceover was ever used by anyone but the presenter.

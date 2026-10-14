@@ -1,4 +1,4 @@
-# moipod v0.13.0 release note (as sent by the protocol team, unedited)
+# moipod v0.13.0 release note (a restructured copy of what the protocol team sent, not the original text)
 
 MOI Protocol Release: v0.13.0
 

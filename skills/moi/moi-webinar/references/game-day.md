@@ -38,6 +38,7 @@ A real run of the demo spends devnet funds. Each of these needs the operator's y
 - **Never claim more than the screen shows.** Do not let a question walk you into claiming a feature that is reserved. Answer with what is live, and point at the slide that already says so.
 - **If asked to see it again,** rerun it. Say whether a rerun is idempotent and what it costs.
 - **If someone says their own run failed before submission,** they used the SDK's default flow, which simulates first. The demo pins the fuel limit so the refusal happens on chain (`demo-standard.md`).
+- **Share the bounty at the end.** The host opens it and announces the brief link (`after-the-session.md`). Claude does not click the admin page.
 - **After the last slide,** stop the recording only when the host does, and write down every audience question with an owner for the follow-up.
 
 ## If something breaks
@@ -62,7 +63,7 @@ The fallback line (`SCRIPT.md`, session 8): "Devnet's having a moment, so let me
 
 ## Known state, so nothing surprises you (dated example)
 
-On 3 Sep 2026, in the checklist written the night before the 4 Sep session: the bounty was not live (it shipped behind a flag and needed a migration, `MOI_RPC_URL` in the deploy environment and the flag flipped), so it was to be announced as coming. The Points repo had moved to `sarvalabs/Points-Program` with PR 1 unmerged. Nothing on access policies existed on docs.moi.technology because PR 120 had not merged, so nobody was pointed at the docs. The repo link on the closing slide loaded. Write the same four lines for your session.
+On 3 Sep 2026, in the checklist written the night before the 4 Sep session: the bounty was not live (it shipped behind a flag and needed a migration, `MOI_RPC_URL` in the deploy environment and the flag flipped), so it was to be announced as coming. The Points repo had moved to `sarvalabs/Points-Program` with PR 1 unmerged (that repo was archived on 13 October 2026; the Points app is `sarvalabs/moi-project`). Nothing on access policies existed on docs.moi.technology because PR 120 had not merged, so nobody was pointed at the docs. The repo link on the closing slide loaded. Write the same four lines for your session. For the bounty line, say whether it has been created closed and tested once (`after-the-session.md`, "The webinar bounty").
 
 ## Wallets on a shared screen
 
@@ -71,6 +72,6 @@ On 3 Sep 2026, in the checklist written the night before the 4 Sep session: the 
 
 ## Not yet known
 
-- Who admits guests to the Meet, who starts the recording and where it lands. The notes of two sessions sit under `info@moi.technology`. ASK: Rahul.
+- Who admits guests to the Meet, who starts the recording and where it lands. Vardan provides the Meet link and holds the Google Meet login (`project-handover-docs/DEV-WEBINARS.md`): ASK: Vardan about the Meet. Who starts the recording is open: ASK: Rahul. The notes of two sessions sit under `info@moi.technology`.
 - Whether a co-host watches the chat at every session. Session III's transcript names a colleague who helped with chat, and nothing says it was routine.
 - What to do if the wallet extension popup does not appear during a demo that needs one. No evidence. Rehearse it.

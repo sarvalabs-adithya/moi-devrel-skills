@@ -13,9 +13,9 @@ Source access: go-moi and go-pisa are private. ASK: Gokul for read access. Until
 A release note is a lead. It is quoted verbatim where a slide quotes it. The slide never says more than the source says.
 
 ## The copy of the note in this library
-`../examples/cc14/sources/RELEASE-NOTE.md` is the v0.13.0 note, copied unchanged from the previous operator's machine, where the original file is untracked (as of 2026-10-02). Its header says "as sent by the protocol team, unedited". It is not. The note first pasted on 2026-09-10 had an em dash in its title, a sentence "We are rolling out moipod v0.13.0 with several important updates" and separate sentences about the sender not paying. The file holds the restructured sentences from the X thread. The original text is not in this library.
+`../examples/cc14/sources/RELEASE-NOTE.md` is the v0.13.0 note, a restructured copy of what the protocol team sent, not the original text (its header says so). It was copied from the previous operator's working files on 2026-10-02, where the original file was never committed. The note first pasted on 2026-09-10 had an em dash in its title, a sentence "We are rolling out moipod v0.13.0 with several important updates" and separate sentences about the sender not paying. The file holds the restructured sentences from the X thread. The original text is not in this library.
 - For the next release: ASK: Rahul or Gokul for the original text and where it is posted. Save it unedited and say so in its header only if it is.
-- For the v0.13.0 original and the release pack (`protocol-release-0.13.0/`, on the previous operator's machine only): ASK: Adithya for a copy.
+- The v0.13.0 original and the release pack (`protocol-release-0.13.0/`) were never pushed to the public repo and are not recorded in this library (the previous DevRel's notes). ASK: Rahul or Gokul for the original note.
 
 ## Steps
 1. Get the note as sent. Save it unedited next to the deck.
@@ -29,7 +29,7 @@ A release note is a lead. It is quoted verbatim where a slide quotes it. The sli
 
 ## Live
 - A feature in the tip of `develop` is not live until the network redeploys. On 2026-09-10 the live devnet still returned `payer` on interactions and `net.Version` of `0.12.0`, so the fee payer field was inert there. The word `fee_payer` on the wire means the new build.
-- `moi-devrel/references/devnet.md` records the upgrade as announced for 00:00 UTC on 11 September 2026, not confirmed to the minute, and that `net.Version` read 0.13.0 on 2026-10-02. No read from the day of CC14 is on record, and no check of the wire field name after the 11 September wipe is on record. ASK: Gokul.
+- `moi-devrel/references/devnet.md` records the upgrade as announced for 00:00 UTC on 11 September 2026, not confirmed to the minute, and that `net.Version` read 0.13.0 on 2026-10-02. No read from the day of CC14 is on record, and no check of the wire field name after the 11 September wipe is on record. On 14 October 2026 `net.Version` answered 0.13.0 while `net.NetworkID` still returned method-not-found (-32601), so the live-build check stays open. ASK: Gokul.
 - Before saying "live on devnet" in a deck, read the live node: its version and a recent interaction's field names. `moi-devrel/references/devnet.md` holds the endpoint and how to read it. If you cannot check, ask the protocol team and write what they confirm.
 - The 2026-09-25 instruction fixed the wording ("went live on devnet", with the network called devnet). It did not verify the claim.
 

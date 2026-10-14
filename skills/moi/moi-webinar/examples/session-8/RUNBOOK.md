@@ -30,7 +30,7 @@ all three calls - if you see that, run `setup:fuel` again.
 
 ## The talk (times are cumulative)
 
-### 0:00 - Slides 2–6: WHY this exists (14 min)
+### 0:00 - Slides 2 to 6: WHY this exists (14 min)
 
 This block is the change the reviewer asked for, and it is the most important twelve
 minutes of the hour. Do not rush to the feature.
@@ -60,7 +60,7 @@ nobody else owes: who may write to my account, and for what?
 > The reviewer's framing, verbatim: "why did we even open up the capability for other
 > people to write to your account? That's where the storyline is."
 
-### 0:14 - Slides 7–11: the mechanism (11 min)
+### 0:14 - Slides 7 to 11: the mechanism (11 min)
 
 Slide 7: why a rule in code does not hold. The agent has its own key. "You are
 not constraining it, you are asking it nicely."
@@ -76,7 +76,7 @@ fuel with no policy in place, and the hash on the slide is real.
 Slide 11 (the grant): walk the builder. Then the contrast: the OWNER signs this
 one, not the agent.
 
-### 0:25 - Slides 12–13 + terminal: THE DEMO (14 min)
+### 0:25 - Slides 12 to 13 + terminal: THE DEMO (14 min)
 
 Slide 12 (*where the check happens*) is the new diagram: signed, mined, charged,
 program runs - and only at the store instruction does the runtime read the policy
@@ -110,7 +110,7 @@ account. Not one line of logic.*
 If someone asks to see it again: run it again. It's idempotent and cheap
 (~600 KMOI a run). A second run is more convincing than any slide.
 
-### 0:39 - Slides 14–16: what you just saw (9 min)
+### 0:39 - Slides 14 to 16: what you just saw (9 min)
 
 Slide 14: the receipt. "Refusal is not an error message. It is a mined,
 permanent, public record - and it cost the agent 86 fuel to be told no."
@@ -176,7 +176,7 @@ grants - is exactly the shape a wallet popup wants to be.
 | `insufficient funds` from the agent | agent below 3× fuel limit | `npm run setup:fuel`, rerun - 30 seconds |
 | beat 1 WRITES | leftover policy - should be impossible (self-heal) | let the run finish; it exits non-zero; rerun once |
 | RPC timeouts | devnet down | fall back to the receipts: every beat's hash is in NOTES.md and readable on voyage once it's back |
-| whole node dead | - | the deck stands alone: slides 9–12 carry real code and slide 11's diagram shows the enforcement path and the real error string. Present it as "here is what it does", offer a recorded run after |
+| whole node dead | - | the deck stands alone: slides 9 to 12 carry real code and slide 11's diagram shows the enforcement path and the real error string. Present it as "here is what it does", offer a recorded run after |
 
 The single rule: **never claim more than the screen shows.** If the demo dies,
 the session degrades to a talk with receipts - which is still honest, and

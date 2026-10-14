@@ -7,7 +7,7 @@ Style, from how past messages to teammates worked: short, human and specific. On
 When a reply arrives, put every figure in the numbers ledger before it goes near a slide. Log who sent it and the date.
 
 ## 1. Vardan: date, platform, host
-Channel: Slack. Whether to use a direct message or a channel is not on record. ASK: Adithya.
+Channel: Slack. Whether to use a direct message or a channel is not recorded; a direct message to Vardan is the safe default.
 
 > Hi Vardan, I am picking up the deck and the line-up for Community Call <N>. The planning sheet has <DATE> as the expected date and <RESERVE DATE> as the reserve. Can you confirm which one we are using, the start time, how long the call runs, and which platform and link? Also, who is hosting this time? I would like to settle all of that by <DAY> so the segments can be agreed.
 
@@ -21,14 +21,14 @@ Channel: Discord or a call, as `moi-devrel/references/people-and-teams.md` lists
 Use the reply to: settle the segment order, the rehearsal day and whether anything stays off. Ask separately whether the "what stays off a public call" pattern in `references/slide-plan.md` is a rule.
 
 ## 3. Protocol team: the release note
-Channel: Discord release log, or a direct message to Gokul. ASK: Rahul who is the contact for release notes.
+Channel: Discord release log, or a direct message to Gokul. The handover note names the protocol team (Rahul) as the source of the protocol update; ASK: Rahul who sends the release note.
 
 > Hi <NAME>, for Community Call <N> on <DATE> I need the release note for <VERSION> exactly as the protocol team sent it, without restructuring. Could you also confirm: the exact release moment in UTC, the SDK versions including any release candidate suffix, whether any point release or other package shipped this month, and whether devnet is running the release now? I would like it by <DAY>.
 
 Use the reply to: save the note unedited next to the deck, then run `references/release-slide-checks.md`.
 
 ## 4. Sai Kiran: visibility numbers
-Channel: Slack. ASK: which channel.
+Channel: Slack. ASK: Sai Kiran which channel.
 
 > Hi Sai Kiran, for Community Call <N> can you send this month's AI-visibility report and the dashboard screenshots, with the date the data covers? I need visibility, citations, mentions, the per-engine numbers and the coverage. Is the query set still 47 queries across five engines, and which engine is the fifth? Last month's coverage figure of 221 of 226 and the engine movements were never reconfirmed, so a current figure would help. By <DAY> if you can.
 
@@ -42,14 +42,14 @@ Channel: Slack.
 Use the reply to: fill the community and events rows of the ledger, and ask each marketing presenter whether they want notes.
 
 ## 6. The host: the planted question and clips
-Channel: Slack. ASK: Vardan or Sai Kiran who the host is.
+Channel: Slack. The host is Ruta (handover note); confirm each call with Vardan.
 
 > Hi <NAME>, will you plant a question this time? If so, can you send me the exact wording and tell me which part of the call it follows? I will prepare a short answer so it works as a 15 second clip. Who cuts and posts the clips, and where?
 
 Use the reply to: run the method in `references/host-qa-prep.md`.
 
 ## 7. A guest, if there is one
-Channel: whoever invited the guest. ASK: Vardan.
+Channel: whoever invited the guest. The guest is agreed on the weekly marketing sync (handover note). ASK: Vardan.
 
 > Hi <NAME>, we are looking forward to having you on Community Call <N> on <DATE>. For your slide, could you send these by <DATE>?
 > 1. A headshot: square, at least 1200 by 1200 pixels, face centred, head and shoulders.
@@ -60,12 +60,12 @@ Channel: whoever invited the guest. ASK: Vardan.
 
 Never write a title the guest has not given. Save the files as `deck/assets/guest/headshot.jpg` and `deck/assets/guest/logo.svg` (`moi-webinar/deck/references/guest-slide.md`).
 
-## 8. The previous operator: where things live
-Channel: `#dev-chat`, where `moi-devrel/references/people-and-teams.md` places him. If he is not there, ASK: Rahul how to reach him.
+## 8. Vardan: access and what the last calls left behind
+Channel: Slack. Send it once, before the first call, then fold it into message 1 or 9 if you prefer.
 
-> Hi Adithya, I am running Community Call <N>. Could you send me a copy of DEPENDENCIES.md, and of the call 14 folder and the protocol-release-0.13.0 folder, which I understand are only on your machine? Where do the Community Call 13 and 14 decks live now, beyond your machine? Which Slack channel do the call inputs arrive in, who holds the Scribble login, and was the planted question at 14 asked and the clip cut? Anything else from the last call I should know?
+> Hi Vardan, I am taking over the deck and the line-up for the community calls. Could you give me access to Luma, Riverside and the MOI YouTube channel before Community Call <N>, or tell me who can? Which Slack channel do the call inputs arrive in? Was the planted question at call 14 asked, and were the shorts cut? Anything else from the last call I should know?
 
-Use the reply to: fill the "Not yet known" lists in `references/`.
+Use the reply to: fill the "Not yet known" lists in `references/`. The 4 October dependency snapshot is `project-handover-docs/LIST-OF-DEPENDENCIES.md`, and the call's handover note is `project-handover-docs/COMMUNITY-CALL.md`; nobody needs to be asked for those.
 
 ## 9. Vardan: the Luma page, the Riverside room, the posts and the speaker list
 Channel: Slack. Send at T-9, with the run sheet's dates filled in.

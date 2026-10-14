@@ -1,6 +1,6 @@
 # Inputs checklist
 
-Per segment: the artefact, who owns it, where it arrives, and what to ask for. Facts are as of 2026-10-02. Draft messages for each row are in `../templates/input-request-messages.md`. The human sends them. Back to `../GUIDE.md`.
+Per segment: the artefact, who owns it, where it arrives, and what to ask for. Facts are as of 2026-10-02, except where a line cites the handover note of 2026-10-13 (`project-handover-docs/COMMUNITY-CALL.md`), which wins. Its deadline for every update is the Friday of the week before the call. Draft messages for each row are in `../templates/input-request-messages.md`. The human sends them. Back to `../GUIDE.md`.
 
 ## Timing
 - Observed: CC14 inputs arrived one to two days before the call (first draft requested 23 September, the Scribble report, dashboard numbers and photos on 24 September, call on 25 September, inferred). CC13's deck was updated about five hours before the call.
@@ -13,14 +13,14 @@ Per segment: the artefact, who owns it, where it arrives, and what to ask for. F
 | Segment | Artefact | Owner | Where it arrives | What to ask for |
 |---|---|---|---|---|
 | Protocol | The month's release note, as sent | Protocol team. Gokul for chain facts. Vinay posts release logs | A Discord release log, or the call's manager (Rahul, inferred) pastes it. How it reaches DevRel is unknown. ASK: Rahul | The note verbatim and unedited. The release moment in UTC. SDK versions with any `-rc` suffix. Point releases and release candidates. Whether the network is on the release now |
-| Protocol, source | The release post and tags | Protocol team, the blog | `blog/src/content/posts/` in `sarvalabs/MOI-Website`, tags in the repos | Only when the blog exists. See `release-slide-checks.md` |
-| DevRel | The operator's own status | The operator | `DEPENDENCIES.md` (the previous operator's handover file, untracked on his machine as of 2026-10-02; ASK: Adithya for a copy), `moi-devrel/references/repo-map.md` | MCP server status, x402 status, blog posts of the month with URLs |
-| Product | A product update, if the slot exists | Prateek was planned to give it at CC13 (ASK: Adithya whether he did). Owner now unknown | ASK: Rahul whether the slot exists | Name, one-line claim, a screenshot or demo. Plan no product slide until a named presenter confirms an artefact |
+| Protocol, source | The release post and tags | Protocol team, the blog | `blog/src/content/posts/` in `sarvalabs/MOI-Website`, tags in the repos | The blog is live at blog.moi.technology. See `release-slide-checks.md` |
+| DevRel | The operator's own status | The operator | `project-handover-docs/LIST-OF-DEPENDENCIES.md` (the 4 October snapshot) and `project-handover-docs/COMMUNITY-CALL.md`, `moi-devrel/references/repo-map.md` | MCP server status, x402 status, blog posts of the month with URLs |
+| Product | A product update, if the slot exists | Pratik (handover note: "not every call"; spelled Prateek elsewhere in this branch, the spelling is open). Whether he gave it at CC13 is not recorded | ASK: Rahul whether the slot exists | Name, one-line claim, a screenshot or demo. Plan no product slide until a named presenter confirms an artefact |
 | AI visibility | The monthly Scribble report and dashboard screenshots | Scribble produces it. Sai Kiran passed it on for CC14 | Slack. ASK: Sai Kiran which channel | New figures with their date. The query list and whether it is still 47. The five engines by name. Coverage. The CC14 figures still unverified (see `../examples/cc14/numbers-ledger.csv`) |
 | Community | Growth key pointers | Sai Kiran | Slack | Discord joins and active members with the period they cover. Game Night dates, run number and attendance. Pip status. Ask him to confirm they are the month's latest |
-| Events and partnerships | Photos and event facts | Marketing. ASK: Sai Kiran who owns events and who holds the photos. The CC14 photos came from the previous operator | Slack attachments, the event's own site | Event name, dates, venue, what the team actually did there. Real photos with permission to show them. No guest names or outcomes without a source |
-| Guest, if any | Confirmation, the six guest-slide inputs | Whoever invited the guest. ASK: Vardan | Slack | Confirmation they will attend, then the list under "The guest slide" below |
-| Host | Question list and clip plan | The host. ASK: Vardan who hosts | Slack, as a message to the operator | The planted question word for word, whether to expect it at a given slide, and the clip plan. See `host-qa-prep.md` |
+| Events and partnerships | Photos and event facts | Marketing (Sai Kiran) for events; Piyush for partnerships updates (handover note). ASK: Sai Kiran who holds the photos | Slack attachments, the event's own site | Event name, dates, venue, what the team actually did there. Real photos with permission to show them. No guest names or outcomes without a source |
+| Guest, if any | Confirmation, the six guest-slide inputs | Whoever invited the guest; the guest is agreed on the weekly marketing sync (handover note). ASK: Vardan | Slack | Confirmation they will attend, then the list under "The guest slide" below |
+| Host | Question list and clip plan | The host: Ruta (handover note; confirm each call) | Slack, as a message to the operator | The planted question word for word, whether to expect it at a given slide, and the clip plan. See `host-qa-prep.md` |
 | What is next | Next month's plans | Marketing for its half, the operator for DevRel | Slack | Items that are decided. Anything undecided stays off |
 | Sign-off | Segment order, line-up, rehearsal day | The call's manager, taken to be Rahul (inferred; see `segments-and-roles.md`) | Discord or a call | A yes on the order |
 
@@ -69,12 +69,12 @@ Command, from the working copy with `SKILLS` set:
 It lists figures on slides with no row, rows not confirmed, retired figures still showing, and confirmed rows with no source, then the accepted rows as warnings. It detects numbers with digits, versions, hex ids and the words thousand, million and billion. Other spelled-out numbers ("seventh") are invisible to it, so add those rows by hand. The filled example is `../examples/cc14/numbers-ledger.csv`.
 
 ## Sources worth knowing
-- Slack: where marketing inputs arrive. The workspace and channel names are not on record. ASK: Adithya which workspace and channel the CC14 inputs came in on, then ask Sai Kiran to confirm it is still the place, and write the answer into this file.
+- Slack: where marketing inputs arrive. The workspace and channel names are not recorded (the previous DevRel's notes). ASK: Sai Kiran which channel the inputs come in on, and write the answer into this file.
 - Scribble report: location, login and how visibility is computed are unknown. ASK: Sai Kiran. As of 2026-09-24 CC14 was the baseline: 17.3 percent visibility, 1,203 citations, 650 mentions. Those three are confirmed in the CC14 ledger. The 47 queries, five engines and 221 of 226 coverage are not.
 - Drive: the `Community Call` folder holds one subfolder per call, with the deck PDF and recap videos. Most call artefacts are owned by shared accounts, so search shared files too. Uploading to it needs the human's yes.
 - Month-to-month comparison: slide 5 of CC14 says "the baseline we measure every month from here" and slide 11 says "Track the same 47 queries every month". A CC15 visibility slide therefore needs both months' figures, each with a date, and the same query set. ASK: Sai Kiran whether the set changed.
 
 ## Not yet known
-- The Slack channel names and whether one channel holds all inputs. ASK: Adithya, then Sai Kiran.
+- The Slack channel names and whether one channel holds all inputs. ASK: Sai Kiran.
 - Whether a protocol contact besides Gokul confirms release status before each call. ASK: Rahul.
-- Who writes the host's questions. ASK: the host.
+- Who writes the host's questions. ASK: the host (Ruta, confirm each call).

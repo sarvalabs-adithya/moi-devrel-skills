@@ -1,4 +1,4 @@
-# MOI decks
+# MOI decks (moi-webinar branch)
 
 Branch of `moi-webinar`. `$SKILLS`, the operator, `ASK:`, the house rules and the gates are in `moi-webinar/SKILL.md` and `moi-devrel/SKILL.md`; this guide adds what is specific.
 

@@ -3,7 +3,7 @@
 How to prepare an answer to a question the host plants. Facts are as of 2026-10-02. `SKILLS` is the folder that holds the `moi-*` skills; run every command from the working copy that holds `community-call-<N>/`. Back to `../GUIDE.md`.
 
 ## Why a planted question exists
-A Slack message of 2026-09-25 to the previous operator said the host had noticed more traction when questions are asked to the audience and to the presenter, and might ask a planted question, partly "to also promote us getting some short 15 second clips". The message's author and the host's name are not in the record. A planted question is optional and the CC15 host is unknown. ASK: Vardan or Sai Kiran who the host is and who writes the questions.
+A Slack message of 2026-09-25 to the previous operator said the host had noticed more traction when questions are asked to the audience and to the presenter, and might ask a planted question, partly "to also promote us getting some short 15 second clips". The message's author and the host's name are not in the record. A planted question is optional. The host is Ruta (handover note, 2026-10-13; confirm each call). ASK: the host who writes the questions.
 
 Two consequences:
 - The answer has to be right and short, because it may be cut into a clip.

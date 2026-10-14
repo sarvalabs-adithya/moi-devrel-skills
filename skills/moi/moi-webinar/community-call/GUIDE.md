@@ -3,17 +3,18 @@
 Branch of `moi-webinar`. `$SKILLS`, the operator, `ASK:`, the house rules and the gates are in `moi-webinar/SKILL.md` and `moi-devrel/SKILL.md`; this guide adds what is specific.
 
 ## What this covers
-The monthly public call, from the line-up and the deck to the host's planted question, the day-of run and the recording description. CC14 (25 September 2026, inferred; ASK: Adithya for history, or Vardan for the sheet) is the worked example in `examples/cc14/`. The operator owns the deck and the line-up and approves every step that leaves the machine; facts are as of 2026-10-02. Every call starts from its agenda: step 0 turns it into a dated checklist and asks which item to start.
+The monthly public call, from the line-up and the deck to the host's planted question, the day-of run and the recording description. CC14 (25 September 2026, inferred; its recording in the MOI YouTube playlist shows the date) is the worked example in `examples/cc14/`. The operator owns the deck and the line-up and approves every step that leaves the machine. Facts are as of 2026-10-02 unless a line cites the handover note of 2026-10-13 (`project-handover-docs/COMMUNITY-CALL.md`), which is newer; where they differ, the handover note wins. Every call starts from its agenda: step 0 turns it into a dated checklist and asks which item to start.
 Not covered: deck mechanics are the deck branch, `moi-webinar/deck`; a Builders session is `moi-webinar`; publishing and announcing posts is `moi-blog`; checking claims in general is `moi-devrel/claim-check`; house rules, people and keys are `moi-devrel`.
 
 ## Before you start
-File names such as `references/x.md` are inside this branch's folder. Run every command from the working copy of `moi-foundation/MOI-Webinars` you are working in. Call folders (`community-call-<N>`) sit at its root. Whether they are committed, and on which branch, is the open policy in `moi-devrel/SKILL.md`, and nothing is pushed without a yes (Gates). People and channels are in `moi-devrel/references/people-and-teams.md`. Ask with message N of `templates/input-request-messages.md`.
-- [ ] The agenda (segments, presenters, guest if any) and the call date. Step 0 starts from these; without a date it lists offsets and asks for one.
-- [ ] The call number and month. The planning sheet expects CC15 on Friday 2026-10-23, reserve 2026-10-30. Unconfirmed. Vardan owns the sheet: ASK: Vardan, then the call's manager (the record points to Rahul, inferred). Message 1.
-- [ ] The line-up signed off by the call's manager (taken to be Rahul, inferred; ASK): the segments and who presents each. Message 2.
+File names such as `references/x.md` are inside this branch's folder. Run every command from the working copy of `moi-foundation/MOI-Webinars` (public; get it with `gh repo clone moi-foundation/MOI-Webinars`). `$SKILLS` is set up as `moi-devrel/SKILL.md` describes. Call folders (`community-call-<N>`) sit at its root. The decks for calls 2 to 14 are already there under `community-call-N/deck/` (PR #2, merged 13 October 2026): CC13 is a PDF only, CC14 has the HTML source, `SCRIPT.md` and assets. A new call folder reaches the repo by pull request, and nothing is pushed without a yes (Gates). People and channels are in `moi-devrel/references/people-and-teams.md`. Ask with message N of `templates/input-request-messages.md`.
+- [ ] Access, before the first call: Luma, Riverside and YouTube are shared accounts held by Vardan, so ask him for all three (message 8). Read access to go-moi and go-pisa for the release checks: ASK: Gokul.
+- [ ] The agenda (segments, presenters, guest if any) and the call date. Step 0 starts from these; without a date it lists offsets and asks for one. No agenda yet: ASK: Vardan.
+- [ ] The call number and month. CC15 is expected in the last week of October 2026; the date is not set yet (ask Vardan, who owns the event and the calendar sheet). Message 1.
+- [ ] The line-up signed off by the call's manager (taken to be Rahul, who sets priorities and owns the protocol content; the handover note does not say who signs off): the segments and who presents each. Message 2.
 - [ ] The month's release note as the protocol team sent it. Owner: the protocol team (Gokul for chain facts). Message 3.
-- [ ] The marketing inputs: the AI-visibility report and community numbers (Sai Kiran, via Slack). Event photos: ASK: Sai Kiran who holds them; the CC14 photos came from the previous operator. Messages 4 and 5.
-- [ ] The host's name and any planted question. Owner: ASK: Vardan or Sai Kiran who hosts, then the host. Message 6.
+- [ ] The marketing inputs: the AI-visibility report and community numbers (Sai Kiran, via Slack). Event photos: ASK: Sai Kiran who holds them. Messages 4 and 5.
+- [ ] The host: Ruta (handover note; confirm each call). Ask for any planted question. Message 6.
 - [ ] A call folder `community-call-<N>/` in the working copy (step 3 creates it). Do not push it without a yes: the repo is public.
 - [ ] Read `references/segments-and-roles.md` for what is unknown. Ask the questions it lists before relying on a guess.
 
@@ -36,7 +37,7 @@ Budget: about two hours of deck work once inputs are in hand (the manager's cap 
 | 11 | After the call | `references/after-the-call.md` (GATE: uploading the recording or its description, and any post). `python3 "$SKILLS/moi-webinar/community-call/scripts/youtube-description.py" community-call-<N>/deck/index.html > community-call-<N>/description.txt` | The human has the draft, the Q&A log and the open questions. `grep -n '\[' community-call-<N>/description.txt` prints nothing before the description is posted |
 | 12 | Hand-back | The format at the end of this file | The human has read it |
 
-`sync-notes.py` is a script of the deck branch (`moi-webinar/deck/scripts/`) and is a dry run: without `--confirm` it prints what it would change and writes nothing.
+`sync-notes.py` is a script of the deck branch (`moi-webinar/deck/scripts/`) and is a dry run: without `--confirm` it prints what it would change and writes nothing. The check letters (h, j and the rest) are the deck checker's: `moi-webinar/deck/scripts/check-deck.py` and `moi-webinar/deck/GUIDE.md` say what each one tests.
 
 ## Which file to read
 | Doing | Read |
@@ -53,7 +54,7 @@ Budget: about two hours of deck work once inputs are in hand (the manager's cap 
 | After removing or moving a slide | `references/pruning-checklist.md`, then `moi-webinar/deck/references/build.md` |
 | The day of the call | `references/day-of-runbook.md` |
 | The recording and what follows | `references/after-the-call.md`, `templates/youtube-description.md` |
-| Put the call on the website calendar | `moi-web-products-ops/references/website-calendar.md` (GATE: an admin write to a public page) |
+| Show the calls on the website (the homepage Luma block, hidden until `lumaUrl` is set in `content/community-calls.json`) | `moi-web-products-ops/references/website-calendar.md` (GATE: setting `lumaUrl` is a pull request to a public site) |
 | A finished call to learn from | `examples/cc14/README.md` |
 | Testing a change to this branch | `evals/evals.md` |
 
@@ -73,7 +74,7 @@ Budget: about two hours of deck work once inputs are in hand (the manager's cap 
 | Replace "last Friday" and "since the last call" with a date or cut them | They went stale on slide 9 |
 | Promise a guest or topic for the next call only when it is confirmed | The CC13 draft description named guests that the CC14 deck did not have. Whether it was posted is unknown |
 | Show a photo of identifiable people only with permission to show it | The CC14 example's two event photos had no permission on record and were removed from this library |
-| Copy the deck folder somewhere safe | The CC14 folder is untracked and on the previous operator's machine only (as of 2026-10-02; ASK: Adithya for a copy) |
+| Keep a second copy of the call folder until it is merged to the repo | The CC14 folder sat on one machine, untracked, until PR #2 merged the decks on 13 October 2026 |
 | Ask the human to `cp` a file out of `~/Downloads` | On the previous operator's Mac, tools could not read it (27 August 2026; may no longer apply) |
 
 ## Gates
@@ -81,9 +82,9 @@ Nothing below happens without the human's explicit yes in this conversation:
 - Sending any message, including the input requests. Claude drafts, the human sends.
 - Pushing, opening a pull request or merging the call folder. `moi-foundation/MOI-Webinars` is public as of 2026-10-01: say that a push publishes `SCRIPT.md`, the ledger and the host prep, and ask whether to keep the host prep out of the pushed copy.
 - Creating or editing the Luma page or the Riverside room, and sending a Luma announcement. Vardan owns both; Claude drafts.
-- Posting, scheduling or announcing anything, and uploading the recording or its description. Running `"$SKILLS/moi-webinar/scripts/buffer.mjs"` in any form, a dry run included (it sends the key to Buffer), is a GATE.
+- Posting, scheduling or announcing anything, and uploading the recording or its description. Running `node "$SKILLS/moi-webinar/scripts/buffer.mjs"` in any form, a dry run included (it sends the key to Buffer), is a GATE.
 - Uploading, moving or sharing any file in Drive or other cloud storage, including the PDF and the second copy of the call folder.
-- Adding the call to the website calendar (`moi-web-products-ops/references/website-calendar.md`; an admin write to a public page), and setting or changing a repository secret or variable.
+- Setting `lumaUrl` or `nextCall` for the website's Luma block (`moi-web-products-ops/references/website-calendar.md`; a pull request to a public site), and setting or changing a repository secret or variable.
 - Downloading a file. Say the filename, source and size when asking.
 - Spending devnet funds or deploying on devnet, for example in a live demo: a wallet step, so the operator signs and runs it.
 - Telling the host or a guest that something is confirmed.
@@ -94,12 +95,12 @@ Nothing below happens without the human's explicit yes in this conversation:
 
 ## Keys and access
 Names only. Building and checking the deck needs no key. For where each lives, see `moi-devrel/references/keys-and-access.md`.
-- The website's community calendar takes admin writes. The holder of that access is not on record: `moi-devrel/references/keys-and-access.md`. ASK: a repo admin of `sarvalabs/MOI-Website`.
-- Website: A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin.
+- The website's Luma block is set by a pull request to `sarvalabs/MOI-Website` (`content/community-calls.json`; `project-handover-docs/MOI-WEBSITE.md`). Who may merge: ASK: Rahul. The Luma address comes from Vardan.
+- Website: A security finding is open on this product as of 2026-10-02. Not recorded (the previous DevRel's notes); ASK: Rahul before touching its admin.
 - `BUFFER_API_KEY`: scheduled posts through `scripts/buffer.mjs` in the `moi-webinar` skill. It stays in a gitignored `.env` at `$SKILLS/moi-webinar/.env` and is never pasted into chat.
 - Slack and Drive access for the inputs and the planning sheet. ASK: Rahul.
 - The Scribble report login. Holder unknown. ASK: Sai Kiran.
-- The meeting account and the YouTube channel login. Owners unknown. ASK: Rahul.
+- Luma, Riverside and YouTube: shared accounts held by Vardan (handover note). ASK: Vardan for access.
 - Recovery phrases: Claude never handles one, including a throwaway one. If one is pasted, do not repeat it, tell the operator it is exposed, and continue with the MOI Wallet extension and the operator's own funded account.
 
 ## Hand-back
