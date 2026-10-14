@@ -1,8 +1,8 @@
 # Explorer settings and secrets, by name
 
-Names only. This file never holds a value, a length or a prefix. Facts are as of 2026-10-02 from the workflow file `.github/workflows/build-and-push.yml`, the code and the `server/.env.example` of `sarvalabs/agent-explorer` (the previous operator's clone), and `moi-devrel/references/keys-and-access.md`. Status is TBD for every row: the owner settles access at the end. Never open an `.env` file; an `.env.example` may be read for names. Never ask for a value in chat. If the operator pastes one, say so, tell them to rotate it, and do not repeat it. Claude never handles a recovery phrase, including a throwaway one. `ASK:` is defined in `moi-devrel/SKILL.md`. Back to `../GUIDE.md`.
+Names only. This file never holds a value, a length or a prefix. Facts are as of 2026-10-02 (updated 2026-10-14 where a line says so) from the workflow file `.github/workflows/build-and-push.yml`, the code and the `server/.env.example` of `sarvalabs/agent-explorer` (the previous operator's clone), and `moi-devrel/references/keys-and-access.md`. Status is TBD for every row: the owner settles access at the end. Never open an `.env` file; an `.env.example` may be read for names. Never ask for a value in chat. If the operator pastes one, say so, tell them to rotate it, and do not repeat it. Claude never handles a recovery phrase, including a throwaway one. `ASK:` is defined in `moi-devrel/SKILL.md`. Back to `../GUIDE.md`.
 
-The workflow declares the GitHub environment `PROD` (Settings, Environments, PROD) and `moi-devrel/references/keys-and-access.md` says the names live there. `DEPENDENCIES.md` (the previous operator's file, local to his machine; ASK: Adithya for a copy) says repository Actions settings. Look at the environment first. ASK: Upendhar which level holds which name. Only a repo admin can edit them; the admins of this repo are not recorded. ASK: Rahul.
+The workflow declares the GitHub environment `PROD` (Settings, Environments, PROD) and `moi-devrel/references/keys-and-access.md` says the names live there. `project-handover-docs/LIST-OF-DEPENDENCIES.md` (section 10, the 4 October snapshot) agrees: GitHub, Settings, Environments, PROD (5 secrets, 14 variables), plus one repo-level secret, `GH_TOKEN`; the `DEV` and `TEST` environments exist but are empty. Look at the environment first. ASK: Upendhar which level holds which name. Only a repo admin can edit them; the admins of this repo are not recorded. ASK: Rahul.
 
 ## 1. Passed by the workflow
 | Name | Kind | Reaches | Used for | Who holds it |
@@ -11,7 +11,7 @@ The workflow declares the GitHub environment `PROD` (Settings, Environments, PRO
 | `DB_PASSWORD` | secret | Backend, runtime | MySQL | DevOps |
 | `MOI_RPC_URL` | variable | Backend, runtime | Node JSON-RPC. The code default is `https://dev.voyage-rpc.moi.technology/devnet` | ASK: Upendhar |
 | `MOI_MNEMONIC` | secret | Backend, runtime | The server's own devnet wallet. If set, it signs registry reads and never falls back, even when the wallet is gone from the chain | ASK: Gokul |
-| `MOI_AGENT_ID`, `MOI_INTELLIGENCE_LOGIC_ID` | secrets (chain ids, not really secret) | Backend, runtime. The second is also a frontend build argument, `VITE_INTELLIGENCE_LOGIC_ID` | The server's agent identity and the intelligence logic. A reset wipes both (inferred) | ASK: Gokul |
+| `MOI_AGENT_ID`, `MOI_INTELLIGENCE_LOGIC_ID` | secrets (network IDs, not really secret) | Backend, runtime. The second is also a frontend build argument, `VITE_INTELLIGENCE_LOGIC_ID` | The server's agent identity and the intelligence logic. A reset wipes both (inferred) | ASK: Gokul |
 | `GH_TOKEN` | secret | The workflow | Login to `ghcr.io` to push and pull images | ASK: Upendhar |
 | `SSH_PRIVATE_KEY`, `VM_HOST`, `VM_USER` | secret, variables | The deploy job | The SSH deploy. Plain SSH, not Teleport | DevOps (Upendhar) |
 | `VITE_API_BASE_URL`, `VITE_WC_PROJECT_ID`, `VITE_TESSERACT_BASE_URL`, `VITE_MOI_NETWORK`, `VITE_MOI_CHAIN_ID`, `VITE_TRANSACTION_FUEL_LIMIT` | variables | Frontend image, as build arguments | The browser app's API address, WalletConnect project, links to the explorer, network and fuel limit. Fixed at build | A repo admin. The WalletConnect project owner is unknown. ASK: Gokul |
@@ -26,13 +26,13 @@ Defaults apply, so changing the GitHub value does nothing until the workflow is 
 | `MOI_READ_CALLER_ADDRESS` | Server, PR #5 | A code default, the account that imported agents into one registry. Goes stale at the next reset |
 | `MOI_WS_URL` | Server | A hard-coded node WebSocket address. If the node moves, the listener fails |
 | `MOI_DERIVATION_PATH` | Server | The faucet wallet path (`devnet.md`, derivation paths) |
-| `LAUNCHPAD_ORIGIN` | Server, `main` | `https://launchpad.moi.technology`. Empty disables the rule |
+| `LAUNCHPAD_ORIGIN` | Server, before PR #5 | `https://launchpad.moi.technology`. Empty disables the rule |
 | `LAUNCHPAD_HOSTS` | Server, PR #5 | `launchpad.moi.technology` and the retired Launchpad host. Replaces `LAUNCHPAD_ORIGIN` |
 | `SYNC_INTERVAL_HOURS` | Server, PR #5 | 4. 0 disables the schedule |
 | `PINATA_JWT` | Server | Empty. Pinning a card to IPFS answers an error without it |
 | `VITE_PARTICIPANT_BASE_URL`, `VITE_PUBLIC_URL` | Client | Read by pages and the wallet hook, never passed. Links built from the first likely render with `undefined` (inferred) |
 | `VITE_MOI_AGENT_REGISTRY_LOGIC_ID` | Client, PR #5 | Read by `vite.config.ts` through `process.env` at build, otherwise a code default |
-Names from older designs that nothing reads on `main` or PR #5: `LAUNCHPAD_ORIGINS`, `LAUNCHPAD_CONFIRM_ORIGIN` (the closed PR #4, still listed in DEPENDENCIES.md), `AUTO_VERIFY_OWNERS`, `LAUNCHPAD_API_KEY`, `LAUNCHPAD_POLL_SECONDS` (removed 2026-09-23). A name nothing reads is ignored without a warning.
+Names from older designs that nothing reads on `main` or PR #5: `LAUNCHPAD_ORIGINS`, `LAUNCHPAD_CONFIRM_ORIGIN` (the closed PR #4, still listed in the 4 October dependency snapshot), `AUTO_VERIFY_OWNERS`, `LAUNCHPAD_API_KEY`, `LAUNCHPAD_POLL_SECONDS` (removed 2026-09-23). A name nothing reads is ignored without a warning.
 
 ## 3. How a change reaches the app
 - A server variable reaches the backend only if the workflow's `docker run` block lists it. Adding one is an edit to the workflow (ship it by `ship-a-change.md`).
@@ -59,7 +59,7 @@ Proof per setting: `SYNC_INTERVAL_HOURS`, the boot log line `[reconcile] schedul
 | GHCR, `ghcr.io/sarvalabs` | `GH_TOKEN`, the two images | DevOps. ASK: Upendhar who holds the GHCR token |
 | The VM and its SSH login | `SSH_PRIVATE_KEY`, `VM_HOST`, `VM_USER` | DevOps (Upendhar). Not recorded which VM |
 | The MySQL database | `DB_*` | DevOps |
-| The server's devnet wallet and agent identity | `MOI_MNEMONIC`, `MOI_AGENT_ID`, `MOI_INTELLIGENCE_LOGIC_ID` | Owner "confirm" in DEPENDENCIES.md. ASK: Gokul |
+| The server's devnet wallet and agent identity | `MOI_MNEMONIC`, `MOI_AGENT_ID`, `MOI_INTELLIGENCE_LOGIC_ID` | Owner "confirm" in `project-handover-docs/LIST-OF-DEPENDENCIES.md`. ASK: Gokul |
 | The WalletConnect (Reown) project | `VITE_WC_PROJECT_ID` | Owner "confirm". ASK: Gokul |
 | A Pinata account, if one is used | `PINATA_JWT`, not set by the workflow | Not recorded. ASK: Gokul |
 | Admin wallets | the server's admin list (`verify-agents.md`, section 2) | Whoever holds them. ASK: Gokul. Each person uses their own MOI Wallet; there is no key to hand over |

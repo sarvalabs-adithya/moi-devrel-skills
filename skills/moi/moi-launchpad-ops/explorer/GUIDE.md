@@ -1,10 +1,12 @@
+Branch of `moi-launchpad-ops` (front door: `../SKILL.md`).
+
 # MOI Agent Explorer: operate it
 
-Branch of `moi-launchpad-ops`. `$SKILLS`, the operator, `ASK:`, the house rules and the gates are in `moi-launchpad-ops/SKILL.md` and `moi-devrel/SKILL.md`; this guide adds what is specific.
+`$SKILLS`, the operator, `ASK:`, the house rules and the gates are in `moi-launchpad-ops/SKILL.md` and `moi-devrel/SKILL.md`; this guide adds what is specific.
 
 ## What this covers
-The Agent Explorer is the public directory of agents on MOI's on-chain agent registry: a React client, an Express and MySQL server, built from `sarvalabs/agent-explorer` (private) by GitHub Actions and deployed to a VM. This branch holds six runbooks (health, ship a change, change a setting, bring the index back in step, verify agents, roll back) and a symptom table. Facts are as of 2026-10-03.
-Who owns it, plainly. DEPENDENCIES.md, the previous operator's file (local to his machine only: untracked, in no branch; ASK: Adithya for a copy), says Gokul owns the app and the registry and Upendhar the CI/CD, and that the database is DevOps's. The non-merge commits on `main` (local ref, 2026-10-03) are Gokul 28, Upendhar 24 and the previous operator 8, of 60. PR #5, open as of 2026-10-02, is the previous operator's. Whether DevRel owns the Explorer is not settled. ASK: Rahul. Only Upendhar is recorded as able to act on the VM. The rest is in `references/architecture.md`, section 7.
+The Agent Explorer is the public directory of agents on MOI's on-chain agent registry: a React client, an Express and MySQL server, built from `sarvalabs/agent-explorer` (private) by GitHub Actions and deployed to a VM. This branch holds six runbooks (health, ship a change, change a setting, bring the index back in step, verify agents, roll back) and a symptom table. Facts are as of 2026-10-03, updated 2026-10-14: PR #5 was merged on 7 October 2026 and is live.
+Who owns it, plainly. `project-handover-docs/LIST-OF-DEPENDENCIES.md` (section 10, the 4 October snapshot) says Gokul owns the app code, admin and verification rules and the registry, DevOps (Upendhar) the workflow, VM, nginx, SSH key, GHCR token and DNS, and that the database is DevOps's. The non-merge commits on `main` (local ref, 2026-10-03) are Gokul 28, Upendhar 24 and the previous operator 8, of 60. PR #5, the previous operator's, was merged on 7 October 2026 (18:57 UTC). Whether DevRel owns the Explorer is not settled. ASK: Rahul. Only Upendhar is recorded as able to act on the VM. The rest is in `references/architecture.md`, section 7.
 Not covered: the Launchpad itself (`moi-launchpad-ops/SKILL.md`), the MCP server (`moi-mcp-ops`), the website, Dataroom and Points (`moi-web-products-ops`), the order of work across products after a devnet reset (`moi-devnet-reset`), commits, PRs and merges (`moi-devrel/ship`), drafts of messages to Gokul or Upendhar (`moi-devrel/templates/messages.md`), claims in public text (`moi-devrel/claim-check`). The Voyage explorer is a different product with no skill in this library; ASK: Gokul.
 
 ## Before you start
@@ -40,7 +42,7 @@ Where to keep things. Keep saved outputs and drafted messages in a scratch folde
 |---|---|
 | Site or API down, 5xx, a red deploy run, an error message | `references/troubleshoot.md`, then `references/rollback.md` |
 | What a check proves, WARN lines, checks on the VM | `references/health.md` |
-| Directory old or small, `/admin/sync` 404, after a devnet reset | `references/index-sync.md` |
+| Directory old or small, `/admin/sync` 404 (a rollback past PR #5), after a devnet reset | `references/index-sync.md` |
 | Merge a PR, deploy a change, point at a new registry id | `references/ship-a-change.md` |
 | Mark an agent verified, what "verified" means | `references/verify-agents.md` |
 | Undo a bad deploy | `references/rollback.md` |
@@ -54,23 +56,23 @@ Where to keep things. Keep saved outputs and drafted messages in a scratch folde
 |---|---|
 | A merge to `main` is a production deploy, and a pull request runs nothing | The workflow runs on a push to `main` or by hand, with no test or lint step. PR #3 merged on 2026-09-24 and a successful run is recorded that day |
 | `/health` ok and a green run prove little. The API reports no version | On 2026-10-03 `/health` was ok, the index held 49 rows and `GET /admin/sync` was 404 |
-| PR #5 is not deployed, and merging it migrates the production database at its first boot | `/admin/sync` was 404 on 2026-10-03. The code adds a column and updates rows |
+| PR #5 is merged (7 October 2026) and live. A schema change in `initSchema()` still migrates the production database at the first boot of the new container | `GET /admin/sync` answered 404 on 2026-10-03 and 200 on 14 October (the reconcile ran: onChain 174, refreshed 174, failed 0, verified 120); the client has "Sync Registry Now". PR #5 added a column and updated rows at its first boot |
 | The registry id is pinned in several places, and the package reads it once at load | The Explorer's code moved to the new registry 11 days after the 2026-09-11 wipe, and a server built from `main` probably still loaded the old id (inferred from the code; `references/traps.md`, rows 9 and 10) |
 | The server gets only the variables the workflow lists | `MOI_WS_URL`, `MOI_READ_CALLER_ADDRESS` and `SYNC_INTERVAL_HOURS` are not passed, so the server runs on code defaults unless the VM differs |
 | No code deletes a row | Old-chain and test rows stay until a database write removes them |
 | The old containers are removed before the new ones start, and nothing rolls back | The production containers carry names that end in `-test`. ASK: Upendhar for the names before any command that names one |
-| Verified is not audited, and the rule keeps changing | Four different rules were written between 2026-09-22 and 2026-10-02, the last on the unmerged PR #5 (`references/verify-agents.md`) |
-| PR #5's commit carries an AI co-author trailer, against house rule 4 | Commit `508be01`, 2026-10-02. Removing it rewrites a pushed branch: a GATE |
+| Verified is not audited, and the rule keeps changing | Four different rules were written between 2026-09-22 and 2026-10-02, the last in PR #5, merged on 7 October 2026 (`references/verify-agents.md`) |
+| PR #5's commit carried an AI co-author trailer, against house rule 4 | Commit `508be01`, 2026-10-02. PR #5 is merged, so merged history is not rewritten; keep the trailer out of new commits |
 
 The full list is `references/traps.md`.
 
-Agent Explorer: A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin.
+Agent Explorer: A security finding is open on this product as of 2026-10-02. The handover note is not recorded (the previous DevRel's notes); ASK: Rahul before touching its admin.
 
 ## Gates
 The gates in `moi-launchpad-ops/SKILL.md` apply here: push, PR, secrets and variables, database writes, the VM, messages, downloads, identity. Nothing below happens without the operator's explicit yes in this conversation, naming the action. What this branch adds or sharpens:
-- A merge to `main` is a production deploy. A manual workflow run, any deploy and any rollback are gated. Rewriting pushed history (PR #5's AI co-author trailer) is gated.
+- A merge to `main` is a production deploy. A manual workflow run, any deploy and any rollback are gated. Rewriting pushed history is gated.
 - Deleting an Actions secret or variable in the repo or the `PROD` environment: GitHub cannot return a secret's value, so a deletion cannot be undone. The operator types a value at a hidden prompt.
-- A database migration or any write to the production database: PR #5's first boot, pruning rows, `npm run sync`.
+- A database migration or any write to the production database: a schema change at the first boot of a new container, pruning rows, `npm run sync`.
 - An admin write on production: verifying or un-verifying an agent, a signed sync, changing the server's admin list. The operator signs in the wallet; Claude never signs. The Agent Explorer line above comes first.
 - Anything on the VM: Claude drafts the message, the operator sends it to Upendhar.
 - Download: `git clone`, `gh repo clone`, `git fetch`, `npm ci`, an installed package. State source and size.

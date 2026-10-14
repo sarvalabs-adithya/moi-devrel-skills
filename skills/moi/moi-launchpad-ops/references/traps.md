@@ -1,6 +1,6 @@
 # Traps: failures that give no error
 
-Facts are as of 2026-10-03. Each row is a rule with the incident or the code behind it. Dates are from commits, the code and the research. Back to `../SKILL.md`.
+Facts are as of 2026-10-03, updated 2026-10-14 where a row says so. Each row is a rule with the incident or the code behind it. Dates are from commits, the code and the research. Back to `../SKILL.md`.
 
 ## Deploy and pipeline
 | # | Rule | Why |
@@ -50,7 +50,7 @@ Facts are as of 2026-10-03. Each row is a rule with the incident or the code beh
 | # | Rule | Why |
 |---|---|---|
 | 33 | Migrations are applied by hand, have no tracking table, and 0001 to 0005, 0007 and 0008 are not safe to run twice | `database.md`. 0008 rewrites agent names on its first run |
-| 34 | Payments are probably off in production, whatever `docs/HANDOFF.md` section 1b says | `lib/payments.ts` defaults off, and nothing in the deploy sets `NEXT_PUBLIC_PAYMENTS_ENABLED`. Inferred, not tested live |
+| 34 | Paid agents are off in production, whatever `docs/HANDOFF.md` section 1b says | The AgentMarket contract is not redeployed (fact as of 13 October 2026), `lib/payments.ts` defaults off, and `NEXT_PUBLIC_PAYMENTS_ENABLED` has no build argument in the Dockerfile or the build workflow, so the pipeline cannot turn it on |
 | 35 | Read the workflow, then the code, then prose. Several documents are wrong | `architecture.md` lists them |
-| 36 | Work exists only on the previous operator's machine: doc corrections, a second clone for PR #10, an unreviewed `app/labs`, the phone sign-in branch's missing org PR | ASK: Adithya for a copy before anyone assumes it is lost or done |
+| 36 | Some work existed only on the previous operator's machine: doc corrections, an unreviewed `app/labs`, one-off chain scripts (the phone sign-in is merged, PR #32 and #33; PR #10 was closed on 13 October) | The open items in `project-handover-docs/AGENT-LAUNCHPAD.md` list what is still unpushed. Do not assume it exists or is done; whoever takes over decides what ships |
 | 37 | Three products pin the registry id separately and drifted by up to 12 days after the 2026-09-11 reset | Launchpad 2026-09-15, Explorer 2026-09-22, MCP 2026-09-23. `moi-devnet-reset` |

@@ -5,7 +5,7 @@ Facts are as of 2026-10-03, from `docs/HANDOFF.md` ("Migrating off Vercel"), `sc
 ## What happened last time, and why it matters
 - The Launchpad left Vercel for the DevOps VM in early August 2026 (the always-on polling used up the free compute allowance). On 2026-08-03 the VM was started with a newly generated encryption secret (Vercel sensitive variables are write-only, per `docs/HANDOFF.md`). Agents created on Vercel can no longer decrypt their keys. The previous operator accepted that breakage; a crash would not have been accepted. <!-- slop-lint:ignore -->
 - Today the readable copies are the Actions secret of the same name (write-only) and the app's env file on the VM (ASK: Upendhar where), which only DevOps can read. No vault exists. The Vercel-era value is not the current one. If both remaining copies are lost, every agent key created since 2026-08-03 is lost with them. This is the first thing a new owner should close: confirm the two copies match, then vault it. <!-- slop-lint:ignore -->
-- The old Vercel host answered 404 on 2026-10-03. Whether the Vercel project is deleted or only paused is not on record (ASK: Adithya). Until it is deleted, an old deployment could still point at the same database. <!-- slop-lint:ignore -->
+- The old Vercel host answered 404 on 2026-10-03. Whether the Vercel project is deleted or only paused is not recorded (the previous DevRel's notes); ASK: Rahul. Until it is deleted, an old deployment could still point at the same database. <!-- slop-lint:ignore -->
 
 ## Run: verify, recover, move
 | # | Step | Command or action | Done when | Gate |
@@ -24,13 +24,13 @@ Facts are as of 2026-10-03, from `docs/HANDOFF.md` ("Migrating off Vercel"), `sc
 ## Recover the other values
 | Name | How |
 |---|---|
-| `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` | The Supabase dashboard, Settings, API. Needs the project login (owner unknown: ASK: Adithya, Rahul) |
-| `GROQ_API_KEY` | Issue a fresh key in the Groq console (ASK: Adithya for the account) |
-| `TELEGRAM_BOT_TOKEN` | BotFather for `moinetworkbot` (ASK: Adithya). Reissuing revokes the old token |
+| `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` | The Supabase dashboard, Settings, API. Needs the project login (the project is in the company Supabase organisation since 8 October 2026; DevRel owns it) |
+| `GROQ_API_KEY` | No company Groq key exists (October 2026): create a company Groq account and issue a fresh key in its console |
+| `TELEGRAM_BOT_TOKEN` | BotFather for `moinetworkbot` (DevRel's Telegram account until the transfer, `project-handover-docs/MIGRATION-LIST.md`). Reissuing revokes the old token |
 | `SESSION_SECRET`, `CRON_SECRET` | Cannot be recovered. Generate new ones; everyone is signed out |
 | `TELEGRAM_WEBHOOK_SECRET` | Cannot be recovered. Generate a new one, then `setWebhook` |
 | `MOI_REGISTRATION_MNEMONIC_1`, `_2`, `_3` | DevOps holds them. Do not copy them around |
-| `MOI_PLATFORM_MNEMONIC` | A funded devnet wallet. Holder unclear: ASK: Adithya, Upendhar |
+| `MOI_PLATFORM_MNEMONIC` | A funded devnet wallet. `deploy.yml` reads it but it is not in the repo's secrets list: an org-level secret, or the VM gets an empty value. ASK: Upendhar |
 | Variables (`MOI_AGENT_REGISTRY_LOGIC_ID`, `MOI_RPC_URL`, `NEXT_PUBLIC_*`, `GLOBAL_DAILY_SPEND_CAP_CENTS`, `TELEGRAM_BOT_USERNAME`) | Not secret. Read only these with the command under this table, because `VM_HOST` and `VM_USER` are variables too and are private |
 | `GHCR_PAT`, `TELEPORT_*`, `VM_HOST`, `VM_USER` | DevOps |
 
@@ -47,4 +47,4 @@ Do not treat a local `.env` as a production source. The local one points at a lo
 ## Not yet known
 - Whether the Actions secret and the VM file hold the same encryption value. Step 4 is how to find out.
 - Which vault, and who creates the first entries. ASK: Rahul.
-- Whether the Vercel project still exists. ASK: Adithya. <!-- slop-lint:ignore -->
+- Whether the Vercel project still exists: not recorded (the previous DevRel's notes); ASK: Rahul. <!-- slop-lint:ignore -->

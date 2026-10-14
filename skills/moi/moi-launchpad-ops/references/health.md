@@ -1,6 +1,6 @@
 # Health: the checks, what healthy looks like, what each failure means
 
-Facts are as of 2026-10-03: the live answers below were read on that date, the meanings come from the code on `origin/master` (`app/api/stats/route.ts`, `lib/chain-status.ts`, `app/api/marketplace/`) and the research. Run these after every deploy, after any reset signal, and on every user report. No scheduled monitor is on record. Back to `../SKILL.md`.
+Facts are as of 2026-10-03, updated 2026-10-14 where a line says so: the live answers below were read on 2026-10-03, the meanings come from the code on `origin/master` (`app/api/stats/route.ts`, `lib/chain-status.ts`, `app/api/marketplace/`) and the research. Run these after every deploy, after any reset signal, and on every user report. No scheduled monitor is on record. Back to `../SKILL.md`.
 
 ## Run: check health
 | # | Step | Command or action | Done when | Gate |
@@ -22,14 +22,15 @@ Facts are as of 2026-10-03: the live answers below were read on that date, the m
 | `chain-listing` | 200 with `source` chain and a count | 502 `chain_unreachable` with the real error: FAIL. "Too many requests" in that error is the chain read being rate-limited (seen on 2026-10-03 after several runs within minutes): wait a minute and read again before calling it an incident. 200 with 0 agents: WARN, read again |
 | `market` | `onchain` is an object | `onchain=null` is WARN: the market read is unavailable, which is not the same as unlisted. It was null on 2026-10-03 |
 | `runtime` | A 12-character version | It is a hash of the served bundle. It changes only when `public/runtime.cjs` changes |
-| `rpc` | `net.Version` 0.13.0 on 2026-10-03 | No answer: the node is down or the path moved. Ask Gokul |
+| `rpc` | `net.Version` 0.13.0 on 2026-10-03, still 0.13.0 on 2026-10-14 | No answer: the node is down or the path moved. A `curl: (60)` certificate error is the node's TLS certificate; it expired on 4 October and was renewed (valid 5 October 2026 to 3 January 2027). Ask Gokul |
 
 ## Reading /api/stats
 - `chainStatus`: `pending` means the chain has never been read since boot (about a minute after a deploy). `stale` means the last good read is over 15 minutes old or a newer read failed. `unreachable` means it was never read and keeps failing. `ok` means a good read, with `chainAsOf` saying when.
+- On 2026-10-14 the live `chainError` read "144 of 174 agent profile reads failed ... Too many requests", with the stats still `pending`: that is the RPC rate limit, not an outage. Wait a minute and read again; do not run the script in a loop.
 - The refresh runs only when someone asks. After the site has been idle, the first call says `stale`. Call again after 20 to 60 seconds before you call it an incident.
 - `registered` is the chain's count of active registry agents whose URL host is a Launchpad host, or null before any read. It is never a database number. `activeAgents` and `owners` are database counts, so they differ from it by design.
 - `registered` by state (from `lib/chain-status.ts` and `app/api/stats/route.ts` on `origin/master`, commit `c49afb7` of 2026-09-15, read in the previous operator's clone): with `ok` it is the latest good read; with `stale` it is the last good read, kept with its age (`chainAsOf`) so that a dead registry is not shown as live; with `pending` or `unreachable` it is null, because nothing has been read. A registry that answers but holds none of this Launchpad's agents reads 0 with `ok` (inferred from the count in the code). So `registered=0` alone does not tell an outage or a reset from an empty registry: read `chainStatus`, then `troubleshoot.md` rows 9 to 12. ASK: Gokul.
-- Do not quote any of these as "agents on MOI" without saying which one it is and when it was read. On 2026-10-03 within about an hour, `chainStatus` stayed `ok` while `registered` read 0 and then 6, and `?source=chain` listed 8, 4, 0 and 7 agents. The cause is not known. The registry holds an imported snapshot of 144 agents (a comment in `lib/moi/registry.ts`), and `moi-devrel/references/devnet.md` records that the registry call `getAllAgentIds` reverts at about 135 agents and returns an empty list. Whether that explains it is untested. ASK: Adithya, Gokul.
+- Do not quote any of these as "agents on MOI" without saying which one it is and when it was read. On 2026-10-03 within about an hour, `chainStatus` stayed `ok` while `registered` read 0 and then 6, and `?source=chain` listed 8, 4, 0 and 7 agents. The cause is not known. The registry holds an imported snapshot of 144 agents (a comment in `lib/moi/registry.ts`), and `moi-devrel/references/devnet.md` records that the registry call `getAllAgentIds` reverts at about 135 agents and returns an empty list. Whether that explains it is untested. ASK: Gokul.
 - `GET /api/marketplace` with no `source` is a database index (18 agents on 2026-10-03). It answers in under a second and can show agents from a dead chain. Use `?source=chain` to test the chain. A forced chain read that fails must say so, and it does.
 
 ## Checks the script does not make
@@ -48,5 +49,5 @@ Facts are as of 2026-10-03: the live answers below were read on that date, the m
 
 ## Not yet known
 - Why `registered` and the chain listing swing between reads (above).
-- Whether the platform wallet is needed for reads. ASK: Adithya.
+- Whether the platform wallet is needed for reads: the handover doc says it serves registry reads and the heartbeat; untested. ASK: Gokul.
 - Whether any external monitor watches launchpad.moi.technology. ASK: Upendhar.

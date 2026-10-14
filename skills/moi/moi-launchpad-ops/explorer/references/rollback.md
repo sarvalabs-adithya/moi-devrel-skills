@@ -1,6 +1,6 @@
 # Roll back a bad Explorer deploy
 
-Facts are as of 2026-10-02 (the workflow file and the library's ops research) and 2026-10-03 (probes). No rollback procedure is documented for the Explorer. The three options below are read from the workflow and are inferred; none has been run. Nothing here is a yes: every step marked GATE needs the operator's explicit yes naming the action. `ASK:` is defined in `moi-devrel/SKILL.md`. Run `git` commands from a working copy of `sarvalabs/agent-explorer`; the `gh` commands carry `-R`. Back to `../GUIDE.md`.
+Facts are as of 2026-10-02 (the workflow file and the library's ops research) and 2026-10-03 (probes), updated 2026-10-14 where a line says so (PR #5 merged on 7 October 2026). No rollback procedure is documented for the Explorer. The three options below are read from the workflow and are inferred; none has been run. Nothing here is a yes: every step marked GATE needs the operator's explicit yes naming the action. `ASK:` is defined in `moi-devrel/SKILL.md`. Run `git` commands from a working copy of `sarvalabs/agent-explorer`; the `gh` commands carry `-R`. Back to `../GUIDE.md`.
 
 ## 1. What the deploy does to you
 - The deploy job pulls `:latest`, removes both old containers, then starts the new ones. If the new backend never answers `/health`, the job goes red and nothing starts the old ones again. The API stays down until someone acts.
@@ -37,7 +37,7 @@ Kinds: READ, EDIT (local only), GATE, VERIFY.
 | Stays | Why |
 |---|---|
 | Rows the bad build wrote to MySQL | A sync adds and updates rows and nothing deletes them. Admin verify decisions persist |
-| New columns | `initSchema()` only adds. PR #5 adds `verified_by_admin` and sets it to true wherever `verified` was true. An earlier build ignores the column (inferred) |
+| New columns | `initSchema()` only adds. PR #5 added `verified_by_admin` and set it to true wherever `verified` was true. An earlier build ignores the column (inferred) |
 | On-chain registrations users made through the client | They are interactions on devnet. The Explorer neither made nor holds them |
 | The mutable `:latest` tag | It points at whatever was built last. Option A or B moves it |
 Removing rows is a separate decision: `index-sync.md`, section 5, step 6, with Gokul's yes and a backup from Upendhar.

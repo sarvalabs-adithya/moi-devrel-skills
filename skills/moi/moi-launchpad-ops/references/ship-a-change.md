@@ -14,8 +14,8 @@ Gate column: `read-only` and `local` need no yes. `GATE` needs the operator's ex
 | 5 | Check | `npm ci` (downloads the packages in the lockfile: say so before the first run in a working copy), then `npm run typecheck`, `npm test`, `npm run build`. Stop any dev server before the build (a build under a running dev server corrupts `.next`) | All pass. CI will not run the first two | local |
 | 6 | Strict install | If `package.json` or the lockfile changed: `rm -rf node_modules && npm ci` | No ERESOLVE. A lenient local `npm install` hid one on 2026-09-14 and every deploy after PR #24 failed until PR #27 | local |
 | 7 | Database | If the change needs a migration, do `database.md` first | The migration is applied and checked, or the code degrades without it | see file |
-| 8 | Push | `git push -u origin <topic>`, where `origin` is the org repo in a clone of `sarvalabs/moi-agent-launchpad`. Whether you push to a fork or to the org repo: ASK: Rahul. Recent PRs came from branches in the org repo; a branch other than the two above deploys nothing | The branch is on the remote the operator named | GATE |
-| 9 | Pull request | `gh pr create -R sarvalabs/moi-agent-launchpad --base master --head <topic>`. Write the body as measured evidence: what you verified against the real chain, what you did not, test counts, as the commit bodies of 942827a and a02eb26 do | The PR is open | GATE |
+| 8 | Push | `git push -u origin <topic>`. Per `project-handover-docs/AGENT-LAUNCHPAD.md`, work in a personal fork (make your own; the previous DevRel's fork was sarvalabs-adithya) and open a PR to the org repo; recent PRs also came from branches in the org repo. A branch other than the two above deploys nothing | The branch is on the remote the operator named | GATE |
+| 9 | Pull request | `gh pr create -R sarvalabs/moi-agent-launchpad --base master --head <topic>` (from a fork, `--head <your-login>:<topic>`). Write the body as measured evidence: what you verified against the real chain, what you did not, test counts, as the commit bodies of 942827a and a02eb26 do | The PR is open | GATE |
 | 10 | Review | Wait for the approver of step 2. Do not merge on silence | An approval in writing | read-only |
 | 11 | Merge | Say first: "this merge deploys to production". Merge on the GitHub page or with `gh pr merge <number> -R sarvalabs/moi-agent-launchpad --merge` (the history uses merge commits) | The merge commit is on `master` | GATE |
 | 12 | Watch | `gh run list -R sarvalabs/moi-agent-launchpad -L 3`, then `gh run watch <id> -R sarvalabs/moi-agent-launchpad --exit-status` | Green. Red means production still runs the old image: go to step 14 | read-only |
@@ -60,4 +60,4 @@ For a change to registration, activation, relay, templates or payments, run a st
 ## Not yet known
 - Who approves a merge, and whether branch protection exists. ASK: Rahul.
 - Whether DevOps is told when the workflow fails. The evidence says no.
-- Whether to push to a fork or the org repo. ASK: Rahul.
+- Whether your work login may push to the org repo, or only to a fork (repo access route: ASK: Rahul).

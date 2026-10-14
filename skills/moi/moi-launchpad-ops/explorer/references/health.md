@@ -1,6 +1,6 @@
 # Check the Explorer's health
 
-Facts are as of 2026-10-03 (the probes named below). `ASK:` is defined in `moi-devrel/SKILL.md`. Quote every URL in a shell: zsh reads an unquoted `?` as a pattern and stops with "no matches found". Back to `../GUIDE.md`.
+Facts are as of 2026-10-03 (the probes named below), updated 2026-10-14 where a line says so. `ASK:` is defined in `moi-devrel/SKILL.md`. Quote every URL in a shell: zsh reads an unquoted `?` as a pattern and stops with "no matches found". Back to `../GUIDE.md`.
 
 "Up" is not enough. The API's `/health` says ok while the index is frozen, so read the data in each answer as well as the status code. No uptime monitor, alert route or log retention is documented for either host (ASK: Upendhar). No notice of a failed deploy run is recorded for the Explorer (ASK: Upendhar), so look at the Actions tab after every merge.
 
@@ -12,7 +12,7 @@ It needs no working copy and no key. It sends GET requests to the site and the A
 | FAIL | An outage: the site or the API is unreachable or not 200, `/health` is not ok, or `/registry/agents` cannot be read. Go to `troubleshoot.md`, section 1 |
 | WARN | Up, but something is stale or odd: a clock skew, rows on the retired Launchpad host, no reconcile code deployed, a reconcile that is old or failed, an index that differs from the chain. Go to `index-sync.md` |
 | PASS | That check holds. It proves only what its line says |
-On 2026-10-03 it printed 4 PASS, 2 WARN, 0 FAIL: the 23 rows on the retired host, and `/admin/sync` 404. That is the baseline until PR #5 is deployed and a sync has run.
+On 2026-10-03, before PR #5 merged, it printed 4 PASS, 2 WARN, 0 FAIL: the 23 rows on the retired host, and `/admin/sync` 404. On 2026-10-14, with PR #5 live, it printed 4 PASS, 2 WARN, 0 FAIL, with the index at 176 rows, 120 verified, 75 on the retired Launchpad host and 34 with no card, and `/admin/sync` answering 200. Read each WARN against `index-sync.md`.
 
 ## 2. The checks by hand
 | # | Check | Command | Healthy answer | Proves | Observed 2026-10-03 |
@@ -21,16 +21,17 @@ On 2026-10-03 it printed 4 PASS, 2 WARN, 0 FAIL: the 23 rows on the retired host
 | 2 | The API process | `curl -s https://api.agents.moi.technology/health` | `{"status":"ok","timestamp":<unix seconds>}` | The backend process is up. Nothing about the data | ok |
 | 3 | The index | `curl -s https://api.agents.moi.technology/registry/agents` | `{"agents":[...],"total":N}` and N close to the chain's count | MySQL is reachable and the table has rows | total 49 |
 | 4 | Verified rows | `curl -s 'https://api.agents.moi.technology/registry/agents?verified=true'` | Launchpad agents appear once a sync has run | The flag, not the audit | total 1 |
-| 5 | The reconcile (PR #5) | `curl -s https://api.agents.moi.technology/admin/sync` | `{"running":false,"last":{"trigger":...,"onChain":...,"added":...,"refreshed":...,"failed":0,"verified":...,"error":null}}` | The last sync ran and what it saw | 404, so PR #5 is not deployed |
+| 5 | The reconcile (since PR #5) | `curl -s https://api.agents.moi.technology/admin/sync` | `{"running":false,"last":{"trigger":...,"onChain":...,"added":...,"refreshed":...,"failed":0,"verified":...,"error":null}}` | The last sync ran and what it saw | 404, so PR #5 is not deployed |
 | 6 | The node | `curl -s -X POST https://dev.voyage-rpc.moi.technology/devnet/ -H 'content-type: application/json' -d '{"jsonrpc":"2.0","id":1,"method":"net.Version","params":[]}'` | A `result` such as `"0.13.0"` | The node the indexer reads answers. Compare the version with the release (`moi-devrel/references/devnet.md`) | 0.13.0 |
 | 7 | The last deploy | `gh run list -R sarvalabs/agent-explorer --limit 3 --json databaseId,headSha,conclusion,status,createdAt` | `conclusion` is `success` for the latest merge | The build pushed and the VM's `/health` loop passed. A green run is not a live change | not run (needs repo access) |
+The Observed column was read on 2026-10-03, before PR #5 merged. On 2026-10-14: total 176, verified 120, `/admin/sync` 200, `net.Version` 0.13.0.
 
 ## 3. On the VM (only Upendhar can)
 ASK: Upendhar to run these and paste the output. Do not ask for `docker inspect` output: it prints every environment value, secrets included.
 | Command | Healthy |
 |---|---|
 | The list of running containers, filtered to the Explorer's | Two containers, backend and frontend, both up. Their names end in `-test` in production; ASK: Upendhar for the names |
-| The last 100 log lines of the backend container | `[db] Schema ready`, `[indexer] WS connected`, `[indexer] Subscription active, ID:`. After PR #5: `[reconcile] scheduled every 4h` and `[reconcile:schedule] done`, with `added`, `refreshed`, `failed` and `verified` counts |
+| The last 100 log lines of the backend container | `[db] Schema ready`, `[indexer] WS connected`, `[indexer] Subscription active, ID:`. Since PR #5: `[reconcile] scheduled every 4h` and `[reconcile:schedule] done`, with `added`, `refreshed`, `failed` and `verified` counts |
 Bad lines: repeated `[indexer] WS error:` or `[indexer] WS closed`, which means the node's WebSocket address moved or is down; `[reconcile:...] aborted:`; `[registry] GET /agents error:`; `[indexer] Failed to index agent`; `Failed to start server:`. `account not found` among them means the read caller is gone: `troubleshoot.md`.
 The deploy job itself asks the backend's `/health` from the VM up to 12 times, 5 seconds apart, and fails the job when it never answers.
 

@@ -5,7 +5,7 @@ Facts are as of 2026-10-03, from `supabase/migrations/` (0001 to 0012) on `origi
 ## How migrations are applied
 - By hand, in numeric order, by pasting the file into the Supabase SQL editor of the project named by the `SUPABASE_URL` variable. A deploy never applies one. There is no tracking table, so nothing records what is applied: you find out by reading the schema.
 - The production project was not reachable through the previous operator's Supabase connector (`docs/HANDOFF.md` section 3). If your session has one, do not use it on the production project without a yes. Claude does not run SQL against production; the operator pastes it.
-- Which login owns the project, and whether it is on a paid plan with backups, is not on record. ASK: Adithya, then Rahul.
+- The project is in the company Supabase organisation (moved 8 October 2026) and DevRel owns it (`project-handover-docs/AGENT-LAUNCHPAD.md`). Whether it is on a paid plan with backups is not recorded: read the plan in the Supabase dashboard; ASK: Rahul.
 - There is no down migration. To undo one, write a new forward migration and ship it like any change.
 
 ## The 12 files
@@ -24,7 +24,7 @@ Facts are as of 2026-10-03, from `supabase/migrations/` (0001 to 0012) on `origi
 | `0010_chain_events` | Table `agent_chain_events` and indexes | Yes | Listing and delisting events are not recorded |
 | `0011_config_sync` | `config_version`, `config_synced_version`, `config_synced_at` on `agents` | Yes | The page cannot say a settings change reached a running agent |
 | `0012_message_encryption` | `agents.message_pubkey` | Yes | Messages stay plain text at rest. What the code does with the column absent is unknown |
-The post-cutover checklist (section 0.5, undated) confirms only 0010 and 0011 as applied in production. Everything else is unrecorded. Whether 0012 is applied is unknown: ASK: Adithya.
+The post-cutover checklist (section 0.5, undated) confirms only 0010 and 0011 as applied in production. Everything else is unrecorded. Whether 0012 is applied is unknown: the read-only checks below include a `message_pubkey` row.
 
 ## Read-only checks (the operator pastes these into the SQL editor)
 Written for this skill from the migration files. They only select. They were not run against any database, so read them before use and expect to adjust a name.
@@ -68,9 +68,9 @@ Every `present` should be true. A false row names the migration to look at.
 | 9 | Record | File name, time, who ran it, result of step 6, in `../templates/change-checklist.md` | The note exists | local |
 
 ## If a migration goes wrong
-Stop. Do not run it again. Paste the exact error (not the data). If rows were rewritten, use the copy from step 3 to put the old values back by hand with a reviewed `update`. Treat that restore as a new GATE. Tell Rahul and Adithya. A migration that locks or empties a table needs DevOps and the project owner, not a guess.
+Stop. Do not run it again. Paste the exact error (not the data). If rows were rewritten, use the copy from step 3 to put the old values back by hand with a reviewed `update`. Treat that restore as a new GATE. Tell Rahul. A migration that locks or empties a table needs DevOps and the project owner, not a guess.
 
 ## Not yet known
-- Which login owns the Supabase project, its plan, and whether backups exist. ASK: Adithya, Rahul.
+- The Supabase plan and whether backups exist (the project is in the company organisation). ASK: Rahul.
 - Whether 0001 to 0009 and 0012 are applied in production.
 - Whether the app logs a warning for each missing migration or only some.

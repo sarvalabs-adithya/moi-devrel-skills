@@ -31,7 +31,7 @@ The symptom's own check: <what you saw>
 | | | |
 
 ## Open ASK lines
-<each question and the person: Adithya for history, Rahul for roles and policy, Upendhar for anything on the VM, Gokul for chain facts>
+<each question and the person: the repo's git log and project-handover-docs/AGENT-LAUNCHPAD.md for history, Rahul for roles, policy, access and priorities, Upendhar for anything on the VM, Gokul for chain facts>
 
 ## Not verified
 <say so, or "none">
