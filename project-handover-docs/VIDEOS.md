@@ -6,7 +6,7 @@ Marketing: the table of videos and the Reference line below it. Developers: the 
 
 Each product gets two videos, each with its own link. The product demo shows the workflow end to end, with the tools and logins it needs. The skill video shows the Claude skill that runs the product, used on screen. A **Claude skill** is a folder of instructions Claude loads for a kind of task. Record screen plus voice, 5 to 10 minutes, no editing. The videos live in the Google Drive folder https://drive.google.com/drive/folders/1AVuEBGUHnuXPKwqRoFNAcSUdxQg97dKY (owner adithya@moinetwork.io, Adithya's company Google account, which may close after he leaves: move the folder to a shared company Drive before 14 October). Each video is linked under the Status line of its product doc as "Video: <link>".
 
-Decided on 13 October: no videos for the MOI Website, the Blog or Dev Webinars. The website is not a product, and the blog and the Builders sessions are process work, so their docs carry those processes.
+Decided on 13 October: no videos for the MOI Website or Dev Webinars; their docs carry those processes. The Blog has one short process video, the newsletter (Mailchimp and the RSS feed): https://drive.google.com/file/d/1TGfPULnb1cyjwFGV_dK4X-BRqG03ZtHL/view (recorded 14 October 2026).
 
 | Product | Doc | Product demo | Skill video |
 |---|---|---|---|

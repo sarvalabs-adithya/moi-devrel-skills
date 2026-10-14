@@ -2,6 +2,8 @@
 
 **Status: active.** Six posts live; the monthly newsletter runs on the 15th.
 
+Video: the newsletter, Mailchimp and the RSS feed https://drive.google.com/file/d/1TGfPULnb1cyjwFGV_dK4X-BRqG03ZtHL/view (recorded 14 October 2026).
+
 Marketing: Variables, Process (step 8 Announce and step 9 Newsletter of Writing a post, and The monthly newsletter), Open items. Developers: How it works, Stack, Env vars, Process (Writing a post, Other kinds of post, Images, Editing or deleting a published post), Claude skill.
 
 blog.moi.technology, a separate site from moi.technology that lives in the same repo and deploys with it. Every post is one markdown file, and the blog is built with **Astro** (a tool that turns the files into a static website). Two kinds of post recur: the write-up after a **Builders session** (MOI's live developer webinar, covered in DEV-WEBINARS.md), and the monthly release post written from the protocol team's release note. DevRel writes the posts, Rahul reviews them, and the announcement goes out through a workflow in the same repo. As of October 2026 there are six posts live; the September release post is the one to copy.
