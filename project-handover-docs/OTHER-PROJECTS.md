@@ -48,6 +48,8 @@ Why it matters: every Moinkee image and token metadata file lives on IPFS, and P
 
 The list of every pinned file (CID, name, size, date) is in this repo at `others/moinkee/pinata_pins.json` (71 rows), with `recovered.json` and `snapshot.json` (token owners and metadata, used by the recovery flow).
 
+**The company account already exists**: sarvalabsdeveloper@gmail.com (the shared company developer login) has a Pinata account. Adithya's account (login adithya@sarva.ai, free plan, one workspace, members need a paid plan) is the source. The 71 CIDs are one folder holding the memento images (13.6 MB) and 70 small metadata files. The script `others/moinkee/repin-to-pinata.py` does Option B against the company account: `--dry-run` lists the CIDs, a plain run asks for the company JWT at a hidden prompt, pins the folder first and waits until all 71 are pinned, and `--check` confirms. It writes a log and never prints the key.
+
 Option A, simplest: hand the existing Pinata account to a company login (change its email to a company address in Pinata's account settings, if the plan allows). Pins, keys and everything else stay as they are. Then rotate the API key and update `PINATA_JWT` on Vercel.
 
 Option B: re-pin into the company account.
