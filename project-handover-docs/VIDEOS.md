@@ -39,8 +39,8 @@ Reference: the intro session deck in skills/moi/moi-webinar/past-sessions/intro-
 
 1. What it is: open launchpad.moi.technology and show the templates, create, dashboard, marketplace and stats. Say what is inactive (paid agents). The phone QR sign-in is live now (tested 13 October), so the demo can also be done from a phone.
 2. Sign in with the wallet, create an agent from a template, register it on chain, link Telegram, download the runtime and start it. Send the bot a message.
-3. The repo: the fork and the org repo, app/, lib/templates, agent-runtime, contracts/agent_market, supabase/migrations.
-4. Shipping: a branch on the fork, typecheck and tests locally, the PR to the org repo, and the merge that builds and deploys. Show the Actions run from 7 October and the image on **GHCR** (GitHub's container registry).
+3. The repo: app/, lib/templates, agent-runtime, contracts/agent_market, supabase/migrations.
+4. Shipping: a branch, typecheck and tests locally, the PR to the org repo, and the merge that builds and deploys. Show the Actions run from 7 October and the image on **GHCR** (GitHub's container registry).
 5. Settings: the Actions secrets and variables page, names only. Say which ones are baked in at build. Setting a value deploys nothing.
 6. **Supabase** (the hosted database): the company organisation, the project, and the SQL editor where migrations run by hand. The project moved there on 8 October.
 7. Telegram: the bot in **BotFather** (Telegram's bot-setup bot), the alert chat, and the webhook secret rule.

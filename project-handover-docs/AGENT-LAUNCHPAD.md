@@ -30,7 +30,7 @@ No worker runs in production on purpose: it would steal the Telegram webhook and
 
 | Variable | Owner | Notes |
 |---|---|---|
-| Codebase | DevRel | https://github.com/sarvalabs/moi-agent-launchpad deploys. DevRel works in a personal fork (Adithya's was sarvalabs-adithya/moi-agent-launchpad; the next owner makes their own) |
+| Codebase | DevRel | https://github.com/sarvalabs/moi-agent-launchpad deploys |
 | Database (Supabase) | Company Supabase organisation (transferred 8 October) | Holds all app state |
 | Telegram bot and the alert chat | DevRel (Rahul Lenkala's Telegram account) | @moinetworkbot delivers agent messages to users. Transferred from Adithya's Telegram account to Rahul (@p2pbuddy) on 14 October 2026; the token and the chat id did not change |
 | AgentMarket contract on **devnet** (MOI's shared test network, wiped from time to time) | DevRel | Not redeployed since the devnet wipes, so paid agents are off. The code is there; the next owner redeploys it when it is needed |
@@ -81,7 +81,7 @@ The example file with comments is .env.example in the repo.
 
 **Shipping a change**
 
-- Work on a branch in a personal fork.
+- Work on a branch.
 - Run typecheck and tests by hand. Nothing runs them on a pull request.
 - If an agent template or the agent runtime (the one file users download and run on their own laptop) changed, rebuild that file and commit it. The repo serves the built copy.
 - Open a pull request on the org repo.
@@ -187,6 +187,6 @@ What the skill never does without a yes from DevRel: push, merge (a merge deploy
 - Done: the Telegram bot was transferred to Rahul Lenkala (@p2pbuddy) on 14 October, and the Supabase project on 8 October.
 - The live stats page sometimes says the registry is not answering. On 14 October that was the RPC rate limit ("Too many requests"), not a stale id: the Launchpad's registry id (0x200000002f3e9469...) is the current one, the same as the Agent Explorer's and the MCP server's. Treat the Explorer's id as the source of truth after any reset.
 - The repo's README and docs/HANDOFF.md still describe Vercel (checked 14 October 2026). Fixes for README, HANDOFF, DEPLOY.md and the two env examples were written on 1 October but never committed: they sit only in Adithya's local clone (branch local/sweep-oct1). Open a PR with them, or rewrite them from this doc.
-- Never pushed, and on Adithya's laptop only (untracked files in his fork clone, checked 14 October): the labs folder (app/labs and its API routes) and the one-off chain scripts for clearing stuck **nonces** (a nonce is the counter that orders a sender's interactions, and a stuck one blocks the ones after it), counting installed agents and finding a blocked nonce. Unless they are saved before he leaves, treat them as gone.
+- Never pushed, and on Adithya's laptop only (untracked files in his local clone, checked 14 October): the labs folder (app/labs and its API routes) and the one-off chain scripts for clearing stuck **nonces** (a nonce is the counter that orders a sender's interactions, and a stuck one blocks the ones after it), counting installed agents and finding a blocked nonce. Unless they are saved before he leaves, treat them as gone.
 - Paid agents cannot be switched on through the pipeline: NEXT_PUBLIC_PAYMENTS_ENABLED has no build argument in the Dockerfile or the build workflow. Add one before the AgentMarket contract is redeployed.
 - PR #31 (the Launchpad docs hosted on the site at /docs, with the Docs link and llms.txt pointing at it) merged and deployed on 12 October; /docs is live. PR #10 (AgentMarket deploy budget) was closed on 13 October: the redeploy is blocked on the transfer error, not the budget, so whoever revives paid agents redeploys against the devnet of the day.
