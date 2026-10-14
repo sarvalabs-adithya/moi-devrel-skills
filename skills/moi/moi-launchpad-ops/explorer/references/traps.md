@@ -52,7 +52,7 @@ Agent Explorer: A security finding is open on this product as of 2026-10-02. The
 ## Files and history
 | # | Rule | The incident or evidence |
 |---|---|---|
-| 30 | The 4 October dependency snapshot (`project-handover-docs/LIST-OF-DEPENDENCIES.md`, section 10) predates the merge of PR #5 | It lists the SDK as 0.9.0-rc2 on PR #5 while `main` then pinned `^0.8.0`; since 7 October `main` holds PR #5. The `LAUNCHPAD_ORIGINS` names it lists as read by nothing come from a closed PR |
+| 30 | The 4 October dependency list (now only in git history) predates the merge of PR #5 | It lists the SDK as 0.9.0-rc2 on PR #5 while `main` then pinned `^0.8.0`; since 7 October `main` holds PR #5. The `LAUNCHPAD_ORIGINS` names it lists as read by nothing come from a closed PR |
 | 31 | The design issue promised on 2026-09-24 was never posted | PR #4 was closed with a promise to open an issue first. A draft exists on the previous operator's machine, untracked. It predates PR #5 |
 | 32 | `server/check-registry.mjs` is not in the repo | Not recorded; ASK: Gokul (`index-sync.md`, section 4) |
 | 33 | PR #5's commit message carried an AI co-author trailer | Commit `508be01` (2026-10-02). PR #5 merged on 7 October 2026, so merged history is not rewritten; house rule 4 applies to new commits. Merged commits such as `bb5d38e` carry one too |

@@ -4,7 +4,7 @@ Facts are as of 2026-10-02. A one-off session whose deck was built on 12 to 15 S
 
 ## Where it lives, and its state
 
-- **Where it lives.** The deck `index.html`, `MOI_Builders_Intro.pdf` and a `README.md` are in the handover repo at `others/webinars/intro-session-deck/`. They are not in `moi-foundation/MOI-Webinars`. Keep a second copy.
+- **Where it lives.** The deck `index.html`, `MOI_Builders_Intro.pdf` and a `README.md` are in the handover repo at `skills/moi/moi-webinar/past-sessions/intro-session-deck/`. They are not in `moi-foundation/MOI-Webinars`. Keep a second copy.
 - **Do not present from it as it stands.** `check-deck.py` on the file, run read-only on 2026-10-02, reports 2 FAIL.
   - Check a: slide 4's `NOTES` entry has real line breaks, so the inline script does not parse. The arrow keys, the dots and the presenter window are dead. The PDF still prints. The break probably came from the 15 Sep rewrite of slide 4 (inferred).
   - Check g: em dashes in the document title, the presenter title and a code comment on slide 9.

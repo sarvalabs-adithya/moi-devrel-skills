@@ -65,7 +65,7 @@ Channel: Slack. Send it once, before the first call, then fold it into message 1
 
 > Hi Vardan, I am taking over the deck and the line-up for the community calls. Could you give me access to Luma, Riverside and the MOI YouTube channel before Community Call <N>, or tell me who can? Which Slack channel do the call inputs arrive in? Was the planted question at call 14 asked, and were the shorts cut? Anything else from the last call I should know?
 
-Use the reply to: fill the "Not yet known" lists in `references/`. The 4 October dependency snapshot is `project-handover-docs/LIST-OF-DEPENDENCIES.md`, and the call's handover note is `project-handover-docs/COMMUNITY-CALL.md`; nobody needs to be asked for those.
+Use the reply to: fill the "Not yet known" lists in `references/`. The 4 October dependency list was removed; the product docs replace it, and the call's handover note is `project-handover-docs/COMMUNITY-CALL.md`; nobody needs to be asked for those.
 
 ## 9. Vardan: the Luma page, the Riverside room, the posts and the speaker list
 Channel: Slack. Send at T-9, with the run sheet's dates filled in.

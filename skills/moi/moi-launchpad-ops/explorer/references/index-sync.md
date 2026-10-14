@@ -59,7 +59,7 @@ A full walk takes longer than an HTTP request, which is why `POST /admin/sync` a
 ## 6. Who fixes it
 | Part | Who | Basis |
 |---|---|---|
-| Code, the registry, verification rules | Gokul | `project-handover-docs/LIST-OF-DEPENDENCIES.md` section 10: owns the app code, admin and verification rules; the registry |
+| Code, the registry, verification rules | Gokul | `project-handover-docs/AGENT-EXPLORER.md`: owns the app code, admin and verification rules; the registry |
 | The container, its environment, `npm run sync`, the database, a backup | Upendhar | DevOps; deploy is by SSH |
 | The new registry id and what changed on chain | The protocol team (Gokul named) | `devnet.md` |
 | A signed admin sync or verify | The holder of an admin wallet. Whether any admin address is set in production is unknown. ASK: Gokul | `settings-and-secrets.md` |

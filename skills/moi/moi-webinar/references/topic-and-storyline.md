@@ -40,7 +40,7 @@ Facts are as of 2026-10-02. How two topics were chosen and turned into a storyli
 | Part 2 | 8 | Authority | The chain refuses what the owner never permitted: the same call, refused, allowed, refused |
 | Part 3 | 9 | A standard (planned) | Any x402 client can read the invoice. Only a client that implements the scheme can pay it |
 
-The first plan for part 3 was conditional settlement: money moves only when the goods arrive, built on MOI's native lockup and release, with the buyer made whole if the seller fails to deliver. The lead had left part 3 open on the 4 Aug call ("you do something else"). The plan on file for session 9 is the x402 envelope instead. It rests on session 8's allowance, which was dropped, so it needs a new plan before anyone builds it. Which plan is current: ASK: Rahul. Session 7's storyline and facilitator note, which hold the conditional settlement plan, are in the handover repo at `others/webinars/session-7/`.
+The first plan for part 3 was conditional settlement: money moves only when the goods arrive, built on MOI's native lockup and release, with the buyer made whole if the seller fails to deliver. The lead had left part 3 open on the 4 Aug call ("you do something else"). The plan on file for session 9 is the x402 envelope instead. It rests on session 8's allowance, which was dropped, so it needs a new plan before anyone builds it. Which plan is current: ASK: Rahul. Session 7's storyline and facilitator note, which hold the conditional settlement plan, are in the handover repo at `skills/moi/moi-webinar/past-sessions/session-7/`.
 
 ## What has been covered, and what has not
 

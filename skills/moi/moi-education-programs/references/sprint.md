@@ -2,7 +2,7 @@
 
 > Scratched from the handover on 13 October 2026; kept for the record. Do not route anyone to it and do not send students to it. The rest of this file describes what existed on 2026-10-03.
 
-Facts are as of 2026-10-03. Sources: the research notes of 2026-10-02, the public GitHub repos and the live site read on 2026-10-03, and the previous operator's dependencies list of 2026-10-01 (section 21; not in the handover repo, and `project-handover-docs/LIST-OF-DEPENDENCIES.md` has no section for Sprint). Where they disagree the newer reading wins. Back to `../SKILL.md`.
+Facts are as of 2026-10-03. Sources: the research notes of 2026-10-02, the public GitHub repos and the live site read on 2026-10-03, and the previous operator's dependencies list of 2026-10-01 (section 21; not in the handover repo, and the 4 October dependency list (now only in git history) has no section for Sprint). Where they disagree the newer reading wins. Back to `../SKILL.md`.
 
 ## Before you touch anything
 MOI Sprint: A security finding was open on this product as of 2026-10-02. The previous DevRel's note on it is not recorded; ASK: Rahul before touching its admin.

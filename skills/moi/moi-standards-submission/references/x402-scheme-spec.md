@@ -1,6 +1,6 @@
 # x402 scheme specification: `specs/schemes/exact/scheme_exact_moi.md`
 
-Facts are as of 2026-10-03 unless dated. `ASK: <person>` is defined in `moi-devrel/SKILL.md`. Folder in the review package: `PR-2-x402-scheme-spec/`, whose inner tree `x402/specs/schemes/exact/` mirrors the target repo. Back to `../SKILL.md`. The package files this file cites by name (`ESCROW-RESEARCH-2026-09-10.md` and `AUDIT-2026-09-10.md`) are in the handover repo at `others/standards/x402-review-package/`; the spec text is `docs/PR-2-x402-scheme-spec.md` there. `FINDINGS.md` is not in the handover repo (the previous DevRel's local x402-compat folder); ASK: Rahul.
+Facts are as of 2026-10-03 unless dated. `ASK: <person>` is defined in `moi-devrel/SKILL.md`. Folder in the review package: `PR-2-x402-scheme-spec/`, whose inner tree `x402/specs/schemes/exact/` mirrors the target repo. Back to `../SKILL.md`. The package files this file cites by name (`ESCROW-RESEARCH-2026-09-10.md` and `AUDIT-2026-09-10.md`) are in the handover repo at `skills/moi/moi-standards-submission/x402-review-package/`; the spec text is `docs/PR-2-x402-scheme-spec.md` there. `FINDINGS.md` is not in the handover repo (the previous DevRel's local x402-compat folder); ASK: Rahul.
 
 ## What it is
 The first x402 pull request, and specification only, no code. It documents what a MOI payment payload contains, how a seller or facilitator verifies it and how settlement works. Upstream reviews the spec before it looks at any code.

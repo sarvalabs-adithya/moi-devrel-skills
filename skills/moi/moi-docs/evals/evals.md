@@ -118,7 +118,7 @@ Run after the whole-library test (a consistency critic, three new-hire simulatio
 |---|---|---|
 | Merge is publish, scoped | read `SKILL.md` fact row, `references/traps.md` and `references/page-standard.md` | moidocs, voyage-docs and coco-docs publish on merge; the js-moi-sdk docs and wallet docs pipelines are unknown, ASK: Gokul, Rahul |
 | Two-file claims ledger | read the three write steps and the claim-check chain row | `claims-candidates.csv` is kept and `ledger.csv` is made from it with `cp -n`, as in `references/fact-check-a-pr.md` |
-| Handover list | The first mention of the dependencies list in `references/write-sphinx.md` and `references/traps.md` | Each points at `project-handover-docs/LIST-OF-DEPENDENCIES.md` or says the fact is not recorded in the handover docs, and none sends the reader to the previous DevRel |
+| Handover list | The first mention of the dependencies list in `references/write-sphinx.md` and `references/traps.md` | Each points at the 4 October dependency list (now only in git history) or says the fact is not recorded in the handover docs, and none sends the reader to the previous DevRel |
 | House lint | `bash "$SKILLS/moi-devrel/scripts/slop-lint.sh" --errors-only` over every text file of the skill and the `geo` branch | 0 error(s), 0 warning(s) in 44 file(s) |
 | Secret scan | `bash "$SKILLS/moi-devrel/scripts/secret-scan.sh" "$SKILLS/moi-docs"` | 0 finding(s) in 44 file(s) scanned (the skill and the `geo` branch). |
 | Dash, home path, leftovers | `grep -rIl` for the em dash character and for the home-folder prefix; `find` for `__pycache__` | none found |

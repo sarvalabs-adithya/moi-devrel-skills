@@ -83,7 +83,7 @@ No pass is recorded for these. Start from their health checks and build a plan w
 | A webinar demo | `moi-webinar/references/demo-standard.md` | Preflight, spike, adversarial suite with a control |
 
 A test case never touches a product's admin. Read the product's row in `moi-devrel/references/repo-map.md` first. Four of the products above carry a marker:
-- Agent Explorer: A security finding is open on this product as of 2026-10-02. See the Open items of project-handover-docs/LIST-OF-DEPENDENCIES.md (section 10, Agent Explorer) before touching its admin; ASK: Rahul if unclear.
+- Agent Explorer: A security finding is open on this product as of 2026-10-02. See the Open items of project-handover-docs/AGENT-EXPLORER.md before touching its admin; ASK: Rahul if unclear.
 - Website: A security finding is open on this product as of 2026-10-02. See the Open items of project-handover-docs/MOI-WEBSITE.md before touching its admin; ASK: Rahul if unclear.
 - Dataroom: A security finding is open on this product as of 2026-10-02. See the Open items of project-handover-docs/DATAROOM.md before touching its admin; ASK: Rahul if unclear.
 - Points: A security finding is open on this product as of 2026-10-02. See the Open items of project-handover-docs/POINTS-PROGRAM.md before touching its admin; ASK: Rahul if unclear.

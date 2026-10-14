@@ -5,7 +5,7 @@ For docs.moi.technology (`sarvalabs/moidocs`), voyage-docs.moi.technology (`sarv
 ## Before the first command
 1. Know which of two states your clone is in. The style guide, the schema components, the section cards, the `image` field, the llms scripts and (on coco-docs) the move of the Book from `/docs/book/` to `/book/` came in with the sweep PRs: moidocs #124 (merged 2026-10-13), voyage-docs #5 and coco-docs #12 (both merged 2026-10-05; `sites.md`). A clone fetched before those dates still has a plain `docusaurus build`, no `HowToSchema` or `FaqSchema` (a tutorial written from the template would fail to build there: the import cannot resolve; not run), no `/img/moi-card-build.png` (leave `image` out) and the Book at `/docs/book/...`. So fetch `main` first (GATE) and read the PR state if in doubt (`gh pr view <N> --repo sarvalabs/<repo> --json state,mergedAt`). The lint reads the checkout it is in and says which form it wants (`link-route-prefix`, `image-card-missing`, `schema-component-missing`).
 2. The three repos are private. Access comes from an org admin. ASK: Rahul.
-3. No secrets are needed to build any docs site (not recorded in the handover docs; `project-handover-docs/LIST-OF-DEPENDENCIES.md` lists no docs site). If a step asks for a key, stop.
+3. No secrets are needed to build any docs site (not recorded in the handover docs; the 4 October dependency list (now only in git history) lists no docs site). If a step asks for a key, stop.
 
 ## The steps
 GATE marks a step that needs the operator's explicit yes first (`moi-devrel/references/consent-and-identity.md`).

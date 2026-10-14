@@ -1,6 +1,6 @@
 # Provenance: where this branch came from and what was changed
 
-Facts are as of 2026-10-03. This branch is a restructured copy of a skill folder on the previous operator's machine (last modified 2026-05-28). The old skill is kept for reference in the handover repo, under `others/legacy-skills/moi-design/`, together with the brand book PDF and the logo pack in its `uploads/` folder. Back to `../GUIDE.md`.
+Facts are as of 2026-10-03. This branch is a restructured copy of a skill folder on the previous operator's machine (last modified 2026-05-28). The old skill was removed from the handover repo on 14 October 2026 (it is in the repo's git history); the brand book PDF and the logo pack from its `uploads/` folder are kept in `assets/brand-book/`. Back to `../GUIDE.md`.
 
 ## What was copied and what was not
 | Part | Old size | In this branch | Note |
@@ -11,7 +11,7 @@ Facts are as of 2026-10-03. This branch is a restructured copy of a skill folder
 | `preview/` | 54,959 bytes, 37 files | yes, edited | `../preview/README.md` lists the edits |
 | `ui_kits/marketing/` | 36,476 bytes, 4 files | yes, edited | Copy replaced with placeholders (`../ui_kits/marketing/README.md`) |
 | `SKILL.md`, `README.md` | 2,743 and 15,064 bytes | rewritten into `../GUIDE.md` and `references/` | The old frontmatter key `user-invocable` is dropped; the standard has `name` and `description` only |
-| `uploads/` | 9.3 MB, 26 files | no | Brand book PDF, logo zip, a screenshot of the book's font page, 23 background files. The PDF and the zip are in the handover repo, `others/legacy-skills/moi-design/uploads/` |
+| `uploads/` | 9.3 MB, 26 files | no | Brand book PDF, logo zip, a screenshot of the book's font page, 23 background files. The PDF and the zip are in the handover repo, `skills/moi/moi-devrel/design/assets/brand-book/` |
 | `MOI Design System/` | 21.4 MB, 121 files | no | Byte-identical duplicate |
 Total in this branch, counted at the end of the 2026-10-03 review: 112 files, about 10.3 MB, of which `assets/` is 9.9 MB (9,944,826 bytes).
 

@@ -22,7 +22,7 @@ No PR template file was found in the namespaces repo at the two usual `.github` 
 The author in both is the previous operator, set on 2026-09-09: "CASA chases the listed author on the PR, so this is a commitment to answer". Whether the next operator replaces the name is open (`open-decisions.md` 4).
 
 ## The decision that blocks it: the reference format
-Do not resolve it here. The formats are numbered 1 to 3 here so they are not confused with conflicts A and B of `open-decisions.md`. Candidates, with what each means (`docs/PR-1-chain-id-edits.md` of 2026-09-14 and the package README's "Decide before filing" table are in `others/standards/x402-review-package/`; `DECISIONS.md` 1 and `FIX-PLAN.md` "New decisions" 1 are not in the handover repo (the previous DevRel's local x402-compat folder); ASK: Rahul): <!-- slop-lint: ignore -->
+Do not resolve it here. The formats are numbered 1 to 3 here so they are not confused with conflicts A and B of `open-decisions.md`. Candidates, with what each means (`docs/PR-1-chain-id-edits.md` of 2026-09-14 and the package README's "Decide before filing" table are in `skills/moi/moi-standards-submission/x402-review-package/`; `DECISIONS.md` 1 and `FIX-PLAN.md` "New decisions" 1 are not in the handover repo (the previous DevRel's local x402-compat folder); ASK: Rahul): <!-- slop-lint: ignore -->
 | Format | Identifier | Where it comes from | Regex | Test cases |
 |---|---|---|---|---|
 | 1. Names | `moi:devnet`, `moi:mainnet` (reserved) | The draft. Matches `stellar:pubnet` | `^[a-z0-9]([a-z0-9-]{0,30}[a-z0-9])?$` | 4 valid, 8 invalid |

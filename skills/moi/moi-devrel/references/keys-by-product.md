@@ -1,6 +1,6 @@
 # Keys by product: variable names
 
-Names only. This file never holds a value, a length or a prefix. Shared accounts and keys, and the rules for handling them, are in `keys-and-access.md`. Facts are as of 2026-10-02 from `project-handover-docs/LIST-OF-DEPENDENCIES.md` (the 4 October snapshot), the ops research notes and the repos' `.env.example` files, updated from `project-handover-docs/ENV-VARS.md` (13 October 2026), with changes dated where a row says so. Status is TBD for every row. "ASK" has the meaning defined in `../SKILL.md`. For anything that sits on a VM: ASK: Upendhar. Back to `../SKILL.md`.
+Names only. This file never holds a value, a length or a prefix. Shared accounts and keys, and the rules for handling them, are in `keys-and-access.md`. Facts are as of 2026-10-02 from the 4 October dependency list (now only in git history), the ops research notes and the repos' `.env.example` files, updated from `project-handover-docs/ENV-VARS.md` (13 October 2026), with changes dated where a row says so. Status is TBD for every row. "ASK" has the meaning defined in `../SKILL.md`. For anything that sits on a VM: ASK: Upendhar. Back to `../SKILL.md`.
 
 ## Website and blog (`sarvalabs/MOI-Website`)
 | Name | Unlocks | Used by | Lives in | Who grants | Status |

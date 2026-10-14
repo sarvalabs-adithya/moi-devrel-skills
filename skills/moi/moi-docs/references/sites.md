@@ -34,7 +34,7 @@ Historical, from before the merges: the live sites agreed with the clones' `main
 ## voyage-docs.moi.technology (`sarvalabs/voyage-docs`)
 - Stack: the same as moidocs. `package.json` is still named `moidocs`. `npm run start` binds port 6420. `npm run build` follows the same main versus PR split.
 - Content owner: the Voyage team, Gokul. The last commit on `main` is #4 (wallet authentication, Vinay, 2026-08-25). The two scripts must stay byte-identical to moidocs' (`diff` them after any change).
-- Publish: Pages project `voyage-docs`, on merge to `main` (the voyage-docs publishing setup is not recorded in the handover docs; `project-handover-docs/LIST-OF-DEPENDENCIES.md` does not list it). Preview: the Pages check was green on #5, but the preview address form was not recorded; by analogy with moidocs it is `<branch>.voyage-docs.pages.dev` (inferred). PR #5 merged on 2026-10-05.
+- Publish: Pages project `voyage-docs`, on merge to `main` (the voyage-docs publishing setup is not recorded in the handover docs; the 4 October dependency list (now only in git history) does not list it). Preview: the Pages check was green on #5, but the preview address form was not recorded; by analogy with moidocs it is `<branch>.voyage-docs.pages.dev` (inferred). PR #5 merged on 2026-10-05.
 
 ## cocolang.dev (`sarvalabs/coco-docs`)
 - Stack: Docusaurus 3.9, React 19, Tailwind 4, `engines` Node `>=18.0`. Routes: since #12 merged (2026-10-05) `routeBasePath` is `/`, so the Book is at `/book/...` (the form the style guide uses). A clone older than that merge has no `routeBasePath`, serves the Book at `/docs/book/...` and writes its internal links that way; a `/book/...` link there has no route (`onBrokenLinks` is `throw`; inferred, not built).

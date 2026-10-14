@@ -1,6 +1,6 @@
 # Architecture: what runs where, and how a merge becomes a container
 
-Facts are as of 2026-10-03, updated on 2026-10-14 where a line says so. Sources: the workflow files, `Dockerfile`, `docker-compose.yml` and code on `origin/master` of `sarvalabs/moi-agent-launchpad` (private), read from the previous operator's clone, which is shallow and was last fetched on 2026-10-01, so its newest merge is PR #30 of 2026-09-15 and anything newer is not seen; the research notes; `project-handover-docs/LIST-OF-DEPENDENCIES.md` (the 4 October snapshot) and `project-handover-docs/AGENT-LAUNCHPAD.md`; and read-only requests to the live site on 2026-10-03. Where a repo document disagrees with a workflow file, the workflow file wins. Back to `../SKILL.md`.
+Facts are as of 2026-10-03, updated on 2026-10-14 where a line says so. Sources: the workflow files, `Dockerfile`, `docker-compose.yml` and code on `origin/master` of `sarvalabs/moi-agent-launchpad` (private), read from the previous operator's clone, which is shallow and was last fetched on 2026-10-01, so its newest merge is PR #30 of 2026-09-15 and anything newer is not seen; the research notes; the 4 October dependency list (now only in git history) and `project-handover-docs/AGENT-LAUNCHPAD.md`; and read-only requests to the live site on 2026-10-03. Where a repo document disagrees with a workflow file, the workflow file wins. Back to `../SKILL.md`.
 
 ## The product
 A no-code platform for personal agents on MOI devnet. A participant connects a wallet (the MOI Wallet extension, or the phone QR sign-in through WalletConnect: PR #32 of 7 October 2026, and PR #33 of 13 October, which makes it work even when the extension is installed; tested 13 October), picks a template, signs one on-chain registration, then runs the agent on their own machine from a downloaded bundle. Messages reach them through the Telegram bot `moinetworkbot`. A marketplace lists public agents; paid agents would use the AgentMarket contract, which is not redeployed, so paid agents are off (fact as of 13 October 2026). Production is https://launchpad.moi.technology. Say "devnet", not "Voyage devnet". The old host moi-agent-launchpad.vercel.app answered 404 on 2026-10-03. <!-- slop-lint:ignore -->
@@ -62,7 +62,7 @@ README "Deploy" and its line "Marketplace payments are always on", and `DEPLOY.m
 | Question | Answer |
 |---|---|
 | Does DevRel own the Launchpad? | Per `project-handover-docs/AGENT-LAUNCHPAD.md`: DevRel owns the codebase, Supabase, the Telegram bot and AgentMarket; DevOps owns the server, CI/CD, GHCR, the registration wallets and the domain |
-| Who built it | The previous operator wrote 301 of 338 commits (`project-handover-docs/LIST-OF-DEPENDENCIES.md`). History questions: the repo's git log and `docs/HANDOFF.md` |
+| Who built it | The previous operator wrote 301 of 338 commits (the 4 October dependency list, now only in git history). History questions: the repo's git log and `docs/HANDOFF.md` |
 | Who acts on the VM, DNS, TLS, GHCR | DevOps. Upendhar holds Teleport, VMs, nginx, DNS, `GHCR_PAT`. Srikar wrote earlier workflows. Which of the two owns this VM today is unknown. ASK: Upendhar |
 | Who may merge to `master` | Unknown whether branch protection or a required review exists. ASK: Rahul |
 | Chain and registry facts | Gokul |

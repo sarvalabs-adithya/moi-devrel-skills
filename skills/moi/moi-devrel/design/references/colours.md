@@ -1,6 +1,6 @@
 # Colours
 
-Facts are as of 2026-10-03. "The book" is the 23-page PDF "Brand Guidelines for MOI Ecosystem" in the previous operator's old design skill folder; it was read page by page on 2026-10-03 and is not in this skill; the PDF is in the handover repo, `others/legacy-skills/moi-design/uploads/MOI Brand Guidelines.pdf`). The A, B and D pages print their labels; the colour pages print none, so C1 to C6 are counted from the book's contents page (Brand Colours, Brand Gradients, Backgrounds Light, Backgrounds Dark, Typography Light, Typography Dark). The PDF's own creation date is 2023-03-31 (file metadata, read 2026-10-03). Tokens named `--like-this` are in `../colors_and_type.css`. Back to `../GUIDE.md`.
+Facts are as of 2026-10-03. "The book" is the 23-page PDF "Brand Guidelines for MOI Ecosystem" (`assets/brand-book/MOI Brand Guidelines.pdf` in this skill); it was read page by page on 2026-10-03. The A, B and D pages print their labels; the colour pages print none, so C1 to C6 are counted from the book's contents page (Brand Colours, Brand Gradients, Backgrounds Light, Backgrounds Dark, Typography Light, Typography Dark). The PDF's own creation date is 2023-03-31 (file metadata, read 2026-10-03). Tokens named `--like-this` are in `../colors_and_type.css`. Back to `../GUIDE.md`.
 
 ## Source order
 1. The book is authoritative for colour, type and logo. The previous operator's README said so; the pages bear it out.

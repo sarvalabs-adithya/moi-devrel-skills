@@ -82,7 +82,7 @@ A yes covers the one action it names. Details: `moi-devrel/references/consent-an
 Names only; none is needed to read. `moi-devrel/references/keys-and-access.md` says where each lives and who grants it (status TBD for every entry). Reset-specific: repo admin on the Launchpad and Explorer repos (to set a variable or secret); `MOI_AGENT_REGISTRY_LOGIC_ID` (a variable, not a secret); `MOI_REGISTRATION_MNEMONIC_1` to `_3` (DevOps); `MOI_PLATFORM_MNEMONIC`; `MOI_SPONSOR_MNEMONIC` and `MOI_DEPLOYER_MNEMONIC` (never stored, typed at a hidden prompt: `moi-devrel/references/consent-and-identity.md` section 4, rule 6); `MOI_READ_CALLER` (MCP), `MOI_READ_CALLER_ADDRESS` (Launchpad, Explorer); `MOI_CANARY_ACCOUNT`; the Explorer's `MOI_MNEMONIC`; `UPSTREAM_READ_TOKEN`; Teleport and SSH (DevOps). Never open an `.env` file.
 Two of the three products have a security note. Read it before any step that touches their admin (the Explorer sync, the MCP deploy):
 - MCP server: `project-handover-docs/MCP-SERVER.md` records no finding. The 2026-10-02 research note said one was open; its content is not recorded (the previous DevRel's notes); ASK: Rahul before touching sign-in or other admin code.
-- Agent Explorer: a security finding is open, recorded in `project-handover-docs/LIST-OF-DEPENDENCIES.md` (Agent Explorer, ToDo 1). Read it and ask Gokul before touching the server's admin.
+- Agent Explorer: a security finding is open, recorded in `project-handover-docs/AGENT-EXPLORER.md` (Open items). Read it and ask Gokul before touching the server's admin.
 
 ## Hand-back
 ```

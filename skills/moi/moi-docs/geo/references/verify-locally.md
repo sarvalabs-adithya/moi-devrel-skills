@@ -6,7 +6,7 @@ Facts are as of 2026-10-03. Run every command from the root of the working copy 
 1. `git status` is clean, or you can say what is not yours.
 2. `git rev-parse --is-shallow-repository` prints `false`. If it prints `true`, read "The shallow-clone date trap" below first.
 3. Node 16.14 or later for `moidocs` and `voyage-docs`, 18 or later for `coco-docs`. `npm install` once. GATE: it downloads the packages named in the lock file from the npm registry. Say so and ask once.
-4. The docs sites need no secret and no environment variable; they build with none (not recorded in the handover docs; `project-handover-docs/LIST-OF-DEPENDENCIES.md` lists no docs site). If a build asks for a key, stop and ASK: Rahul.
+4. The docs sites need no secret and no environment variable; they build with none (not recorded in the handover docs; the 4 October dependency list (now only in git history) lists no docs site). If a build asks for a key, stop and ASK: Rahul.
 
 ## Docusaurus sites (moidocs, voyage-docs, coco-docs)
 Run `npm run build`. For coco-docs the README says `npm run build -- --no-minify` locally (a Tailwind minification problem); Cloudflare runs the plain command. The build runs three steps in order:

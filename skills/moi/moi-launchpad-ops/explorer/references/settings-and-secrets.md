@@ -2,7 +2,7 @@
 
 Names only. This file never holds a value, a length or a prefix. Facts are as of 2026-10-02 (updated 2026-10-14 where a line says so) from the workflow file `.github/workflows/build-and-push.yml`, the code and the `server/.env.example` of `sarvalabs/agent-explorer` (the previous operator's clone), and `moi-devrel/references/keys-and-access.md`. Status is TBD for every row: the owner settles access at the end. Never open an `.env` file; an `.env.example` may be read for names. Never ask for a value in chat. If the operator pastes one, say so, tell them to rotate it, and do not repeat it. Claude never handles a recovery phrase, including a throwaway one. `ASK:` is defined in `moi-devrel/SKILL.md`. Back to `../GUIDE.md`.
 
-The workflow declares the GitHub environment `PROD` (Settings, Environments, PROD) and `moi-devrel/references/keys-and-access.md` says the names live there. `project-handover-docs/LIST-OF-DEPENDENCIES.md` (section 10, the 4 October snapshot) agrees: GitHub, Settings, Environments, PROD (5 secrets, 14 variables), plus one repo-level secret, `GH_TOKEN`; the `DEV` and `TEST` environments exist but are empty. Look at the environment first. ASK: Upendhar which level holds which name. Only a repo admin can edit them; the admins of this repo are not recorded. ASK: Rahul.
+The workflow declares the GitHub environment `PROD` (Settings, Environments, PROD) and `moi-devrel/references/keys-and-access.md` says the names live there. `project-handover-docs/AGENT-EXPLORER.md` agrees: GitHub, Settings, Environments, PROD (5 secrets and 15 variables on 2026-10-14), plus one repo-level secret, `GH_TOKEN`; the `DEV` and `TEST` environments exist but are empty. Look at the environment first. ASK: Upendhar which level holds which name. Only a repo admin can edit them; the admins of this repo are not recorded. ASK: Rahul.
 
 ## 1. Passed by the workflow
 | Name | Kind | Reaches | Used for | Who holds it |
@@ -59,7 +59,7 @@ Proof per setting: `SYNC_INTERVAL_HOURS`, the boot log line `[reconcile] schedul
 | GHCR, `ghcr.io/sarvalabs` | `GH_TOKEN`, the two images | DevOps. ASK: Upendhar who holds the GHCR token |
 | The VM and its SSH login | `SSH_PRIVATE_KEY`, `VM_HOST`, `VM_USER` | DevOps (Upendhar). Not recorded which VM |
 | The MySQL database | `DB_*` | DevOps |
-| The server's devnet wallet and agent identity | `MOI_MNEMONIC`, `MOI_AGENT_ID`, `MOI_INTELLIGENCE_LOGIC_ID` | Owner "confirm" in `project-handover-docs/LIST-OF-DEPENDENCIES.md`. ASK: Gokul |
+| The server's devnet wallet and agent identity | `MOI_MNEMONIC`, `MOI_AGENT_ID`, `MOI_INTELLIGENCE_LOGIC_ID` | Owner "confirm" in the 4 October dependency list (now only in git history). ASK: Gokul |
 | The WalletConnect (Reown) project | `VITE_WC_PROJECT_ID` | Owner "confirm". ASK: Gokul |
 | A Pinata account, if one is used | `PINATA_JWT`, not set by the workflow | Not recorded. ASK: Gokul |
 | Admin wallets | the server's admin list (`verify-agents.md`, section 2) | Whoever holds them. ASK: Gokul. Each person uses their own MOI Wallet; there is no key to hand over |

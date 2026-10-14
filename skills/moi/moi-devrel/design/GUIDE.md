@@ -71,7 +71,7 @@ The gates in `moi-devrel/SKILL.md` apply. These are specific to this branch, and
 - Image generation is a paid API: the operator names it, with the count and model stated first.
 
 ## Keys and access
-None needed to build or check. Names only: the brand book PDF (`MOI Brand Guidelines.pdf`) and the logo pack (`MOI Logos.zip`) are in the handover repo under `others/legacy-skills/moi-design/uploads/`, not in this skill. The "Logo Files" link on the book's page A1 and the Figma file `MOI Protocol.fig` are in neither; which Figma account holds the file is not recorded (the previous DevRel's notes), and Rahul is the brand's owner to ask (ASK: Rahul). Shipping uses accounts listed in `moi-devrel/references/keys-and-access.md` (Buffer, Mailchimp, Drive, Canva, and its Figma row). Google Fonts needs none.
+None needed to build or check. Names only: the brand book PDF (`MOI Brand Guidelines.pdf`) and the logo pack (`MOI Logos.zip`) are in this skill, under `assets/brand-book/`. The "Logo Files" link on the book's page A1 and the Figma file `MOI Protocol.fig` are in neither; which Figma account holds the file is not recorded (the previous DevRel's notes), and Rahul is the brand's owner to ask (ASK: Rahul). Shipping uses accounts listed in `moi-devrel/references/keys-and-access.md` (Buffer, Mailchimp, Drive, Canva, and its Figma row). Google Fonts needs none.
 
 ## Hand-back
 ```

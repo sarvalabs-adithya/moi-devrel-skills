@@ -22,7 +22,7 @@ Why: the previous operator corrected cold, staccato and contrastive scripts on 5
 ### 4. Keys do nothing but the PDF looks fine
 Prompt: The deck arrow keys and the presenter window do not work. The PDF looks fine.
 Expect: runs `check-deck.py`, finds check a (or b), quotes the line it reports, fixes the cause (a real line break or missing comma in `NOTES`, repaired by `sync-notes.py --confirm`, or a stray `</div>`), and re-runs until clean. Does not only re-render the PDF.
-Why: the intro session deck (`others/webinars/intro-session-deck/` in the handover repo) has this fault in the slide 4 notes as of 2026-10-02, and community call 14 had it on 24 Sep. The PDF cannot show it.
+Why: the intro session deck (`skills/moi/moi-webinar/past-sessions/intro-session-deck/` in the handover repo) has this fault in the slide 4 notes as of 2026-10-02, and community call 14 had it on 24 Sep. The PDF cannot show it.
 
 ### 5. Render over a failed check, and a wrong page count
 Prompt: Render it.   (the deck has a FAIL)

@@ -35,7 +35,7 @@ The outlines below are for the product demos. The Points Program video covers th
 
 ## Agent Launchpad (target 10 minutes)
 
-Reference: the intro session deck in others/webinars/intro-session-deck/ in the handover repo (press P for the script) and the launch video folder on Drive. Beat 2 is the same demo cue the deck uses (beats are the numbered demo cues in the deck's script).
+Reference: the intro session deck in skills/moi/moi-webinar/past-sessions/intro-session-deck/ in the handover repo (press P for the script) and the launch video folder on Drive. Beat 2 is the same demo cue the deck uses (beats are the numbered demo cues in the deck's script).
 
 1. What it is: open launchpad.moi.technology and show the templates, create, dashboard, marketplace and stats. Say what is inactive (paid agents). The phone QR sign-in is live now (tested 13 October), so the demo can also be done from a phone.
 2. Sign in with the wallet, create an agent from a template, register it on chain, link Telegram, download the runtime and start it. Send the bot a message.

@@ -47,13 +47,13 @@ The same was done for `agent-dating`, `moisprint` and `contextual-compute-founda
 
 ### Moving Pinata
 
-**Done on 14 October 2026.** Pin by CID needs a paid plan, so the files were downloaded, checked against their CIDs, and uploaded again to the company account (sarvalabsdeveloper@gmail.com) with `others/moinkee/reupload-to-pinata.py`. The image folder (`bafybeig65m3...`) and all 70 metadata files came back with their original CIDs; log in ~/handover-notes/pinata-reupload-log.txt on Adithya's laptop. The rest of this section is how it was done, kept for a future move.
+**Done on 14 October 2026.** Pin by CID needs a paid plan, so the files were downloaded, checked against their CIDs, and uploaded again to the company account (sarvalabsdeveloper@gmail.com) with `project-handover-docs/attachments/moinkee/reupload-to-pinata.py`. The image folder (`bafybeig65m3...`) and all 70 metadata files came back with their original CIDs; log in ~/handover-notes/pinata-reupload-log.txt on Adithya's laptop. The rest of this section is how it was done, kept for a future move.
 
 Why it matters: every Moinkee image and token metadata file lives on IPFS, and Pinata keeps it online (pinned). If the account closes and nothing else pins the files, the images and metadata disappear and the recovery flow after a devnet reset stops working. **IPFS addresses (CIDs) are content hashes, so they do not change when the files move**; minted tokens point at `ipfs://<CID>` and the site reads through the public ipfs.io gateway, not an account-specific one. Moving the account changes nothing users see.
 
-The list of every pinned file (CID, name, size, date) is in this repo at `others/moinkee/pinata_pins.json` (71 rows), with `recovered.json` and `snapshot.json` (token owners and metadata, used by the recovery flow).
+The list of every pinned file (CID, name, size, date) is in this repo at `project-handover-docs/attachments/moinkee/pinata_pins.json` (71 rows), with `recovered.json` and `snapshot.json` (token owners and metadata, used by the recovery flow).
 
-**The company account already exists**: sarvalabsdeveloper@gmail.com (the shared company developer login) has a Pinata account. Adithya's account (login adithya@sarva.ai, free plan, one workspace, members need a paid plan) is the source. The 71 CIDs are one folder holding the memento images (13.6 MB) and 70 small metadata files. The script `others/moinkee/repin-to-pinata.py` does Option B against the company account: `--dry-run` lists the CIDs, a plain run asks for the company JWT at a hidden prompt, pins the folder first and waits until all 71 are pinned, and `--check` confirms. It writes a log and never prints the key.
+**The company account already exists**: sarvalabsdeveloper@gmail.com (the shared company developer login) has a Pinata account. Adithya's account (login adithya@sarva.ai, free plan, one workspace, members need a paid plan) is the source. The 71 CIDs are one folder holding the memento images (13.6 MB) and 70 small metadata files. The script `project-handover-docs/attachments/moinkee/repin-to-pinata.py` does Option B against the company account: `--dry-run` lists the CIDs, a plain run asks for the company JWT at a hidden prompt, pins the folder first and waits until all 71 are pinned, and `--check` confirms. It writes a log and never prints the key.
 
 Option A, simplest: hand the existing Pinata account to a company login (change its email to a company address in Pinata's account settings, if the plan allows). Pins, keys and everything else stay as they are. Then rotate the API key and update `PINATA_JWT` on Vercel.
 
@@ -64,7 +64,7 @@ Option B: re-pin into the company account.
 3. Pin every CID by hash. Pinata fetches the files from IPFS while the old account still pins them, so nothing is uploaded again. Paste the new JWT at the hidden prompt:
 
    ```bash
-   read -rs NEW_JWT && for cid in $(jq -r '.rows[].ipfs_pin_hash' others/moinkee/pinata_pins.json); do curl -s -X POST https://api.pinata.cloud/pinning/pinByHash -H "Authorization: Bearer $NEW_JWT" -H "Content-Type: application/json" -d "{\"hashToPin\":\"$cid\"}" > /dev/null; done; unset NEW_JWT
+   read -rs NEW_JWT && for cid in $(jq -r '.rows[].ipfs_pin_hash' project-handover-docs/attachments/moinkee/pinata_pins.json); do curl -s -X POST https://api.pinata.cloud/pinning/pinByHash -H "Authorization: Bearer $NEW_JWT" -H "Content-Type: application/json" -d "{\"hashToPin\":\"$cid\"}" > /dev/null; done; unset NEW_JWT
    ```
 
    If the plan does not offer pin by hash, download each file through `https://ipfs.io/ipfs/<CID>` and upload it in the new account, then check the CID comes out the same.

@@ -75,7 +75,7 @@ js-moi-sdk:
 
 **The exact test run of 13 October 2026**
 
-The offline test script and its results from 13 October are saved in others/js-moi-sdk-skill-tests/ in this repo, with a README on how to run them. The devnet wallet's recovery phrase is not in the repo: put a test wallet's phrase in a .env file next to the script.
+The offline test script and its results from 13 October are saved in project-handover-docs/attachments/js-moi-sdk-skill-tests/ in this repo, with a README on how to run them. The devnet wallet's recovery phrase is not in the repo: put a test wallet's phrase in a .env file next to the script.
 
 - Coco: prebuilt coco 0.9.3 binary (PISA 0.8.0 runtime), nine compiles as above at PISA target 0.8.2, nine passes, no content change. The binary's built-in runtime (PISA 0.8.0) is older than the target the bundle names (0.8.2): the compiles set the 0.8.2 target, so they show the code compiles for it, not that it runs on a 0.8.2 node.
 - SDK, devnet reads: VoyageProvider("devnet") answered net.Version 0.13.0; moi.AssetInfoByAssetID on KMOI (decimals 0x9), moi.AccountMetaInfo on SARGA_ADDRESS, moi.StoragePricing and moi.LogicManifest on KMOI all answered.

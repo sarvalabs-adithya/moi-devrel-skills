@@ -121,7 +121,7 @@ The Launchpad is what new builders see first. DevRel presents it in the MOI Buil
 
 **The deck**
 
-- In the handover repo (sarvalabs/moi-devrel-skills): others/webinars/intro-session-deck/. index.html is the deck (11 slides, 1920 by 1080, MOI branding), MOI_Builders_Intro.pdf the slides-only export. Built with the deck branch of the moi-webinar skill.
+- In the handover repo (sarvalabs/moi-devrel-skills): skills/moi/moi-webinar/past-sessions/intro-session-deck/. index.html is the deck (11 slides, 1920 by 1080, MOI branding), MOI_Builders_Intro.pdf the slides-only export. Built with the deck branch of the moi-webinar skill.
 - Open index.html in Chrome. Arrow keys or space to move. Press P for the presenter window: the full talk script per slide, the next slide's title and a clock. In Meet, share the deck window and keep the presenter window on your own screen.
 - The script lives in the NOTES array at the bottom of index.html, one entry per slide. Edit it there; the README in the folder has the command that regenerates the PDF.
 - Every claim in it was read from the Launchpad source on 9 September 2026 (the sign-in message, the registration call, the relay and Telegram rules, the runtime, the AgentMarket logic). Re-check against the current code before presenting again.

@@ -4,7 +4,7 @@
 
 Marketing: The consoles, and who holds them; Dev Webinars and Community Call. Developers: every product section, and Open items.
 
-This is the index. Each product doc keeps its own table; this one puts them side by side, says where every value comes from, and lists the consoles and who holds each login. Names only, never values. Agent Explorer, the Agent dating plugin, the Moinkee NFT Minter and the Contextual Compute website have no section here. Their variables are in LIST-OF-DEPENDENCIES.md, a snapshot from 4 October.
+This is the index. Each product doc keeps its own table; this one puts them side by side, says where every value comes from, and lists the consoles and who holds each login. Names only, never values. Agent Explorer has its own table in AGENT-EXPLORER.md. The Agent dating plugin, the Moinkee NFT Minter and the Contextual Compute website are in OTHER-PROJECTS.md.
 
 Rules that hold everywhere:
 

@@ -1,6 +1,6 @@
 # Lifecycle: what is due when
 
-Facts are as of 2026-10-02. **Observed** means a file, a commit or a Drive record shows it. **Inferred** means read from the evidence, not stated. **Library default** means this skill's own recommendation, built from two sessions. The schedule below is not one: it is the rule in `project-handover-docs/DEV-WEBINARS.md`. Only sessions 7 and 8 have enough record to build a timeline. In the tables, "main", "branch" and "local only" mean what `session-history.md` says they mean. Session 7's local-only plan documents are in the handover repo at `others/webinars/session-7/`. Session 8's local-only originals are not recorded; cleaned copies are in `../examples/session-8/`. Back to `../SKILL.md`.
+Facts are as of 2026-10-02. **Observed** means a file, a commit or a Drive record shows it. **Inferred** means read from the evidence, not stated. **Library default** means this skill's own recommendation, built from two sessions. The schedule below is not one: it is the rule in `project-handover-docs/DEV-WEBINARS.md`. Only sessions 7 and 8 have enough record to build a timeline. In the tables, "main", "branch" and "local only" mean what `session-history.md` says they mean. Session 7's local-only plan documents are in the handover repo at `skills/moi/moi-webinar/past-sessions/session-7/`. Session 8's local-only originals are not recorded; cleaned copies are in `../examples/session-8/`. Back to `../SKILL.md`.
 
 ## The documents, in the order they were written
 

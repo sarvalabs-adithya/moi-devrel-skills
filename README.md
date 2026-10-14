@@ -4,7 +4,7 @@ Everything the next DevRel person at MOI needs, in one place: the docs that say 
 
 ## The docs
 
-The product and program docs follow the same shape: status, owners, settings, the process step by step, the Claude prompts to use, and what is still open. ENV-VARS, LIST-OF-DEPENDENCIES, MIGRATION-LIST and VIDEOS are index and inventory docs instead: they list things and do not follow that shape. The docs are grouped by who reads them. The three programs both teams run sit under Everyone, and each of those docs says near the top which sections are whose.
+The product and program docs follow the same shape: status, owners, settings, the process step by step, the Claude prompts to use, and what is still open. ENV-VARS, MIGRATION-LIST and VIDEOS are index and inventory docs instead: they list things and do not follow that shape. The docs are grouped by who reads them. The three programs both teams run sit under Everyone, and each of those docs says near the top which sections are whose.
 
 **Everyone: the programs marketing and developers run together**
 
@@ -22,7 +22,7 @@ The product and program docs follow the same shape: status, owners, settings, th
 | `project-handover-docs/BLOG.md` | Announcing a post (check with marketing first), the Mailchimp newsletter, images. |
 | `project-handover-docs/COMMUNITY-CALL.md`, `DEV-WEBINARS.md` | The **Luma** (event page service) pages, the posting schedule, Buffer, the deck. |
 | `project-handover-docs/MOI-WEBSITE.md` | Publishing and announcing a post, and switching on the community calls block with the Luma link. |
-| `others/webinars/` | Past session material worth reusing: the session 7 storyline and the intro deck. |
+| `skills/moi/moi-webinar/past-sessions/` | Past session material worth reusing: the session 7 storyline and the intro deck. |
 
 **Developers and DevOps**
 
@@ -35,10 +35,10 @@ The product and program docs follow the same shape: status, owners, settings, th
 | `project-handover-docs/MOI-WEBSITE.md` | The website repo: settings, deploys, the server and the chatbot, which both stay as they are. |
 | `project-handover-docs/AGENT-SKILLS.md` | The **Coco** (MOI's smart contract language) and **js-moi-sdk** (the JavaScript SDK) agent skills: who builds each, where they are published, how to re-check one when a release lands. |
 | `project-handover-docs/ENV-VARS.md` | Every environment variable across the products in one index, with where each value comes from, the consoles, and who holds each login. |
-| `project-handover-docs/LIST-OF-DEPENDENCIES.md` | Every dependency by name, with its owner, its settings and its to-dos, in Adithya's own words. It is a snapshot from 4 October; the product docs supersede it. |
-| `project-handover-docs/MIGRATION-LIST.md` | What still moves to a company login (the Telegram bot), with the transfer steps, and what has already moved. |
-| `project-handover-docs/OTHER-PROJECTS.md` | Moinkee, Agent dating and MOI Sprint: inactive side projects, now in the sarvalabs org (moved 14 October 2026), and how Moinkee's Pinata files were moved to the company account. |
-| `others/standards/` | The **x402** (an HTTP payment standard) standards submission package. |
+| `project-handover-docs/MIGRATION-LIST.md` | What moved off Adithya's accounts to company logins and when (all done by 14 October 2026), with the steps used. |
+| `project-handover-docs/AGENT-EXPLORER.md` | The Agent Explorer: the public agent directory, its settings, deploys and open items (Gokul owns the app). |
+| `project-handover-docs/OTHER-PROJECTS.md` | Moinkee, Agent dating, MOI Sprint and the Contextual Compute site: side projects (only the Contextual Compute site is live), now in the sarvalabs org (moved 14 October 2026), and how Moinkee's Pinata files were moved to the company account. |
+| `skills/moi/moi-standards-submission/x402-review-package/` | The **x402** (an HTTP payment standard) standards submission package. |
 
 ## The skills
 
@@ -63,9 +63,8 @@ Ten skills. Each is a folder under `skills/moi/` with a `SKILL.md`; a branch is 
 
 - `skills/ARCHITECTURE.md`: how the library is shaped and how it was checked.
 - `skills/SKILL-STANDARD.md`: the bar every skill meets. Read it before changing one.
-- `others/README.md`: what each folder under others/ holds and where to start.
-- `others/research/`: the notes the skills were built from. Provenance, not for installing.
-- `others/legacy-skills/`: the old blog, deck and design skills. Superseded, kept for reference.
+- `project-handover-docs/attachments/`: files the docs point at: the Moinkee Pinata inventory and scripts (OTHER-PROJECTS.md) and the js-moi-sdk skill test kit (AGENT-SKILLS.md).
+- The research notes the skills were built from, the old blog, deck and design skills, and the 4 October dependency list were removed on 14 October 2026; they are in this repo's git history.
 - `skills/extra/repo-handover/`: a generic skill for turning any repo into a handover skill like these.
 
 ## Install

@@ -1,6 +1,6 @@
 # Examples: cleaned excerpts that show the form
 
-Not the whole package. Each file is a short excerpt of a real draft from the review package (`x402-compat/review-package/` on the previous DevRel's machine, as of 2026-10-03; the newest documents are in `others/standards/x402-review-package/`, and the folders named in the Source column are not in the handover repo; ASK: Rahul), taken to show a form worth copying. Lint them with `--kind other` if you lint them at all; they are excerpts, so the headings the lint requires are not there on purpose.
+Not the whole package. Each file is a short excerpt of a real draft from the review package (`x402-compat/review-package/` on the previous DevRel's machine, as of 2026-10-03; the newest documents are in `skills/moi/moi-standards-submission/x402-review-package/`, and the folders named in the Source column are not in the handover repo; ASK: Rahul), taken to show a form worth copying. Lint them with `--kind other` if you lint them at all; they are excerpts, so the headings the lint requires are not there on purpose.
 
 | File | What it shows | Source | Why it is worth copying |
 |---|---|---|---|

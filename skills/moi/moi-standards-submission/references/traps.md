@@ -1,6 +1,6 @@
 # Traps: facts that fail silently in a standards submission
 
-Facts are as of 2026-10-03 unless dated. Each row is a rule with the incident or the evidence behind it. `ASK: <person>` is defined in `moi-devrel/SKILL.md`. Back to `../SKILL.md`. The package file this file cites by name (`AUDIT-2026-09-10.md`) is in the handover repo at `others/standards/x402-review-package/`. `FINDINGS.md`, `UPSTREAM.md`, `STATUS.md` and `caip2-submission/` are not in the handover repo (the previous DevRel's local x402-compat folder; the public branch holds an older copy); ASK: Rahul.
+Facts are as of 2026-10-03 unless dated. Each row is a rule with the incident or the evidence behind it. `ASK: <person>` is defined in `moi-devrel/SKILL.md`. Back to `../SKILL.md`. The package file this file cites by name (`AUDIT-2026-09-10.md`) is in the handover repo at `skills/moi/moi-standards-submission/x402-review-package/`. `FINDINGS.md`, `UPSTREAM.md`, `STATUS.md` and `caip2-submission/` are not in the handover repo (the previous DevRel's local x402-compat folder; the public branch holds an older copy); ASK: Rahul.
 
 ## Process
 | # | Rule | Incident or evidence |

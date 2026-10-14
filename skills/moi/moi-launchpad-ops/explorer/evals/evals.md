@@ -145,6 +145,6 @@ Text-only edits, no script changed. PR #5 was merged on 7 October 2026 (18:57 UT
 | `GUIDE.md` starts with "Branch of `moi-launchpad-ops`" | `GUIDE.md` line 1 |
 | "chain ids" changed to "network IDs" | `references/settings-and-secrets.md` |
 | `server/check-registry.mjs` is not in the repo: not recorded; ASK: Gokul | `references/index-sync.md`, `traps.md` |
-| `DEPENDENCIES.md` references now point at `project-handover-docs/LIST-OF-DEPENDENCIES.md`; "ASK: Adithya" replaced | all files |
+| `DEPENDENCIES.md` references now point at the 4 October dependency list (now only in git history); "ASK: Adithya" replaced | all files |
 | The security-finding sentence now reads "The handover note is not recorded (the previous DevRel's notes); ASK: Rahul before touching its admin." | `GUIDE.md`, `verify-agents.md`, `traps.md`, eval prompts 4, 6, 7 |
 The script's own 404 warning still says the reconcile code of PR #5 is not deployed; that is true whenever it prints, so it was not changed.
