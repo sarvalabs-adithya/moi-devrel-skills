@@ -1,6 +1,6 @@
 # Points Program
 
-**Status: active.** Live at points.moi.technology with four tasks on: join X (verified), join Discord, join Telegram, create wallet. Inactive: the faucet task, the deploy-agent task, and session 8's dev challenge (deployed, switched off). Webinar bounties are live (PR #22, deployed 13 October), but no bounty has been created on production yet.
+**Status: active.** Live at points.moi.technology with four tasks on: join X (verified), join Discord, join Telegram, create wallet. Inactive: the faucet task, the deploy-agent task, and session 8's dev challenge (deployed, switched off). Webinar bounties are live (PR #22, deployed 13 October), tested end to end with a test bounty on 14 October; no real webinar bounty yet.
 
 MOI Community Points. Members sign in with Google, link their X, Discord and Telegram accounts and a MOI wallet, complete tasks and earn points, and see where they stand on a public leaderboard. Admins run X like campaigns and webinar bounties from an admin page. Harsh Gupta wrote the first version and Upendhar the CI/CD; DevRel runs it. DevOps (Upendhar) owns the box it runs on.
 
@@ -225,7 +225,7 @@ What the skill never does without DevRel's yes: push, merge (a merge deploys pro
 
 ## Open items
 
-- Webinar bounties shipped: PR #22 merged and deployed on 13 October (the first deploy run failed on an expired GHCR_PAT; DevOps replaced the token and the re-run went through). No bounty has been created on production yet. Left to do: add the session hosts' Google emails to the ADMIN_EMAILS Actions variable, run one bounty end to end with a real submission before a webinar relies on it, and optionally set MOI_RPC_URL as an Actions variable and redeploy for the chain's note next to hash answers. The local branch feature/bounty-form is merged and can be deleted.
+- Webinar bounties shipped: PR #22 merged and deployed on 13 October (the first deploy run failed on an expired GHCR_PAT; DevOps replaced the token and the re-run went through). Tested end to end on 14 October 2026: adithya@moinetwork.io was added to ADMIN_EMAILS (redeployed), and a test bounty "Test, ignore" (session 9, two 1-point fields) was created, opened, answered from a second account, awarded 2 points and closed; the 2 points were then reversed by hand with a -2 ledger entry (reason bounty_test_reversal) and the cached total corrected, so the test left no points behind. It stays in the admin list because awarded bounties cannot be deleted; closed bounties are hidden from members. Left to do: add each session host's Google email to ADMIN_EMAILS (and take adithya@moinetwork.io out after 14 October), and optionally set MOI_RPC_URL as an Actions variable and redeploy for the chain's note next to hash answers. The local branch feature/bounty-form is merged and can be deleted.
 - Put the Supabase project on a paid plan with backups. Then drop the schema backup.tasks_before_0008.
 - The review batch shipped as #23 and is live (#21 is closed). #15 is closed, replaced by draft #24 (CI/CD hardening) for Upendhar. #1 (Upendhar's first CI/CD, base feat/dev-challenges) is Upendhar's to close. The repo sarvalabs/Points-Program was archived on 13 October.
 - Schedule the maintenance job (/api/jobs/maintenance, called with CRON_SECRET): nothing calls it. Ask Upendhar what runs on the box and who schedules it.
