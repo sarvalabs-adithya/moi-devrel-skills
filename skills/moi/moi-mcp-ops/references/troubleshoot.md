@@ -1,6 +1,6 @@
 # Troubleshoot the MOI MCP server
 
-Start with the one command that tells you where to look: `bash "$SKILLS/moi-mcp-ops/scripts/mcp-health.sh"`. Match its first FAIL or WARN to a row, run the "check first" column (read-only), and only then change anything. A fix marked GATE needs the operator's explicit yes naming the action. Rows come from the repo's own troubleshooting table (`docs/handoff-infra.md`), PR bodies and live reads. Every "DevOps:" fix below is a GATE: Claude drafts the ask and the operator sends it. Facts are as of 2026-10-02 and 2026-10-03; every symptom here happened at least once. Back to `../SKILL.md`.
+Start with the one command that tells you where to look: `bash "$SKILLS/moi-mcp-ops/scripts/mcp-health.sh"`. Match its first FAIL or WARN to a row, run the "check first" column (read-only), and only then change anything. A fix marked GATE needs the operator's explicit yes naming the action. Rows come from the repo's own troubleshooting table (`docs/handoff-infra.md`), PR bodies and live reads. Every "DevOps:" fix below is a GATE: Claude drafts the ask and the operator sends it. Facts are as of 2026-10-02 and 2026-10-03, with the 2026-10-14 deploy noted where it changed a row; every symptom here happened at least once. Back to `../SKILL.md`.
 
 Who can act on the VM (the processes, nginx, TLS, DNS, logs): DevOps. The VMs are `voyagedev` (dev) and `prod-voyage` (production); Srikar runs them and the deploy workflow, ASK: Srikar, and Upendhar is the other DevOps contact. Who decides anything else: ASK: Rahul. Which products DevRel owns is not settled. Claude never logs in to a VM.
 
@@ -24,7 +24,7 @@ MCP server: `project-handover-docs/MCP-SERVER.md` records no security finding fo
 |---|---|---|---|---|
 | 8 | Script: oauth issuer is `http://localhost...` | `curl -s https://<host>/.well-known/oauth-authorization-server` | `PUBLIC_URL` never reached the process | Set it in the workflow (PR, GATE), deploy (GATE) |
 | 9 | Consent completes, then the connector asks again | The issuer line; is the site plain http? | `PUBLIC_URL` differs from the host users reach, or http drops the Secure cookie | Exact https origin, TLS only, then a restart through a deploy (GATE) |
-| 10 | claude.ai Connect spins forever though the curl steps pass | Script WARN "protected-resource metadata" | claude.ai compares `resource` with the URL typed, `/mcp` included. Before PR #18 the server returned the bare origin and served only the root document. Its `/register` limit of 10 a minute also locked out everyone, who share one egress range | Fixed on master since 2026-09-23 (limit now 120 a minute). Production showed the old form on 2026-10-03 and dev the new one. Ship a build that contains #18: `ship-a-change.md`. Whether Connect really fails on production is untested: the Connect step of `connect-and-verify.md` proves it |
+| 10 | claude.ai Connect spins forever though the curl steps pass | Script WARN "protected-resource metadata" | claude.ai compares `resource` with the URL typed, `/mcp` included. Before PR #18 the server returned the bare origin and served only the root document. Its `/register` limit of 10 a minute also locked out everyone, who share one egress range | Fixed on master since 2026-09-23 (limit now 120 a minute). Production showed the old form on 2026-10-03 and dev the new one; the fix is live on production since the 2026-10-14 deploy, so Connect no longer stalls there. If it stalls again, check that the live build contains #18: `ship-a-change.md`. The Connect step of `connect-and-verify.md` proves it |
 | 11 | Everyone is locked out after a few Connect clicks | Same | The registration limit of 10 a minute (pre-#18) | Same |
 | 12 | A second person on a shared browser cannot start as themselves | Does the build have PR #20? | The consent page did not allow it | Fixed in #20; needs a sync |
 | 13 | Connector added with authentication None on the write host | The connector settings | Sign-in is impossible | Re-add with OAuth. None is only for the read host |
@@ -38,7 +38,7 @@ MCP server: `project-handover-docs/MCP-SERVER.md` records no security finding fo
 
 | # | Symptom | Check first (read) | Cause | Fix |
 |---|---|---|---|---|
-| 19 | `moi_resolve_agent`: "Could not load the MOI agent registry ... account not found" | Script WARN. Production and dev both on 2026-10-03 | The registry id is the wiped one, or `MOI_READ_CALLER` is unset | `settings-and-secrets.md`, "the MCP part of a devnet reset". ASK: Gokul for the current id |
+| 19 | `moi_resolve_agent`: "Could not load the MOI agent registry ... account not found" | Script WARN. Production and dev both on 2026-10-03; fixed on both by the 2026-10-14 deploy (lookup answers, dev health 10 PASS, 0 FAIL) | The registry id is the wiped one (after a reset), or `MOI_READ_CALLER` is unset (the workflow passes it since voyage-api #323) | `settings-and-secrets.md`, "the MCP part of a devnet reset". ASK: Gokul for the current id |
 | 20 | "interaction underpriced" after the phone approval | Build has PR #15? | A fuel price literal of 1; the floor is 50 (as of v0.13.0). Simulation had accepted it | Fixed in #15 (price from the SDK); needs a sync |
 | 21 | `moi_create_asset` refused, hint says visit the faucet, wallet is funded | Build has PR #13? | A storage fund default written when KMOI had no decimals | Fixed in #13 (SDK default; the minimum is `MIN_STORAGE_FUND`, 7 KMOI on master) |
 | 22 | Launchpad tool: "Not signing: the sign-in message from <origin>..." | `MOI_LAUNCHPAD_URL` against the Launchpad's `NEXT_PUBLIC_APP_URL` | They differ | Make them equal (workflow PR, GATE) |
@@ -65,7 +65,7 @@ MCP server: `project-handover-docs/MCP-SERVER.md` records no security finding fo
 | I see no QR | Open the pairing link the tool returns. The code lasts about 5 minutes; call `moi_connect_wallet` again if it expires |
 | Is my key on your server? | No. The server never holds a private key. The phone signs every write, and every write is a preview then a confirm token valid 10 minutes, once |
 | Can I run it with `npx`? | Not yet. Nothing is published |
-| Agent lookup says not found | Known while the registry id is stale (row 19). Say so plainly: nothing is wrong with the user's wallet |
+| Agent lookup says not found | Lookup answers since the 2026-10-14 deploy. If it fails again, suspect a devnet reset and the stale registry id (row 19). Say so plainly: nothing is wrong with the user's wallet |
 
 ## Add to this file
 When you solve a new failure, add a row with the date, the exact message, the cause and the fix commit or PR, as `docs/testing-plan.md` does. Reproduce before fixing, and add a test that would have caught it.

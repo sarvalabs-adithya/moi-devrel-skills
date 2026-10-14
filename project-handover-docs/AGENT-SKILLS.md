@@ -1,6 +1,6 @@
 # Agent Skills
 
-**Status: active.** Two public skill bundles teach coding agents how to build on MOI: the **Coco** skill and the js-moi-sdk skill. Coco is MOI's contract language. The Coco skill is current: compiler 0.9.3, built for **PISA** 0.8.2 (PISA is MOI's execution engine). The js-moi-sdk skill was rebuilt against SDK v0.9.0-rc2 (a release candidate) on 13 October 2026, but that work sits on a branch only on Adithya's laptop, not pushed, so the published copies still say v0.7.1 until it lands. Inactive: the write test of the SDK examples on **devnet** (MOI's shared test network; there is no funded post-reset account), and the **R2** copy of the SDK skill (R2 is Cloudflare's file storage), whose public URL nobody has confirmed.
+**Status: active.** Two public skill bundles teach coding agents how to build on MOI: the **Coco** skill and the js-moi-sdk skill. Coco is MOI's contract language. The Coco skill is current: compiler 0.9.3, built for **PISA** 0.8.2 (PISA is MOI's execution engine). The js-moi-sdk skill was rebuilt against SDK v0.9.0-rc2 (a release candidate) on 13 October 2026, and that work was merged into the SDK repo on 14 October (js-moi-sdk #153, by Gokul); the next SDK release packages it, so the published copies (the R2 zip and the docs-site zip) still say v0.7.1 until then. Inactive: the write test of the SDK examples on **devnet** (MOI's shared test network; there is no funded post-reset account), and the **R2** copy of the SDK skill (R2 is Cloudflare's file storage), whose public URL nobody has confirmed.
 
 Marketing: Variables, Open items. Developers: How it works, Stack, Env vars, Process, Open items.
 
@@ -12,7 +12,7 @@ A **skill** is a folder of Markdown that an agent (Claude Code, Cursor, OpenClaw
 
 **js-moi-sdk skill.** The skill's own rule (AGENTS.md) is that every claim traces to a file under packages/*/src.ts at the tagged version; release notes are a map of where to look, not a source (the 0.8.0 notes say `predictAssetId`, the code says `deriveAssetId`). The rebuild to v0.9.0-rc2 read the full diff between v0.7.1 and the rc2 tag and corrected these: the LogicState/ActorState rename, the MAS0/1/2 `create` signatures and the MASX-only AssetFactory, KMOI as MASN with its new asset id, the fee payer, the sender no longer being a participant, the `decimals` argument position, fuel defaults 50 and 100000, the 10 KMOI storage fund bundled into every deploy or create, `deriveAssetId`/`deriveLogicId`, and the storage and access-policy interactions. The rc3 tag (GitHub only, not on npm) renames `payer` to `fee_payer` and adds key weight and asset call decoding fixes; those are noted inline so an agent can tell which it is running. The CHANGELOG entry lists the change per reference.
 
-**Where each copy lives.** The SDK skill has three copies that can drift: the folder in the SDK repo (source of truth), the R2 zips (written by the release workflow, public URL unconfirmed), and the static zip on the docs site (manual). On 13 October the two public copies were byte-identical and both said v0.7.1 while npm `latest` was 0.9.0-rc2. The Coco skill has two: the repo folder and the versioned CDN zip, which matched.
+**Where each copy lives.** The SDK skill has three copies that can drift: the folder in the SDK repo (source of truth), the R2 zips (written by the release workflow, public URL unconfirmed), and the static zip on the docs site (manual). On 13 October the two public copies were byte-identical and both said v0.7.1 while npm `latest` was 0.9.0-rc2. The rebuilt folder has been in the SDK repo since #153 merged on 14 October. The Coco skill has two: the repo folder and the versioned CDN zip, which matched.
 
 ### Terms
 
@@ -40,10 +40,10 @@ A **skill** is a folder of Markdown that an agent (Claude Code, Cursor, OpenClaw
 | Variable | Owner | Notes |
 |---|---|---|
 | Coco skill source (coco-skills/ in sarvalabs/cocolang) and its CDN bundle | Robert Spendl | https://cdn.moi.technology/cocolang/coco-0.9.3-skills.zip. Versioned file name; one zip per compiler release |
-| js-moi-sdk skill source (js-moi-skills/ in sarvalabs/js-moi-sdk) | DevRel, with the SDK team (Gokul) merging | On main and develop. The rebuild for v0.9.0-rc2 is the branch skills/0.9.0 in Adithya's local clone of js-moi-sdk, not pushed, no PR. Push it before 14 October or it is lost |
+| js-moi-sdk skill source (js-moi-skills/ in sarvalabs/js-moi-sdk) | DevRel, with the SDK team (Gokul) merging | On main and develop. The rebuild for v0.9.0-rc2 was merged as js-moi-sdk #153 on 14 October 2026 by Gokul; it is no longer on a local branch. The next SDK release packages it |
 | js-moi-sdk skill zip on Cloudflare R2 | SDK team / DevOps | Uploaded by the publish workflow in sarvalabs/js-moi-sdk on every GitHub release. Bucket and prefix are Actions variables (R2_BUCKET, R2_PREFIX, R2_ACCOUNT_ID); keys are secrets. Public URL unknown: ask Upendhar, who wrote the job (PR #141) |
-| Static copy the docs site serves | DevRel | moidocs, static/downloads/js-moi-sdk-skills.zip, linked from docs/build/skills/js-moi-sdk-skill.md. Updated by hand; the refreshed zip is committed only on the branch skills-after-merge of Adithya's local clone of moidocs, not pushed. Push it before 14 October or it is lost |
-| Docs pages for both skills | DevRel | moidocs docs/build/skills/ (index.md, coco-skill.md, js-moi-sdk-skill.md). The Coco page links the CDN zip by version; the SDK page links the static copy without naming a version. moidocs PR #124 merged; the skills index fix is moidocs PR #127, which needs a review |
+| Static copy the docs site serves | DevRel | moidocs, static/downloads/js-moi-sdk-skills.zip, linked from docs/build/skills/js-moi-sdk-skill.md. Updated by hand; the refreshed zip is committed only on the branch skills-after-merge of Adithya's local clone of moidocs, not pushed. Push it, or it is lost with the laptop |
+| Docs pages for both skills | DevRel | moidocs docs/build/skills/ (index.md, coco-skill.md, js-moi-sdk-skill.md). The Coco page links the CDN zip by version; the SDK page links the static copy without naming a version. moidocs PR #124 merged on 13 October; the skills index fix is moidocs PR #127 (index to Coco 0.9.3), still open, waiting for Rahul's approval |
 | Devnet account for running the SDK examples | DevRel | The old DevRel test wallet's accounts no longer exist after the 11 September reset. Whoever reruns the examples needs an account that exists and holds KMOI |
 | Coco compiler binaries | Cocolang team | 0.9.3 was built from the private repo for this audit; the public download is the one the Coco page points at |
 
@@ -75,7 +75,7 @@ js-moi-sdk:
 
 **The exact test run of 13 October 2026**
 
-The test log (agent-skills-js-moi-sdk-test-log.md) and the two scripts (offline-tests.mjs, probe.mjs) exist only in scratch folders on Adithya's laptop, not in any repo. Copy them into this repo before 14 October or they are lost.
+The offline test script and its results from 13 October are saved in others/js-moi-sdk-skill-tests/ in this repo, with a README on how to run them. The devnet wallet's recovery phrase is not in the repo: put a test wallet's phrase in a .env file next to the script.
 
 - Coco: prebuilt coco 0.9.3 binary (PISA 0.8.0 runtime), nine compiles as above at PISA target 0.8.2, nine passes, no content change. The binary's built-in runtime (PISA 0.8.0) is older than the target the bundle names (0.8.2): the compiles set the 0.8.2 target, so they show the code compiles for it, not that it runs on a 0.8.2 node.
 - SDK, devnet reads: VoyageProvider("devnet") answered net.Version 0.13.0; moi.AssetInfoByAssetID on KMOI (decimals 0x9), moi.AccountMetaInfo on SARGA_ADDRESS, moi.StoragePricing and moi.LogicManifest on KMOI all answered.
@@ -90,8 +90,8 @@ The test log (agent-skills-js-moi-sdk-test-log.md) and the two scripts (offline-
 
 ## Open items
 
-- The js-moi-sdk skill rebuild and its test-run fixes are in PR sarvalabs/js-moi-sdk#153 (opened 14 October 2026 from Adithya's fork), waiting for review by Gokul or Rahul; merging it lets the next release package the skill. The refreshed SDK zip for the docs site is committed on the local moidocs branch skills-after-merge and goes onto PR #127 (below).
-- Get the moidocs skills index fix (PR #127) reviewed and merged.
+- The js-moi-sdk skill rebuild and its test-run fixes were merged on 14 October 2026 (PR sarvalabs/js-moi-sdk#153, by Gokul); the next SDK release packages the skill. The refreshed SDK zip for the docs site is committed only on the local moidocs branch skills-after-merge (not pushed) and goes onto PR #127 (below). The SDK docs also got their SEO/GEO layer (js-moi-sdk #150, merged and live on 14 October: js-moi-sdk.docs.moi.technology/llms.txt serves it).
+- Get the moidocs skills index fix (PR #127, open since it needs Rahul's approval) approved and merged.
 - The handover README lists this doc as a draft while its Status says active. Settle which.
 - Run the four SDK examples on devnet with a funded post-reset account and add the interaction hashes to js-moi-skills/CHANGELOG.md; the examples say their last on-chain run was with 0.7.1 before the September reset.
 - Decide whether the docs page should name the SDK version the zip was verified against; as of October 2026 it names none, so a reader cannot see staleness.

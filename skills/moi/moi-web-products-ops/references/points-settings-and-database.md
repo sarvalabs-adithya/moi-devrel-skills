@@ -17,7 +17,7 @@ A step marked ADMIN needs the operator to confirm first that the handover note w
 - `BETTER_AUTH_URL` must be the public https address. It was `http://localhost:3000` on one failed run and `http://preview.points.moi.technology` on another, and a wrong value breaks sign-in and the health origin.
 - Each provider's callback address must match `BETTER_AUTH_URL`. The list for Google, Discord, X and the Telegram webhook is section 8 of `CICD.md`, which lives on the branch of draft PR #24, not on `feature/ci-cd`. Google rejects a raw IP address as a redirect (2026-09-15, "400: invalid_request"), so use the domain.
 - The provider apps (Google, X, Discord, Telegram, Reown, Resend) are under the `sarvalabsdeveloper@gmail.com` login (`project-handover-docs/ENV-VARS.md`). ASK: Rahul for access.
-- Admin access comes only from `ADMIN_EMAILS` (the `admin_users` table was empty on 13 October). To add an admin, put their Google email into the `ADMIN_EMAILS` variable, keeping the existing ones, and redeploy. A GATE; ASK: Rahul who may be an admin.
+- Admin access comes only from `ADMIN_EMAILS` (the `admin_users` table was empty on 13 October). Since 14 October the only admin left is Harsh Gupta's personal Gmail (adithya@moinetwork.io was removed); the next DevRel's company Google email must be added before the next bounty. To add an admin, put their Google email into the `ADMIN_EMAILS` variable, keeping the existing ones, and redeploy. A GATE; ASK: Rahul who may be an admin.
 
 ## Run: change a secret or variable
 

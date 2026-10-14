@@ -73,4 +73,4 @@ A failing check, its likely cause, and the fix (check names are the test titles 
 - Which account will own `UPSTREAM_READ_TOKEN` (not set as of 2026-10-10). Rahul decides.
 - Whether go-moi and cocolang publish GitHub Releases. ASK: Gokul.
 - Who is subscribed to `moi-mcp` issues. A 10-day-old issue (#17) is open with no comment on 2026-10-03.
-- Dependabot: #25 was closed 2026-10-05 and #26 on 2026-10-12. Its replacement #28 bumps majors (zod 4, TypeScript 7, vitest 5, @types/node 26) and fails the build, because zod 4 breaks the types in `src/dapp`, `src/launchpad` and `src/wc`. Do not merge it as is: split the majors out or ignore them in `dependabot.yml` (a PR: GATE).
+- Dependabot: #25 was closed 2026-10-05, #26 on 2026-10-12 and #28 on 2026-10-14. Its replacement #29 bumps majors (zod 4, TypeScript 7, vitest 5, @types/node 26) and fails the build, because zod 4 breaks the types in `src/dapp`, `src/launchpad` and `src/wc`. Do not merge it as is: split the majors out or ignore them in `dependabot.yml` (a PR: GATE).

@@ -24,7 +24,7 @@ The Sprint's chapter text is already in moi-foundation/moi-sprint.
 |---|---|---|
 | The four repos | sarvalabs org (from 14 October) | Public. Moved from sarvalabs-adithya |
 | Vercel projects moinkee-nft-minter and moisprint | Deleted on 14 October 2026 | To bring a site back, import the repo into a company Vercel team and set its env vars (README) |
-| Pinata account (Moinkee images and metadata, 71 files, 13.6 MB) | Adithya's account today | Done 14 October 2026: all 71 CIDs are pinned in the company Pinata account (sarvalabsdeveloper@gmail.com) with identical CIDs. Adithya's account still pins them too until it is closed |
+| Pinata account (Moinkee images and metadata, 71 files, 13.6 MB) | The company Pinata account (sarvalabsdeveloper@gmail.com) since 14 October 2026 | Done 14 October 2026: all 71 CIDs are pinned there with identical CIDs (re-upload). Adithya's account no longer matters and can be closed |
 | Moinkee minting wallet | Nobody | Nothing to move. The next owner makes a new devnet wallet and a new collection (README) |
 | Contextual Compute site: Vercel project, domain contextualcompute.org (Namecheap, registered to 2027-03-28), DNS (Cloudflare), mail forwarding (Namecheap) | Vercel: the sarvalabsdeveloper@gmail.com Vercel account (transferred from Adithya's account on 14 October 2026). Namecheap and Cloudflare: company accounts | The only one of the four still live |
 | Agent dating relay server | Retired | Its VPS was cancelled; the plugin no longer points at it |
@@ -37,13 +37,13 @@ Names only. Moinkee: `ADMIN_MNEMONIC`, `NEXT_PUBLIC_ASSET_ID`, `PINATA_JWT`, `NE
 
 ### Moving the repos
 
-One command per repo, run by the repo owner (Adithya) with a GitHub login that can create repos in sarvalabs. An org owner may have to accept.
+**Done on 14 October 2026** for four repos. The command per repo was run by the repo owner (Adithya) with a GitHub login that can create repos in sarvalabs; an org owner may have to accept. Kept for reference:
 
 ```bash
 gh api repos/sarvalabs-adithya/moinkee-nft-minter/transfer -f new_owner=sarvalabs
 ```
 
-The same for `agent-dating`, `moisprint`, `tSwapper` and `contextual-compute-foundation-website`. The Contextual Compute site keeps serving after its move; check that its Vercel project still deploys from the moved repo. GitHub redirects the old addresses. No hosting is attached any more, so nothing else needs reconnecting.
+The same was done for `agent-dating`, `moisprint` and `contextual-compute-foundation-website`. `tSwapper` was not moved and stays at sarvalabs-adithya/tSwapper. The Contextual Compute site keeps serving after its move; check that its Vercel project still deploys from the moved repo. GitHub redirects the old addresses. No hosting is attached any more, so nothing else needs reconnecting.
 
 ### Moving Pinata
 
@@ -72,7 +72,7 @@ Option B: re-pin into the company account.
 5. The site is not hosted now. Whoever brings it back sets `PINATA_JWT` to the company account's JWT.
 6. After a week with nothing broken: revoke the old account's API keys, then unpin or close the old account.
 
-Do this before Adithya's account goes away. Until then the files stay pinned.
+Nothing more is needed: the company account pins all 71 CIDs and Adithya's account no longer matters.
 
 ### After a devnet reset
 

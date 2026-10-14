@@ -23,7 +23,7 @@ A step marked ADMIN needs the operator to confirm first that the handover note w
 | `challenge_access_policy` | 500 | Off. Session 8's code challenge, deployed but off |
 
 Points are the `TASK_POINTS` values in `lib/rewards/tasks.ts`. The live API shows only enabled tasks, so the database value of an off task is not visible from outside.
-- Admin access is an email in the `ADMIN_EMAILS` Actions variable (once Google has verified it) or a row in `admin_users`. On 13 October `admin_users` was empty, so `ADMIN_EMAILS` is the only source. To add an admin, put their Google email into `ADMIN_EMAILS` (keep the existing ones, comma separated), then redeploy: a GATE (`points-settings-and-database.md`). ASK: Rahul who may be an admin. A member without it who opens the admin page is sent to the dashboard, and an anonymous visitor to the sign-in page. That looks like a bug and is not.
+- Admin access is an email in the `ADMIN_EMAILS` Actions variable (once Google has verified it) or a row in `admin_users`. On 13 October `admin_users` was empty, so `ADMIN_EMAILS` is the only source. Since 14 October the only admin left is Harsh Gupta's personal Gmail (adithya@moinetwork.io was removed): add the next DevRel's company Google email before the next bounty. To add an admin, put their Google email into `ADMIN_EMAILS` (keep the existing ones, comma separated), then redeploy: a GATE (`points-settings-and-database.md`). ASK: Rahul who may be an admin. A member without it who opens the admin page is sent to the dashboard, and an anonymous visitor to the sign-in page. That looks like a bug and is not.
 
 ## Run: an X "like" campaign (no code)
 

@@ -46,7 +46,7 @@ Reference: the intro session deck in others/webinars/intro-session-deck/ in the 
 7. Telegram: the bot in **BotFather** (Telegram's bot-setup bot), the alert chat, and the webhook secret rule.
 8. After a **devnet** (MOI's test network) reset: the registry id, the deploy, the registration wallets, the **AgentMarket** contract (the marketplace contract) and the proof sign-in.
 9. Health: stats not zero, the bot answers, and the skill's health check: "Is the Launchpad healthy?"
-10. Logins: GitHub, Supabase (company), the Telegram bot (transfer pending) and the VM (DevOps only).
+10. Logins: GitHub, Supabase (company), the Telegram bot (transfer to Rahul pending) and the VM (DevOps only).
 
 ## Dataroom (target 8 minutes)
 

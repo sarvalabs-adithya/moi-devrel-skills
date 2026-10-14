@@ -36,8 +36,8 @@ The product and program docs follow the same shape: status, owners, settings, th
 | `project-handover-docs/AGENT-SKILLS.md` | The **Coco** (MOI's smart contract language) and **js-moi-sdk** (the JavaScript SDK) agent skills: who builds each, where they are published, how to re-check one when a release lands. |
 | `project-handover-docs/ENV-VARS.md` | Every environment variable across the products in one index, with where each value comes from, the consoles, and who holds each login. |
 | `project-handover-docs/LIST-OF-DEPENDENCIES.md` | Every dependency by name, with its owner, its settings and its to-dos, in Adithya's own words. It is a snapshot from 4 October; the product docs supersede it. |
-| `project-handover-docs/MIGRATION-LIST.md` | What still moves to a company login, with the transfer steps, and what has already moved. |
-| `project-handover-docs/OTHER-PROJECTS.md` | Moinkee, Agent dating and MOI Sprint: inactive side projects moving to the sarvalabs org, and how to move Moinkee's Pinata files. |
+| `project-handover-docs/MIGRATION-LIST.md` | What still moves to a company login (the Telegram bot), with the transfer steps, and what has already moved. |
+| `project-handover-docs/OTHER-PROJECTS.md` | Moinkee, Agent dating and MOI Sprint: inactive side projects, now in the sarvalabs org (moved 14 October 2026), and how Moinkee's Pinata files were moved to the company account. |
 | `others/standards/` | The **x402** (an HTTP payment standard) standards submission package. |
 
 ## The skills

@@ -10,7 +10,7 @@ Copy one, fill it in, then run the lint (`python3 "$SKILLS/moi-docs/scripts/docs
 | `page-moidocs-stub.md` | a page that is not written yet | any moidocs folder | Remove the `<head>` block and the caution in the same change that adds the content |
 | `page-voyage-docs.md` | a page on voyage-docs.moi.technology | `docs/getting-started/`, `docs/endpoint-docs/` or `docs/wallet-authentication/` in `sarvalabs/voyage-docs` | No `image`, no `# Title` |
 | `page-coco-docs.md` | a page of the Coco Book | `docs/book/<chapter>/` in `sarvalabs/coco-docs` | For a stub add `unlisted: true` to the frontmatter. Chapter numbers go in `title` only. Link form: `/book/...` since PR #12 merged (2026-10-05), `/docs/book/...` in an older clone |
-| `page-sphinx.rst` | a page of the js-moi-sdk docs | `docs/source/` in `sarvalabs/js-moi-sdk` | Also add it to the toctree in `index.rst`; after PR #150 merges (open on 2026-10-13) also the `PAGES` table and `sitemap.xml` (`references/write-sphinx.md`) |
+| `page-sphinx.rst` | a page of the js-moi-sdk docs | `docs/source/` in `sarvalabs/js-moi-sdk` | Also add it to the toctree in `index.rst`; since PR #150 merged (2026-10-14) also the `PAGES` table and `sitemap.xml` (`references/write-sphinx.md`) |
 | `category.json` | a new folder | `_category_.json` in the folder | Descriptions of existing categories are 143 to 150 characters |
 | `pr-description.md` | the body of a docs pull request | the PR body field, after the operator's yes | Fill every section; delete none |
 | `review-comments.md` | a drafted review of a docs PR | `docs-review-<N>/review.md`; make the folder with `mkdir -p docs-review-<N> && printf '*\n' > docs-review-<N>/.gitignore`; the operator posts it | None |

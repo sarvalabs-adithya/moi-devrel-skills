@@ -1,6 +1,6 @@
 # Architecture: the server, where it runs, what is live
 
-Facts are as of 2026-10-03 where they were read live (probes, public GitHub and npm reads, `git` on a clone) and as of 2026-10-02 where they come from the ops research note ("the research" in this skill: it read the private `voyage-api` workflows, which could not be re-read on 2026-10-03). `ASK: <person>` is defined in `moi-devrel/SKILL.md`. The VM facts, the sync method, the owners and the PR states were corrected on 2026-10-13 from `project-handover-docs/MCP-SERVER.md`. Back to `../SKILL.md`.
+Facts are as of 2026-10-03 where they were read live (probes, public GitHub and npm reads, `git` on a clone) and as of 2026-10-02 where they come from the ops research note ("the research" in this skill: it read the private `voyage-api` workflows, which could not be re-read on 2026-10-03). `ASK: <person>` is defined in `moi-devrel/SKILL.md`. The VM facts, the sync method, the owners and the PR states were corrected on 2026-10-13 from `project-handover-docs/MCP-SERVER.md`, and the live build, tool counts and PR states again on 2026-10-14 from the verified end-of-day state (production runs moi-mcp master `3ae48cc0`). Back to `../SKILL.md`.
 
 ## Where the files named in this skill live
 Every file of `sarvalabs/moi-mcp` named in this skill is on `master` on GitHub (checked 2026-10-03). Exceptions: the two voyage-api workflows (private repo; on branch `feat/moi-mcp` only, not on its default branch `develop`; known from the research note and not re-read), `DEPENDENCIES.md` (a local file on the previous operator's machine, not in git; its 4 October snapshot is `project-handover-docs/LIST-OF-DEPENDENCIES.md`), and the unpushed branches listed at the end. Text that exists only on those local branches is labelled as such wherever this skill uses it.
@@ -12,11 +12,11 @@ Terms. KMOI: the devnet test currency (no real value). A logic: a MOI smart cont
 
 ## Forms and hosts
 
-| Form | Host | Sign-in | Tools live 2026-10-03 | Deployed by |
+| Form | Host | Sign-in | Tools live 2026-10-14 | Deployed by |
 |---|---|---|---|---|
-| Write gateway, production | `mcp.voyage.moi.technology`, connector URL ends `/mcp` | OAuth run by the server itself: no account, no password | 13 | Manual workflow "Deploy MOI MCP Gateway" in `sarvalabs/voyage-api`, target production |
-| Read gateway, production | `mcp-read.voyage.moi.technology`, URL ends `/mcp` | None | 6 | The same workflow |
-| Dev copies | `dev-mcp.voyage.moi.technology`, `dev-mcp-read.voyage.moi.technology` | Same as above | 13 and 6 | The same workflow, target dev |
+| Write gateway, production | `mcp.voyage.moi.technology`, connector URL ends `/mcp` | OAuth run by the server itself: no account, no password | 33 | Manual workflow "Deploy MOI MCP Gateway" in `sarvalabs/voyage-api`, target production |
+| Read gateway, production | `mcp-read.voyage.moi.technology`, URL ends `/mcp` | None | 43 (read tools) | The same workflow |
+| Dev copies | `dev-mcp.voyage.moi.technology`, `dev-mcp-read.voyage.moi.technology` | Same as above | 33 and 43 (the same build, deployed 2026-10-14) | The same workflow, target dev |
 | PR preview | write `pr-<N>-mcp.preview.voyage.moi.technology`, read `pr-<N>-mcp-read.preview.voyage.moi.technology` (confirmed by the Voyage gateway runbook, 2026-10-13); the read `/health` says `readOnly` true, the write one `readOnly` false and `pairingMounted` true | Same | Not read | `moi-mcp.preview.yml`, on every PR to voyage-api |
 | Local server | The user's machine, `node dist/index.js` from a clone, started by a desktop client | No sign-in; a wallet pairing | Not read | The user |
 | Self-hosted VM guide | `docs/handoff-infra.md` in the repo | Same | n/a | The evidence shows production does not use it |
@@ -33,33 +33,33 @@ The production deploy job (research, from the workflow file): build on Node 22, 
 Where it runs (`project-handover-docs/MCP-SERVER.md`): the dev VM is `voyagedev`, production is `prod-voyage`; the app is in `/opt/moi-mcp` and the data in `/var/lib/moi-mcp`; two pm2 processes sit behind nginx, `moi-mcp-read` (`dist/http.js`, port 8787) and `moi-mcp-write` (`dist/server.js`, port 8788). The workflow touches only those two processes. Owner: DevOps (Srikar runs the Voyage VMs and the deploy workflow; Upendhar is the other DevOps contact). Claude never logs in to a VM.
 Where it runs (`project-handover-docs/MCP-SERVER.md`): the dev VM is `voyagedev`, production is `prod-voyage`; the app is in `/opt/moi-mcp` and the data in `/var/lib/moi-mcp`; two pm2 processes sit behind nginx, `moi-mcp-read` (`dist/http.js`, port 8787) and `moi-mcp-write` (`dist/server.js`, port 8788). The workflow touches only those two processes. Owner: DevOps (Srikar runs the Voyage VMs and the deploy workflow; Upendhar is the other DevOps contact). Claude never logs in to a VM.
 
-## What is live (probes 2026-10-03)
+## What is live (2026-10-14, with the probes of 2026-10-03 as history)
 
 | Fact | Value |
 |---|---|
 | Health | `ok` on all four hosts above (`/health`) |
-| Tools | Write gateway 13: `ping`, `moi_get_account`, `moi_get_asset`, `moi_get_interaction`, `moi_get_logic`, `moi_resolve_agent`, `moi_connect_wallet`, `moi_wallet_status`, `moi_disconnect_wallet`, `moi_transfer`, `moi_create_asset`, `moi_mint`, `moi_call_logic`. Read gateway 6: the first six. Same on dev |
+| Tools | Write gateway 33 and read gateway 43 read tools, on production and dev, since the 2026-10-14 deploy (the classes are in the table below). On 2026-10-03 production listed 13 and 6: `ping`, the four chain reads and `moi_resolve_agent` on both, plus the wallet tools and four writes on the write gateway |
 | Version | Every build answers 0.1.0, so the version cannot tell you which sync is live. Use the tool count and the behaviours below |
-| Production build | The 2026-09-23 sync (voyage-api PRs #310 to #312, merged 15:57, 16:38 and 17:20 UTC), per the research of 2026-10-02; the 13-tool surface and old behaviours of 2026-10-03 agree, and production was unchanged since the 23 September deploy on 2026-10-13. PR #18 landed in `moi-mcp` at 16:35 UTC the same day and production lacks it, so the live build may be the first sync, not the last (inferred; which sync: ASK: Srikar). Master has moved on: last commit `b38343d` on 2026-09-24 |
-| Registry | `moi_resolve_agent` fails on every host with "Could not load the MOI agent registry (logic 0x20000000c684f926...) ... account not found". That is the wiped registry. Master's default (`src/moi/registry.ts`, commit `731a808`, 2026-09-24 00:00 UTC, pushed to GitHub master) is the redeployed one, so no host runs it (inferred) |
-| OAuth metadata | Production names the bare origin as the protected resource and 404s the `/mcp` document, the form before PR #18 (commit `93d4d9d`). Dev serves the new form. So dev is newer than production, and Connect in claude.ai may still spin on production (inferred, untested: the Connect step of `connect-and-verify.md` proves it) |
+| Production build | `moi-mcp` master `3ae48cc0` (PR #27, the code review fixes), synced by voyage-api #320 into `feat/moi-mcp` as `237725c6` and deployed to dev and production on 2026-10-14. Production no longer runs the 2026-09-23 sync (voyage-api PRs #310 to #312), which it ran until then |
+| Registry | Agent lookup works since the 2026-10-14 deploy: `moi_resolve_agent` answers on dev (health 10 PASS, 0 FAIL) and production got the same setting. The registry id in the code (`src/moi/registry.ts`, `0x200000002f3e9469...`) is the current one, the same as the Agent Explorer and the Launchpad; the Explorer's id is the source of truth after a reset. voyage-api #323 (merged 2026-10-14) makes the deploy workflow pass `MOI_READ_CALLER` (`0x000000001a46...`, the account the Agent Explorer uses for the same reads) to both gateways. History: on 2026-10-03 the tool failed on every host with "Could not load the MOI agent registry (logic 0x20000000c684f926...) ... account not found", the registry wiped on 2026-09-11 |
+| OAuth metadata | The fix of PR #18 (commit `93d4d9d`) is live on production since 2026-10-14, so claude.ai Connect no longer stalls. History: until then production named the bare origin as the protected resource and 404ed the `/mcp` document |
 | Chain RPC | `net.Version` answers 0.13.0 on both `/devnet/` and `/babylon/` paths of `dev.voyage-rpc.moi.technology` (the TLS certificate that expired on 2026-10-04 was renewed, valid 2026-10-05 to 2027-01-03; `net.Version` 0.13.0 again on 2026-10-13). The hosted read gateway is deployed with the `/babylon/` path, the code default is `/devnet/`. Whether they are one chain: ASK: Gokul |
-| GitHub | `moi-mcp` has no git tag. PR states on 2026-10-13: #25 closed 5 October and #26 closed 12 October (Dependabot); #28 open (Dependabot majors, fails the build: do not merge as is); #27 open as a draft, reviewed by Gokul, merge planned 14 October; #4 (code review, since 2026-09-11) open, close it after #27. Open issue #17 (js-moi-sdk v0.9.0-rc3, since 2026-09-23). No `chain-canary` issue has ever been opened. voyage-api: #313 (consent fix, registry and Launchpad tools) open with no review; #320 open as a draft that syncs moi-mcp #27; the head of `feat/moi-mcp` is still the 23 September sync (#312) |
+| GitHub | `moi-mcp` has no git tag. PR states on 2026-10-14: moi-mcp #27 merged as `3ae48cc0`; #4 (code review, since 2026-09-11) closed, superseded by #27; #25 closed 5 October, #26 closed 12 October and #28 closed 14 October (Dependabot); #29 open since 2026-10-14 (Dependabot majors, replaces #28: do not merge as is). Open issue #17 (js-moi-sdk v0.9.0-rc3, since 2026-09-23). No `chain-canary` issue has ever been opened. voyage-api: #320 (sync of #27) merged into `feat/moi-mcp` as `237725c6`; #313 (the 23 September sync of the consent fix, registry and Launchpad tools) closed as superseded by #320; #323 (the deploy workflow passes `MOI_READ_CALLER`) merged |
 | npm | `@moi-protocol/mcp-server` and `@sarvalabs/mcp-server` both return "Not found". The newest `js-moi-sdk` on npm is 0.9.0-rc2 (still, on 2026-10-13), which is what the server pins; rc3 is a GitHub release only |
 
 ## Tool classes
-Master's README table lists 28 tools and the source adds three registry write tools the table omits (commit `2af858f`): 31 tool names in `src/` on 2026-10-03. Production lists 13.
+Since PR #27 master and production both run 33 tools on the write gateway and 43 read tools on the read gateway (2026-10-14). History: master's README table listed 28 tools and the source added three registry write tools the table omits (commit `2af858f`), 31 tool names in `src/` on 2026-10-03, when production listed 13.
 
-| Class | Tools on master | Phone | On production |
+| Class | Tools on master | Phone | On production (2026-10-14) |
 |---|---|---|---|
 | Health | `ping` | no | yes |
 | Chain reads | `moi_get_account`, `moi_get_asset`, `moi_get_interaction`, `moi_get_logic` | no | yes |
-| Registry reads | `moi_resolve_agent`, `moi_list_agents` | no | resolve fails (stale id), list absent |
+| Registry reads | `moi_resolve_agent`, `moi_list_agents` | no | yes (lookup answers) |
 | Wallet | `moi_connect_wallet`, `moi_wallet_status`, `moi_disconnect_wallet` | pairing tap | yes |
-| Writes, preview then confirm | `moi_transfer`, `moi_create_asset`, `moi_mint`, `moi_call_logic` (invoke), `moi_create_account` | yes | all but `moi_create_account` |
-| Registry writes | `moi_register_agent`, `moi_set_agent_status`, `moi_transfer_agent` | yes | absent |
-| Launchpad | `moi_launchpad_templates`, `_sign_in`, `_status`, `_create_agent`, `_register_agent`, `_telegram_link`, `_setup_script`, `_sign_out` | sign-in is a message tap, register is a write | absent |
-| Dapp | `moi_dapp_sign_in`, `_api`, `_call`, `_sessions`, `_sign_out` | sign-in is a message tap | absent |
+| Writes, preview then confirm | `moi_transfer`, `moi_create_asset`, `moi_mint`, `moi_call_logic` (invoke), `moi_create_account` | yes | yes |
+| Registry writes | `moi_register_agent`, `moi_set_agent_status`, `moi_transfer_agent` | yes | yes |
+| Launchpad | `moi_launchpad_templates`, `_sign_in`, `_status`, `_create_agent`, `_register_agent`, `_telegram_link`, `_setup_script`, `_sign_out` | sign-in is a message tap, register is a write | yes |
+| Dapp | `moi_dapp_sign_in`, `_api`, `_call`, `_sessions`, `_sign_out` | sign-in is a message tap | yes |
 `tools/list`, `ping` and the read tools need no token. Wallet and write tools answer 401 without one.
 
 ## The two gateways
@@ -87,6 +87,5 @@ Which products DevRel owns is not settled. ASK: Rahul.
 - Security: `project-handover-docs/MCP-SERVER.md` records no finding for this product. The 2026-10-02 research note said one was open; its content is not recorded (the previous DevRel's notes); ASK: Rahul before touching sign-in or other admin code.
 
 ## Not yet known
-- Which sync production runs, as a commit. ASK: Srikar (the deploy run log).
 - Whether any monitor or alert watches the three hosts. None found.
 - Whether claude.ai plans differ in allowing custom connectors. ASK: Rahul.

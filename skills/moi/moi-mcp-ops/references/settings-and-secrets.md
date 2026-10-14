@@ -15,11 +15,11 @@ Rules. Never open an `.env` file and never paste a value into chat, a file or a 
 | `HOSTED_PORT`, `LOG_LEVEL`, `NODE_ENV` | plain, inline | Same | Listen port of the write gateway, log level, Node mode |
 | `MOI_RPC_URL` | plain, read gateway only | Same | The `/babylon/` path of `dev.voyage-rpc.moi.technology`. The code default is `/devnet/` |
 
-## Read by the server and NOT passed by that workflow (defaults apply, or the feature fails)
+## Read by the server and NOT passed by that workflow (defaults apply, or the feature fails), except `MOI_READ_CALLER`, which it passes since 2026-10-14
 
 | Name | Needed when | What it does | Rotation |
 |---|---|---|---|
-| `MOI_READ_CALLER` | Required on devnet for registry reads | Any account that exists on the network, used as the caller of read-only logic simulation. Unset: registry tools fail with an error that names it | free. Must be re-chosen after a reset |
+| `MOI_READ_CALLER` | Required on devnet for registry reads | Any account that exists on the network, used as the caller of read-only logic simulation. Unset: registry tools fail with an error that names it. The deploy workflow passes it to both gateways since voyage-api #323 (2026-10-14): `0x000000001a46e49490bf4798eb0a09ac3a1fce7773d25ad53158320800000000`, the account the Agent Explorer uses for the same reads | free. Must be re-chosen after a reset |
 | `MOI_AGENT_REGISTRY_LOGIC_ID` | After a reset, unless the code default is changed | Overrides the registry id; the default is `DEFAULT_REGISTRY_LOGIC_ID` in `src/moi/registry.ts` | The one value that changes on a reset |
 | `MOI_SESSION_KEY` | Not read by `master` yet. The encryption-at-rest change (split out of moi-mcp #27 into a later PR) makes it required at boot, so the workflow must pass it before that change is synced, or the write gateway crash-loops. voyage-api already holds `MCP_DEV_SESSION_KEY`, `MCP_PROD_SESSION_KEY` and `MCP_PREVIEW_SESSION_KEY` as repository secrets (created 2026-10-09); nothing passes them yet | A server-side key. Generate with `openssl rand -base64 32`, put it in the secret store and never print it | **step**: changing it signs users out of what uses it, and there is no previous-key setting |
 | `MOI_LAUNCHPAD_URL` | Launchpad tools | Must equal the Launchpad's own `NEXT_PUBLIC_APP_URL` or the tool refuses to sign | free |
@@ -57,12 +57,11 @@ The cross-product order is `moi-devnet-reset`. The server reads the registry id,
 | 1 | Confirm | The script: the RPC line, and the `moi_resolve_agent` WARN with "account not found" | Reset signature seen | read |
 | 2 | Get the facts | One message to the protocol team: new registry id, whether agents were re-imported, new SDK versions, whether KMOI's id, the fuel floor or the RPC path changed. Claude drafts, the operator sends. ASK: Gokul | Answer in hand | GATE |
 | 3 | Check the id before use | `moi_get_logic` for the new id through the read gateway: it must list the registry routines the code calls (`RegisterAgent`, `GetAllAgentIds`, `GetAgentsByOwner`, `GetAgentProfile`, `SetAgentStatus`, `TransferAgent`, `GetAgentCount`; read from `src/moi/registry.ts` and `src/tools/registry-writes.ts` on `master`) | Routines listed | read |
-| 4 | Point the server | Either pass `MOI_AGENT_REGISTRY_LOGIC_ID` and `MOI_READ_CALLER` from the workflow (a PR; the workflow passes neither today), or change `DEFAULT_REGISTRY_LOGIC_ID` in `src/moi/registry.ts` by PR to master (commit `731a808`, 2026-09-24 UTC, did this for the September registry and is already on `master`; production still lacks a sync, a deploy and a `MOI_READ_CALLER`) and sync. `MOI_READ_CALLER` needs the first route either way | PR merged | GATE |
+| 4 | Point the server | Either pass `MOI_AGENT_REGISTRY_LOGIC_ID` (and a new `MOI_READ_CALLER` if the account is gone) from the workflow (a PR; the workflow passes `MOI_READ_CALLER` since #323 and no registry id), or change `DEFAULT_REGISTRY_LOGIC_ID` in `src/moi/registry.ts` by PR to master (commit `731a808`, 2026-09-24 UTC, did this for the September registry; the id in the code, `0x200000002f3e9469...`, is the current one and runs on production since the 2026-10-14 deploy) and sync. The Agent Explorer's id is the source of truth after a reset | PR merged | GATE |
 | 5 | SDK constants | If KMOI's id, the fuel floor or the storage fund moved, take the grouped SDK PR (a merge: GATE) and run the canary (`watch-and-canary.md`; the install is a download: GATE); set `MOI_CANARY_ACCOUNT` if KMOI's creator is gone (the nightly workflow does not pass it, so that is a workflow PR: GATE) | Canary green | GATE, then local |
 | 6 | Deploy and verify | `ship-a-change.md` parts B to D, then `moi_resolve_agent` returns an agent | The script shows no registry WARN | GATE |
 | 7 | Close out | Grep the id across the three repos; update the stale comment in `.env.example` (it still names the wiped id's prefix as the default) | One id everywhere | local |
 
 ## Not yet known
 - Who owns the Reown project, and which account will own `UPSTREAM_READ_TOKEN`. ASK: Rahul.
-- Where `MOI_READ_CALLER` is set today, if anywhere (the workflow does not pass it). ASK: Srikar.
 - Whether creating a voyage-api repository secret needs more than repo admin. ASK: Srikar.

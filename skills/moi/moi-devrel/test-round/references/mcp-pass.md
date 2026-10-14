@@ -2,7 +2,7 @@
 
 Facts are as of 2026-10-03. `ASK:` is defined in `moi-devrel/SKILL.md`. Source: `docs/testing-plan.md`, `docs/deploy-checklist.md` (section 7) and `docs/reviewer-guide.md` in `sarvalabs/moi-mcp`, which is public. These files and `docs/publishing.md` are on `master` of the public repo on GitHub (tip dated 2026-09-24, checked on 2026-10-03 with `git ls-remote` and a GET of each file), so anyone can read them. The live reads below were made on 2026-10-03 between 15:28 and 15:30 UTC and again between 17:35 and 17:38 UTC with the same answers. Back to `../GUIDE.md`.
 
-As of 13 Oct 2026: production unchanged since 23 Sep; voyage-api sync PRs #313 and #320 open; moi-mcp #27 reviewed, merge planned 14 Oct. Re-record M0.3 after any sync.
+As of 14 Oct 2026: production runs moi-mcp master `3ae48cc0` (moi-mcp #27, voyage-api sync #320, both merged and deployed 14 Oct): 33 tools on the write host, 43 read tools on the read host; agent lookup answers. #313 and moi-mcp #4 were closed as superseded. The 13 and 6 below are the 2026-10-03 readings. Re-record M0.3 after any sync.
 
 MCP server: A security finding is open on this product as of 2026-10-02. See the Open items of project-handover-docs/MCP-SERVER.md before touching its admin; ASK: Rahul if unclear. This pass reads, and signs only through a phone. It touches no admin.
 
@@ -24,16 +24,16 @@ Merging to `sarvalabs/moi-mcp` deploys nothing. Production is a copy in the priv
 |---|---|---|---|
 | M0.1 | read | `curl -sS -m 20 https://mcp.voyage.moi.technology/health`, then the same on the read host | `"ok":true`. Write: `"readOnly":false,"pairingMounted":true`. Read: `"readOnly":true`. A 503 with `ok` false means the config failed to load |
 | M0.2 | read | `curl -sS -m 20 https://mcp.voyage.moi.technology/.well-known/oauth-authorization-server` | `issuer` equals the public write host exactly. `http://localhost` means the environment never reached the process |
-| M0.3 | read | `tools/list` on both hosts (command below) | 13 tools on the write host and 6 on the read host (2026-10-03). Record the names: the list shows which sync is live |
-| M0.4 | read | `tools/call` `ping`, then `moi_get_account` on the operator's account (ask for its public address) and `moi_get_asset` on the asset id in its `balances`, then `moi_resolve_agent` with `{"query":"agent"}` (call shape in `real-chain.md`) | `ping` answers. `moi_get_asset` answers `symbol` KMOI, `standard` MASN and `decimals` 9 (2026-10-03). `moi_resolve_agent` returns agents |
+| M0.3 | read | `tools/list` on both hosts (command below) | 33 tools on the write host and 43 on the read host (since 2026-10-14; 13 and 6 on 2026-10-03). Record the names: the list shows which sync is live |
+| M0.4 | read | `tools/call` `ping`, then `moi_get_account` on the operator's account (ask for its public address) and `moi_get_asset` on the asset id in its `balances`, then `moi_resolve_agent` with `{"query":"agent"}` (call shape in `real-chain.md`) | `ping` answers. `moi_get_asset` answers `symbol` KMOI, `standard` MASN and `decimals` 9 (2026-10-03). `moi_resolve_agent` returns agents (it answers since the 2026-10-14 deploy; on 2026-10-03 it failed) |
 | M0.5 | read | `gh run list -R sarvalabs/moi-mcp --limit 8` (read-only; skip it if `gh` is not signed in, and never switch the account) | The chain canary and the upstream watch are green (observed 2026-10-02) |
 
 ```
 curl -sS -m 30 -X POST https://mcp.voyage.moi.technology/mcp -H 'content-type: application/json' -H 'accept: application/json, text/event-stream' -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
 ```
-The write host answered 13 tools: `ping`, `moi_get_account`, `moi_get_asset`, `moi_get_interaction`, `moi_get_logic`, `moi_resolve_agent`, `moi_connect_wallet`, `moi_wallet_status`, `moi_disconnect_wallet`, `moi_transfer`, `moi_create_asset`, `moi_mint`, `moi_call_logic`. The read host answered the first six. The Launchpad and dapp tools are not in the live list.
+The write host answered 13 tools: `ping`, `moi_get_account`, `moi_get_asset`, `moi_get_interaction`, `moi_get_logic`, `moi_resolve_agent`, `moi_connect_wallet`, `moi_wallet_status`, `moi_disconnect_wallet`, `moi_transfer`, `moi_create_asset`, `moi_mint`, `moi_call_logic`. The read host answered the first six. That was the 2026-10-03 list; the Launchpad and dapp tools joined it with the 2026-10-14 deploy.
 
-**Expected failure today.** On 2026-10-03 at 15:28 UTC `moi_resolve_agent` failed with "Could not load the MOI agent registry (logic 0x20000000c684f926...). It may not be deployed on this network. account not found". The live copy still points at the registry wiped on 2026-09-11. Log M0.4 as `fail` with `fix` set to `accepted: known, live copy not yet updated to the new registry, <who>, <date>` once the operator has confirmed that (ASK: Gokul for the current registry id), and retest after the next sync.
+**Expected failure on 2026-10-03 (history; not expected after the 2026-10-14 deploy).** On 2026-10-03 at 15:28 UTC `moi_resolve_agent` failed with "Could not load the MOI agent registry (logic 0x20000000c684f926...). It may not be deployed on this network. account not found". The live copy then pointed at the registry wiped on 2026-09-11. If it fails again after a reset, log M0.4 as `fail` with `fix` set to `accepted: known, live copy not yet updated to the new registry, <who>, <date>` once the operator has confirmed that (ASK: Gokul for the current registry id), and retest after the next sync.
 
 ## M1 to M13. The end-to-end check (about 10 minutes with a funded wallet)
 Order matters. Cases marked chain spend funds.
@@ -52,7 +52,7 @@ Order matters. Cases marked chain spend funds.
 | M10 | app | Disconnect the wallet, then ask for a write | `wallet_disconnected` |
 | M11 | app | Create an asset with the default storage fund | Refused before the phone, with the storage-fund hint. Nothing reaches the phone |
 | M12 | app | Open the connector from a different browser | A new identity: sign in again and pair again |
-| M13 | app | After the Launchpad tools are synced: `moi_launchpad_sign_in` | Passes only if the phone's message signature is the envelope the Launchpad expects. Recorded as the one step never verified live. `blocked` until the tools are in `tools/list` |
+| M13 | app | The Launchpad tools are in `tools/list` since 2026-10-14: `moi_launchpad_sign_in` | Passes only if the phone's message signature is the envelope the Launchpad expects. Recorded as the one step never verified live. `blocked` if the tools are missing from `tools/list` |
 
 M4 and M6 to M11 are the repo's Tier 3 checks 3 and 2, 4, 5, 6, 7, 8 (`docs/testing-plan.md`) run against the hosted gateway. M4 is also step 7.3 of the deploy checklist. As of 2026-09-01 only checks 1, 4 and 8 were verified, and the tool had never returned `sent` after a real tap. No phone check has been recorded since (`project-handover-docs/MCP-SERVER.md`, Open items, gives 1 September as the last one).
 

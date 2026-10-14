@@ -12,7 +12,7 @@ The draft lives in a self-ignoring folder, because a review can name private fil
 | Area | Reviewer seen | Evidence |
 |---|---|---|
 | Scope and public pieces of moidocs | Rahul | Requested changes on #124 on 2026-09-17 |
-| Protocol, SDK, Voyage content | Gokul | Requested on #124, #150, #447; owns Voyage docs; `CODEOWNERS` of js-moi-sdk |
+| Protocol, SDK, Voyage content | Gokul | Requested on #124, #150, #447 (all merged by 2026-10-14); owns Voyage docs; `CODEOWNERS` of js-moi-sdk |
 | Coco and cocolang.dev | Robert Špendl | Maintains it; approved #12 on 2026-09-29 after rebasing it to v0.9.2 |
 Who may merge, and whether an approval is required by branch protection, is not recorded. ASK: Rahul.
 

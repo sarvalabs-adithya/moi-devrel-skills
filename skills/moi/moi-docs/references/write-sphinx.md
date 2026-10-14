@@ -3,9 +3,9 @@
 For js-moi-sdk.docs.moi.technology, the folder `docs/` of `sarvalabs/js-moi-sdk` (public). Facts are as of 2026-10-03. The page rules are in `page-standard.md` (rule R12 and the lint's `rst-*` and `sdk-*` rules). Run every command from the working copy of `sarvalabs/js-moi-sdk`. `$SKILLS`, "the operator" and `ASK:` are defined in `moi-devrel/SKILL.md`. Back to `../SKILL.md`.
 
 ## Know which state the repo is in
-- On `main` as of 2026-10-03 (still true on 2026-10-13, because #150 is open) `docs/` holds `Makefile`, `source/conf.py`, ten `.rst` pages and a stylesheet and favicon. There is no `generate_llms.py`, no `source/_extra/` and no `_templates/layout.html`. Adding a page there is two steps: write the `.rst`, add it to the toctree.
-- PR #150 (from the previous DevRel's fork, sarvalabs-adithya; open as of 2026-10-13) adds the search and AI layer: `docs/generate_llms.py`, `docs/source/_extra/` (robots, sitemap, llms files, a markdown copy of every page, a 404 page, the IndexNow key file), `docs/source/_templates/layout.html` and a `make llms` target. About 22,000 of its lines are generated files. After it merges, a new page is five steps (below).
-- Check which state you are in before you start: `git ls-tree origin/main docs/generate_llms.py` (after the operator agreed to a fetch). Empty output means #150 has not merged.
+- On `main` as of 2026-10-03 (before #150 merged on 2026-10-14) `docs/` held `Makefile`, `source/conf.py`, ten `.rst` pages and a stylesheet and favicon, with no `generate_llms.py`, no `source/_extra/` and no `_templates/layout.html`. A clone fetched before 2026-10-14 is in that state, and there adding a page is two steps: write the `.rst`, add it to the toctree. On current `main` the steps marked "After #150 only" apply.
+- PR #150 (from the previous DevRel's fork, sarvalabs-adithya; merged on 2026-10-14 by Gokul, live) added the search and AI layer: `docs/generate_llms.py`, `docs/source/_extra/` (robots, sitemap, llms files, a markdown copy of every page, a 404 page, the IndexNow key file), `docs/source/_templates/layout.html` and a `make llms` target. About 22,000 of its lines are generated files. Now that it has merged, a new page is five steps (below).
+- Check which state you are in before you start: `git ls-tree origin/main docs/generate_llms.py` (after the operator agreed to a fetch). Empty output means your clone predates the #150 merge of 2026-10-14: fetch first.
 - The SDK team updates the docs inside each release pull request (#133, #136, #143 and #148 touched `docs/`, read from `git log`). Pages written between releases are DevRel's. Reviewers: `CODEOWNERS` names `@sarvalabs-gokul` and `@sarvalabs-manish` for every file. ASK: Gokul for the build and deploy route, which no workflow in the repo shows.
 
 ## Set up once
@@ -41,4 +41,3 @@ For js-moi-sdk.docs.moi.technology, the folder `docs/` of `sarvalabs/js-moi-sdk`
 ## Not yet known
 - How the site is built and published after a merge, how a change is previewed, and whether the generated files should stay committed (moving to a build step, as the other sites did, is an option; the SDK docs build is not recorded in the handover docs). ASK: Gokul.
 - Which Python and Node versions build the docs. ASK: Gokul.
-- Whether PR #150 has merged since 2026-10-13, when it was open. Read it before you start.

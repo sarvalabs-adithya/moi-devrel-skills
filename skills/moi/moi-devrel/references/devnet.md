@@ -52,7 +52,7 @@ The network can run an older build than the release notes or the source describe
 | 2026-08-10 | Registry replaced by `f5b0c7af` | |
 | 2026-08-13 | Registry replaced by `09ce50ba` | |
 | 2026-08-15, about 23:38 | Full wipe. New registry `c684f926`, agents re-imported | |
-| 2026-09-11 (announced for 00:00 UTC; not confirmed to the minute: the explorer's oldest listed interaction is dated 2026-09-10 13:18 UTC and its list is capped at 355 entries, ASK: Gokul) | The moipod v0.13.0 upgrade wiped devnet and killed `c684f926`. MOI redeployed the registry as `2f3e9469`, importing an old snapshot (144 agents, 1 of 11 listed agents carried over) | Launchpad moved 09-15 12:21 UTC (users could not onboard for three days), Explorer 09-22, MCP pinned 09-23 but not deployed |
+| 2026-09-11 (announced for 00:00 UTC; not confirmed to the minute: the explorer's oldest listed interaction is dated 2026-09-10 13:18 UTC and its list is capped at 355 entries, ASK: Gokul) | The moipod v0.13.0 upgrade wiped devnet and killed `c684f926`. MOI redeployed the registry as `2f3e9469`, importing an old snapshot (144 agents, 1 of 11 listed agents carried over) | Launchpad moved 09-15 12:21 UTC (users could not onboard for three days), Explorer 09-22, MCP pinned 09-23 but not deployed until 10-14 |
 Five events in just over five weeks, two of them full wipes. Earlier resets before August are not catalogued. A reset follows a go-moi release by about a day (one observation; ASK: Gokul).
 
 ## What a reset breaks

@@ -93,7 +93,7 @@ The rows dated 2026-10-02 were found in the CC14 script by the library's own che
 | Date | Claim as written | Why it was wrong | Corrected form | Recorded in |
 |---|---|---|---|---|
 | 2026-08-21 | A review of moidocs PR 120 led with "27 errors" | The table said 8 breaking and 18 minor (26) and the numbered list had 25 | Counts reconciled before reporting | The previous operator's review |
-| as of 2026-10-02 | PR bodies said each AI crawler is listed in `robots.txt` (moidocs 124, voyage-docs 5) or that a standard file is added (js-moi-sdk 150) | The file is now one group. The standard file was retired | Update the PR body when the facts change | The three PR bodies on GitHub, read 2026-10-02. moidocs #124 merged 13 Oct 2026; js-moi-sdk #150 open as of 13 Oct 2026 |
+| as of 2026-10-02 | PR bodies said each AI crawler is listed in `robots.txt` (moidocs 124, voyage-docs 5) or that a standard file is added (js-moi-sdk 150) | The file is now one group. The standard file was retired | Update the PR body when the facts change | The three PR bodies on GitHub, read 2026-10-02. moidocs #124 merged 13 Oct 2026; js-moi-sdk #150 open as of 13 Oct 2026, merged and live 14 Oct 2026 |
 | 2026-09-09 | A kill-switch page | It did not say what the kill switch is | Deleted | The previous operator's request of 2026-09-09 (not recorded; ASK: Rahul) |
 
 ## G. Product docs that disagreed with the code (as of 2026-10-02)

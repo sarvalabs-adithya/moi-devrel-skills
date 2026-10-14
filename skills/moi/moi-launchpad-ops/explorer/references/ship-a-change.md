@@ -1,6 +1,6 @@
 # Ship a change to the Agent Explorer
 
-Facts are as of 2026-10-14 where a line says so, otherwise 2026-10-03 (probe) and 2026-10-02 (research). A merge to `main` of `sarvalabs/agent-explorer` is a production deploy: the workflow has no test step, no lint step, and a pull request triggers nothing. Run every command from a working copy of that repo unless it names `$SKILLS`. `SKILLS`, `ASK:` and "the operator" are defined in `moi-devrel/SKILL.md`. The git and PR mechanics (identity, rebase, merge) are owned by `moi-devrel/ship`. Back to `../GUIDE.md`.
+Facts are as of 2026-10-14 where a line says so, otherwise 2026-10-03 (probe) and 2026-10-02 (research). As of 2026-10-14 the deploy run fails at "Login to GHCR" (expired `GH_TOKEN`), so a merge to `main` does not go live until Upendhar replaces the token and re-runs (`troubleshoot.md` row 17). A merge to `main` of `sarvalabs/agent-explorer` is a production deploy: the workflow has no test step, no lint step, and a pull request triggers nothing. Run every command from a working copy of that repo unless it names `$SKILLS`. `SKILLS`, `ASK:` and "the operator" are defined in `moi-devrel/SKILL.md`. The git and PR mechanics (identity, rebase, merge) are owned by `moi-devrel/ship`. Back to `../GUIDE.md`.
 
 Kinds: READ changes nothing. EDIT changes the local working copy only. GATE needs the operator's explicit yes in this conversation, naming the action. VERIFY reads the result.
 

@@ -32,7 +32,7 @@ No worker runs in production on purpose: it would steal the Telegram webhook and
 |---|---|---|
 | Codebase | DevRel | https://github.com/sarvalabs/moi-agent-launchpad deploys. DevRel works in a personal fork (Adithya's was sarvalabs-adithya/moi-agent-launchpad; the next owner makes their own) |
 | Database (Supabase) | Company Supabase organisation (transferred 8 October) | Holds all app state |
-| Telegram bot and the alert chat | DevRel, transfer pending | @moinetworkbot delivers agent messages to users. Moves to DevOps or a company account in BotFather (steps in MIGRATION-LIST.md) |
+| Telegram bot and the alert chat | DevRel, transfer pending | @moinetworkbot delivers agent messages to users. Still on Adithya's Telegram account: the transfer to Rahul Lenkala was started on 14 October and Telegram refused it (7-day rule on his two-step verification); he retries once it allows (steps in MIGRATION-LIST.md) |
 | AgentMarket contract on **devnet** (MOI's shared test network, wiped from time to time) | DevRel | Not redeployed since the devnet wipes, so paid agents are off. The code is there; the next owner redeploys it when it is needed |
 | Server, CI/CD, container registry, **Teleport** (the gateway DevOps uses to reach the server) | DevOps | |
 | Domain launchpad.moi.technology | DevOps | |
@@ -184,7 +184,7 @@ What the skill never does without a yes from DevRel: push, merge (a merge deploy
 - Move every secret into a shared vault. As of October 2026 the server's env file is the only readable copy.
 - The launch video folder in Drive is owned by adithya@moinetwork.io, Adithya's company Google account, which may close after he leaves. Move it to a shared company Drive before Adithya leaves on 14 October, so the clips and edits do not depend on his login.
 - No company-owned Groq key exists as of October 2026, so the server's GROQ_API_KEY is not a company key. Create one and replace it before relying on the internal paths.
-- Transfer the Telegram bot to DevOps or a company Telegram account (steps in the migration list). The Supabase project was transferred on 8 October.
+- Transfer the Telegram bot to Rahul Lenkala (steps in the migration list). It was started on 14 October and Telegram refused it under its 7-day rule; Adithya retries once Telegram allows, and until then the bot is still on his Telegram account. The Supabase project was transferred on 8 October.
 - The live stats page sometimes says the registry is not answering. On 14 October that was the RPC rate limit ("Too many requests"), not a stale id: the Launchpad's registry id (0x200000002f3e9469...) is the current one, the same as the Agent Explorer's and the MCP server's. Treat the Explorer's id as the source of truth after any reset.
 - Push the README and handover doc fixes to sarvalabs/moi-agent-launchpad (confirm that is the repo that holds them). The ones in the repo still describe Vercel.
 - Still unpushed from the fork: the labs folder (app/labs and its API routes) and the one-off chain scripts for clearing stuck **nonces** (a nonce is the counter that orders a sender's interactions, and a stuck one blocks the ones after it), counting installed agents and finding a blocked nonce. Whoever takes over decides what ships and what was scratch.

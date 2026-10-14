@@ -1,0 +1,37 @@
+PASS  constants                                                                                    0x1080fffe4cd973c4eb83cdb8870c0de209736270491b7acc99873da100000000
+PASS  devnet getVersion                                                                            0.13.0
+PASS  devnet getAssetInfoByAssetID(KMOI)                                                           decimals=0x9 supply=0x8ac7230489e80000
+PASS  devnet getAccountMetaInfo(SARGA)                                                             0x96
+PASS  devnet getAccountMetaInfo(me) -> account not found (post-reset)                              0x000000008ef2c197c13948dd9ea777e9673afbfecf8d57b21456374f00000000
+PASS  devnet getStoragePricing                                                                     {"storage_price_per_byte":"0xf4240","storage_multiplier":"0x1","anu_per_byte":"0xf4240"}
+PASS  devnet getLogicManifest(KMOI, JSON) (asset manifest read)                                    kind=asset elements=23
+PASS  flipper: LogicFactory.deploy('Init') bundles funding transfer to deriveLogicId               ix_args 670 bytes, sigs 114 bytes
+PASS  flipper: deploy() without builder name throws MISSING_ARGUMENT                               Manifest defines one or more deploy routines - a builder name is required to select one.
+PASS  flipper: RoutineOption storageFund override                                                  25000000000
+PASS  flipper: LogicDriver routines Flip/Get, isMutable, logicState, no actorState                 hasLogicState=true ptr=0
+PASS  flipper: decodeOutput('Get') round trip via js-polo documentEncode                           {"value":true}
+PASS  manifest: ContextStateKind renamed                                                           ok
+PASS  MAS0AssetLogic.create(... decimals) bundles funding to deriveAssetId(MAS0)                   0x100300001c95b889cb792d045c97c50d486b61fdc1933b3feb867f0a00000000
+PASS  MAS0 create with number supply also serializes                                               ok
+PASS  MAS0 create max_supply 0 rejected                                                            Failed to sign interaction: Failed to serialize interaction object: max_supply m
+PASS  MAS0 decimals 19 rejected                                                                    decimals must not exceed 18
+PASS  MAS0 mint/transfer/lockup/release participants                                               ok
+PASS  MAS0 balanceOf().call() shape is a context; decode schema documented                         ok
+PASS  AssetFactory.create(TaxToken, manifest, 'Init', calldata) encodes calldata + funding (MASX)  ok
+PASS  AssetFactory.create without callsite throws (manifest has deploy routine)                    Manifest defines one or more deploy routines - a callsite is required 
+PASS  AssetFactory.create missing calldata throws                                                  One or more required arguments are missing.
+PASS  AssetDriver(taxtoken) routines + logicState, Transfer mutable                                Transfer
+PASS  MAS1AssetLogic.create(signer, symbol, manager, enableEvents) max_supply 1, no decimals       ok
+PASS  MAS1 transfer(tokenId, beneficiary)                                                          ok
+PASS  MAS2 create(... decimals) + transfer(tokenId, to, amount)                                    ok
+PASS  PARTICIPANT_CREATE via InteractionContext (nft example recipient registration) signs         ok
+PASS  AccountInherit builder                                                                       ok
+PASS  MASNAssetLogic transfer targets KMOI; no mint                                                ok
+PASS  KMOI Mint rejected client-side                                                               rejected
+PASS  validateAssetCreate rejects MASN                                                             rejected
+PASS  StorageDeposit / StorageWithdraw / Access build + participants                               ok
+PASS  fee payer: payer must be participant; signRawInteractionObject merges; missing payer sig throws signatures 227 bytes; payer dropped unless notary
+PASS  notary payer must be MUTATE_LOCK                                                             rejected
+PASS  formatAmount / Identifier helpers                                                            ok
+
+35/35 passed

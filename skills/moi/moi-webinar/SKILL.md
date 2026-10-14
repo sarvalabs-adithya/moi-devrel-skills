@@ -121,7 +121,7 @@ Names only. Where each lives: `moi-devrel/references/keys-and-access.md`.
 - `BUFFER_API_KEY` for `scripts/buffer.mjs`, which ships in this skill (a copy also sits in the webinars repo). The key goes in a gitignored `.env` next to the script's parent folder (`$SKILLS/moi-webinar/.env`) or in the environment. Chandra, who owns the Buffer organisation, creates it. It is not the website pipeline's `BUFFER_ACCESS_TOKEN`.
 - The Luma, Google Meet and YouTube logins are held by Vardan, who also provides the Meet link (`DEV-WEBINARS.md`). The recordings of past sessions sit under the shared account `info@moi.technology`.
 - The Google Forms of earlier sessions sit on the previous DevRel's company Drive. Moving them to a shared Drive is an open item in `project-handover-docs/DEV-WEBINARS.md`. New sessions use the webinar bounty, not a form.
-- The Points admin page, for a webinar bounty: the host's Google email must be in the `ADMIN_EMAILS` Actions variable of `sarvalabs/moi-project`. DevOps (Upendhar) sets it.
+- The Points admin page, for a webinar bounty: the host's Google email must be in the `ADMIN_EMAILS` Actions variable of `sarvalabs/moi-project`. DevOps (Upendhar) sets it. Since 14 October 2026 the only admin left is Harsh Gupta's personal Gmail; the next DevRel's company Google email must be added before the next bounty.
 - Points: security findings are open on this product. Read `project-handover-docs/POINTS-PROGRAM.md`, Open items, before touching its admin.
 
 ## Hand-back

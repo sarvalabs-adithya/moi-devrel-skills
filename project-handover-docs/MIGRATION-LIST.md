@@ -1,22 +1,22 @@
 # What to migrate off Adithya's accounts
 
-**Status: in progress.** Both Supabase projects moved on 8 October and the agent dating plugin no longer depends on a VPS. The repo transfers wait on Rahul's answer on which organisation each repo goes to. The Telegram bot, the Pinata account and two orphan Vercel projects are still to move or delete.
+**Status: in progress.** Both Supabase projects moved on 8 October and the agent dating plugin no longer depends on a VPS. On 14 October four repos moved to the sarvalabs organisation, the orphan Vercel projects were deleted and the Moinkee files were pinned in the company Pinata account. Still to move: the Telegram bot (the transfer to Rahul Lenkala was refused by Telegram on 14 October; Adithya retries once Telegram allows).
 
 Marketing: Owner not on record: settle who holds the login, and Open items. Developers: every section.
 
-As of 13 October 2026, this lists what still sits under Adithya's own accounts and where each item should go, plus the steps for the two moves that need a walkthrough (Supabase, done; Telegram, pending). Names only, no values.
+As of the end of 14 October 2026, this lists what sat under Adithya's own accounts and where each item went or should go, plus the steps for the two moves that need a walkthrough (Supabase, done; Telegram, pending). Names only, no values.
 
 ## Under Adithya's own accounts today: move to DevOps or a company login
 
 | Product | What | Where it sits | Move to |
 |---|---|---|---|
 | Agent Launchpad | Supabase project (all app state) | Done: transferred to the company Supabase organisation on 8 October | Check the plan has backups on |
-| Agent Launchpad | Telegram bot @moinetworkbot and the alert chat | Adithya's Telegram, via **BotFather** (Telegram's own bot for creating and managing bots) | Company Telegram account |
-| Agent dating plugin | The repo | sarvalabs-adithya/agent-dating | sarvalabs org, one transfer call (an org owner may have to accept). PR #1 is merged, so the transfer is unblocked; it waits on Rahul's answer on which organisation it goes to |
+| Agent Launchpad | Telegram bot @moinetworkbot and the alert chat | Adithya's Telegram, via **BotFather** (Telegram's own bot for creating and managing bots). Still there: the transfer was started on 14 October and Telegram refused it (its 7-day rule on Adithya's two-step verification); he retries once Telegram allows | Rahul Lenkala's Telegram account |
+| Agent dating plugin | The repo | Done: moved to sarvalabs/agent-dating on 14 October 2026 (it was sarvalabs-adithya/agent-dating) | sarvalabs org |
 | Agent dating plugin | The relay VPS | Adithya's, being cancelled | Done in sarvalabs-adithya/agent-dating PR #1 (merged): no baked-in relay address, the installer asks for DATING_RELAY_URL, the deploy workflow and VPS scripts removed, the three VPS secrets deleted, a "Pick it up" guide in the README |
-| Moinkee NFT Minter | The repo | sarvalabs-adithya/moinkee-nft-minter | sarvalabs org. The handover PR is merged: it is PR #2 (the README, the env template, the April recovery routes behind a secret); PR #1 was replaced to remove Claude authorship. The transfer waits on Rahul's answer on which organisation it goes to |
-| Moinkee NFT Minter | Minting wallet and the collection asset | Adithya's **devnet** wallet (devnet is the shared MOI test network), seed in the **Vercel** env (Vercel hosts the app) | Nothing to move: the next owner makes a new devnet wallet and a new collection (README, Pick it up). What does move: the Vercel project (four variables) and the **Pinata** account (Pinata keeps files online by "pinning" them under content addresses called CIDs), or its pins re-pinned under a company account; the CIDs stay the same. Pinata's Moinkee files are now pinned in the company account too (14 October); Adithya's account can be closed. Previously Pinata was on Adithya's account today, and Srikar is creating a company Pinata account to transfer it to |
-| Contextual Compute website | The repo | sarvalabs-adithya/contextual-compute-foundation-website | sarvalabs org, once Rahul says which organisation |
+| Moinkee NFT Minter | The repo | Done: moved to sarvalabs/moinkee-nft-minter on 14 October 2026 (it was sarvalabs-adithya/moinkee-nft-minter) | sarvalabs org. The handover PR is merged: it is PR #2 (the README, the env template, the April recovery routes behind a secret); PR #1 was replaced to remove Claude authorship |
+| Moinkee NFT Minter | Minting wallet and the collection asset | Adithya's **devnet** wallet (devnet is the shared MOI test network), seed in the **Vercel** env (Vercel hosts the app) | Nothing to move: the next owner makes a new devnet wallet and a new collection (README, Pick it up). What moved: the Vercel project was deleted on 14 October, and the **Pinata** files (Pinata keeps files online by "pinning" them under content addresses called CIDs) were re-uploaded to the company Pinata account on 14 October with identical CIDs (all 71 pinned). Adithya's Pinata account no longer matters and can be closed |
+| Contextual Compute website | The repo | Done: moved to sarvalabs/contextual-compute-foundation-website on 14 October 2026 (it was sarvalabs-adithya/contextual-compute-foundation-website) | sarvalabs org |
 | Dataroom | Supabase project and bucket | Done: transferred to the company Supabase organisation on 8 October | Same |
 | MOI Website | Old copy at moi-website.vercel.app | Done: deleted on 14 October 2026 (the address answers 404) | Delete the project. Keep this item open until the site stops answering |
 | Dataroom | Second static data room, sarva-dataroom.vercel.app | Done: deleted on 14 October 2026 (the address answers 404) | Delete the project. Keep this item open until the site stops answering |
@@ -39,7 +39,7 @@ Not part of this: the Points Program project is on the points@moinetwork.io acco
 Adithya created the Launchpad bot @moinetworkbot from his Telegram account in BotFather. Ownership moves inside BotFather, and the token and the chat id stay the same, so nothing in the app changes.
 
 1. The receiving account (DevOps, or a company Telegram account) opens the bot and sends it a message, so Telegram knows it. It must not have the bot blocked.
-2. Adithya's account needs two-step verification switched on for at least 7 days before the transfer, with the password unchanged. The Telegram session the transfer is made from has to be at least 24 hours old.
+2. Adithya's account needs two-step verification switched on for at least 7 days before the transfer, with the password unchanged. The Telegram session the transfer is made from has to be at least 24 hours old. On 14 October the transfer to Rahul Lenkala was started and Telegram refused it under the 7-day rule; Adithya retries once Telegram allows, and until then the bot is still on his Telegram account.
 3. In BotFather: /mybots, the bot, Transfer Ownership, choose the recipient, confirm. It cannot be undone.
 4. The bot keeps running: the token in the GitHub secret stays valid and the **webhook** (the address Telegram posts the bot's new messages to) stays set. The new owner can later regenerate the token in BotFather. If they do, update TELEGRAM_BOT_TOKEN in the Launchpad's Actions secrets and run the webhook setup again, or messages stop arriving.
 5. The alert chat: add the new owner's account to it. The chat id in ADMIN_ALERT_TELEGRAM_CHAT_ID does not change.
@@ -62,17 +62,17 @@ Groq: no company-owned Groq key exists. The key the Launchpad server uses is not
 | Dataroom | Anthropic and OpenAI keys: no company account holds them, and the keys now set are not company keys; the next owner creates company keys |
 | Points Program | Settled 13 October: the Google OAuth client, X developer app (paid), Discord app and bot, Telegram bot, Reown project and Resend account are all under sarvalabsdeveloper@gmail.com. Their secrets are in GitHub |
 | Agent Explorer | Server devnet wallet, Reown project, Pinata account, the GitHub token used for images |
-| Moinkee NFT Minter | Vercel project deleted on 14 October 2026. The Pinata account is Adithya's (see above and OTHER-PROJECTS.md) |
+| Moinkee NFT Minter | Vercel project deleted on 14 October 2026. The Pinata files are pinned in the company account since 14 October (see above and OTHER-PROJECTS.md) |
 | Contextual Compute website | Settled 14 October 2026: the Vercel project is on the sarvalabsdeveloper@gmail.com Vercel account, the domain (Namecheap, renews by 2027-03-28) and the Cloudflare zone are company-owned. The join form's webhook is not set, so sign-ups are discarded (see OTHER-PROJECTS.md) |
 | Shared | Luma, Riverside, Google Meet and YouTube: Vardan holds them per ENV-VARS.md; confirm the account. Settled: Chandra owns the Buffer organisation; Vardan has Mailchimp access |
 
 ## Open items
 
-- The Moinkee, Agent dating and MOI Sprint repos and the Pinata move: steps in OTHER-PROJECTS.md.
-
+- The Moinkee, Agent dating and MOI Sprint repos and the Pinata move are done (14 October 2026); the steps are kept in OTHER-PROJECTS.md.
 - Done 14 October 2026: agent-dating, moinkee-nft-minter, moisprint and contextual-compute-foundation-website moved to the sarvalabs organisation (tSwapper stays on Adithya's account).
 - Where the MOI Website is deployed. MOI-WEBSITE.md describes a VM; the MOI Website row above says Cloudflare Pages. Neither is verified; ask DevOps (Srikar).
 - Who holds the Luma, Riverside, Google Meet and YouTube accounts: ENV-VARS.md says Vardan; confirm.
 - Done 14 October 2026: moi-website.vercel.app, moinkee-nft-minter.vercel.app, moisprint.vercel.app and sarva-dataroom.vercel.app were all deleted (404).
 - Whose account holds the Launchpad's Groq key, and who holds the Agent Explorer accounts: not recorded.
-- Agent Explorer deploys are broken: its GH_TOKEN Actions secret (set 31 July) is refused by GHCR, so the 7 October and 14 October deploys failed at "Login to GHCR". PR #6 (deprecated agents hidden, never auto-verified) is merged but not live until DevOps (Upendhar) replaces GH_TOKEN with a token that has write:packages and re-runs the deploy.
+- Telegram bot @moinetworkbot: still on Adithya's Telegram account; Telegram refused the transfer to Rahul Lenkala on 14 October (7-day rule), so Adithya retries once Telegram allows.
+- Agent Explorer deploys are broken: its GH_TOKEN Actions secret (set 31 July) is refused by GHCR, so the 7 October and 14 October deploys failed at "Login to GHCR". PR #6 (deprecated agents hidden, never auto-verified) is merged (aa9488c6) but not live: the live site is a build from 8 October, deployed by hand, and 70 deprecated agents still show as verified until the deploy runs. Upendhar has been asked to replace GH_TOKEN with a token that has write:packages and re-run the deploy.

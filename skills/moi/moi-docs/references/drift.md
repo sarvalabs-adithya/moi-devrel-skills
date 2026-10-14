@@ -58,5 +58,5 @@ Other findings from the same day:
 
 ## Not yet known
 - Whether anyone wants this as a routine, and its cadence. ASK: Rahul.
-- Whether #150 (js-moi-sdk) and #127 (moidocs) have merged since 2026-10-13. #124, #5 and #12 had merged by then; the machine layer changes what the build and the lint can check.
+- Whether #127 (moidocs) has merged since 2026-10-14. #124, #5, #12 and #150 (js-moi-sdk, 2026-10-14) had merged by then; the machine layer changes what the build and the lint can check.
 - The right replacement for the dead genesis link; whether the four newer moidocs tutorials should get `HowToSchema`, `image` and in-band descriptions now or in a follow-up (the #124 body leaves four such pages "as-is here for a small follow-up"). ASK: Rahul.

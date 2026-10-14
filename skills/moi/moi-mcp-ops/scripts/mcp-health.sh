@@ -11,8 +11,8 @@
 #   --github             also read the public GitHub state of sarvalabs/moi-mcp: open chain-canary and
 #                        upstream-release issues, and the latest scheduled canary and watch runs.
 #                        No credential is sent, so GitHub allows about 60 such requests an hour.
-#   --expect-write N     tools the write gateway should list (default 13, the count live on 2026-10-03)
-#   --expect-read N      tools the read gateway should list (default 6, the count live on 2026-10-03)
+#   --expect-write N     tools the write gateway should list (default 33, the count live since 2026-10-14)
+#   --expect-read N      tools the read gateway should list (default 43, the count live since 2026-10-14)
 #   --timeout SECONDS    per request, 1 to 60 (default 15)
 #   --selftest           check the secret masking and the host rule on strings built at run time; no network
 #   -h, --help
@@ -595,8 +595,8 @@ def build_parser():
     ap.add_argument("--no-read", action="store_true")
     ap.add_argument("--no-rpc", action="store_true")
     ap.add_argument("--github", action="store_true")
-    ap.add_argument("--expect-write", type=int, default=13)
-    ap.add_argument("--expect-read", type=int, default=6)
+    ap.add_argument("--expect-write", type=int, default=33)
+    ap.add_argument("--expect-read", type=int, default=43)
     ap.add_argument("--timeout", type=int, default=15)
     ap.add_argument("--selftest", action="store_true")
     return ap

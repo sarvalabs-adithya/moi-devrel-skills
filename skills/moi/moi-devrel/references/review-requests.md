@@ -6,7 +6,7 @@ Facts are as of 2026-10-02 (the date of the evidence), including pull request st
 | Reviewer | Reviews | Seen |
 |---|---|---|
 | Rahul | Public pieces: decks, blog posts, docs scope. The whole standards package before anything is filed upstream (agreed 2026-09-09). Title not recorded | Changes requested on moidocs #124, 2026-09-17 |
-| Gokul | Code. "Every code change goes through Gokul's review" (the x402 package). SDK, Voyage and docs PRs | Review requested on moidocs #124, js-moi-sdk #150, voyage #447 |
+| Gokul | Code. "Every code change goes through Gokul's review" (the x402 package). SDK, Voyage and docs PRs | Review requested on moidocs #124 (merged 13 October 2026), js-moi-sdk #150 (merged 14 October by Gokul, live) and voyage #447 (merged 14 October by Gokul, not live) |
 | Robert Špendl | Coco and its docs | Approved coco-docs #12 on 2026-09-29 |
 | Vinay | js-moi-sdk and Voyage pull requests (`people-and-teams.md`) | not seen |
 Who has merge rights and who must approve each repo is not recorded. ASK: Rahul.
@@ -51,5 +51,5 @@ Messages and comments on a CASA or x402 pull request are public. `moi-standards-
 ## Not yet known
 - Merge rights and required approvals per repo. ASK: Rahul.
 - The form of Rahul's clearance on the standards package and what else he approves formally. ASK: Rahul.
-- Whether Gokul has reviewed moidocs #124, and how fast reviewers answer. ASK: Gokul.
+- How fast reviewers answer. moidocs #124 merged on 13 October 2026; the answer to Rahul's change request is still not recorded. ASK: Gokul.
 - The standard behind the 2026-09-10 announcement dispute: not recorded (the previous DevRel's notes); ASK: Rahul.

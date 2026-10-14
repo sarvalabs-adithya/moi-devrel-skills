@@ -99,7 +99,7 @@ Nothing below happens without the operator's explicit yes in this conversation.
 
 ## Keys and access
 Names only. Where each lives: `moi-devrel/references/keys-and-access.md`. The rows below are not in that file yet, so each is an ASK.
-- The Sprint site (it runs on Vercel, as of 2026-10-03): the Vercel project, its environment variables and the wallet that deployed its on-chain logic. The names are not recorded (the previous DevRel's notes); ASK: Rahul. <!-- slop-lint: ignore -->
+- The Sprint site (it ran on Vercel as of 2026-10-03; the project was deleted on 2026-10-14): the Vercel project, its environment variables and the wallet that deployed its on-chain logic. The names are not recorded (the previous DevRel's notes); ASK: Rahul. <!-- slop-lint: ignore -->
 - The scaffold's `.env.example` names `RPC_URL`, `POOL_OWNER_MNEMONIC` and `POOL_OWNER_ADDRESS`. The Forge demo reads `ADMIN_MNEMONIC`, `MOI_RPC_URL`, `TOKEN_NAME` and `TOKEN_SYMBOL`. Each is a student's or presenter's own.
 - The Discord server admin and mentor roles, the Telegram announcement channel, the WhatsApp group admin. ASK: Rahul, Sai Kiran.
 - The owner of the content-bounty sheet, and the Google account behind the forms and Meet. ASK: Rahul.

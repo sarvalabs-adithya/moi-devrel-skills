@@ -41,7 +41,7 @@ GEO signals in step 4: a definition in the first paragraph that stands alone; qu
   In the files read, Level 1, the API catalog, Link headers and the Skills Index exist, and no file for the rest was found. Whether the checklist still reads this way is unknown.
 
 ## What the September sweep found and scored
-Scores are SEO, GEO and AEO out of 10, reported to Rahul on 2026-09-10 and describing the fixed branches. The "after" scores for docs.moi.technology and moi.technology were recorded as "so far". On 2026-10-03 the live sites still showed the before state (`the-layer.md`); since then #5, #12 and #57 (2026-10-05) and #124 (2026-10-13) merged, so four of the five properties now serve the fixed state and js-moi-sdk (#150, open) does not. Re-run the baseline before you quote a score as current.
+Scores are SEO, GEO and AEO out of 10, reported to Rahul on 2026-09-10 and describing the fixed branches. The "after" scores for docs.moi.technology and moi.technology were recorded as "so far". On 2026-10-03 the live sites still showed the before state (`the-layer.md`); since then #5, #12 and #57 (2026-10-05) and #124 (2026-10-13) merged, so four of the five properties served the fixed state on 2026-10-13, and js-moi-sdk (#150, merged and live 2026-10-14) does now; the Voyage app (#447, merged 2026-10-14) does not until it is deployed. Re-run the baseline before you quote a score as current.
 | Property | Before | After |
 |---|---|---|
 | docs.moi.technology | 3 / 4 / 3 | 8.5 / 9 / 8.5 |

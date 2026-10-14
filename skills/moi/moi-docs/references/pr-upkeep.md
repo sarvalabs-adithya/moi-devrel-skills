@@ -1,6 +1,6 @@
 # Open a docs pull request and keep it current
 
-A docs PR can stay open for weeks: the sweep PRs were opened between 2026-09-09 and 2026-09-14 and were still open on 2026-10-02. Voyage-docs #5 and coco-docs #12 merged on 2026-10-05 and moidocs #124 on 2026-10-13; js-moi-sdk #150 and moidocs #127 are open (read 2026-10-13). Facts are as of 2026-10-03 unless a line says otherwise. Commit and PR mechanics are `moi-devrel/ship`; the rules on identity and consent are `moi-devrel/references/consent-and-identity.md`. This file is what is specific to docs. `$SKILLS`, "the operator" and `ASK:` are defined in `moi-devrel/SKILL.md`. Back to `../SKILL.md`.
+A docs PR can stay open for weeks: the sweep PRs were opened between 2026-09-09 and 2026-09-14 and were still open on 2026-10-02. Voyage-docs #5 and coco-docs #12 merged on 2026-10-05 and moidocs #124 on 2026-10-13; js-moi-sdk #150 merged on 2026-10-14 (by Gokul) and voyage #447 the same day; moidocs #127 is open, waiting for Rahul's approval. Facts are as of 2026-10-03 unless a line says otherwise. Commit and PR mechanics are `moi-devrel/ship`; the rules on identity and consent are `moi-devrel/references/consent-and-identity.md`. This file is what is specific to docs. `$SKILLS`, "the operator" and `ASK:` are defined in `moi-devrel/SKILL.md`. Back to `../SKILL.md`.
 
 ## The sweep pull requests (state of 2026-10-02 from `gh pr view`, with the merges of 2026-10-13 added)
 | PR | State | Review | Check |
@@ -8,10 +8,10 @@ A docs PR can stay open for weeks: the sweep PRs were opened between 2026-09-09 
 | moidocs #124, "SEO/GEO/AEO pass" (52 files, +1083 -135, 33 commits ahead of `main` at the last fetch) | merged 2026-10-13 | Before the merge Rahul requested changes on 2026-09-17; commit `75f608b` met the request and nobody replied. Gokul requested | Cloudflare Pages green |
 | coco-docs #12, "GEO overhaul" (65 files) | merged 2026-10-05 | Robert Špendl approved on 2026-09-29 | Pages green |
 | voyage-docs #5 (21 files) | merged 2026-10-05 | none recorded | Pages green |
-| js-moi-sdk #150 (40 files, 22,549 added lines, mostly generated), from the previous DevRel's fork (sarvalabs-adithya) | open (2026-10-13) | Gokul requested | "Run Tests" green; no preview exists |
-| voyage #447 (7 files; the explorer app, not a docs site) | open | Gokul requested | no checks |
+| js-moi-sdk #150 (40 files, 22,549 added lines, mostly generated), from the previous DevRel's fork (sarvalabs-adithya) | merged 2026-10-14 by Gokul, live | Gokul requested | "Run Tests" green; no preview existed |
+| voyage #447 (7 files; the explorer app, not a docs site) | merged 2026-10-14 by Gokul, not live (the Voyage team deploys) | Gokul requested | no checks |
 | moidocs #116 (the `context_hash` rename, Abhinav Agarwalla) | open since July | unknown | unknown |
-| moidocs #127 (the skills index to Coco 0.9.3) | open (2026-10-13) | needs review | unknown |
+| moidocs #127 (the skills index to Coco 0.9.3) | open (2026-10-14), waiting for Rahul's approval | needs review | unknown |
 Read the current state before you act on this table (`gh pr view <N> --repo sarvalabs/<repo> --json state,reviews,mergedAt`).
 
 ## The loop
@@ -31,7 +31,7 @@ GATE marks a step that needs the operator's yes.
 | 11 | After merge | Open the live page. Config, robots or `.well-known` changes: the post-merge steps in `geo/references/after-merge.md`. Delete the backup branches | The live page shows the change |
 
 ## Stale bodies
-Three of five bodies were stale on 2026-10-02: moidocs #124 and voyage-docs #5 say each AI crawler is listed in `robots.txt` (the file now holds one group for all crawlers, commit `7d58640`, 2026-10-01), and js-moi-sdk #150 says it adds `docs/DOCS-GEO-STANDARD.md` (retired, commit `2c6c861`). Before a PR is shown to anyone, search the body for each claim and check it against the diff. A reviewer who reads a wrong body distrusts the rest. #124 and #5 have merged since; check the body of #150, the one that is still open, against the same two claims.
+Three of five bodies were stale on 2026-10-02: moidocs #124 and voyage-docs #5 say each AI crawler is listed in `robots.txt` (the file now holds one group for all crawlers, commit `7d58640`, 2026-10-01), and js-moi-sdk #150 says it adds `docs/DOCS-GEO-STANDARD.md` (retired, commit `2c6c861`). Before a PR is shown to anyone, search the body for each claim and check it against the diff. A reviewer who reads a wrong body distrusts the rest. #124, #5 and #150 have merged since, so the bodies are history; check the body of any PR still open against the same two claims.
 
 ## Merge order and neighbours
 - Merge order is moot: the website PR #57 in `sarvalabs/MOI-Website` merged on 2026-10-05 and moidocs #124 on 2026-10-13. The site links to a file that #124 creates, so that link could not resolve in between (inferred; the merge order is not recorded in the handover docs).
@@ -46,5 +46,5 @@ Commit messages and PR descriptions carry no `Co-Authored-By` line naming Claude
 
 ## Not yet known
 - Why the pushes were staggered. Not recorded (the previous DevRel's notes); ASK: Rahul.
-- Whether #150 and #127 have merged since 2026-10-13, and who merges each. ASK: Rahul.
+- Whether #127 has merged since 2026-10-14, and who merges it. ASK: Rahul. (#150 merged on 2026-10-14.)
 - Whether you push to a fork or to the org repo. #124, #5 and #12 were pushed to the org repos (the `geo-fixes` branch exists on each remote); #150 and #447 came from forks. ASK: Rahul.

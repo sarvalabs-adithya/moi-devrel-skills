@@ -59,7 +59,7 @@ Sources under `session-8-policies/` and `x402-compat/` in `moi-foundation/MOI-We
 | x402 | A standard for paying over HTTP 402: an agent meets a resource that needs payment, pays, and receives it with nobody approving each step. For MOI, "x402 compatible" means a CASA namespace, a scheme specification and a TypeScript mechanism package, and nothing had been filed upstream as of 2026-10-02. | `x402-compat/x402.md` and `UPSTREAM.md` in moi-foundation/MOI-Webinars |
 | Facilitator | In x402, the service that verifies a payment and settles it on chain for the seller. A facilitator must read the receipt status, because a refused transfer still has a hash. | `x402-compat/review-package/PR-2-x402-scheme-spec/` |
 | CAIP-2 and CASA | CAIP-2 is the standard way to identify a chain or network. CASA is the Chain Agnostic Standards Alliance (chainagnostic.org, 2026-10-03), whose repository `ChainAgnostic/namespaces` holds one profile per namespace. MOI's draft profile is the namespace `moi`, and it was not yet filed on 2026-10-02. | `x402-compat/review-package/PR-1-CASA-namespaces-moi/` |
-| GEO | Generative engine optimization: making content easy for AI answer engines to read and cite. MOI measures it monthly and fixes it in the docs sites. | `DOCS-STYLE-GUIDE.md` in `sarvalabs/moidocs` (committed in PR #124, still open on 2026-10-02) |
+| GEO | Generative engine optimization: making content easy for AI answer engines to read and cite. MOI measures it monthly and fixes it in the docs sites. | `DOCS-STYLE-GUIDE.md` in `sarvalabs/moidocs` (committed in PR #124, merged on 13 October 2026) |
 
 ## Not yet defined here
 Each of these appears in the sources without a definition. ASK before you explain it to anyone.

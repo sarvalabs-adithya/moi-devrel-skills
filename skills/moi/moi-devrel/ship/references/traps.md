@@ -29,7 +29,7 @@ Facts are as of 2026-10-03; each row carries its own date. Read the group that m
 | Name the files you add. No `git add -A` | 2026-06-08: a call transcript was committed and scrubbed from history. An untracked env file sits in many working copies |
 | Branch from `origin/<base>` after a fetch, with `--no-track` | Without `--no-track` the new branch's upstream is the base (tested) |
 | A push to a fork deploys nothing | The Launchpad deploys from `sarvalabs/moi-agent-launchpad` `master`, not from a fork (corrected 2026-09-29) |
-| Check the PR base. Points deploys from `feature/ci-cd`, and `main` has not moved since 2026-08-03 | `repo-map.md`. A PR to `main` there would not deploy: the workflow triggers only on `feature/ci-cd` (read 2026-10-03). `voyage` is the reverse: it deploys from `develop`, and its open PR #447 targets `main` (as of 2026-10-01). ASK: Gokul |
+| Check the PR base. Points deploys from `feature/ci-cd`, and `main` has not moved since 2026-08-03 | `repo-map.md`. A PR to `main` there would not deploy: the workflow triggers only on `feature/ci-cd` (read 2026-10-03). `voyage` is the reverse: it deploys from `develop`, and its PR #447 targeted `main` (as of 2026-10-01; merged 14 October 2026, not live). ASK: Gokul |
 | Keep generated files out of docs commits | The docs sites generate `llms.txt` and schema at build; `js-moi-sdk` keeps its own in `docs/source/_extra/` |
 | A claim ledger, review package or test log with account names stays out of a public repo | Hide the folder (`branch-and-commit.md`, section 4). The public repos are listed there |
 | Do not copy a stale README's deploy text into a PR | Several READMEs and `AGENTS.md` files still describe a host MOI left. `repo-map.md` is the map |

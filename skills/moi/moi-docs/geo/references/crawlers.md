@@ -41,8 +41,8 @@ The style guide's list of crawlers it wanted allowed: GPTBot, ChatGPT-User, OAI-
 ## Where the other sites stand
 | Site | Robots today | Notes |
 |---|---|---|
-| docs, voyage-docs, coco-docs, js-moi-sdk docs | One `*` group with the signal, on `main` since the merges. Live on 2026-10-03, before the merges: no file on docs or voyage-docs, Cloudflare's text only on cocolang.dev, an HTML page on js-moi-sdk (#150 is still open) | Merge state: `the-layer.md` |
-| Voyage app | `next-sitemap.config.js` builds one group per crawler (14 names, including `*`), each repeating `Disallow: /admin/` and `/setting/`, and no `Content-Signal`. A named group must repeat the private paths, which is why it is built this way | Live file names `voyage.ai` as host and sitemap until PR #447 merges |
+| docs, voyage-docs, coco-docs, js-moi-sdk docs | One `*` group with the signal, on `main` since the merges. Live on 2026-10-03, before the merges: no file on docs or voyage-docs, Cloudflare's text only on cocolang.dev, an HTML page on js-moi-sdk (#150 merged on 2026-10-14) | Merge state: `the-layer.md` |
+| Voyage app | `next-sitemap.config.js` builds one group per crawler (14 names, including `*`), each repeating `Disallow: /admin/` and `/setting/`, and no `Content-Signal`. A named group must repeat the private paths, which is why it is built this way | Live file names `voyage.ai` as host and sitemap until the merged PR #447 (2026-10-14) is deployed |
 | moi.technology and blog.moi.technology | Seven groups, one per crawler, no `Content-Signal` (read live 2026-10-03). PR #57 (merged 2026-10-05) replaces the website file with the single group and signal; the reading is from before the merge | The apex file also lists the blog's sitemap, because a sitemap cannot list another host's addresses |
 | cocolang.dev | The live file is a 24-line comment block from Cloudflare, with no group and no `Content-Signal` line (read 2026-10-03). Whether Cloudflare adds its text on top of the repo's file after the merge is unknown | ASK: Rahul, who can read the zone's settings |
 
