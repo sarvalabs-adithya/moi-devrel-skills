@@ -27,7 +27,7 @@ Rules that hold everywhere:
 | BotFather (Telegram) | Bot tokens and usernames | Telegram, @BotFather, /mybots | Launchpad bot: Rahul Lenkala's Telegram account (@p2pbuddy) since 14 October. Points bot and the blog channel bot: the sarvalabsdeveloper@gmail.com account |
 | Reown (WalletConnect) | Project ids for wallet pairing (Reown runs the relay that connects a phone wallet to a site) | cloud.reown.com, the project, Project ID | Launchpad, MCP, Points: the sarvalabsdeveloper@gmail.com account |
 | Resend | Sign-in emails for Points | resend.com, API keys; domain moi.technology verified | The sarvalabsdeveloper@gmail.com account |
-| Groq console | The Launchpad server's own key | console.groq.com/keys | No company account exists. The key now set is not a company key; the next owner creates a company key before relying on it |
+| Groq console | The Launchpad server's old key, no longer used | console.groq.com/keys | Not needed: every agent uses its owner's own key |
 | Anthropic console, OpenAI platform | Chat and embedding keys for the website and the Dataroom | console.anthropic.com, platform.openai.com | No company account exists. The keys now set for the website and the Dataroom are not company keys; the next owner creates company keys before relying on them |
 | **Buffer** | A social media scheduling service; the owner creates API keys | publish.buffer.com | Chandra |
 | Mailchimp | The monthly newsletter | mailchimp.com | Vardan |
@@ -47,7 +47,7 @@ Repo sarvalabs/moi-agent-launchpad. Values live in that repo's Actions secrets a
 | SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY | Variable, secret | The database, server side only | Supabase, company organisation, the project, Settings, API | Set; written to the VM |
 | SESSION_SECRET | Secret | Signs the session cookie; the Telegram **webhook** secret derives from it when that is unset (a webhook is the address Telegram posts new messages to) | openssl rand -hex 32 | Set; written to the VM |
 | AGENT_KEY_ENCRYPTION_SECRET | Secret | Encrypts every stored agent key. Never generate a new one | The VM env file, through DevOps | Set; written to the VM |
-| GROQ_API_KEY | Secret | The server's own key, first in the LLM fallback order (the order the app tries the model providers in: Groq, then Gemini, then OpenAI) | console.groq.com | Set; written to the VM |
+| GROQ_API_KEY | Secret | Not used: the server's shared free tier was retired, and every agent runs on its owner's own key | console.groq.com | Still set, nothing reads it |
 | GEMINI_API_KEY, OPENAI_API_KEY | Secret | Second and third in the LLM fallback order | Google AI Studio, platform.openai.com | Not passed by the deploy; unset in production |
 | TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_USERNAME, TELEGRAM_WEBHOOK_SECRET | Secret, variable, secret | The bot, its username, the webhook check. After changing the webhook secret run setWebhook again | BotFather; the secret with openssl rand -hex 20 | Set; written to the VM |
 | ADMIN_ALERT_TELEGRAM_CHAT_ID | Secret | The alert chat | The chat id, from the bot | Read by deploy.yml but not in the repo's secrets list (checked 14 October 2026): either an org-level secret (only org admins can see those) or the VM gets an empty value. Confirm with DevOps |
@@ -153,7 +153,7 @@ There is no app, and one key: BUFFER_API_KEY, for the Buffer script that schedul
 ## Open items
 
 - No shared vault holds any production secret. This is open on every product.
-- No company Groq, Anthropic or OpenAI account exists. The keys now set (Launchpad Groq; website and Dataroom Anthropic and OpenAI) are not company keys. The next owner creates company keys.
+- No company Anthropic or OpenAI account exists. The keys now set for the website and the Dataroom are not company keys. (The Launchpad's Groq key is no longer used.) The next owner creates company keys.
 - Pinata: the Moinkee files are pinned in the company account (sarvalabsdeveloper@gmail.com) since 14 October 2026. The Launchpad bot was transferred in BotFather to Rahul Lenkala on 14 October. The npm package has no owner yet: Rahul decides the name and the account.
 - Agent Launchpad: confirm ADMIN_ALERT_TELEGRAM_CHAT_ID and MOI_PLATFORM_MNEMONIC with DevOps (read by deploy.yml, not in the repo's secrets list). After the next devnet reset, create the MOI_AGENT_REGISTRY_LOGIC_ID variable or change the constant in lib/moi/registry.ts.
 - Points Program: create the MOI_RPC_URL Actions variable, then run the deploy. Remove SOCIAL_AUDIT_BATCH_SIZE and its line in deploy.yml. Pass CLIENT_IP_HEADER so the per-address limit works.

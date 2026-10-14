@@ -32,7 +32,7 @@ Type: S is an Actions secret, V an Actions variable, B baked at build, N means `
 | `TELEGRAM_BOT_USERNAME` | V | Deep links (`moinetworkbot`) | Link buttons break | free |
 | `TELEGRAM_WEBHOOK_SECRET` | S | Must equal the `secret_token` given to `setWebhook` | Telegram stops delivering, with no error | **step**: the webhook runbook below |
 | `ADMIN_ALERT_TELEGRAM_CHAT_ID` | S | Where admin alerts go | Alerts are only logged | free. Like the platform mnemonic, not in the repo's secrets list: confirm with Upendhar |
-| `GROQ_API_KEY` | S | Internal model calls only. Users bring their own key | Internal paths fail | free. No company Groq key exists (October 2026): the next owner creates one at console.groq.com and replaces the value |
+| `GROQ_API_KEY` | S | Not used since the shared free tier was retired (the relay LLM route answers before calling a model). Users bring their own key | Nothing | Still set; can be deleted |
 | `GLOBAL_DAILY_SPEND_CAP_CENTS` | V | Daily platform spend cap (500 in the research) | Lower trips the kill switch sooner. Do not delete the variable: `deploy.yml` would write an empty value, and the code reads `?? 500`, which does not treat an empty string as unset (inferred from `lib/limits.ts`, untested) | free |
 | `CRON_SECRET` | S | Bearer token for `/api/cron/cleanup` | Manual cleanup is refused | free |
 | `INBOX_WAIT_MS` | fixed | `deploy.yml` writes 20000 itself | Long polls could outlast nginx | A `deploy.yml` edit |
@@ -95,6 +95,6 @@ The filter matters: the raw answer can include the IP address of the server, whi
 
 ## Not yet known
 - Who can edit secrets today (the admin list), and whether any value exists outside GitHub and the VM file. ASK: Rahul, Upendhar.
-- Which logins are company-owned: Supabase is (company organisation, 8 October 2026); the Reown projects sit under sarvalabsdeveloper@gmail.com; the BotFather bot is on Rahul Lenkala's Telegram account (2026-10-14); no company Groq key exists. Anything else: ASK: Rahul.
+- Which logins are company-owned: Supabase is (company organisation, 8 October 2026); the Reown projects sit under sarvalabsdeveloper@gmail.com; the BotFather bot is on Rahul Lenkala's Telegram account (2026-10-14). Anything else: ASK: Rahul.
 - Whether `TELEGRAM_WEBHOOK_SECRET` is set in Actions today (`gh secret list` shows names only). If it is not, the webhook secret derives from `SESSION_SECRET`.
 - How the kill switch row is reset by hand. The code keys it by UTC day, so it ends at midnight UTC; a manual reset is not on record, and raising `GLOBAL_DAILY_SPEND_CAP_CENTS` does not lift a flag already set for the day (`lib/guardrails.ts` checks `killed` first). Not recorded (the previous DevRel's notes); ASK: Rahul.

@@ -19,7 +19,7 @@ The Launchpad is the web app at launchpad.moi.technology where anyone can launch
 | Wallet sign-in | The wallet signs a one-time code, the server issues a session cookie. WalletConnect adds the phone QR sign-in (PR #32; PR #33 lets it work even when the wallet extension is installed, merged 13 October) |
 | Telegram through grammy (a Telegram bot library) | @moinetworkbot, the webhook route and account linking. The bot itself is created and managed in **BotFather** (Telegram's own bot for making bots), on Rahul Lenkala's Telegram account since 14 October 2026: that is where the token is reissued |
 | Agent runtime | agent-runtime/index.ts bundled into public/runtime.cjs. Users download it and run it themselves; it polls the relay routes. Twelve templates in lib/templates |
-| AI keys | Each agent uses its owner's own key (Groq, Google or OpenAI). The server's Groq key serves internal paths only |
+| AI keys | Each agent uses its owner's own key (Groq, Google or OpenAI). The server holds no key in use: its shared free tier was retired |
 | Docker + GitHub Actions + GHCR + Teleport | One container behind nginx on the DevOps box. Merging to master builds and deploys |
 | Cleanup | Runs inside the app every six hours. The cron route guarded by CRON_SECRET is only the manual trigger |
 | vitest | 28 test files. The atomicity tests need a database |
@@ -55,9 +55,9 @@ Where they live: production values are GitHub Actions secrets and variables on s
 | TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_USERNAME, TELEGRAM_WEBHOOK_SECRET, ADMIN_ALERT_TELEGRAM_CHAT_ID | The bot, its webhook and the alert chat. After changing the webhook secret, run setWebhook again or messages stop. Unset, the secret is derived from SESSION_SECRET, so rotating that one would stop Telegram too | BotFather; the secret with openssl rand -hex 20 |
 | MOI_AGENT_REGISTRY_LOGIC_ID | The agent registry. The one value that changes after a devnet reset. As of October 2026 no Actions variable exists, so the code default in lib/moi/registry.ts runs; deploy.yml already reads the name, so create the variable at the next reset | Protocol team (Gokul) |
 | MOI_AGENT_MARKET_LOGIC_ID | The AgentMarket contract. deploy.yml does not pass it yet | Printed by contracts/agent_market/deploy.mjs |
-| MOI_REGISTRATION_MNEMONIC_1, _2, _3, or MOI_REGISTRATION_API_URL and MOI_REGISTRATION_API_KEY | The wallets that activate new users (the API pair is not in use) | DevOps. Never copy them around |
-| GROQ_API_KEY | The server's own key, internal paths only. Not a company key: no company-owned Groq key exists as of October 2026, so create one before relying on this | console.groq.com |
-| GEMINI_API_KEY, OPENAI_API_KEY | Second and third in the LLM fallback order. Not passed by the deploy, so unset in production | Google AI Studio, platform.openai.com |
+| MOI_REGISTRATION_MNEMONIC_1, _2, _3 | The fallback for activating a new user's wallet. Since August 2026 new users register on Voyage's own Register Participant page (the Launchpad links there, and Voyage's faucet wallets create and fund the account). The in-page activation with these three wallets stays as a fallback for when Voyage strands a user. MOI_REGISTRATION_API_URL and MOI_REGISTRATION_API_KEY (a proxy mode) are not in use | DevOps. Never copy them around |
+| GROQ_API_KEY | Not used. Every agent runs on its owner's own key; the server's shared free tier was retired, so the only route that read this key now answers with an error before calling a model. Still set in Actions | console.groq.com |
+| GEMINI_API_KEY, OPENAI_API_KEY | Not used (same retired route). Not passed by the deploy either | |
 | CRON_SECRET | The manual cleanup trigger | Generate with: openssl rand -hex 32 |
 | INBOX_WAIT_MS, GLOBAL_DAILY_SPEND_CAP_CENTS | The inbox long-poll window (20000, written in deploy.yml) and the daily spend cap (an Actions variable, 500; an empty value reads as zero, so never blank it) | |
 | NEXT_PUBLIC_MOI_EXPLORER_URL, NEXT_PUBLIC_WALLET_INSTALL_URL | Explorer and wallet links. Baked at build | Values in .env.example |
@@ -67,7 +67,7 @@ The example file with comments is .env.example in the repo.
 
 **What to hand over in person**
 
-- Readable only from the VM env file, through DevOps: the Supabase service-role key, AGENT_KEY_ENCRYPTION_SECRET, MOI_PLATFORM_MNEMONIC, TELEGRAM_BOT_TOKEN, GROQ_API_KEY.
+- Readable only from the VM env file, through DevOps: the Supabase service-role key, AGENT_KEY_ENCRYPTION_SECRET, MOI_PLATFORM_MNEMONIC, TELEGRAM_BOT_TOKEN.
 - Safe to rotate instead of copying: SESSION_SECRET, CRON_SECRET, TELEGRAM_WEBHOOK_SECRET.
 - Request from DevOps rather than copy: the three registration mnemonics, the Teleport and GHCR credentials, the VM host.
 
@@ -183,7 +183,7 @@ What the skill never does without a yes from DevRel: push, merge (a merge deploy
 
 - Move every secret into a shared vault. As of October 2026 the server's env file is the only readable copy.
 - The launch video folder in Drive is owned by adithya@moinetwork.io. Since 14 October it is open to anyone at moinetwork.io and Rahul is invited. If that account is ever closed, move ownership first, or the clips and edits go with it.
-- No company-owned Groq key exists as of October 2026, so the server's GROQ_API_KEY is not a company key. Create one and replace it before relying on the internal paths.
+- GROQ_API_KEY is still set in Actions but nothing uses it. Delete it, or leave it.
 - Done: the Telegram bot was transferred to Rahul Lenkala (@p2pbuddy) on 14 October, and the Supabase project on 8 October.
 - The live stats page sometimes says the registry is not answering. On 14 October that was the RPC rate limit ("Too many requests"), not a stale id: the Launchpad's registry id (0x200000002f3e9469...) is the current one, the same as the Agent Explorer's and the MCP server's. Treat the Explorer's id as the source of truth after any reset.
 - The repo's README and docs/HANDOFF.md still describe Vercel (checked 14 October 2026). Fixes for README, HANDOFF, DEPLOY.md and the two env examples were written on 1 October but never committed: they sit only in Adithya's local clone (branch local/sweep-oct1). Open a PR with them, or rewrite them from this doc.

@@ -53,7 +53,7 @@ The secrets themselves sit in each repo's GitHub Actions settings, not with Adit
 
 Not to migrate: the Points Program's Supabase project and the **AgentMarket** contract. The Points project is on the points@moinetwork.io account (managed by Sai Kiran; kept there because the company organisation is at its free-plan limit, see POINTS-PROGRAM.md), not Adithya's. It is still on the free plan with no backups, so a paid plan is worth doing when someone takes it over. The AgentMarket contract is the paid-agent marketplace contract; the current one is not in use, and whoever redeploys it does so from their own wallet.
 
-Groq: no company-owned Groq key exists. The key the Launchpad server uses is not a company key, and whose account holds it is not recorded. The next owner creates a company key at console.groq.com/keys and sets GROQ_API_KEY before relying on it.
+Groq: the Launchpad no longer uses a server key (every agent runs on its owner's own key), so nothing to migrate.
 
 ## Owner not on record: settle who holds the login
 
@@ -71,5 +71,5 @@ Groq: no company-owned Groq key exists. The key the Launchpad server uses is not
 
 - The Google Drive video folders: move ownership off adithya@moinetwork.io before that account is closed (see the table).
 - Who holds the Luma, Riverside, Google Meet and YouTube accounts: ENV-VARS.md says Vardan; confirm.
-- Whose account holds the Launchpad's Groq key, and who holds the Agent Explorer accounts (AGENT-EXPLORER.md): not recorded.
+- Who holds the Agent Explorer accounts (AGENT-EXPLORER.md): not recorded.
 - Agent Explorer deploys are broken: its GH_TOKEN Actions secret (set 31 July) is refused by GHCR, so the 7 October and 14 October deploys failed at "Login to GHCR". PR #6 (deprecated agents hidden, never auto-verified) is merged (aa9488c6) but not live: the live site is a build from 8 October, deployed by hand, and 70 deprecated agents still show as verified until the deploy runs. Upendhar has been asked to replace GH_TOKEN with a token that has write:packages and re-run the deploy.
