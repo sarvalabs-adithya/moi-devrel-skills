@@ -14,7 +14,7 @@ None of the three needs anything to keep running. Each repo's README has a "Pick
 | **Agent dating** | An OpenClaw plugin: two AI agents register on the MOI agent registry, find each other and chat through a small relay, shown live | Not hosted. The public relay was retired with its server; anyone runs their own relay (README, Pick it up) | sarvalabs/agent-dating |
 | **MOI Sprint** | A self-paced challenge track ("learn MOI by building"): two Coco challenges (Soulbound Badge, Simple Swap) and a guide site. Scratched from the handover on 13 October | Not hosted: the Vercel project was deleted on 14 October 2026 | sarvalabs/moisprint (guide site); the challenge scaffolds stay at sarvalabs-adithya/tSwapper (branch `solution` holds the answers) |
 
-| **Contextual Compute Foundation website** | A one-page site: thesis, six papers (CC0 to CC5), a join form that posts each email to a webhook | **Live** at www.contextualcompute.org (Vercel; the apex redirects to www) | sarvalabs/contextual-compute-foundation-website |
+| **Contextual Compute Foundation website** | A one-page site: thesis, six papers (CC0 to CC5), a join form that posts each email to a webhook | **Live** at www.contextualcompute.org (Vercel, on the sarvalabsdeveloper@gmail.com account; the apex redirects to www) | sarvalabs/contextual-compute-foundation-website |
 
 The Sprint's chapter text is already in moi-foundation/moi-sprint.
 
@@ -26,7 +26,7 @@ The Sprint's chapter text is already in moi-foundation/moi-sprint.
 | Vercel projects moinkee-nft-minter and moisprint | Deleted on 14 October 2026 | To bring a site back, import the repo into a company Vercel team and set its env vars (README) |
 | Pinata account (Moinkee images and metadata, 71 files, 13.6 MB) | Adithya's account today | Done 14 October 2026: all 71 CIDs are pinned in the company Pinata account (sarvalabsdeveloper@gmail.com) with identical CIDs. Adithya's account still pins them too until it is closed |
 | Moinkee minting wallet | Nobody | Nothing to move. The next owner makes a new devnet wallet and a new collection (README) |
-| Contextual Compute site: Vercel project, domain contextualcompute.org (Namecheap, registered to 2027-03-28), DNS (Cloudflare), mail forwarding (Namecheap) | Vercel: a company Vercel team (transferred from Adithya's account on 14 October 2026). Namecheap and Cloudflare: company accounts | The only one of the four still live |
+| Contextual Compute site: Vercel project, domain contextualcompute.org (Namecheap, registered to 2027-03-28), DNS (Cloudflare), mail forwarding (Namecheap) | Vercel: the sarvalabsdeveloper@gmail.com Vercel account (transferred from Adithya's account on 14 October 2026). Namecheap and Cloudflare: company accounts | The only one of the four still live |
 | Agent dating relay server | Retired | Its VPS was cancelled; the plugin no longer points at it |
 
 ## Env vars
@@ -87,7 +87,7 @@ None. The moi-devnet-reset skill lists Moinkee as one row of what a reset breaks
 - Done 14 October 2026: moinkee-nft-minter, agent-dating, moisprint and contextual-compute-foundation-website moved to sarvalabs. tSwapper was left on Adithya's account by choice.
 - Two public repos contain a committed 12-word devnet recovery phrase: moinkee-nft-minter `scripts/getTdu.mjs` and tSwapper `Swap/src/lib/logic.js` (`POOL_OWNER_MNEMONIC`). Treat both wallets as public: never fund them. Removing the lines does not remove them from history.
 - MOI Sprint: the guide repo's README is the unedited Next.js template, and tSwapper's `solution` branch holds the challenge answers in public. A challenge prototype (`Sprint/Challenge 1/moisprint-challenge-mas0`) existed only on Adithya's laptop and is not in any repo.
-- Contextual Compute site: confirm where `SUBSCRIBE_WEBHOOK_URL` sends sign-ups (if unset, every sign-up is thrown away). The CC3 paper shows as locked on the page but its PDF is still served at /docs/CC3.pdf. The README is the unedited Next.js template. The domain (Namecheap) and DNS (Cloudflare) are on company accounts. The Vercel project was transferred to a company Vercel team on 14 October 2026 and the site kept serving. Check its Settings, Git points at sarvalabs/contextual-compute-foundation-website (the repo moved the same day), or pushes will not deploy.
+- Contextual Compute site: confirm where `SUBSCRIBE_WEBHOOK_URL` sends sign-ups (if unset, every sign-up is thrown away). The CC3 paper shows as locked on the page but its PDF is still served at /docs/CC3.pdf. The README is the unedited Next.js template. The domain (Namecheap) and DNS (Cloudflare) are on company accounts. The Vercel project was transferred to the sarvalabsdeveloper@gmail.com Vercel account on 14 October 2026 and the site kept serving. Check its Settings, Git points at sarvalabs/contextual-compute-foundation-website (the repo moved the same day), or pushes will not deploy.
 - Leftover branches: moinkee-nft-minter (three merged handover and Claude branches) and agent-dating (seven old feature branches) can be deleted after the move.
 - Pinata: done (company account holds all 71 CIDs). Adithya's old Pinata account can be closed whenever; set `PINATA_JWT` to a company key if the Moinkee site is ever brought back.
 - The Agent Explorer also lists a Pinata account, with no key passed in production; who owns it is not recorded (ASK: Rahul).

@@ -63,7 +63,7 @@ Groq: no company-owned Groq key exists. The key the Launchpad server uses is not
 | Points Program | Settled 13 October: the Google OAuth client, X developer app (paid), Discord app and bot, Telegram bot, Reown project and Resend account are all under sarvalabsdeveloper@gmail.com. Their secrets are in GitHub |
 | Agent Explorer | Server devnet wallet, Reown project, Pinata account, the GitHub token used for images |
 | Moinkee NFT Minter | Vercel project deleted on 14 October 2026. The Pinata account is Adithya's (see above and OTHER-PROJECTS.md) |
-| Contextual Compute website | Vercel project, the domain registration (renews by 2027-03-28), the join-form webhook. The Cloudflare zone is company-owned |
+| Contextual Compute website | Settled 14 October 2026: the Vercel project is on the sarvalabsdeveloper@gmail.com Vercel account, the domain (Namecheap, renews by 2027-03-28) and the Cloudflare zone are company-owned. Still unknown: where the join-form webhook sends sign-ups |
 | Shared | Luma, Riverside, Google Meet and YouTube: Vardan holds them per ENV-VARS.md; confirm the account. Settled: Chandra owns the Buffer organisation; Vardan has Mailchimp access |
 
 ## Open items
