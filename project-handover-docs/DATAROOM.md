@@ -136,7 +136,7 @@ The Events page is off for now (decided 9 October 2026). The commit "chore: hide
 
 - Set it in GitHub, under the repo's Actions secrets and variables, then run the deploy workflow by hand. Setting a value deploys nothing on its own.
 - Values that start with NEXT_PUBLIC_ are baked in at build, so they need a rebuild, not a restart.
-- Rotating the admin secret, done on 9 October 2026: `openssl rand -hex 32 | gh secret set ADMIN_SECRET -R sarvalabs/moi-dataroom0`, then `gh workflow run "Deploy MOI Dataroom" -R sarvalabs/moi-dataroom0 --ref main`. Keep the value in the password manager; GitHub cannot show it back. Every admin browser signs in again afterwards.
+- Rotating the admin secret, done on 9 October 2026: `openssl rand -hex 32 | gh secret set ADMIN_SECRET -R sarvalabs/moi-dataroom0`, then `gh workflow run "Deploy MOI Dataroom" -R sarvalabs/moi-dataroom0 --ref main`. GitHub cannot show the value back; give the new value to Chandrasekhar, who holds it. Every admin browser signs in again afterwards.
 
 **Changing the database**
 

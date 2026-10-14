@@ -59,7 +59,7 @@ Reference: the intro session deck in skills/moi/moi-webinar/past-sessions/intro-
 7. Settings: the Actions secrets by name, and the manual deploy run after any change. Show today's run.
 8. Supabase: the company organisation (the project moved there on 8 October), the documents table, the private bucket and the **vector index** (the search index over the documents).
 9. Health: the site, an upload that indexes, and the Supabase advisors.
-10. Logins: GitHub, Supabase (company), the VM (DevOps only) and the admin secret (in the password manager).
+10. Logins: GitHub, Supabase (company), the VM (DevOps only) and the admin secret (Chandrasekhar has it).
 
 ## Open items
 
