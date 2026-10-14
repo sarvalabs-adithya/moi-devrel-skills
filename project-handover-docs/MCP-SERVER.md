@@ -28,7 +28,7 @@ The server that lets a chat assistant such as Claude use MOI. **MCP** (Model Con
 | State | None. Any number of copies can run | Sign-ins, tokens, pairings and a journal of writes, as files in the data directory. Exactly one process: two copies fight over the **WalletConnect** relay identity (WalletConnect is the open protocol that links a phone wallet to an app) |
 | Dev copies | dev-mcp-read.voyage.moi.technology | dev-mcp.voyage.moi.technology |
 
-The data directory (MOI_DATA_DIR on the VM) holds the sign-in clients and hashed tokens, the cookie secret, one pairing per user, the write journal (every write as proposed, signed, broadcast, confirmed, failed or orphaned) and WalletConnect scratch files. Losing the cookie secret or the tokens signs everyone out. Losing the pairings un-pairs every wallet. Losing the journal loses audit history only. Never delete or move it, not even during a rollback.
+The data directory (MOI_DATA_DIR, /var/lib/moi-mcp on both VMs) holds the sign-in clients and hashed tokens, the cookie secret, one pairing per user, the write journal (every write as proposed, signed, broadcast, confirmed, failed or orphaned) and WalletConnect scratch files. Losing the cookie secret or the tokens signs everyone out. Losing the pairings un-pairs every wallet. Losing the journal loses audit history only. Never delete or move it, not even during a rollback.
 
 **The tools**
 
@@ -77,7 +77,7 @@ What they cannot see: the canary tests master's code against devnet, not the hos
 | WalletConnect 2 (a Reown project id) | The phone wallet pairing and signing. The server holds no key |
 | Express 5 | Both gateways. The write gateway runs its own OAuth server for claude.ai |
 | Files in the data directory, or **Redis** (an in-memory data store; optional) | Sign-ins, tokens, pairings, the write journal |
-| **pm2** (a Node process manager) behind **nginx** (the web server) on a Voyage VM | Two processes started by the deploy workflow. nginx ends TLS, no buffering, 300 second timeouts |
+| **pm2** (a Node process manager) behind **nginx** (the web server) on a Voyage VM | Two processes started by the deploy workflow: moi-mcp-read (dist/http.js, port 8787) and moi-mcp-write (dist/server.js, port 8788), from /opt/moi-mcp. The dev VM is voyagedev, production is prod-voyage. The workflow touches only these two processes. nginx ends TLS, no buffering, 300 second timeouts |
 | GitHub Actions + Teleport, in voyage-api | The manual deploy and the PR preview |
 | vitest | Tests, 88 files. A Dockerfile exists for the read gateway; production does not use it |
 
@@ -129,10 +129,15 @@ The example file with comments is .env.example in the repo. Its default registry
 
 **Shipping a change: the sync**
 
-- In sarvalabs/voyage-api, branch from feat/moi-mcp (the earlier syncs used the branch name moi-mcp/sync-master).
-- Replace the moi-mcp/ folder with master's tree at the merged commit. [How I copy it: fill in.] Check that git diff --stat against feat/moi-mcp lists paths under moi-mcp/ only.
-- Open the PR against feat/moi-mcp, never develop. Title: chore(moi-mcp): sync subtree <date>. Body: what it brings, the settings it adds or needs, what is unverified, "Deploy: not run".
-- Opening the PR deploys a preview on the dev VM at pr-<N>-mcp.preview.voyage.moi.technology. Check it with the health script (--write-host).
+The moi-mcp/ folder in voyage-api is a **git subtree** (a copy of another repo kept inside this one, updated with git subtree pull). The steps below follow the Voyage team's gateway runbook ("MOI MCP Gateway: Development, Preview and Deployment Runbook", PDF, shared on 13 October 2026).
+
+- In sarvalabs/voyage-api, branch from feat/moi-mcp: git checkout -b feat/update-moi-mcp (or fix/... or chore/...; the earlier syncs used moi-mcp/sync-master). Never change the subtree directly on the deployment branch.
+- Add the upstream once: git remote add moi-mcp-upstream https://github.com/sarvalabs/moi-mcp.git
+- Pull master into the folder: git fetch moi-mcp-upstream, then git subtree pull --prefix=moi-mcp moi-mcp-upstream master
+- Check it: git diff --stat against feat/moi-mcp must list paths under moi-mcp/ only. Then cd moi-mcp, npm ci, npm run build; the build must pass before the PR. cd .. back to the root.
+- Commit and push: git add moi-mcp, git commit -m "chore: update moi-mcp subtree", git push -u origin feat/update-moi-mcp.
+- Open the PR against feat/moi-mcp, never develop. Title: chore(moi-mcp): sync subtree <date>. Body: what changed in moi-mcp and why, build and test results, what to test on the preview, the settings it adds or needs, what is unverified, "Deploy: not run".
+- Opening or updating the PR runs moi-mcp.preview.yml, which starts an isolated pair for that PR on the dev VM, with its own ports and pm2 processes: write https://pr-<N>-mcp.preview.voyage.moi.technology, read https://pr-<N>-mcp-read.preview.voyage.moi.technology (PR 308 used ports 10616 and 10617). Both /health answers must be 200: the read one {"ok": true, "network": "voyage", "readOnly": true}, the write one with "readOnly": false and "pairingMounted": true. Check them with the health script (--write-host), then connect the preview's /mcp address in Claude and test what the PR changed.
 - Get a review from the Voyage side and merge. Still nothing is deployed.
 
 **Shipping a change: the deploy**
@@ -140,7 +145,7 @@ The example file with comments is .env.example in the repo. Its default registry
 - Tell the Voyage team and DevOps: what ships, when, and that it is a short outage.
 - Actions in voyage-api, "Deploy MOI MCP Gateway", Run workflow, branch feat/moi-mcp, deploy_target dev. Watch the run; its last job checks /health.
 - Run the health script against dev (--env dev). Pass the expected tool counts if the sync added tools.
-- Run the workflow again with deploy_target production.
+- Run the workflow again with deploy_target production. (deploy_target both runs dev and production in one go; use it only for a change already proven on dev.)
 - Run the health script against production, then the connector checks below for every class the change touched, reads first. A write path change needs a phone-approved write and its receipt.
 - Record: source commit, sync PR, run id, what was checked and what was not.
 - If a check fails after the deploy, roll back (below) before trying a second deploy.
