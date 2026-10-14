@@ -1,8 +1,8 @@
 # Points Program: secrets, variables and database changes
 
-Facts are as of 2026-10-02 for the repo (branch `feature/ci-cd` at `92f9c48`: `deploy.yml`, `.env.example`, `scripts/migrate.mjs`, `scripts/check-migrations.ts`, `drizzle/TRIGGERS.md`, `lib/startup.ts`, `lib/db/migrations.ts`, re-read 2026-10-03) and the research notes of that date; 2026-10-03 for the live health read. Values are never written here: names only. Where each name lives and who grants it: `moi-devrel/references/keys-and-access.md`. Back to `../GUIDE.md`.
+Updated 13 October 2026 for PR #22 and #23, the admin list and the console owners. Other facts are as of 2026-10-02 for the repo (branch `feature/ci-cd` at `92f9c48`: `deploy.yml`, `.env.example`, `scripts/migrate.mjs`, `scripts/check-migrations.ts`, `drizzle/TRIGGERS.md`, `lib/startup.ts`, `lib/db/migrations.ts`, re-read 2026-10-03) and the research notes of that date; 2026-10-03 for the live health read. Values are never written here: names only. Where each name lives and who grants it: `moi-devrel/references/keys-and-access.md`. Back to `../SKILL.md`.
 
-Points: A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin.
+Points: A security finding is open on this product as of 2026-10-02. The handover note is the Open items of `project-handover-docs/POINTS-PROGRAM.md`; read it before touching its admin.
 
 A step marked ADMIN needs the operator to confirm first that the handover note was read.
 
@@ -10,12 +10,14 @@ A step marked ADMIN needs the operator to confirm first that the handover note w
 - Settings are repository secrets and variables of `sarvalabs/moi-project` (no environments are configured). Only a repo admin can edit them; the admins on 2026-09-15 were gokul, chandra, git, adithya and upendhar. GitHub secrets cannot be read back and no shared vault exists. ASK: Rahul which vault.
 - At each deploy the non-secret variables are written into the app's `.env` on the box, rewritten from scratch each time, and the secrets are handed to the container as environment. A name that `deploy.yml` does not list never reaches the app, whatever is set in GitHub.
 - Secrets in `deploy.yml`: `DATABASE_URL`, `BETTER_AUTH_SECRET`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `CRON_SECRET`, `DISCORD_CLIENT_SECRET`, `DISCORD_BOT_TOKEN`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_WEBHOOK_SECRET`, `X_CLIENT_SECRET`, `RESEND_API_KEY`, plus `GHCR_PAT` and `TELEPORT_JOIN_TOKEN` for the pipeline.
-- Variables in `deploy.yml`: `TELEPORT_PROXY`, `VM_HOST`, `VM_USER`, `BETTER_AUTH_URL`, `X_TARGET_URL`, `MOI_NETWORK`, `VERIFICATION_WINDOW_MINUTES`, `VERIFICATION_LIMIT_PER_USER`, `VERIFICATION_LIMIT_PER_IP`, `SOCIAL_AUDIT_BATCH_SIZE`, `DISCORD_CLIENT_ID`, `DISCORD_GUILD_ID`, `DISCORD_INVITE_URL`, `TELEGRAM_BOT_USERNAME`, `TELEGRAM_CHAT_ID`, `TELEGRAM_INVITE_MODE`, `X_CLIENT_ID`, `ADMIN_EMAILS`, `REOWN_PROJECT_ID`, `EMAIL_FROM`.
-- In `.env.example` and passed by nothing: `X_TOKEN_ENCRYPTION_KEY`, `X_TOKEN_ENCRYPTION_KEY_PREVIOUS`, `CLIENT_IP_HEADER`, `DATABASE_SSL`, `PG_POOL_MAX`, `MOI_RPC_URL`, `FAUCET_*`, `NEXT_PUBLIC_SITE_URL`. Moving one into the container is a pull request that edits `deploy.yml` plus a value in GitHub.
+- Variables in `deploy.yml`: `TELEPORT_PROXY`, `VM_HOST`, `VM_USER`, `BETTER_AUTH_URL`, `X_TARGET_URL`, `MOI_NETWORK`, `VERIFICATION_WINDOW_MINUTES`, `VERIFICATION_LIMIT_PER_USER`, `VERIFICATION_LIMIT_PER_IP`, `SOCIAL_AUDIT_BATCH_SIZE`, `DISCORD_CLIENT_ID`, `DISCORD_GUILD_ID`, `DISCORD_INVITE_URL`, `TELEGRAM_BOT_USERNAME`, `TELEGRAM_CHAT_ID`, `TELEGRAM_INVITE_MODE`, `X_CLIENT_ID`, `ADMIN_EMAILS`, `REOWN_PROJECT_ID`, `EMAIL_FROM`, and, since PR #22, `MOI_RPC_URL`. `SOCIAL_AUDIT_BATCH_SIZE` is still set in GitHub and passed, but nothing reads it (the social audit job is gone): remove it with a pull request that deletes its line in `deploy.yml`, then delete the variable.
+- In `.env.example` and passed by nothing: `X_TOKEN_ENCRYPTION_KEY`, `X_TOKEN_ENCRYPTION_KEY_PREVIOUS`, `CLIENT_IP_HEADER`, `DATABASE_SSL`, `PG_POOL_MAX`, `FAUCET_*`, `NEXT_PUBLIC_SITE_URL`.
+- `MOI_RPC_URL` is passed by `deploy.yml` (PR #22) but the Actions variable is not set (13 October). Bounties work without it; with it the admin sees a chain note beside hash answers, and a code challenge needs it. The value is the devnet RPC address (`project-handover-docs/ENV-VARS.md`). Setting it is a GATE, then a redeploy. Moving one into the container is a pull request that edits `deploy.yml` plus a value in GitHub.
 - Sign-in emails need both `RESEND_API_KEY` and `EMAIL_FROM`. With only one, the app logs a warning and sends none (`lib/startup.ts`).
 - `BETTER_AUTH_URL` must be the public https address. It was `http://localhost:3000` on one failed run and `http://preview.points.moi.technology` on another, and a wrong value breaks sign-in and the health origin.
-- Each provider's callback address must match `BETTER_AUTH_URL`. The list for Google, Discord, X and the Telegram webhook is section 8 of `CICD.md`, which exists only on the branch `audit/13-ci-cd` (draft PR #15). Google rejects a raw IP address as a redirect (2026-09-15, "400: invalid_request"), so use the domain.
-- Who owns each provider app (Google, X, Discord, Telegram, Reown, Resend) is unknown. ASK: Rahul, Adithya.
+- Each provider's callback address must match `BETTER_AUTH_URL`. The list for Google, Discord, X and the Telegram webhook is section 8 of `CICD.md`, which lives on the branch of draft PR #24, not on `feature/ci-cd`. Google rejects a raw IP address as a redirect (2026-09-15, "400: invalid_request"), so use the domain.
+- The provider apps (Google, X, Discord, Telegram, Reown, Resend) are under the `sarvalabsdeveloper@gmail.com` login (`project-handover-docs/ENV-VARS.md`). ASK: Rahul for access.
+- Admin access comes only from `ADMIN_EMAILS` (the `admin_users` table was empty on 13 October). To add an admin, put their Google email into the `ADMIN_EMAILS` variable, keeping the existing ones, and redeploy. A GATE; ASK: Rahul who may be an admin.
 
 ## Run: change a secret or variable
 
@@ -29,9 +31,9 @@ A step marked ADMIN needs the operator to confirm first that the handover note w
 | 6 | VERIFY | Use it | `bash "$SKILLS/moi-web-products-ops/scripts/web-health.sh" points`, then a real sign-in and the one feature that uses the setting | It works |
 
 ## The database
-- Postgres on Supabase, through Drizzle. The production project is on the Points Program's own email account (stated by the previous operator, 2026-10-06), on the free plan with no backups. It holds every user and every point. Moving it to a company login and a paid plan is open (`DEPENDENCIES.md` ToDo 1, local to the previous operator). ASK: Rahul, Adithya.
+- Postgres on Supabase, through Drizzle. The production project is on the Points Program's own email account (stated by the previous operator, 2026-10-06), on the free plan with no backups. It holds every user and every point. Moving it to a company login and a paid plan is an open item (`project-handover-docs/POINTS-PROGRAM.md`). ASK: Rahul.
 - Eleven migrations, `0000` to `0010`, and `/api/health` shows `applied 11, expected 11` (2026-10-03).
-- Migrations are written by hand. `drizzle/TRIGGERS.md` says do not run `drizzle-kit generate` or `drizzle-kit push`: the snapshots stop at 0003 and a generated diff would try to recreate objects that exist. (`DEPENDENCIES.md` section 10 says `pnpm db:generate`; the repo file contradicts it. Follow the repo.)
+- Migrations are written by hand. `drizzle/TRIGGERS.md` says do not run `drizzle-kit generate` or `drizzle-kit push`: the snapshots stop at 0003 and a generated diff would try to recreate objects that exist. Follow the repo.
 - Triggers are part of the design: `points_ledger` is append-only; a verified completion can only move to `rejected`; a linked social account cannot be reassigned; a bound wallet cannot change except inside the erasure transaction. People with points are anonymised (`eraseUser`) and not deleted. `pnpm db:reset:*` uses `TRUNCATE`, which skips the triggers: run it on a local database only.
 
 ## Run: add a migration (the database first, then the code)
@@ -55,4 +57,4 @@ The rule at the tip (`lib/startup.ts`, `lib/db/migrations.ts`): the build counts
 
 ## Not yet known
 - The command DevOps uses to run the migration on the box (probably inside the container; inferred), and whether DevOps does it on request or needs a ticket. ASK: Upendhar.
-- Whether any schedule calls the nightly housekeeping job (the social audit on the deployed tip, a maintenance job in #21). `vercel.json` on `main` held the old schedule. ASK: Upendhar.
+- What schedules `/api/jobs/maintenance` (live, 401 without `CRON_SECRET`): nothing does today. The social audit job is gone (`/api/jobs/social-audit` answers 404). `vercel.json` on `main` held the old schedule. ASK: Upendhar.

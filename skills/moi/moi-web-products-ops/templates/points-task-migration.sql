@@ -6,7 +6,8 @@
 -- Columns are those of drizzle/0009_dev_challenges.sql: id, title, description, points, verification_type,
 -- active, sort_order, metadata. Replace each <...>. No secret belongs in this file.
 
--- Pattern A. Add a task (copy of the 0009 form for a dev challenge). Safe to run twice.
+-- Pattern A. Add a task (copy of the 0009 form for a legacy code dev challenge, the session 8 style; a webinar
+-- bounty needs no migration, see references/points-tasks.md). Safe to run twice.
 INSERT INTO "tasks"
   ("id", "title", "description", "points", "verification_type", "active", "sort_order", "metadata")
 VALUES

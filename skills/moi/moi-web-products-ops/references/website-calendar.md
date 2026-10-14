@@ -1,75 +1,55 @@
-# Website: the homepage community calendar
+# Website: the next community call on the homepage (Luma)
 
-Facts are as of 2026-10-03 from `sarvalabs/MOI-Website` `main` (`5e91afa`: `src/components/CommunityCalendar.jsx`, `server/index.js`, `supabase-community-calls.sql`) and GET reads. Back to `../GUIDE.md`.
+Updated 13 October 2026 for website PR #60 (merged 13 October), which replaced the homepage calendar with a block that links to Luma. This file follows `project-handover-docs/MOI-WEBSITE.md`; where they differ, that document wins. Back to `../SKILL.md`.
 
-Website: A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin.
+Website: A security finding is open on this product as of 2026-10-02. The handover note is the Open items of `project-handover-docs/MOI-WEBSITE.md`; read it before touching its admin.
 
 A step marked ADMIN needs the operator to confirm first that the handover note was read.
 
-## How the calendar works
-- The "Community" section of the homepage shows 3 rows: it mounts the compact view with `limit={3}`, and nothing else mounts the component. (The component can also list 4 rows, expandable to 16, but no page uses that.) An event drops off one hour after it starts.
-- Rows live in the Supabase table `community_calls` and are read from `GET /api/community-calls`, which any visitor can call. The server keeps the list for 5 minutes and empties that cache on every write.
-- If that call fails, or returns an empty list, the page shows a schedule written into the code (`CommunityCalendar.jsx`). That fallback holds eight community calls at 14:00 UTC and eight "Twitter AMA" rows at 16:00 UTC from May to December 2026. The month numbers in the file are zero-based: `[9, 23]` is 23 October. It is empty after 2026-12-18.
-- The first row the database returns replaces the whole fallback, AMAs included. The table only allows the categories `dev_call`, `office_hours`, `workshop` and `announcement` (a CHECK in `supabase-community-calls.sql`), and the admin form offers the same four. So an AMA exists only in the fallback, and the first real row makes every AMA disappear. Where AMAs should live is undecided. ASK: Rahul.
+## How the block works
+- The homepage block is built from `content/community-calls.json` in `sarvalabs/MOI-Website`: `{"lumaUrl": "", "nextCall": null}` today. The file is read at build time, so a change is a pull request, a merge (which deploys) and a rebuild.
+- The block shows only when `lumaUrl` is a web link. With the empty value of 13 October the homepage shows no community section. That is correct, not a fault.
+- `nextCall` is optional: `{ "date": "YYYY-MM-DDTHH:MM:SSZ", "title": "...", "url": "https://lu.ma/..." }`. Only the date is required. A date with no time counts for that whole UTC day. If the date has passed, or `nextCall` is null, the block shows only the Luma button.
+- Luma is the event-calendar service the community calls are listed on. Its accounts are shared accounts held by Vardan (`ENV-VARS.md`), so he gives the address.
+- The old calendar still exists on the server: the Supabase table `community_calls`, the calendar admin page and the Express route `/api/community-calls`. The homepage no longer reads any of them and no longer shows the schedule that was written in code. Retiring them is an open question (below).
 
-## State on 2026-10-03
+## State on 13 October 2026
 
 | Fact | Evidence |
 |---|---|
-| The API answers 500 | The health script, fault W-K1 |
-| The browser asks the dev host, so it never sees the database even when the API works | W-K2, `website-health.md` |
-| So the homepage shows the fallback: next community call 2026-10-23 14:00 UTC with no link, next AMA 2026-10-17 16:00 UTC. These are dates in code, not confirmed events. `moi-devrel/references/calendar.md` marks call 15 as unconfirmed | Code read 2026-10-03 |
-| Zoom account that makes the meeting links: owner unknown | ASK: Rahul |
+| `lumaUrl` is empty, so the homepage shows no community section | `MOI-WEBSITE.md`, Open items |
+| `nextCall` is null. Call 15 (CC15) is expected in the last week of October and its date is not set. Do not write a date until Vardan gives it | `MOI-WEBSITE.md`; ASK: Vardan |
+| The old API answered 500 on 2026-10-03 and the health script still checks it as KNOWN fault W-K1. That does not affect the homepage any more | `website-health.md` |
 
-## Run: add an event
-Needs the table to work first. If the check in step 1 answers 500, stop and go to `website-database.md`, then `website-settings.md`.
+## Run: set or change the Luma link and the next call
 
 | # | Kind | Step | Command or action | Done when |
 |---|---|---|---|---|
-| 1 | CHECK | Is the API alive? | `curl -s https://moi.technology/api/community-calls` | A JSON list (`[]` is fine). `{"error":"Internal server error"}` means stop |
-| 2 | CHECK | Confirm the event | Date, start time, length, category and link from the owner of the event: Vardan for calls and AMAs, then Rahul (`moi-devrel/references/people-and-teams.md`). Convert the time: `bash "$SKILLS/moi-devrel/scripts/time-table.sh" "<YYYY-MM-DD HH:MM>" <area/city>` and read it back | The operator confirmed UTC time, India time and the link |
-| 3 | GATE | ADMIN: add it on the admin page | Open the calendar admin page. The operator signs in, in a private window that is closed afterwards (Claude never sees a credential). Signing in writes one test row and deletes it; if a row titled `__ping__` is left, delete it. Fill the form below, then Add Event | The row appears under All Events |
-| 4 | VERIFY | Read the JSON | `curl -s https://moi.technology/api/community-calls` and find the title and the `date` | The row is in the list with the right UTC date and category |
-| 5 | VERIFY | Read the homepage | Only meaningful once W-K2 is fixed: the cache is emptied on a write, so the row shows at once. Until then the page shows the fallback and proves nothing | The row is in the Community section, or the operator was told it cannot be yet |
+| 1 | CHECK | Read the file as it is now | `gh api -H "Accept: application/vnd.github.raw" repos/sarvalabs/MOI-Website/contents/content/community-calls.json` (a read; needs `gh` signed in) | You can say what `lumaUrl` and `nextCall` hold |
+| 2 | CHECK | Get the facts from the owner | The MOI Luma calendar or event address, and for a call its date, start time and title, from Vardan, then Rahul (`moi-devrel/references/people-and-teams.md`). Convert the time: `bash "$SKILLS/moi-devrel/scripts/time-table.sh" "<YYYY-MM-DD HH:MM>" <area/city>` and read it back | The operator confirmed the UTC time and the address |
+| 3 | GATE | Get the code (a download) and a branch | `website-ship.md` steps 2 and 3. Use the branch prefix `content/` | Clone and branch ready |
+| 4 | LOCAL | Edit the file | Set `lumaUrl` to the Luma address, which must start with `https://`. Set `nextCall` to the object above, or leave it null. Keep the JSON valid: `python3 -m json.tool content/community-calls.json` | The command prints the file back with no error |
+| 5 | LOCAL | Check, because CI will not | `npm run lint` and `npm run build`; `npm run dev` and read the homepage | The block shows, its button goes to Luma, the date and title are right |
+| 6 | GATE | Push and open one PR | `website-ship.md` steps 7 and 8; read the preview | The operator has read the preview |
+| 7 | GATE | Merge (this deploys the site and the blog) | `website-ship.md` step 9 | Merged |
+| 8 | VERIFY | Read the live homepage | Wait for the run (`website-ship.md` step 10), then open `https://moi.technology/`. A green run alone proves nothing | The community block is there with the right link, and the next-call line is right or absent on purpose |
 
-The form fields:
+## Run: hide the block or clear a past call
+Set `lumaUrl` to an empty string to hide the whole block, or `nextCall` to `null` to keep only the Luma button, then follow steps 3 to 8 above. A past `date` hides the call line by itself, so clearing it is tidiness, not a fix.
 
-| Field | Rule |
-|---|---|
-| Title | Required |
-| Category | Community Call `dev_call`, Office Hours `office_hours`, Workshop `workshop`, Announcement `announcement` |
-| Description | Free text |
-| Date and Time (UTC) | Required, UTC. The component shows each visitor their own time |
-| Duration | Minutes, default 60 |
-| Meeting Link | A URL, or empty. Empty or `#` shows "Link TBA", and the compact view puts rows with a real link first |
-| Link Label | Default "Join on Zoom" |
-
-## Run: move or remove an event
-
-| # | Kind | Step | Command or action | Done when |
-|---|---|---|---|---|
-| 1 | CHECK | Find the row | `curl -s https://moi.technology/api/community-calls` and note the row's title and UTC date. The page shows what you need to edit under All Events | You can name the row |
-| 2 | GATE | ADMIN: edit or delete it | The calendar admin page, Edit or Delete on that row. Delete is permanent. Confirm the new UTC time first with `bash "$SKILLS/moi-devrel/scripts/time-table.sh" "<YYYY-MM-DD HH:MM>" <area/city>` | The operator said yes naming the row |
-| 3 | VERIFY | Read the JSON | The same `curl`: the row has the new values, or is gone. The list can lag by 5 minutes only if the change was made in the SQL editor | The list is right |
-
-## Run: update the built-in schedule
-The fallback is code, so a change is an edit shipped through `website-ship.md`. Do it when the dates in the code no longer match the confirmed ones, and before 2026-12-18 if the database is still down.
-
-| # | Kind | Step | Command or action | Done when |
-|---|---|---|---|---|
-| 1 | CHECK | Read the code and the confirmed dates | `COMMUNITY_CALL_DATES` and `TWITTER_AMA_DATES` in `src/components/CommunityCalendar.jsx` (months are zero-based) against the dates Vardan and Rahul confirmed (`moi-devrel/references/calendar.md`) | The differences are listed |
-| 2 | LOCAL | Edit the arrays | Keep `SCHEDULE_YEAR` right. Remove a date nobody confirmed | `npm run lint` and `npm run build` pass |
-| 3 | GATE | Ship | `website-ship.md` steps 7 to 9 | Merged |
-| 4 | VERIFY | Read the page | The Community section shows the new dates. It is the fallback only while the API fails, so say which one you are reading | The dates match the confirmed list |
+## The old calendar (server only)
+- The table, the admin page and `GET /api/community-calls` are judged from the JSON: `curl -s https://moi.technology/api/community-calls`. Adding an event there changes nothing a visitor sees, so do not.
+- The admin routes accept a default key written in the public source, because the deploy does not pass `ADMIN_API_KEY`. A fix is pending; see the Open items of `project-handover-docs/MOI-WEBSITE.md`.
+- `supabase-community-calls.sql` is described in `website-database.md`. Never run its last statement.
 
 ## Traps
-- "The calendar shows events" does not prove the database works. Judge from the JSON.
-- Do not run all of `supabase-community-calls.sql`. Its last statement inserts seven placeholder events (every 4 weeks from 2026-05-16, 18:00 UTC, link `#`) that differ from the fallback schedule. Run the table and index statements only.
-- The first database row replaces the AMAs (above).
-- A failed sign-in test can leave a `__ping__` row (inferred).
-- The form has no field for `max_attendees`; the column exists in the table.
+- An empty `lumaUrl` hides the block, and so does a value that is not a web link. Neither is a bug.
+- The file is read at build time. Editing it on the server or in the browser changes nothing; only a merge and a rebuild do.
+- A date with no time covers the whole UTC day. Write the time when the start matters.
+- Do not write the date of call 15 before Vardan gives it. The date is a public statement.
+- `web-health.sh` still checks the old calendar API and the baked API base. A KNOWN or FAIL line there is about the server, not the homepage block.
 
 ## Not yet known
-- The real cadence. The fallback follows the Drive sheet (calls on 22 May, 19 Jun, 24 Jul, 21 Aug, 18 Sep, 23 Oct, 20 Nov, 18 Dec); the SQL seed does not. ASK: Vardan.
-- Where AMAs should live given the CHECK. ASK: Rahul.
-- Who may use the calendar admin page. ASK: Adithya.
+- The Luma address to put in `lumaUrl`, and the date of call 15. ASK: Vardan.
+- Whether to retire the old table, admin page and `/api/community-calls` routes. ASK: Rahul, then Srikar for the server.
+- Who may use the old calendar admin page while it exists. ASK: Rahul.

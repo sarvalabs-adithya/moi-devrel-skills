@@ -1,8 +1,8 @@
 # Website: change a secret, a variable or an API address
 
-Facts are as of 2026-10-03 from `.github/workflows/deploy.yml` and `preview.yml` on `sarvalabs/MOI-Website` `main` (`5e91afa`), `.env.example`, `server/index.js`, and the research note dated 2026-10-02. Values are never written here: names only. Where each name lives and who grants it: `moi-devrel/references/keys-and-access.md`. Back to `../GUIDE.md`.
+Updated 13 October 2026 (server owner, keys, calendar). Facts are as of 2026-10-03 from `.github/workflows/deploy.yml` and `preview.yml` on `sarvalabs/MOI-Website` `main` (`5e91afa`), `.env.example`, `server/index.js`, and the research note dated 2026-10-02. Values are never written here: names only. Where each name lives and who grants it: `moi-devrel/references/keys-and-access.md`. Back to `../SKILL.md`.
 
-Website: A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin.
+Website: A security finding is open on this product as of 2026-10-02. The handover note is the Open items of `project-handover-docs/MOI-WEBSITE.md`; read it before touching its admin.
 
 A step marked ADMIN needs the operator to confirm first that the handover note was read.
 
@@ -22,25 +22,26 @@ A step marked ADMIN needs the operator to confirm first that the handover note w
 | 2 | CHECK | Is the name wired? | With no clone: `gh api -H "Accept: application/vnd.github.raw" repos/sarvalabs/MOI-Website/contents/.github/workflows/deploy.yml \| grep -n "<NAME>"` (a read). With a clone made as in `website-ship.md` step 2: `git grep -n "<NAME>" origin/main -- .github server src scripts`. If no workflow line passes it, step 5 is needed | A yes or no |
 | 3 | CHECK | Where is the old value kept? | The vault. If nowhere, stop and ASK: Rahul before overwriting | The old value is recoverable |
 | 4 | GATE | Set it | The operator runs `gh secret set <NAME> -R sarvalabs/MOI-Website` and types the value at the hidden prompt, or uses the GitHub settings page. Claude never sees or types it | The name is set (`gh secret list` shows it, with no value) |
-| 5 | LOCAL | New name only | In a clone made as in `website-ship.md` steps 2 and 3, add it to the `env:` block and the `export` lines of `.github/workflows/deploy.yml`. The VM script must also pass it to the server or the build, and that script is not in git. ASK: Upendhar | The edit is on disk |
+| 5 | LOCAL | New name only | In a clone made as in `website-ship.md` steps 2 and 3, add it to the `env:` block and the `export` lines of `.github/workflows/deploy.yml`. The VM script must also pass it to the server or the build, and that script is not in git. ASK: Srikar | The edit is on disk |
 | 6 | GATE | Ship the workflow edit, if any | `website-ship.md` | Merged |
 | 7 | GATE | Redeploy | `gh workflow run "Deploy MOI Website" -R sarvalabs/MOI-Website --ref main` (a merge to `main` also deploys) | The run finishes |
 | 8 | VERIFY | Use it | `bash "$SKILLS/moi-web-products-ops/scripts/web-health.sh" website`, then the specific read for the setting (below) | The setting shows its effect |
 
 ## Fix the baked API base (W-K2)
 The live bundle has `https://dev.moi.technology/api` baked in from the secret `VITE_CHATBOT_API`. The component builds `${VITE_CHATBOT_API}/api/community-calls`, so the browser asks `https://dev.moi.technology/api/api/community-calls`. That host answers 200 text/html for any path (2026-10-03).
-- The apex already forwards `/api` to the Express server (`/api/health` answers there with `X-Powered-By: Express`). So the fix is to set `VITE_CHATBOT_API` to `https://moi.technology`, or to empty (the component then uses `""`, the same origin), and redeploy so the bundle is rebuilt. This is inferred from the code and the probes, and no one has tried it. Confirm with Upendhar before step 4.
-- The calendar admin page uses the same base, so it cannot save events until this is fixed.
-- Verify: `bash "$SKILLS/moi-web-products-ops/scripts/web-health.sh" website` shows `API base baked in: none` or the apex, not the dev host, and `website-calendar.md` step 5 shows a database row on the homepage.
-Whether `dev.moi.technology` was meant to be the live API is unknown. ASK: Upendhar.
+- The apex already forwards `/api` to the Express server (`/api/health` answers there with `X-Powered-By: Express`). So the fix is to set `VITE_CHATBOT_API` to `https://moi.technology`, or to empty (the component then uses `""`, the same origin), and redeploy so the bundle is rebuilt. This is inferred from the code and the probes, and no one has tried it. Confirm with Srikar before step 4.
+- The old calendar admin page uses the same base, so it cannot save events until this is fixed. Since PR #60 the homepage community block does not use it (`website-calendar.md`), so this fix now matters for the old admin page and for the chat when it returns.
+- Verify: `bash "$SKILLS/moi-web-products-ops/scripts/web-health.sh" website` shows `API base baked in: none` or the apex, not the dev host.
+Whether `dev.moi.technology` was meant to be the live API is unknown. ASK: Srikar.
 
 ## Other settings
 
 | Setting | Note |
 |---|---|
-| `ANTHROPIC_API_KEY`, `OPENAI_API_KEY` | Chat answers and embeddings. Owners unknown. ASK: Rahul. A new key takes effect at the next deploy |
+| `ANTHROPIC_API_KEY`, `OPENAI_API_KEY` | Chat answers and embeddings. Not company keys: no company-owned Anthropic, OpenAI or Groq key exists (October 2026), so create company keys before relying on them. A new key takes effect at the next deploy |
+| `ADMIN_API_KEY` | The old calendar admin routes. The deploy does not pass it, so the routes accept a default written in the public source. A fix is pending; see the Open items of `project-handover-docs/MOI-WEBSITE.md` |
 | `SUPABASE_URL`, `SUPABASE_KEY` | Decide the project first (`website-database.md`). Pointing them at a different project changes where the calendar and chat read |
-| `ALLOWED_ORIGINS`, `PORT` | VM environment. A request for Upendhar (`who-to-ask.md`, R6), not a GitHub change |
+| `ALLOWED_ORIGINS`, `PORT` | VM environment. A request for Srikar (`who-to-ask.md`, R6), not a GitHub change |
 | Blog distribution names (`BUFFER_ACCESS_TOKEN`, `BUFFER_CHANNEL_X`, `BUFFER_CHANNEL_LINKEDIN`, `DISCORD_WEBHOOK_URL`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`) | `moi-blog`. A channel with no secret is skipped without an error |
 
 ## Traps
@@ -50,5 +51,5 @@ Whether `dev.moi.technology` was meant to be the live API is unknown. ASK: Upend
 - Nothing in the repo records the live values. The only copy of the old value is the vault, if anyone put it there.
 
 ## Not yet known
-- Who owns each key and the Supabase project (all "owner: confirm" in `DEPENDENCIES.md`, which is local to the previous operator; ASK: Adithya for a copy, Rahul for owners).
-- Whether the VM script forwards a new name to the server. ASK: Upendhar.
+- Which Supabase project holds the website's data and who owns it: not recorded (`project-handover-docs/ENV-VARS.md`). ASK: Rahul.
+- Whether the VM script forwards a new name to the server. ASK: Srikar.

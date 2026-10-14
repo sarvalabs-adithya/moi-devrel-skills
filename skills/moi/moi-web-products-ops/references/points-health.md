@@ -1,8 +1,8 @@
 # Points health: is it up, is the schema current, what is already broken
 
-Facts are as of 2026-10-03 for the live reads and 2026-10-02 for the repo and pull requests (the research notes; the private repo's pull requests were not re-read on 2026-10-03). Back to `../GUIDE.md`.
+Updated 13 October 2026 for the pull request states and the faults below. Other facts are as of 2026-10-03 for the live reads and 2026-10-02 for the repo. Back to `../SKILL.md`.
 
-Points: A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin.
+Points: A security finding is open on this product as of 2026-10-02. The handover note is the Open items of `project-handover-docs/POINTS-PROGRAM.md`; read it before touching its admin.
 
 ## "Points is down or members report errors"
 
@@ -28,21 +28,24 @@ Points: A security finding is open on this product as of 2026-10-02. ASK: Adithy
 | `GET /` | 307 to `/login` when anonymous | The app routes |
 | Preview host `GET /api/health` | 200 | `preview.points.moi.technology` is the same box, not production |
 
-Observed health on 2026-10-03: `healthy` true, `database` "ok", `migrations` applied 11 of 11, `sha` null, `environment` "self-hosted".
+Observed health on 2026-10-03: `healthy` true, `database` "ok", `migrations` applied 11 of 11, `sha` null, `environment` "self-hosted". On 13 October, after PR #22 and #23: applied 11 of 11, healthy, the same four tasks (`project-handover-docs/POINTS-PROGRAM.md`).
 
-## Known faults (as of 2026-10-02 unless dated)
+## Known faults (as of 13 October 2026 unless dated)
 
 | ID | Fault | Fix path | Who |
 |---|---|---|---|
-| P-K1 | `sha` is null, so you cannot tell which build runs. The deploy sets neither `GIT_SHA` nor a hosting variable. Draft PR #15 makes the deploy check the sha | A pull request on `deploy.yml` | Rahul decides, Upendhar |
-| (none) | Production runs `feature/ci-cd` at `92f9c48` (2026-09-16). `main` is stale since 2026-08-03. Draft PR #15 moves the trigger to `main` and adds `ci.yml` and a rollback input; it needs DevOps setup first: an `environment: production` with its secrets, a non-root VM user in the docker group, nginx on loopback | `points-ship.md` | Upendhar, Rahul |
-| (none) | PR #21 (review batch) is open, not merged. PR #1 (the original CI/CD) waits for review. `sarvalabs/Points-Program` #1 sits on a repo that may be unused | `points-ship.md` | Rahul |
-| (none) | Nobody is shown scheduling the nightly housekeeping job on the box. Whether a schedule exists is unknown | ASK: Upendhar | Upendhar |
+| P-K1 | `sha` is null, so you cannot tell which build runs. The deploy sets neither `GIT_SHA` nor a hosting variable. Draft PR #24 (CI/CD hardening) is meant to fix it | A pull request on `deploy.yml` | Rahul decides, Upendhar |
+| (none) | Production runs `feature/ci-cd`, with PR #22 and #23 deployed on 13 October. `main` is stale since 2026-08-03. Draft PR #24 moves the trigger to `main` and adds `ci.yml`, a rollback input and `CICD.md`; it replaced the closed #15 and needs DevOps setup first: an `environment: production` with its secrets, a non-root VM user in the docker group, nginx on loopback | `points-ship.md` | Upendhar, Rahul |
+| (none) | Pull request states on 13 October: #23 (review batch) and #22 (webinar bounties) are merged and live; #21 is closed; #15 is closed and replaced by draft #24; #1 is Upendhar's to close. The repo `sarvalabs/Points-Program` was archived on 13 October | `points-ship.md` | Upendhar |
+| (none) | `/api/jobs/maintenance` is live (401 without `CRON_SECRET`) and nothing schedules it. `/api/jobs/social-audit` answers 404 (the job is gone) | ASK: Upendhar what runs on the box and who schedules it | Upendhar |
+| (none) | `SOCIAL_AUDIT_BATCH_SIZE` is still set in Actions and passed by `deploy.yml`, but nothing reads it | Remove the variable and its line in `deploy.yml` (`points-settings-and-database.md`) | Rahul |
+| (none) | `MOI_RPC_URL` is passed by `deploy.yml` (PR #22) but the Actions variable is not set (13 October), so the chain note beside a bounty's hash answers is off | `points-settings-and-database.md` | Rahul |
+| (none) | The devnet RPC certificate expired on 4 October and was renewed by 5 October. Test a wallet link: the server reads wallet keys from that host | Trap 60 in `traps.md` | Rahul |
 | (none) | The database is on the Points email account, free plan, no backups | Put it on a paid plan with backups. ASK: Rahul | Rahul |
-| (none) | The schema `backup.tasks_before_0008` still exists | `points-settings-and-database.md` | Adithya |
+| (none) | The schema `backup.tasks_before_0008` still exists. Drop it once the project has backups | `points-settings-and-database.md` | Rahul |
 | (none) | `Dockerfile` pins pnpm 11.11.0 and `package.json` pins 10.34.5 | ASK: Upendhar which wins | Upendhar |
 | (none) | `X_TOKEN_ENCRYPTION_KEY` and `CLIENT_IP_HEADER` are not passed by the deploy | `points-settings-and-database.md` | Rahul |
-| (none) | The old hosting project may still exist and `points.moi.technology` is on the box, not there | ASK: Adithya | Adithya |
+| (none) | The old Vercel project may still exist (`points.moi.technology` is on the box, not there). Retire it; its owner is not recorded | ASK: Rahul | Rahul |
 
 ## Not yet known
 - The command DevOps uses to run the migration, and any schedule on the box. ASK: Upendhar.

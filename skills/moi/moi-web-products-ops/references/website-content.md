@@ -1,26 +1,26 @@
 # Website: pages, papers, PDFs and the sitemap
 
-Facts are as of 2026-10-03 from `sarvalabs/MOI-Website` `main` (`5e91afa`: `src/App.jsx`, `src/pages/PapersPage.jsx`, `public/sitemap.xml`, the file sizes in the git tree) and GET and HEAD reads. Back to `../GUIDE.md`. A blog post is `moi-blog`. Search and AI-visibility work on any page is `moi-docs/geo`. Colours, type and logos are `moi-devrel/design`. A claim on a page is checked with `moi-devrel/claim-check`.
+Updated 13 October 2026 for PR #57 (merged 5 October) and PR #60. Facts are as of 2026-10-03 from `sarvalabs/MOI-Website` `main` (`5e91afa`: `src/App.jsx`, `src/pages/PapersPage.jsx`, `public/sitemap.xml`, the file sizes in the git tree) and GET and HEAD reads. Back to `../SKILL.md`. A blog post is `moi-blog`. Search and AI-visibility work on any page is `moi-docs/geo`. Colours, type and logos are `moi-devrel/design`. A claim on a page is checked with `moi-devrel/claim-check`.
 
 ## What the site holds
 
 | Path | What |
 |---|---|
-| `src/App.jsx` | The routes today: `/`, `/why-moi`, `/how-it-works` (redirects to `/why-moi`), `/manifesto`, `/papers` and the calendar admin page |
+| `src/App.jsx` | The routes today: `/`, `/why-moi`, `/how-it-works` (redirects to `/why-moi`), `/manifesto`, `/papers` and the old calendar admin page (the homepage no longer uses it; the community block is `content/community-calls.json`, `website-calendar.md`) |
 | `public/sitemap.xml` | Written by hand. Its header comment says to add an entry when you add a route. Blog articles are not listed here; the blog ships its own sitemap |
 | `src/pages/PapersPage.jsx` | The `PAPERS` array: five entries, three of them (tech, math, PIC) external links to Zenodo records |
 | `public/papers/moi-lite-paper.pdf`, `public/papers/moi-white-paper.pdf` | The files the Papers page serves |
 | `public/MOILitePaper.pdf` | A second litepaper path, identical to the first (same git blob) |
 | `docs/MOILitePaper.pdf` | The chat's ingest source. A different file from the other two |
 
-Pull request #57 (open on 2026-10-03, not reviewed) adds a prerender step, so a new page would also need a route in `src/entry-server.jsx` and an entry in `scripts/ssg.mjs`. Those two files do not exist on `main`. Today a new page needs `src/App.jsx` and `public/sitemap.xml`.
+Since 5 October 2026 (PR #57) the marketing pages are prerendered at build time, so a new page also needs a route in `src/entry-server.jsx` and an entry in `scripts/ssg.mjs`, besides `src/App.jsx` and `public/sitemap.xml`. Read how the existing pages are listed in those two files and add yours the same way.
 
 ## Run: add a page
 
 | # | Kind | Step | Command or action | Done when |
 |---|---|---|---|---|
 | 1 | CHECK | Baseline and branch | `website-ship.md` steps 1 to 3 | Clone and branch ready |
-| 2 | LOCAL | Add the route | `<Route path="/<name>" element={<Page />} />` in `src/App.jsx`, the page file under `src/pages/`, a navbar link if it should be reachable | The page renders on `npm run dev` |
+| 2 | LOCAL | Add the route | `<Route path="/<name>" element={<Page />} />` in `src/App.jsx`, the page file under `src/pages/`, the matching entries in `src/entry-server.jsx` and `scripts/ssg.mjs` (copy a neighbour), a navbar link if it should be reachable | The page renders on `npm run dev`, and `npm run build` writes its prerendered file |
 | 3 | LOCAL | Add the sitemap line | A `<url><loc>https://moi.technology/<name></loc><priority>0.8</priority></url>` block in `public/sitemap.xml`, in the style of its neighbours | The file is valid XML (`xmllint --noout public/sitemap.xml` if installed) |
 | 4 | LOCAL | Copy rules | Second person, declarative, short lines, sentence-case headlines, no emoji. Words: participant, authority, scope, revoke, on chain, agent. Avoid user, permissions, blockchain, AI assistant. Terms: `moi-devrel/references/terminology.md` | `bash "$SKILLS/moi-devrel/scripts/slop-lint.sh" <changed files>` has no error |
 | 5 | GATE | Ship | `website-ship.md` steps 5 to 10 | Live |
@@ -46,4 +46,4 @@ To replace a paper that also lives in the Dataroom and the chat store, use `data
 
 ## Not yet known
 - Whether the Dataroom's Litepaper and the website's should be one file. ASK: Rahul.
-- Whether the nginx PDF header fix was applied under a different path. ASK: Upendhar.
+- Whether the nginx PDF header fix was applied under a different path. ASK: Srikar.

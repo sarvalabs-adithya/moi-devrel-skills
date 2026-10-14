@@ -1,8 +1,8 @@
 # Dataroom: secrets, settings and database changes
 
-Facts are as of 2026-10-03 from `sarvalabs/moi-dataroom0` `main` (`0f8e38b`: `.github/workflows/deploy.yml`, `lib/claude-budget.ts`, `moi-data-room/supabase/*.sql`) and the research note dated 2026-10-02. Values are never written here: names only. Where each name lives and who grants it: `moi-devrel/references/keys-and-access.md`. Back to `../GUIDE.md`.
+Updated 13 October 2026 for PR #7 and the company Supabase move. Facts are as of 2026-10-03 from `sarvalabs/moi-dataroom0` `main` (`0f8e38b`: `.github/workflows/deploy.yml`, `lib/claude-budget.ts`, `moi-data-room/supabase/*.sql`) and the research note dated 2026-10-02. Values are never written here: names only. Where each name lives and who grants it: `moi-devrel/references/keys-and-access.md`. Back to `../SKILL.md`.
 
-Dataroom: A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin.
+Dataroom: A security finding is open on this product as of 2026-10-02. The handover note is the Open items of `project-handover-docs/DATAROOM.md`; read it before touching its admin.
 
 A step marked ADMIN needs the operator to confirm first that the handover note was read.
 
@@ -10,6 +10,7 @@ A step marked ADMIN needs the operator to confirm first that the handover note w
 - GitHub Actions secrets of `sarvalabs/moi-dataroom0` cannot be read back. No shared vault exists. Put a value in an org vault before changing it. ASK: Rahul which vault.
 - `deploy.yml` passes exactly six names to the VM over SSH: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `ADMIN_SECRET`. Access: `VM_HOST`, `VM_USERNAME`, `VM_SSH_KEY`. A change reaches the app only at the next deploy.
 - The two `NEXT_PUBLIC_*` names are baked into the build. Changing them needs a redeploy, not a restart.
+- `ADMIN_TOKEN` is a second admin check in the stats route; it is not set, and a fix is pending (see the Open items of `project-handover-docs/DATAROOM.md`). Leave it unset until that fix merges. The model keys are not company keys: no company-owned Anthropic or OpenAI key exists (October 2026); create company keys before relying on the chat or the index.
 - Optional chat limits, read by the app and passed by nothing: `CLAUDE_PER_IP_HOURLY_LIMIT` (default 30), `CLAUDE_DAILY_TOKEN_BUDGET` (500000), `CLAUDE_MAX_INPUT_TOKENS` (8000), `CLAUDE_MAX_OUTPUT_TOKENS` (2048). Setting one means a DevOps change on the VM (request R7 in `who-to-ask.md`), or an edit of the workflow's `env:` and `envs:` lists plus the VM script (not in git). The usage counters are in memory and reset on every restart.
 - Other names the code reads and the deploy does not set are in `moi-devrel/references/keys-and-access.md`. `DATAROOM_URL` is only the base address `set-whitepaper.mjs` talks to.
 - A value changed in GitHub reaches the app only at the next deploy. On 2026-08-22 a deploy held an outdated value, and the fix was a new secret in GitHub, then a manual deploy run.
@@ -26,7 +27,7 @@ A step marked ADMIN needs the operator to confirm first that the handover note w
 | 6 | VERIFY | Use it | `bash "$SKILLS/moi-web-products-ops/scripts/web-health.sh" dataroom`, then the setting's own effect: for the model keys, one chat question; for the Supabase keys, `/home` loads documents; for a sign-in setting, the operator signs in again | The effect shows |
 
 ## The database
-Supabase project: database, the private bucket `investor-docs`, and nothing else the repo knows. Owner and plan unknown. ASK: Rahul.
+Supabase project: database, the private bucket `investor-docs`, and nothing else the repo knows. It is in the company Supabase organisation since 8 October 2026. The plan should be a paid one so daily backups exist; check. ASK: Rahul.
 
 | File in `moi-data-room/supabase/` | What it does |
 |---|---|
@@ -34,9 +35,10 @@ Supabase project: database, the private bucket `investor-docs`, and nothing else
 | `migration-add-embedding-status.sql` | Adds `embedding_status` and `embedding_error`, drops and recreates `match_document_embeddings`. Safe twice, and chat briefly breaks |
 | `migration-add-show-on-overview.sql` | Adds `show_on_overview`, then sets it true for every row in category `overview`, and asks you to recategorise by hand |
 | `migration-add-calendar-events.sql`, `-chat-queries.sql`, `-external-url.sql`, `-home-hero-slot.sql`, `-subcategory.sql` | One table or column each, written with `if not exists` where possible |
+| `migration-add-adopters-leads-require-email.sql` | Added by PR #7 (merged 13 October 2026). Creates `adopters` and `document_leads` and adds `documents.require_email`, which had been made by hand. Run it once in the SQL editor if it has not been run; on production it changes nothing |
 | `seed.sql` | `delete from public.documents;`. Never run it |
 
-Not in any file: the tables `adopters` and `document_leads`, and the column `documents.require_email`. They were made by hand in Supabase. A project rebuilt from the files breaks uploads (the insert names `require_email`) and the adopters and leads pages. The live database is the source of truth.
+Until PR #7 no file held the tables `adopters` and `document_leads` or the column `documents.require_email`; they were made by hand in Supabase, and a project rebuilt from the older files breaks uploads (the insert names `require_email`) and the adopters and leads pages. Rebuild order now includes the new migration. The live database is still the source of truth.
 
 ## Run: change the schema
 
@@ -52,9 +54,9 @@ Not in any file: the tables `adopters` and `document_leads`, and the column `doc
 ## Traps
 - The repo SQL does not reproduce production. Treat the live database as the truth.
 - Running `schema.sql` twice, or `seed.sql` once, damages data or errors.
-- Free Supabase plans have no downloadable backups. This project's plan is unknown.
+- Free Supabase plans have no downloadable backups. Check that this project's plan has them.
 
 ## Not yet known
-- The SQL that made `adopters`, `document_leads` and `require_email`. ASK: Adithya.
-- Who owns the Supabase project, the model keys and the bucket. ASK: Rahul.
+- Whether the PR #7 migration has been run in the SQL editor. Read the tables in the dashboard; ASK: Rahul.
+- Which account created the model keys now in the repo's secrets (not company keys). ASK: Rahul.
 - Whether a backup exists. ASK: Rahul.

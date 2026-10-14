@@ -1,8 +1,8 @@
 # Dataroom: add, replace, unpublish and re-index a document
 
-Facts are as of 2026-10-03 from `sarvalabs/moi-dataroom0` `main` (`0f8e38b`: `admin/page.tsx`, `upload-modal.tsx`, `lib/embeddings.ts`, `lib/constants.ts`, `app/api/documents/*`, `app/api/chat/route.ts`) and the public document list read that day (titles, categories, slots and statuses only). Back to `../GUIDE.md`.
+Updated 13 October 2026 (keys, asks). Facts are as of 2026-10-03 from `sarvalabs/moi-dataroom0` `main` (`0f8e38b`: `admin/page.tsx`, `upload-modal.tsx`, `lib/embeddings.ts`, `lib/constants.ts`, `app/api/documents/*`, `app/api/chat/route.ts`) and the public document list read that day (titles, categories, slots and statuses only). Back to `../SKILL.md`.
 
-Dataroom: A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin.
+Dataroom: A security finding is open on this product as of 2026-10-02. The handover note is the Open items of `project-handover-docs/DATAROOM.md`; read it before touching its admin.
 
 A step marked ADMIN needs the operator to confirm first that the handover note was read. The operator signs in, in a private window that is closed afterwards; Claude never sees a credential.
 
@@ -10,10 +10,11 @@ A step marked ADMIN needs the operator to confirm first that the handover note w
 - Fields in the upload form: category (the section), title, description, a file or an external link (an https address such as a Zenodo record), allow download, require email, and "Show on home" (a hero slot).
 - Sections: `contextual_compute`, `engineering`, `business` (shown as "Business & GTM"), `tokenomics`, `research`, `usecases`.
 - Hero slots on `/home`: `foundation` (Math paper), `paradigm` (Contextual Compute), `network` (Whitepaper), `pitch-deck` (IM deck), `two-pager` (CC Intro), `litepaper`, `gtm-deck`. One document per slot: assigning a slot clears the previous holder. A tile with no pinned document falls back to a case-insensitive title match among the unpinned documents of the tile's category (or those flagged for the overview), so titles matter: "Math", "Contextual", "Network" (also "White Paper", "Whitepaper", "Foundations"), "Slide", "2 Pager", "Litepaper" (also "Lite Paper"), "GTM" (also "go-to-market").
+- The index needs a company OpenAI key. `OPENAI_API_KEY` embeds every upload and every question: if it is missing, every upload ends `failed` and the chat answers without document text. The key now set is not a company key (no company-owned OpenAI or Anthropic key exists, October 2026), so create a company key and replace the secret before relying on the index (`dataroom-settings-and-database.md`).
 - How the chat learns it: the file goes to the private storage bucket `investor-docs`, the server extracts text (PDF and DOCX only), cuts it into 2000-character chunks with 200 overlap, embeds them with OpenAI `text-embedding-3-small` and stores them. The document's `embedding_status` goes `pending`, `processing`, then `completed` or `failed`. The search function does not look at the status, so a document that is not `completed` may have no chunks or only some, and the chat may miss it. Do not rely on a document being quoted until it is `completed`.
 
 ## State on 2026-10-03
-23 published documents, 17 completed, 5 `processing` and 1 `failed` (D-K1). `GTM Deck` failed: its `embedding_error` reads "No text could be extracted from the document" (read 2026-10-03), so its file probably has no text layer (inferred). Stuck in `processing`: `Whitepaper` (pinned to `network`), `IM Deck`, `Tokenomics  Overview`, `Parallelism in shared spaces`, `Truth of Happiness - The vision paper`. Why is unknown. The embedding runs as a background task inside the web server, so a restart or deploy during it can leave the status at `processing` for good (inferred). Three title rows concern the papers: `Whitepaper` (pinned to `network`, stuck), `White Paper` (unpinned, completed) and `Litepaper` (pinned to `litepaper`, completed). Which of the two whitepaper rows is the current v2.1 file is unknown. ASK: Adithya.
+23 published documents, 17 completed, 5 `processing` and 1 `failed` (D-K1). `GTM Deck` failed: its `embedding_error` reads "No text could be extracted from the document" (read 2026-10-03), so its file probably has no text layer (inferred). Stuck in `processing`: `Whitepaper` (pinned to `network`), `IM Deck`, `Tokenomics  Overview`, `Parallelism in shared spaces`, `Truth of Happiness - The vision paper`. Why is unknown. The embedding runs as a background task inside the web server, so a restart or deploy during it can leave the status at `processing` for good (inferred). Three title rows concern the papers: `Whitepaper` (pinned to `network`, stuck), `White Paper` (unpinned, completed) and `Litepaper` (pinned to `litepaper`, completed). Which of the two whitepaper rows is the current v2.1 file is unknown (open item in `project-handover-docs/DATAROOM.md`). ASK: Rahul.
 
 ## Run: add a document
 
@@ -38,7 +39,7 @@ Editing a document's file does not re-embed it. For the whitepaper and litepaper
 | 4 | VERIFY | Read `/home` and ask a question | "Add a document" steps 6 and 7 | The tile and the chat use the new file |
 
 ## Run: unpublish without losing it
-The admin page has Delete and no Unpublish button (read 2026-10-03). Delete is one click with no confirmation and is permanent: it removes the stored file and the row, and the embeddings go with it. The document API can set a document's status to `draft` (`restricted` also exists in the code); how the previous operator did it is not recorded. ASK: Adithya. A draft is hidden from the lists, but the search function joins the chunks to the document with no status test (`migration-add-embedding-status.sql`; the repo SQL may differ from production), so the chat may still quote a draft. Only Delete removes the chunks. If a document must stop being quoted, say so to the operator before choosing.
+The admin page has Delete and no Unpublish button (read 2026-10-03). Delete is one click with no confirmation and is permanent: it removes the stored file and the row, and the embeddings go with it. The document API can set a document's status to `draft` (`restricted` also exists in the code); how the previous operator did it is not recorded. A draft is hidden from the lists, but the search function joins the chunks to the document with no status test (`migration-add-embedding-status.sql`; the repo SQL may differ from production), so the chat may still quote a draft. Only Delete removes the chunks. If a document must stop being quoted, say so to the operator before choosing.
 
 | # | Kind | Step | Command or action | Done when |
 |---|---|---|---|---|
@@ -56,6 +57,16 @@ The admin page has Delete and no Unpublish button (read 2026-10-03). Delete is o
 
 A bulk re-index of every non-completed document exists in the API and runs them one after another inside one request, so a proxy may time out while the server keeps going (inferred). Prefer one at a time.
 
+## Run: turn the Dataroom chat back on
+The widget has been hidden since 21 August 2026 (commit `a5544a8`); the chat route is live. The full list is "Re-enabling the chat" in `project-handover-docs/DATAROOM.md`. In short:
+
+| # | Kind | Step | Command or action | Done when |
+|---|---|---|---|---|
+| 1 | GATE | Get company keys first | No company-owned Anthropic or OpenAI key exists (October 2026). Create company accounts with billing, make a key for each, and have the operator replace `ANTHROPIC_API_KEY` and `OPENAI_API_KEY` with `gh secret set` at a hidden prompt, then redeploy (`dataroom-settings-and-database.md`). Check in each console that the key is live | Company keys are set |
+| 2 | GATE | ADMIN: every document `completed` | Re-index the stuck ones one at a time ("fix a stuck or failed embedding" above). The chat answers only from the index | No row is `processing` or `failed` |
+| 3 | LOCAL | Update the model, put the widget back | The route pins `claude-sonnet-4-20250514`; move it to a current model id and try one question locally. Revert `a5544a8` on a branch | `npm run lint` and `npm run build` pass |
+| 4 | GATE | Ship, then test live | `dataroom-ship.md`. One question the whitepaper answers and one it cannot (step 6 of "add a document") | The first cites documents, the second refuses cleanly |
+
 ## Traps
 - A failed insert of one batch of chunks is only logged. If one batch worked, the document is marked `completed` with chunks missing. Always ask a question that only the file answers.
 - The chat ignores errors from the search step and still replies. A wrong OpenAI key or a missing function makes it look alive and know nothing.
@@ -65,5 +76,5 @@ A bulk re-index of every non-completed document exists in the API and runs them 
 - Uploads are limited to 10 a minute per IP and admin calls to 30 a minute.
 
 ## Not yet known
-- Why six documents are stuck. ASK: Upendhar (server log) and Adithya.
-- Whether `restricted` is used. ASK: Adithya.
+- Why six documents are stuck. ASK: DevOps for the server log.
+- Whether `restricted` is used: not recorded; treat it as unused.

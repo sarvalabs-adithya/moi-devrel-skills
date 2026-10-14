@@ -10,4 +10,4 @@ What is good about it:
 - It has no WARN. A Points WARN that says the database is ahead of the running build is normal between applying a migration and merging its code (`references/points-settings-and-database.md`); any other WARN or a FAIL is news.
 - Compare a later run with it. A KNOWN line that turns into PASS ("looks fixed") means the fault is gone: update the row in `references/*-health.md` and the `KNOWN` table at the top of the script. A new WARN or FAIL is news.
 
-It is a dated record, not a promise about today. Run the script again before quoting any line.
+Since website PR #60 (13 October 2026) the homepage no longer reads the calendar API, so the KNOWN calendar lines describe the old server routes only, not the homepage. It is a dated record, not a promise about today. Run the script again before quoting any line.

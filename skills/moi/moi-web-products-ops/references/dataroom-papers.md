@@ -1,8 +1,8 @@
 # Replace the whitepaper or litepaper everywhere
 
-Facts are as of 2026-10-03 from `sarvalabs/moi-dataroom0` `main` (`0f8e38b`: `moi-data-room/scripts/set-whitepaper.mjs`), `sarvalabs/MOI-Website` `main` (`5e91afa`), the public Dataroom document list and HEAD reads. Back to `../GUIDE.md`.
+Updated 13 October 2026 (asks re-pointed to the handover documents). Facts are as of 2026-10-03 from `sarvalabs/moi-dataroom0` `main` (`0f8e38b`: `moi-data-room/scripts/set-whitepaper.mjs`), `sarvalabs/MOI-Website` `main` (`5e91afa`), the public Dataroom document list and HEAD reads. Back to `../SKILL.md`.
 
-Dataroom: A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin.
+Dataroom: A security finding is open on this product as of 2026-10-02. The handover note is the Open items of `project-handover-docs/DATAROOM.md`; read it before touching its admin.
 
 A paper lives in up to four places, and they drift. A new version must reach every one, or investors and visitors read different versions. A step marked ADMIN needs the operator to confirm first that the handover note was read.
 
@@ -15,12 +15,12 @@ A paper lives in up to four places, and they drift. A new version must reach eve
 | 3 | Website chat store | `docs/MOILitePaper.pdf` in the repo, ingested into the Supabase `documents` table | `npm run ingest:clear` (`website-chatbot.md`). Pointless while the chat is hidden |
 | 4 | External records | Zenodo and DOI records behind the tech, math and PIC entries of the Papers page | Out of scope here. ASK: Rahul who owns the Zenodo records |
 
-Anything else that links a paper (docs sites, blog posts, Drive, decks) is not catalogued. Search the repos you hold: `git grep -n "moi-white-paper\|moi-lite-paper\|MOILitePaper" -- .`. ASK: Adithya whether other places exist.
+Anything else that links a paper (docs sites, blog posts, Drive, decks) is not catalogued. Search the repos you hold: `git grep -n "moi-white-paper\|moi-lite-paper\|MOILitePaper" -- .`. ASK: Rahul whether other places exist.
 
 ## Known state on 2026-10-03
 - The website whitepaper is 2,245,957 bytes on `main` and on the live site, last modified 2026-09-23 per the server header.
 - The two website litepaper paths are the same file (259,385 bytes). `docs/MOILitePaper.pdf` is a different file (175,872 bytes).
-- The Dataroom has a `Whitepaper` row pinned to `network` (embedding stuck in `processing`), an unpinned `White Paper` row (completed) and a `Litepaper` row pinned to `litepaper` (completed). Which of the two whitepaper rows holds the current file is unknown. ASK: Adithya.
+- The Dataroom has a `Whitepaper` row pinned to `network` (embedding stuck in `processing`), an unpinned `White Paper` row (completed) and a `Litepaper` row pinned to `litepaper` (completed). Which of the two whitepaper rows holds the current file is unknown; it is an open item in `project-handover-docs/DATAROOM.md`. ASK: Rahul.
 - On 2026-08-21 the previous operator supplied `MOI_Foundations_v2_1_WP_latex_source.pdf` as the new whitepaper, and the old litepaper-as-whitepaper became "Litepaper". The script writes the description "MOI Foundations v2.1" after a title and subtitle for the paper (read it in the script, step 3 below). Check that text against the new abstract before every run.
 
 ## Run: swap the whitepaper
@@ -45,4 +45,4 @@ Anything else that links a paper (docs sites, blog posts, Drive, decks) is not c
 
 ## Not yet known
 - Whether the Dataroom's Litepaper and the website's should be the same file. ASK: Rahul.
-- Which Dataroom row is the current whitepaper. ASK: Adithya.
+- Which Dataroom row is the current whitepaper (open item in `project-handover-docs/DATAROOM.md`). ASK: Rahul.
