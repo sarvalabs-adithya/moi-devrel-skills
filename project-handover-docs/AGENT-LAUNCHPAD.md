@@ -31,7 +31,7 @@ No worker runs in production on purpose: it would steal the Telegram webhook and
 | Variable | Owner | Notes |
 |---|---|---|
 | Codebase | DevRel | https://github.com/sarvalabs/moi-agent-launchpad deploys |
-| Database (Supabase) | Company Supabase organisation (transferred 8 October) | Holds all app state |
+| Database (Supabase) | The company Supabase organisation, owned by sarvalabsdeveloper@gmail.com (transferred 8 October) | Holds all app state |
 | Telegram bot and the alert chat | Currently Rahul Lenkala's Telegram account | @moinetworkbot delivers agent messages to users. Transferred from Adithya's Telegram account to Rahul (@p2pbuddy) on 14 October 2026; the token and the chat id did not change |
 | AgentMarket contract on **devnet** (MOI's shared test network, wiped from time to time) | DevRel | Not redeployed since the devnet wipes, so paid agents are off. The code is there; the next owner redeploys it when it is needed |
 | Server, CI/CD, container registry, **Teleport** (the gateway DevOps uses to reach the server) | DevOps | |
@@ -46,7 +46,7 @@ Where they live: production values are GitHub Actions secrets and variables on s
 
 | Variable | What it is | Where the value comes from |
 |---|---|---|
-| SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY | The database | Supabase dashboard, the project (company organisation), Settings, API |
+| SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY | The database | Supabase dashboard (sarvalabsdeveloper@gmail.com), the project, Settings, API |
 | SESSION_SECRET | Signs the session cookie | Generate with: openssl rand -hex 32 |
 | AGENT_KEY_ENCRYPTION_SECRET | Encrypts every stored agent key. Never generate a new one: every stored key would be lost | The VM env file, through DevOps |
 | MOI_PLATFORM_MNEMONIC | The funded platform wallet, for registry reads and the heartbeat | deploy.yml reads it, but it is not in the repo's secrets list (checked 14 October 2026): an org-level secret (only an org admin can see those), or the VM gets an empty value. Confirm with DevOps. Same for ADMIN_ALERT_TELEGRAM_CHAT_ID |
