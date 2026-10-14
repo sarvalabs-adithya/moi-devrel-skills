@@ -248,4 +248,4 @@ What the skill never does without DevRel's yes: push, merge (a merge deploys pro
 
 ## Open items
 
-- An operator guide for the repo (docs/OPERATOR.md) is in a PR to feature/ci-cd, opened 14 October 2026. Review and merge it.
+- An operator guide for the repo (docs/OPERATOR.md) is in its own PR, sarvalabs/moi-project #26 against main, one new file, separate from feature/ci-cd. Review and merge it.
