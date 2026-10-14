@@ -20,7 +20,7 @@ Paths below are relative to the repo root unless marked otherwise.
 | `public/covers/`, `public/blog/` | **Generated** by `scripts/build-blog-index.js` | **gitignored** |
 
 `.gitignore:35-36` lists `public/blog/` and `public/covers/`. Editing anything in those two
-directories is wasted work — the next `build-blog-index.js` run overwrites them from
+directories is wasted work: the next `build-blog-index.js` run overwrites them from
 `blog/public/covers/`. Author covers in `blog/public/covers/` only.
 
 ## Design tokens
@@ -69,14 +69,14 @@ wasted PR:
 
 **1. The `moi-design` skill documents the mapping inverted.** Its `README.md:301-302` says
 "Use `Default - Dark.svg` for light backgrounds and `Default - Light.svg` for dark
-backgrounds." Its own asset files say the opposite — `moi-design/assets/logos/SVG/Default -
+backgrounds." Its own asset files say the opposite: `moi-design/assets/logos/SVG/Default -
 Dark.svg` carries the `#dbcef9 → #fff` pale gradient. Trust the gradient stops, not the
 sentence. If you pick the file by reading that line, you ship a mark that nearly vanishes
 against white; this is what happened in `85629a5`, which had to correct `b8c3dea`.
 
 **2. Every logo SVG in the brand pack renders black except one.** The exported SVGs reference
 CSS classes (`.cls-1`, `.cls-2`) whose `<style>` block was stripped on export, leaving an
-empty `<defs>`. With no rule for those classes, the paths fall back to default fill — solid
+empty `<defs>`. With no rule for those classes, the paths fall back to default fill, solid
 black. Only `default-light.svg` (1808 bytes) has a repaired `<style>` block:
 
 ```html
@@ -114,7 +114,7 @@ origin is fine.
 
 `Subscribe.astro` is only the signup form (a bare POST to Mailchimp's hosted endpoint at
 `blog/src/components/Subscribe.astro:18-20`, deliberately without their embed's jQuery and
-600 lines of SMS country-code handling). **The campaign template itself is not in this repo** —
+600 lines of SMS country-code handling). **The campaign template itself is not in this repo**:
 it lives in Mailchimp. The repo's job is to *host* the images the template references by
 absolute URL off `https://blog.moi.technology/brand/…`. That is also why they sit under
 `blog/public/` rather than the marketing site: newsletter and blog share one origin.
@@ -127,9 +127,9 @@ absolute URL off `https://blog.moi.technology/brand/…`. That is also why they 
   inline styles. Outlook ignores the CSS and will render at intrinsic size otherwise.
 - **Always set `alt`.** Many clients block images by default; the alt text is the entire
   message until the reader clicks "show images".
-- **No spaces in filenames** — the space-named brand files would need URL escaping in a
+- **No spaces in filenames**: the space-named brand files would need URL escaping in a
   template. `b8c3dea`'s message states the rule for `logo-email.png`. (It is not why the
-  lowercase SVG copies exist — those predate the newsletter by three months and serve the
+  lowercase SVG copies exist: those predate the newsletter by three months and serve the
   blog's own nav and favicon.)
 
 ### The cache rule
@@ -140,13 +140,13 @@ no purge. Once it has fetched a URL, the origin can serve anything it likes and 
 keep going out.
 
 This cost three PRs to learn (`b8c3dea` → `85629a5` → `b150873`). `logo-email.png` was
-replaced in place — dark variant, then light — and the purple mark never appeared. From
+replaced in place (dark variant, then light) and the purple mark never appeared. From
 `b150873`:
 
 > A new path is the only reliable way out; image caches are keyed on URL and Mailchimp gives
 > you no way to purge one.
 
-The fix was a rename to `moi-mark-purple.png` — **named for its variant, so the next change is
+The fix was a rename to `moi-mark-purple.png`, **named for its variant, so the next change is
 naturally a new file rather than an overwrite**. Follow that convention. `17bcf5a` did:
 recolouring the icon set shipped five *new* `-colour.png` files rather than overwriting the
 originals.
@@ -168,12 +168,12 @@ archive for every past send.
 | GitHub | `brand/social/github-colour.png` | 48×48 | 24px | `#181717` |
 
 Every icon is transparent. The five service marks are all under 1.2 KB; `moi.png` is 4 KB,
-being a gradient rather than a flat fill. It is also **62×48, not square** — it is
+being a gradient rather than a flat fill. It is also **62×48, not square**: it is
 height-matched to the row so the planet sits level with the circular marks. Setting
 `width="24" height="24"` on it squashes the planet into an egg; set the height and let the
 width follow.
 
-The masthead mark is served at 160×123 for a 39×30 display — closer to 4× than 2×. The **2×** rule
+The masthead mark is served at 160×123 for a 39×30 display, closer to 4× than 2×. The **2×** rule
 above is a floor, not a description of this asset.
 
 There is no `moi-colour.png`. The MOI mark was already brand-purple in `22e4456` and was not
@@ -202,25 +202,25 @@ const ogImage = cover ? new URL(cover.replace(/\.svg$/, '.png'), Astro.site).hre
 
 So: `cover` is an **optional** frontmatter field (`content.config.ts:23`) holding the SVG
 path. The `og:image` is derived by swapping the extension to `.png`. It is *not* inferred from
-the slug — a PNG sitting on disk with no `cover:` in frontmatter is invisible to the build.
+the slug: a PNG sitting on disk with no `cover:` in frontmatter is invisible to the build.
 
 `Base.astro:41-51` emits `og:image`, `og:image:width`, `og:image:height`, `twitter:card` and
 `twitter:image` as a block, or nothing at all. The rationale sits with the props destructure at
 `Base.astro:9-11`:
 
-> Pages without one emit no og:image at all rather than a placeholder — a missing card
+> Pages without one emit no og:image at all rather than a placeholder: a missing card
 > degrades to a text preview, a wrong one misrepresents the page.
 
 **Current state: no post sets `cover:`.** `grep '^cover:' blog/src/content/posts/*.md` returns
 nothing across all four posts, and `grep og:image blog/dist/article/*/index.html` returns
 nothing. A cover pair exists for `moi-august-2026-release` but is unreferenced, so that post
 ships with no social card. The listing tile is also gated on the same field
-(`build-blog-index.js:122-138` — "No cover means no tile"), and `PostList.astro` on the Astro
+(`build-blog-index.js:122-138`, "No cover means no tile"), and `PostList.astro` on the Astro
 blog does not render covers at all; its cards are text-only. Adding `cover:
 /covers/<slug>.svg` to frontmatter is what lights up both the tile and the card.
 
 Cover SVGs are hand-authored, 1200×630, using the tokens directly and with a real font
-fallback stack (`font-family:Poppins,'Helvetica Neue',Arial,sans-serif`). Keep the fallback —
+fallback stack (`font-family:Poppins,'Helvetica Neue',Arial,sans-serif`). Keep the fallback;
 see below for why it matters.
 
 ## Rasterising SVG → PNG
@@ -234,14 +234,14 @@ const sharp = require('sharp');
 sharp('public/covers/my-slug.svg').png().toFile('public/covers/my-slug.png');
 ```
 
-Verified working — it renders the existing 1200×630 cover correctly.
+Verified working: it renders the existing 1200×630 cover correctly.
 
 Nothing else is installed. `cairosvg`, `rsvg-convert`, `inkscape`, `magick` and `convert` are
 all absent from PATH, and there is no `sharp` at the repo root, only under `blog/`.
 
 ### The font caveat
 
-**sharp will not use Poppins.** Poppins is not installed as a system font — it exists only as
+**sharp will not use Poppins.** Poppins is not installed as a system font: it exists only as
 a webfont in `blog/node_modules/@fontsource/poppins/`, and sharp's SVG renderer has no webfont
 loader. Text in a rasterised cover falls back down the stack to Helvetica Neue.
 
@@ -252,7 +252,7 @@ not Poppins**, while the page around it renders Poppins. If brand type in the ca
 either install Poppins system-wide before rasterising, or use the browser route below. If it
 does not, sharp matches what already shipped.
 
-For pure-shape assets — the logo mark, the social icons, anything with no `<text>` — sharp is
+For pure-shape assets (the logo mark, the social icons, anything with no `<text>`) sharp is
 correct and the caveat does not apply.
 
 ### Headless-browser fallback
@@ -263,7 +263,7 @@ When the SVG carries text and the real webfont is required, render in a headless
 comes out in Poppins. Slower and fiddlier than sharp; reach for it only for text-bearing
 covers.
 
-## Operational notes — external services
+## Operational notes: external services
 
 Not verifiable from the repo. Treat as learned-the-hard-way, not as checked fact.
 
@@ -271,7 +271,7 @@ Not verifiable from the repo. Treat as learned-the-hard-way, not as checked fact
   you post before `og:image` resolves, the broken card sticks to that URL more or less
   permanently. Run LinkedIn's Post Inspector to force a re-scrape *before* sharing, not after
   someone reports the card looks wrong.
-- **Mailchimp offers no cache purge** for fetched images — the basis of the naming rule above.
+- **Mailchimp offers no cache purge** for fetched images: the basis of the naming rule above.
 
 ## MOI social destinations
 

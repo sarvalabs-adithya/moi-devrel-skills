@@ -11,9 +11,9 @@ takeaways:
   - "On MOI the buyer settles first and proves second. It sends one interaction that calls Transfer on a native asset, waits for the receipt, then signs a claim naming that transfer, the resource, the network, a time window and a nonce."
   - "The seller's facilitator holds no keys. It reads the interaction and its receipt back from a node, decodes the transfer, checks eight rules and marks the transfer hash spent. It can run inside the seller's own process."
   - "No token approval, no contract, no relayed signature. A MOI asset transfer is a protocol operation, and a participant identifier derives from the key that signs, so the claim can be tied to the payer by derivation alone."
-  - "Three pieces make MOI an x402 network: a moi namespace for chain identifiers (moi:devnet), a scheme specification, and the @x402/moi TypeScript package with client, server and facilitator halves."
+  - "Three pieces make MOI an x402 network: a moi namespace for network identifiers (moi:devnet), a scheme specification, and the @x402/moi TypeScript package with client, server and facilitator halves."
   - "A seller on Hono adds one middleware and one route config; a buyer wraps fetch. Prices are quoted in atomic units or as a KMOI string such as \"0.10 KMOI\"."
-  - "Today this runs on Voyage devnet, with KMOI and MAS0 assets. Dollar prices need a converter you register, because MOI has no dollar-pegged default asset yet."
+  - "As of 12 September 2026 this runs on Voyage devnet, with KMOI and MAS0 assets. Dollar prices need a converter you register, because MOI has no dollar-pegged default asset yet."
   - "The fee payer from moipod v0.13.0 and a Coco escrow logic open the other two x402 flows, authorization and escrow, as follow-ups. The first scheme keeps to the flow that settles in one interaction."
 faq:
   - q: "What is x402 in one sentence?"
@@ -34,7 +34,7 @@ faq:
     a: "Voyage devnet, identified as moi:devnet, with KMOI (the MASN standard) and MAS0 assets. Mainnet is reserved in the namespace profile and is added to the scheme when it launches."
   - q: "Is the code public?"
     a: "It is heading upstream as three contributions: the moi namespace to the Chain Agnostic Standards Alliance, the scheme specification to the x402 repository, and the @x402/moi package to the same repository. The order is fixed by the repositories: the namespace first, then the spec, then the package."
-draft: false
+draft: true
 ---
 
 **An agent can now buy one API call on MOI with a single HTTP retry, and the seller can confirm the payment without holding a key.** That is what an x402 scheme for MOI gives you. The buyer pays with one interaction, proves it with a signed claim, and the seller reads the payment back from the network instead of trusting anything in the request.
@@ -42,6 +42,8 @@ draft: false
 This post is for people who build services that agents call, and for people who build the agents. It explains what x402 is, why the MOI version settles before it proves, what happens inside one paid request, what the seller and the buyer each run, and what is still missing.
 
 Six terms, glossed once. *x402* is the standard; the name is the HTTP status code 402, Payment Required. A *facilitator* is the component that checks a payment on the seller's behalf. A *scheme* is one way of paying under x402; the one here is called `exact`, a fixed price per request. An *interaction* is MOI's transaction. A *participant* is an account on MOI with its own state; every buyer, seller and agent is one. *Fuel* is what an interaction costs to run, paid in KMOI, the native token.
+
+More terms appear later in the post. They are glossed here too, roughly in the order they appear. *MAS0* and *MASN* are MOI's two native fungible asset standards: MAS0 for developer tokens, MASN for KMOI. *Core* is `@x402/core`, the x402 library that drives the HTTP exchange around the three halves. *EIP-3009* is the Ethereum standard for a token transfer authorized by a signed message. A *callsite* is the name of the asset endpoint an operation calls, here `Transfer`. An *anu* is the smallest unit of an asset; KMOI has nine decimals, so 0.10 KMOI is 100,000,000 anu. *Key 0* is the first signing key of an account, the one its identifier derives from. A *sub-account* is a further identifier derived from the same key and told apart by a variant field. A *tesseract* is MOI's per-participant state checkpoint, and it carries a timestamp. A *Coco escrow logic* is a program written in Coco, MOI's logic language, that holds funds in its own account and releases them by code.
 
 ## What is x402, and why do agents care?
 
@@ -51,7 +53,7 @@ For an agent that is the whole point. An agent calling a data API at 3 a.m. cann
 
 The standard is published by the [x402 Foundation](https://github.com/x402-foundation/x402) under Apache-2.0. The reference repository lists EVM chains, Solana, Algorand, Aptos, Stellar, TON, Hedera and Keeta as supported networks, and three schemes: `exact` for a fixed price, `upto` for a capped amount, and `batch-settlement` for escrowed vouchers on EVM. The numbers on [x402.org](https://www.x402.org/) for the 30 days to 10 September 2026:
 
-| Measure | Last 30 days |
+| Measure | 30 days to 10 September 2026 |
 |---|---|
 | Transactions | 75.41M |
 | Volume | $24.24M |
@@ -239,9 +241,9 @@ For an agent, the buyer side is the whole integration. The agent holds a mnemoni
 | 2 Signature | ECDSA over the canonical claim bytes verifies against the public key | `moi_exact_invalid_signature` |
 | 3 Key controls payer | The identifier derived from the key equals `claim.from`, and `keyId` is 0 | `moi_exact_invalid_payload` |
 | 4 Claim matches quote | Network, asset and payee equal the quote; value is at least the amount | `moi_exact_requirements_mismatch` |
-| 5 Resource binding | `claim.resource` equals the URL being served; fails closed if absent | `moi_exact_requirements_mismatch` |
+| 5 Resource binding | `claim.resource` equals the URL being served; the payment is rejected if the field is missing | `moi_exact_requirements_mismatch` |
 | 6 Freshness | Now is inside the window, and the window is no wider than the quoted timeout | `moi_exact_payment_expired` |
-| 7 Settled on chain | The interaction and receipt exist, the receipt succeeded, the sender is the payer, the operation is a `Transfer` on the quoted asset, and the decoded beneficiary and amount match | `moi_exact_transfer_not_found`, `moi_exact_transfer_mismatch`, `moi_exact_chain_read_failed` |
+| 7 Settled on chain | The interaction and receipt exist, the receipt succeeded, the sender is the payer, the operation is a `Transfer` on the quoted asset, and the decoded beneficiary equals the payee and the decoded amount is at least the claimed value | `moi_exact_transfer_not_found`, `moi_exact_transfer_mismatch`, `moi_exact_chain_read_failed` |
 | 8 Replay | The transfer hash has not been redeemed; reserve it atomically | `moi_exact_already_spent` |
 
 Rule 7 is the one that makes this `upfront`. The receipt carries the status but neither the beneficiary nor the amount, so the read takes both `moi.InteractionByHash` and `moi.InteractionReceipt`, and the beneficiary and amount come from decoding the operation's calldata, which the node encodes in POLO, MOI's serialization format. Nothing in the request is believed; everything is read back.
@@ -264,7 +266,7 @@ The namespace goes first because the spec names `moi:devnet`. The spec goes seco
 
 Every protocol claim in the spec was checked against the node and SDK source and against Voyage devnet. The package's tests decode the calldata of a real devnet transfer, sign claims with the SDK's own ECDSA, and read a settled transfer back from a live node the way rule 7 describes.
 
-## What are the limits today?
+## What are the limits as of 12 September 2026?
 
 **Devnet, KMOI pricing, and one flow.**
 
@@ -298,7 +300,7 @@ If you build services that agents call, the seller example above is the whole in
 - **The claim, not the hash, is the proof.** Signed by a key that derives to the payer, bound to one resource and one network, with a window and a nonce; the hash is marked spent once.
 - **A seller adds one middleware; a buyer wraps fetch.** Prices in atomic units or as a KMOI string.
 - **Three pieces go upstream in order:** the `moi` namespace, the scheme spec, the `@x402/moi` package.
-- **Devnet and KMOI today.** Dollar prices need a converter; sub-accounts and the fee payer are follow-ups.
+- **Devnet and KMOI as of 12 September 2026.** Dollar prices need a converter; sub-accounts and the fee payer are follow-ups.
 - **The other two flows are next.** Fee payer for `authorization`, a Coco logic for `escrow`.
 
 <Subscribe />

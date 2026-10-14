@@ -1,19 +1,32 @@
 # Community Call ("The Campfire Chat") and the Builders intro session
 
-Researcher note for the MOI DevRel skills project. Everything marked "(inferred)" is my reading of the
-evidence, not something a file or a request says. "Unknown" means the evidence is silent; those items are
-repeated under "Open questions".
-
-Shorthand used below:
-
-- `WT` = `/Users/adithyaganesh/MOI-Webinars/.claude/worktrees/relaxed-mccarthy-368dbc`
-- `REQ` = `/Users/adithyaganesh/moi-devrel-skills/_research/_user-requests.txt` (line numbers are file lines)
-- `TX14` = session transcript `/Users/adithyaganesh/.claude/projects/-Users-adithyaganesh-MOI-Webinars--claude-worktrees-relaxed-mccarthy-368dbc/58e97e8b-f23d-4b3d-aa62-d3ddefd7068b.jsonl`
-  (the session that built the intro deck, the CC14 deck and the moi-deck skill; line numbers are jsonl lines, times are UTC)
-- `TX13` = `/Users/adithyaganesh/.claude/projects/-Users-adithyaganesh-mw-MOI-Website--claude-worktrees-compare-repos-main-4ec89e/2aa9fad0-da96-4692-b568-37f1de9f7028.jsonl`
-  (the session that prepared Community Call 13 and recorded the 24 Aug planning call)
-- `TX13b` = `/Users/adithyaganesh/.claude/projects/-Users-adithyaganesh-mw-MOI-Website--claude-worktrees-compare-repos-main-4ec89e/f9be64ac-1d0f-4a0b-8482-53dbdbbed0cc.jsonl`
-  (a later session in the same worktree that repeats the 24 and 27 Aug history at different line numbers; used for the Haiku audit result, the Buffer draft IDs and the deck-update prompt)
+> **What this file is.** A research note on how the monthly MOI Community Call (called "The Campfire Chat" from call 14 on) and the one-off Builders intro session were planned, built, scripted and checked. The evidence is community calls 13 and 14 (CC13, CC14) and the intro session. Claude (an AI research assistant) compiled it from Adithya's work history to design Claude skills for the MOI DevRel handover. The last section ("Proposals for skills") proposes `moi-community-call`, a small `moi-builders-intro`, and fixes to the existing `moi-deck` skill. This file does not say whether those proposals were built.
+>
+> **When it was written.** Late September to October 2026. The evidence runs from 24 August to 1 October 2026. Words such as "now", "still" and "today" mean at the time of writing, unless a line says "Update" with a date.
+>
+> **Who "I" and "the user" are.** "I" is the research assistant. "The user" is Adithya (DevRel at MOI); "the request file" means the request log `REQ`.
+>
+> **Evidence key.** "Observed" means seen in a file, a transcript or a request line. "(inferred)" means the research assistant's reading, not something a file or a request says. "Unknown" means the evidence is silent; those items are repeated under "Open questions".
+>
+> **Paths and citations.**
+> - `REQ <n>` or `REQ:<n>` cites line n of a request log kept on Adithya's Mac (`~/moi-devrel-skills/_research/_user-requests.txt`; not in this repo). "REQ ~n", "REQ near n" and "REQ about n" mean the exact line is approximate.
+> - `WT` is Adithya's working copy of the webinar repo on his Mac: `~/MOI-Webinars/.claude/worktrees/relaxed-mccarthy-368dbc`.
+> - `TX13`, `TX13b` and `TX14` are saved Claude Code session transcripts on Adithya's Mac (full paths in the appendix at the end). "TX14 line n" is a line of that file; times are UTC. They are not in the repo.
+> - A "memory note" is a note in Claude's own memory folder on Adithya's Mac (under `~/.claude/projects/.../memory/`), not a file in this repo.
+> - Paths starting `~/` or `WT/` are on Adithya's Mac. The session code is in https://github.com/moi-foundation/MOI-Webinars. Session transcripts are not in the repo.
+> - Where the original text had an em dash inside a quoted title or UI string, it is shown here with a colon.
+>
+> **People.**
+> - Adithya: DevRel at MOI; builds the deck and presents the protocol and DevRel slides.
+> - Rahul: reviews and approves DevRel work and sets priorities. The notes call him "the manager" (inferred from REQ 2164).
+> - Prateek, Rishal, Piyush, Sai Kiran: speakers or content owners; roles not recorded in these notes (see "Who does it").
+> - The host of the call: not named in these notes.
+> - "The founder": the label these notes use for whoever gave the 14 Sep terminology corrections. That label is the research assistant's inference; the person is not named.
+> - Not named here but relevant: Vardan (marketing, community call scheduling).
+>
+> **Reading guide.** One "Process" section per stage (planning, content sourcing, deck build, script, release checks, live and after the call, intro session), then reusable assets, rules, traps, open questions, proposals for skills, known inconsistencies, a glossary of jargon, and an appendix with the transcript paths.
+>
+> **Update, 13 October 2026.** The CC14 deck (`community-call-14/deck/`) has been merged into https://github.com/moi-foundation/MOI-Webinars. Statements below that it is "untracked" or exists "only on this Mac" were true when written and are now out of date for that deck.
 
 ## Sources read
 
@@ -26,14 +39,14 @@ Assigned reading, all read in full:
 - `WT/community-call-14/deck/MOI_Community_Call_14.pdf` and `MOI_Community_Call_14_no_guest.pdf` (read by name, plus `pdfinfo`, `pdftotext` and a rendered contact sheet to check them; both 12 pages, identical text)
 - `WT/community-call-14/deck/assets/` (listed: `futuremode-1.png`, `futuremode-2.png`, `mohit.webp`, `krexa-logo.webp`, `engines/{chatgpt,copilot,gemini,perplexity}.svg`)
 - `WT/intro-session/deck/index.html` (476 lines, `TITLES` at 360-372, `NOTES` at 373-393), `README.md`, `MOI_Builders_Intro.pdf` (11 pages, by name and `pdfinfo`)
-- `/Users/adithyaganesh/.claude/skills/moi-deck/` in full: `SKILL.md`, `reference/build.md`, `reference/components.md`, `scripts/new-deck.sh`, `scripts/render.sh`, `assets/template.html`
+- `~/.claude/skills/moi-deck/` in full: `SKILL.md`, `reference/build.md`, `reference/components.md`, `scripts/new-deck.sh`, `scripts/render.sh`, `assets/template.html`
 - `REQ`: every hit for the suggested grep, plus the surrounding lines (1325-1380 for the intro deck and CC14, 2250-2280 for CC13, 924-1100 for the deck/script voice feedback, 524-660 for the earliest script-tone feedback)
 
-Extra evidence I went and found, because the request file is only the user's typed text (it truncates long pastes and omits images and attachments):
+Extra evidence I went and found, because the request log is only the user's typed text (it truncates long pastes and omits images and attachments):
 
 - `TX14` lines 24686 (the pasted first-draft deck), 24851 (the pasted Scribble report and Slack thread), 25251 (the pasted announcement), and the assistant replies from 22804 to 26254 (intro build, CC14 edits, script rounds, skill packaging).
 - `TX13` lines 6702 (Zoom transcript of the 24 Aug planning call), 9567 (27 Aug call notes), 10119/10166 (CC13 YouTube description), 10207 (CC13 slide scripts), and the CC13 deck-verification replies (TX13 lines 9598-9868; TX13b lines 1897-2032).
-- Memory notes: `/Users/adithyaganesh/.claude/projects/-Users-adithyaganesh-mw-MOI-Website/memory/moi-weekly-comms-cadence.md`, `.../-Users-adithyaganesh-MOI-Webinars/memory/devnet-build-lag.md`, `moi-terminology-corrections.md`, `no-push-no-notify.md`.
+- Memory notes: `~/.claude/projects/-Users-...-mw-MOI-Website/memory/moi-weekly-comms-cadence.md`, `.../-Users-...-MOI-Webinars/memory/devnet-build-lag.md`, `moi-terminology-corrections.md`, `no-push-no-notify.md`.
 - Repo files used as content sources for the protocol slides: `WT/protocol-release-0.13.0/RELEASE-NOTE.md`, `BLOG.md`, `social/discord.txt`, `social/x-correction-reply.txt`.
 - For comparison: `WT/session-8-policies/SCRIPT.md` and `LUMA.md` (the dev-webinar sibling), `WT/DEPENDENCIES.md` section 4 and 19.
 - I ran three read-only checks: a JavaScript parse of each deck's inline script, a headless-Chrome DOM dump of the CC14 deck, and a 1280x720 headless screenshot of slides 9 and 11. Scratch images went to the session scratchpad only.
@@ -57,19 +70,17 @@ is meeting. Adithya's job is the deck and the speaker line-up (TX13 line 6702; m
 - Observed: memory note says rehearsal on Wednesday and live call on Thursday, "as set on the 2026-08-24 planning call".
 - Observed: on 24 Sep 14:02 UTC the user pasted announcement copy that begins "MOI Community Call #14 is happening tomorrow" (TX14 line 25251). So the call was on
   Friday 25 Sep (inferred). Script edits were still happening at 25 Sep 12:37 UTC, which fits a call later that day or later (inferred).
-- Unknown: the start time and length of either call. CC13 started about 6 hours after 04:47 UTC on 27 Aug ("communtiy call is in 6 hrs", REQ near 2251; TX13 line 9567),
+- Unknown: the start time and length of either call. CC13 started about 6 hours after 04:47 UTC on 27 Aug ("communtiy call is in 6 hrs", REQ near 2251, exact line not recorded; TX13 line 9567),
   which is about 16:15 IST (inferred; the dev webinars run at 4pm IST, `WT/session-8-policies/SCRIPT.md` line 3).
 
 ### Who does it
 
-- Adithya: builds the deck, confirms speakers, presents protocol and DevRel updates. On 24 Aug the transcript says "I'll do Devrel updates" and "do protocol updates"
-  (TX13 line 6702; the speaker of "do protocol updates" is not labelled). For CC14 he only asked for a script for slides 2 to 4, the protocol and DevRel slides
-  (REQ 1371, 1374), so those are his slides (inferred).
-- Prateek: product update, Proofly, on CC13 and in the CC14 first draft (TX13 line 6702; draft slide 8). Dropped from the CC14 final deck by the user (REQ 1357).
-- Rishal: research segment pushed to a later call (TX13 line 6702, memory note). Whether it ran on CC14 is unknown.
-- Piyush: marketing roadmap slide in the CC14 first draft says "Presented by Piyush" (TX14 line 24686). The final CC14 deck keeps that content on slide 11. So marketing slides are probably presented by marketing, not Adithya (inferred).
-- Sai Kiran: wrote the "Scribble report (Community Call Prep)" and the "Community Growth - Key Pointers" in Slack for the call (TX14 line 24851). Adithya asked him to confirm the all-hands numbers were the latest for the month.
-- The manager (the person who set priorities on the 24 Aug call; the user asked "see what rhaul suggested" right after pasting that call, REQ 2164, so this is Rahul, inferred): capped the deck at "just like couple of hours of work. Yeah, nothing more than that" (TX13 line 6702).
+- Adithya: builds the deck, confirms speakers, presents protocol and DevRel updates. On 24 Aug the transcript says "I'll do Devrel updates" and "do protocol updates" (TX13 line 6702; the speaker of "do protocol updates" is not labelled). For CC14 he only asked for a script for slides 2 to 4 (September release, upgrading from August, DevRel), the protocol and DevRel slides (REQ 1371, 1374), so those are his slides (inferred).
+- Prateek (role not recorded in these notes): product update, Proofly, on CC13 and in the CC14 first draft (TX13 line 6702; draft slide 8). Dropped from the CC14 final deck by the user (REQ 1357).
+- Rishal (role not recorded in these notes): research segment, pushed to a later call (TX13 line 6702, memory note). Whether it ran on CC14 is unknown.
+- Piyush (role not recorded in these notes): the marketing roadmap slide in the CC14 first draft says "Presented by Piyush" (TX14 line 24686). The final CC14 deck keeps that content on slide 11. So marketing slides are probably presented by marketing, not Adithya (inferred).
+- Sai Kiran (role not recorded in these notes): wrote the "Scribble report (Community Call Prep)" and the "Community Growth - Key Pointers" in Slack for the call (TX14 line 24851). Adithya asked him to confirm the all-hands numbers were the latest for the month.
+- Manager (Rahul, inferred from REQ 2164) capped the deck at about two hours: "just like couple of hours of work. Yeah, nothing more than that" (TX13 line 6702). He set priorities on the 24 Aug call; the user asked "see what rhaul suggested" right after pasting that call (REQ 2164).
 - A host who is not Adithya: a Slack message to Adithya says the host "started to track that we get more traction when I ask questions to the audience and to the presenter" and may ask a planted question, "to also promote us getting some short 15 second clips" (REQ 1373). The host's name is unknown.
 
 ### Inputs needed before starting
@@ -92,7 +103,7 @@ is meeting. Adithya's job is the deck and the speaker line-up (TX13 line 6702; m
 ### Deliverables and where they end up
 
 - `deck/index.html` and `deck/MOI_Community_Call_14.pdf` under `community-call-14/deck/`. In the worktree they are untracked (`git status` shows `?? community-call-14/`), and `WT/DEPENDENCIES.md` section 19 says
-  both decks exist only on Adithya's Mac and nothing is committed.
+  both decks exist only on Adithya's Mac and nothing is committed. Update, 13 October 2026: the CC14 deck has since been merged into https://github.com/moi-foundation/MOI-Webinars under `community-call-14/deck/`. For the intro-session deck no update is recorded.
 - Who receives the PDF and HTML: unknown. In the sessions Claude "sent" both files to Adithya in chat.
 
 ### Accounts and tools involved
@@ -119,7 +130,7 @@ is meeting. Adithya's job is the deck and the speaker line-up (TX13 line 6702; m
 
 ### Open questions
 
-- Who hosts, who moderates Q&A, and who presents slides 5 to 11 at CC14.
+- Who hosts, who moderates Q&A, and who presents slides 5 to 11 (AI visibility through what is next) at CC14.
 - Start time, length, and whether Wednesday rehearsal still happens.
 - Who owns the Scribble tool login and the Slack channel where inputs are posted.
 
@@ -141,7 +152,7 @@ Adithya, with Claude doing the assembly. Content owners: protocol team (release 
 
 ### Inputs needed
 
-1. A first-draft deck. CC14's was a pasted 40,756-character HTML deck titled "MOI Community Call #14 — Building in Public" in a different design system (Sora and JetBrains Mono, its own palette).
+1. A first-draft deck. CC14's was a pasted 40,756-character HTML deck titled "MOI Community Call #14: Building in Public" in a different design system (Sora and JetBrains Mono, its own palette).
    The user's request was "make this deck in our webinar deck format, like this content for community call" (TX14 line 24686). I could not find who produced that draft (unknown).
 2. The protocol release note and release blog.
 3. The Scribble report text and Slack thread (TX14 line 24851), later dashboard screenshots ("use this", TX14 line 25399/25403).
@@ -150,13 +161,41 @@ Adithya, with Claude doing the assembly. Content owners: protocol team (release 
 ### Steps, in order
 
 1. Convert the draft into the MOI Builders deck framework. Claude dropped the second design system and recast panels as deck components, and "kept every figure as written" (TX14 line 24788).
-   Result, 23 Sep: 14 slides, notes for every slide. First draft order: cover, September release, first-run problem, KMOI nine decimals / prices in anu, what breaks, everything that shipped, DevRel, Proofly, Game Night and Pip,
-   content on X, Coinfest Asia Bali (with "live guests from Bali this Friday"), Algix and MeitY tender, what is next, thank you with Open Q&A (from the pasted draft text).
+   Result, 23 Sep: 14 slides, notes for every slide. First-draft order (from the pasted draft text):
+   1. cover
+   2. September release
+   3. first-run problem
+   4. KMOI nine decimals / prices in anu
+   5. what breaks
+   6. everything that shipped
+   7. DevRel
+   8. Proofly
+   9. Game Night and Pip
+   10. content on X
+   11. Coinfest Asia Bali (with "live guests from Bali this Friday")
+   12. Algix and MeitY tender
+   13. what is next
+   14. thank you with Open Q&A
 2. Rebuild the title slide as a plain title with a huge ghost "14" (REQ 1355; TX14 lines 24809 to 24839).
 3. Paste the Scribble report and the community numbers; instruction: protocol update to one or two slides, focus on the new material (TX14 line 24851).
-   Claude restructured to 15 slides: protocol in 2, then AI visibility (baseline, by engine, what people ask, MOI vs Lit, content plan), campaign performance, community, DevRel, Proofly, events and enterprise, what is next, close (TX14 line 24924).
-4. Prune. In this order (REQ 1356-1363; TX14 lines 24928 to 25395): slide 6 removed (wrong slide, see Traps), campaign slide removed, Proofly removed, Algix and MeitY removed, MOI vs Lit slide removed,
-   "What people ask AI about MOI" restored, Coinfest replaced by Futuremode with real photos.
+   Claude restructured to 15 slides (TX14 line 24924):
+   - protocol, in 2 slides
+   - AI visibility: baseline, by engine, what people ask, MOI vs Lit, content plan
+   - campaign performance
+   - community
+   - DevRel
+   - Proofly
+   - events and enterprise
+   - what is next
+   - close
+4. Prune. In this order (REQ 1356-1363; TX14 lines 24928 to 25395):
+   - "What people ask AI about MOI" removed by mistake (the user said "slide 6" but meant the MOI vs Lit slide; see Traps)
+   - campaign slide removed
+   - Proofly removed
+   - Algix and MeitY removed
+   - MOI vs Lit slide removed
+   - "What people ask AI about MOI" restored
+   - Coinfest replaced by Futuremode with real photos
 5. Update numbers from the dashboard screenshot and typed figures (see numbers table).
 6. Reorder: "move devrel slide to slide 4 like after action require" (REQ 1367).
 7. Remove the up and down trend arrows from the by-engine slide (REQ 1368).
@@ -171,8 +210,8 @@ Adithya, with Claude doing the assembly. Content owners: protocol team (release 
 | 2 | September release: fee delegation, KMOI on MASN, prices in anu, live on devnet 11 Sept | `WT/protocol-release-0.13.0/RELEASE-NOTE.md` (protocol team's note, unedited) and `BLOG.md` lines 10, 14-17, 40. "Zero KMOI" bullet comes from first-draft slide 3. | Observed |
 | 3 | Upgrading from August: three-package install, old id `0x108000004cd973c4` search, storage a millionth, fuel under 50 anu, participant lists, notary exception, max supply 0 or over 18 decimals | Release note for versions and participant list. `BLOG.md` lines 15-17, 159-163 for the old id and the asset limits (the unedited release note does not contain those two). | Observed |
 | 4 | DevRel: MCP server (in progress), MOI and x402, the blog | First-draft slide 7, text almost unchanged. Underlying work: `WT/x402-compat/` and the blog pipeline. | Observed (draft); work itself outside this note |
-| 5 | AI visibility baseline: 47 queries, 5 engines, 17.3%, 1,203 citations, 650 mentions | Dashboard screenshot attached 24 Sep and figures typed by the user ("also visibility 17.3% / 1203 citation and growing / ... 650 mentions"). Claude had first used the user's "18%" and switched to 17.3 as "more precise" (TX14 line 25534). "47 queries, 5 engines" is from the Scribble report text, which Claude flagged as older. | Observed |
-| 6 | By engine: Perplexity 20, Gemini 19.1, Copilot 19, ChatGPT 12.8; 221 of 226 responses, 97.8% | Dashboard screenshot for Perplexity, Gemini, ChatGPT; "copilot - 19%" typed (REQ 1365). Coverage 221 of 226 is from the Scribble report text and was never reconfirmed (TX14 line 25534). Logos fetched from Wikimedia Commons. | Observed |
+| 5 | AI visibility baseline: 47 queries, 5 engines, 17.3%, 1,203 citations, 650 mentions | Dashboard screenshot attached 24 Sep and figures typed by the user ("also visibility 17.3% / 1203 citation and growing / ... 650 mentions"). Claude had first used the user's "18%" and switched to 17.3% as "more precise" (TX14 line 25534). "47 queries, 5 engines" is from the Scribble report text, which Claude flagged as older. | Observed |
+| 6 | By engine: Perplexity 20, Gemini 19.1, Copilot 19, ChatGPT 12.8 (the sources give no unit; visibility percentages, inferred); 221 of 226 responses, 97.8% | Dashboard screenshot for Perplexity, Gemini, ChatGPT; "copilot - 19%" typed (REQ 1365). Coverage 221 of 226 is from the Scribble report text and was never reconfirmed (TX14 line 25534). Logos fetched from Wikimedia Commons. | Observed |
 | 7 | What people ask AI about MOI | Scribble report section 3, with the Lit Protocol query dropped (TX14 line 25170). The sentence "Nobody is asking about the parts we discuss internally" is not in the Scribble report. | Observed; that sentence is Claude's addition (inferred) |
 | 8 | Content plan: core education, product led, comparison | Scribble report section 6, near verbatim. | Observed |
 | 9 | Community: 120+ new Discord joins, 60+ active, Game Nights biggest contributor; Game Night seventh run, 42 at peak up from 20, Gartic, poker next; Pip live in Discord | Sai Kiran's "Community Growth - Key Pointers" (Slack, TX14 line 24851) for the first card; Game Night and Pip details from first-draft slide 9. | Observed |
@@ -267,7 +306,7 @@ Logos: from the owner's own site or Wikimedia Commons: `curl -sSL -o assets/engi
 
 ### Deliverables and where they end up
 
-`index.html`, `index-no-guest.html`, `MOI_Community_Call_14.pdf`, `MOI_Community_Call_14_no_guest.pdf`, `README.md`, `assets/`. Sent to the user in chat. Not committed (untracked).
+`index.html`, `index-no-guest.html`, `MOI_Community_Call_14.pdf`, `MOI_Community_Call_14_no_guest.pdf`, `README.md`, `assets/`. Sent to the user in chat. Not committed (untracked) when written; see the update in Deliverables above for the CC14 deck.
 
 ### Accounts and tools involved
 
@@ -281,6 +320,13 @@ The rule that was ignored in CC14: neighbours must not share a background. CC14 
 
 ### Traps and silent failures
 
+In plain terms, two defects can break the live deck while the PDF still looks fine, because printing to PDF does not run the deck's JavaScript or its screen scaling:
+
+- A typing slip in the speaker-notes text (a real line break, or a missing comma) stops the deck's JavaScript, so the arrow keys, the slide dots and the presenter window all stop working.
+- A stray closing tag on CC14 slide 10 pushes slides 11 and 12 out of the scaled slide area, so on any window that is not 1920x1080 they are cropped and slide 10 loses its number badge.
+
+The numbered list gives the technical detail.
+
 1. Real newlines inside a `NOTES` string, or a missing comma between entries, are JavaScript syntax errors. The whole inline script dies: arrow keys, dots and the presenter window stop, but the PDF still prints because print CSS needs no JavaScript.
    Hit on CC14 (found and fixed 24 Sep, TX14 line 25451), and **still present in `WT/intro-session/deck/index.html`**: the slide 4 notes entry (lines 377-385) has literal line breaks. I confirmed with a parse of the extracted script: CC14 parses OK, intro deck fails with "Invalid or unexpected token".
 2. **A stray `</div>` on CC14 slide 10 (`index.html` lines 332-333) breaks the live deck and no current check catches it.** In a real Chrome DOM dump, slides 11 and 12 become children of `.deck-viewport` instead of `.deck-stage`, and slide 10's `slide-num` is outside its section.
@@ -288,9 +334,9 @@ The rule that was ignored in CC14: neighbours must not share a background. CC14 
 3. Edits that do not match the file abort silently or apply nothing; use asserted replacements and re-check the result (TX14 lines 25361, 25424, 25441).
 4. `README.md` goes stale: CC14's says "13 slides (with the guest speaker)", describes slide 12 photos "both in place", and says "figures unchanged". The deck is now 12 slides with no guest, and the figures changed on 24 Sep.
 5. The two variant files are now byte-identical, so the "variant" setup has no purpose; the `no_guest` PDF (25 Sep 08:00 EDT) is older than the HTML (08:37 EDT) but has identical text. The `MOI_Community_Call_14.pdf` timestamp of 28 Sep 14:30 EDT is Claude's test of `render.sh` while packaging the skill, not a call-time export (inferred from TX14 line 26254: "re-rendering community call 14 gives 12 slides and 12 pages under its existing filename").
-6. The presenter window title is hard-coded "Presenter — MOI Builders · Intro" in the template and in the CC14 deck (`index.html` line 404; `template.html` line 240).
+6. The presenter window title is hard-coded "Presenter: MOI Builders · Intro" in the template and in the CC14 deck (`index.html` line 404; `template.html` line 240).
 7. `build.md` tells you to run `render.sh deck/index.html deck/index-no-guest.html` for both variants, but with two non-PDF arguments the script writes `index.pdf` and `index-no-guest.pdf`, not the existing `MOI_Community_Call_14*.pdf` names.
-8. The skill's "A deck to copy from" points at `~/MOI-Webinars/community-call-14/deck/`. That path does not exist in the main checkout (`ls` fails); the folder exists only inside this worktree and is untracked.
+8. The skill's "A deck to copy from" points at `~/MOI-Webinars/community-call-14/deck/`. When checked, that path did not exist in the main checkout (`ls` fails); the folder existed only inside this worktree and was untracked. Update, 13 October 2026: the CC14 deck is now in https://github.com/moi-foundation/MOI-Webinars under `community-call-14/deck/`.
 9. `render.sh` writes its parse check to a fixed `/tmp/moi-deck-check.js` and silently skips the check if `node` is missing.
 10. Gemini's Wikimedia file was a wordmark with a stray bounding box; a wrong Commons filename returns an HTML 404 page; `svgl` search returned nothing (TX14 lines 25584 to 25635).
 
@@ -346,18 +392,18 @@ Word counts (`NOTES`): slide 1: 43, 2: 239, 3: 199, 4: 122, 5: 59, 6: 60, 7: 85,
 
 All rules below come from corrections the user made. Dates and request lines are given.
 
-- Speak in complete sentences as a human giving a presentation. "this is a horrible script, like why tf do u keep syaing not this not that, like just talk with complete sentecnes as if im a human give a prssnetation stop afucking aura farming all the time" (REQ 1063, 4 Sep, dev webinar 8).
+- Speak in complete sentences as a human giving a presentation. On 4 Sep (REQ 1063, dev webinar 8) the user rejected a draft in strong words: he called the script horrible, asked why it kept using "not this, not that" lines, told Claude to talk in complete sentences as if he were a human giving a presentation, and to stop "aura farming" (the user's slang for showy, impressive-sounding lines).
 - Every line must be readable aloud verbatim. "this is not a setence i can rea dverbatim" (REQ about 1066-1068, 4 Sep, in reply to a sample line about booking flights with aisle seats).
 - No "not this, not that" constructions. Reapplied on CC14: "rm Not save a setting, not call your logic." (REQ 1377).
 - Longer flowing sentences, not staccato short ones; warm, not cold. "notice how i like longer sentces and not stacctattod short aura sentences" (REQ 649, 7 Aug); "the last transcript you wrote was too cold" (REQ 590, 5 Aug).
-  Tension to flag: the moi-deck skill says "short sentences". The CC14 script is mixed, with some short punches ("One new thing, and two that break."). Treat "short sentences" in `SKILL.md` as softer than the user's own words (inferred).
+  (The moi-deck skill says "short sentences"; see the open question below.)
 - Run `humanizer` and `stop-slop` over the whole script (REQ 1043: "run a few rounds of humanization"; REQ 1375).
 - Explicit slide-change cues must be in the file, not buried in a paragraph: "in the file can u add clear prititons form when i shd change to slide ... need it to be epxlcit" (REQ 1091, 4 Sep). The session 8 `SCRIPT.md` does this with headers like `## PRESS NEXT --> SLIDE 2 · The use case`. The CC14 `SCRIPT.md` uses plain headers ("## Slide 2, the September release") with no "press next" cue, so it is weaker than the standard the user asked for.
-- Presenter notes in the HTML must match the script file: "fix the presenter notes to match the script" (REQ 1030) and "the presenter notes are unchanged" (REQ 1097 region).
+- Presenter notes in the HTML must match the script file: "fix the presenter notes to match the script" (REQ 1030) and "the presenter notes are unchanged" (around REQ 1097).
 - Use the product names as the user does: "went live on devnet", never "Voyage devnet" (REQ 1375).
 - No em dashes in script or slide copy. I counted zero in `SCRIPT.md` and in slide text; the only em dashes in the HTML are in the `<title>`, the presenter title and comments.
 - Cut closers that invite applause or hand over the floor: "Open Q&A. The floor is yours." was removed (REQ 1372); the closing note is now one line.
-- Terminology (founder's 14 Sep corrections, memory `moi-terminology-corrections.md`): participant-centric, not account-centric; MDAG not per-account chain; Sarva Labs builds, MOI Foundation governs; say network ID. These are applied in the intro deck (slide 3 card) and were not needed in the CC14 slides.
+- Terminology (the 14 Sep corrections from the person these notes call "the founder", an inference by the research assistant; memory `moi-terminology-corrections.md`): participant-centric, not account-centric; MDAG not per-account chain; Sarva Labs builds, MOI Foundation governs; say network ID. These are applied in the intro deck (slide 3 card) and were not needed in the CC14 slides.
 - Technical wording must stay inside what the protocol does: the payer covers fuel only, signs each interaction separately, and the user still funds any value they send (`SCRIPT.md` lines 11, 13).
 
 ### Traps and silent failures
@@ -374,6 +420,7 @@ About one hour for slides 2 to 4 across four versions (11:41 to 12:37 UTC on 25 
 
 - Who writes and checks the scripts for slides 5 to 12, and who presents them.
 - Whether the planted host question was asked live and whether the clip was cut.
+- Which wins when the moi-deck skill says "short sentences" and the user asks for longer flowing ones? The CC14 script is mixed, with some short punches ("One new thing, and two that break."). (inferred) Treat "short sentences" in `SKILL.md` as softer than the user's own words.
 
 ---
 
@@ -398,7 +445,7 @@ The protocol team's release note (kept unedited), the release blog, GitHub relea
 ### Steps, in order
 
 1. Keep the team's note verbatim next to the blog (`RELEASE-NOTE.md` header: "as sent by the protocol team, unedited").
-2. For each package on the deck, compare the line to its GitHub release notes and local source. CC13 method: one Haiku agent per package (TX13b line 1955: `audited: 8`, verdicts accurate / imprecise / wrong). Note the user's saved preference now says not to run multi-agent workflows unless he explicitly asks (memory `no-multi-agent-workflows`); this CC13 run was at his request ("can u pause the worfklow and use aiku agnets, i dont anna run out of session limit", REQ 2256).
+2. For each package on the deck, compare the line to its GitHub release notes and local source. Only if Adithya asks for parallel agents: one Haiku agent per package, as in the CC13 method (TX13b line 1955: `audited: 8`, verdicts accurate / imprecise / wrong). The user's saved preference now says not to run multi-agent workflows unless he explicitly asks (memory `no-multi-agent-workflows`); the CC13 run was at his request ("can u pause the worfklow and use aiku agnets, i dont anna run out of session limit", REQ 2256).
 3. Catch the items that fall off decks: non-headline packages, point releases and release candidates. CC13 example: `js-moi-agent-registry v0.3.0-rc1` is an RC pinned to an exact SDK peer, so a deck line saying it "shipped" was wrong (TX13 lines 9598, 9642; TX13b line 1955).
 4. A release gets its own slide only if it carries a breaking change, an action for the audience, or a concept that needs explaining (Claude's rule in TX13 line 9642; the user answered "we can have a slide individually for each package" REQ 2254 and then "the first slide shd be this, then we can talk abt the specific changes, and then end off with a specific slide for validators explaining the IOME change" REQ 2260). CC14 compressed the release to two slides on the user's instruction.
 5. State what is live. CC14: Claude flagged on 15, 23 and 25 Sep (TX14 lines 24406, 24788, 25999) that its saved note said devnet was running a pre-September build. The user's answer was to write "went live on devnet" (REQ 1375). The release pack says "live on Voyage devnet since 11 September 2026" (`BLOG.md` line 40, `social/discord.txt` line 3).
@@ -421,7 +468,7 @@ GitHub (read), npm, local clones of the repos (readable per memory `moi-source-o
 ### Traps and silent failures
 
 - The unedited note says "scheduled for today at 12:00 AM UTC"; a correction went out on X because "12:00 AM UTC" was read as midday. The correct time is 00:00 UTC on 11 Sept (`social/x-correction-reply.txt`).
-- Do not copy features that exist only in source onto a slide for a live demo or network (memory `devnet-build-lag.md`). The intro deck still has the exact problem (see the intro-session process).
+- Do not copy features that exist only in source onto a slide for a live demo or network (memory `devnet-build-lag.md`). At the time of writing the intro deck still has the exact problem (see the intro-session process).
 - The CC13 deck once had a slide titled "Everything That Shipped" that showed breaking changes only, and a Coinfest slide in future tense next to a slide of photos from it. Both were caught by Claude on the day (TX13 line 10165).
 
 ### Time
@@ -464,7 +511,7 @@ Live (observed in `WT/community-call-14/deck/README.md`):
 
 After the call (observed for CC13 only; TX13 lines 9567, 10119 to 10172):
 
-5. Write the YouTube description. Structure Claude used: title "MOI Community Call #13 — Building in Public"; a three-sentence summary; "Recorded [DATE]" (to be filled); CHAPTERS with `00:00 Welcome` first and `[__:__]` placeholders for the rest (YouTube needs the first chapter at 00:00 and chapters must match what was actually said);
+5. Write the YouTube description. Structure Claude used: title "MOI Community Call #13: Building in Public"; a three-sentence summary; "Recorded [DATE]" (to be filled); CHAPTERS with `00:00 Welcome` first and `[__:__]` placeholders for the rest (YouTube needs the first chapter at 00:00 and chapters must match what was actually said);
    "IF YOU ARE UPGRADING" with one line per package; "VALIDATORS" block; "READ THE FULL WRITE-UPS" with blog backlinks (the SEO point the manager asked for: "include backlinks for SEO optimization in YouTube descriptions", TX13 line 9567); "BUILD ON MOI" links; community links; a one-line description of MOI; a "Next up: Community Call #14, with live guests from Coinfest Asia, Bali." teaser; hashtags. Kept under YouTube's 5,000-character limit (Claude counted: TX13 line 10172). 18 of 20 links checked live; one dead because a post's pull request was unmerged.
 6. Distribution: "publishing a blog is not the end of the task; every post must also go out across MOI's social accounts and to the mailing list" (manager, 24 Aug; memory `blog-distribution-is-part-of-done.md`). Whether this applies to the call recap is unknown.
 
@@ -496,7 +543,7 @@ CC13 YouTube description: about 15 minutes from the call to a link-checked draft
 ### Open questions
 
 - Is the call recorded and posted for every edition? Who uploads? Which channel?
-- Is there a Luma, Discord event or website calendar entry? The website has a `community_calls` Supabase table behind the homepage calendar, edited at `/admin/calendar` with an admin key, and `WT/DEPENDENCIES.md` section 4 says the calendar fails in production today and falls back to a hard-coded schedule. Whether anyone adds each call there is unknown.
+- Is there a Luma, Discord event or website calendar entry? The website has a `community_calls` Supabase table behind the homepage calendar, edited at `/admin/calendar` with an admin key, and `WT/DEPENDENCIES.md` section 4 says the calendar fails in production (at the time of writing) and falls back to a hard-coded schedule. Whether anyone adds each call there is unknown.
 - Are the 15-second clips produced, by whom, and posted where?
 
 ---
@@ -518,7 +565,7 @@ Adithya presents (the notes open "I'm Adi, I work on ecosystem at Sarva Labs", `
 
 ### Inputs needed
 
-The launchpad source (`sarvalabs/moi-agent-launchpad`, master as of 9 Sep 2026; the README lists the files), the live site, a wallet and Telegram account for the demo. The founder's terminology corrections of 14 Sep.
+The launchpad source (`sarvalabs/moi-agent-launchpad`, master as of 9 Sep 2026; the README lists the files), the live site, a wallet and Telegram account for the demo. The 14 Sep terminology corrections (see "the founder" in the header).
 
 ### Steps, in order
 
@@ -554,10 +601,10 @@ The launchpad source (`sarvalabs/moi-agent-launchpad`, master as of 9 Sep 2026; 
 ### Traps and silent failures
 
 1. `intro-session/deck/index.html` slide 4 `NOTES` entry has real line breaks (lines 377-385). The extracted script fails to parse, so in the saved HTML the arrow keys, dots and presenter window are dead. The PDF is fine. The break was introduced by the slide 4 rewrite on 15 Sep (inferred from the 12:39 UTC edit, TX14 line 24406) and Claude's checks that day looked only at the rendered PDF pages (TX14 lines 24406, 24525). No request in the history complains about it, so I do not know whether the session was presented from this file.
-2. Slide 3's note still says "Since v0.13.0 someone else can pay that fuel for you, and you will see why that matters for agents." On 15 Sep Claude flagged this sentence as possibly wrong because devnet then ran an older build and "nothing later in the deck shows it. It's worth cutting that sentence before you present" (TX14 line 24406). It is still in the file.
+2. Slide 3's note still says "Since v0.13.0 someone else can pay that fuel for you, and you will see why that matters for agents." On 15 Sep Claude flagged this sentence as possibly wrong because devnet then ran an older build and "nothing later in the deck shows it. It's worth cutting that sentence before you present" (TX14 line 24406). It is still in the file at the time of writing.
 3. Slide 9's note says "Eleven agents are listed right now, one of them paid." This is a live number that goes stale; the user removed the stats row for the same reason. Check or cut before every run.
 4. The demo slide heading still says "On devnet" (Claude pointed this out; the user's request removed only the title-slide phrase, TX14 line 24324).
-5. The presenter window title says "Presenter — MOI Builders · Intro" (fine here, wrong when copied).
+5. The presenter window title says "Presenter: MOI Builders · Intro" (fine here, wrong when copied).
 6. The first build was the wrong design (PPTX with Inter), costing one round trip. Start from the session 8 framework or `moi-deck/assets/template.html`.
 7. After a session the dev-webinar flow expects a blog post and distribution. On 15 Sep the user asked whether the last webinar's blog had been pushed; it had not (PR #52 on the website repo was stale and carried an overclaiming draft, TX14 line 24590). Whether the intro session got a blog is unknown.
 
@@ -577,12 +624,12 @@ First full deck in about 8 minutes (12 Sep 15:56 to 16:04 UTC); redesign in sess
 
 Deck framework and skill:
 
-- `/Users/adithyaganesh/.claude/skills/moi-deck/SKILL.md`
-- `/Users/adithyaganesh/.claude/skills/moi-deck/assets/template.html` (framework with one title slide; stale presenter title)
-- `/Users/adithyaganesh/.claude/skills/moi-deck/reference/components.md` (copy-paste markup for every component, spacing budget)
-- `/Users/adithyaganesh/.claude/skills/moi-deck/reference/build.md` (render, variants, photos, logos, traps)
-- `/Users/adithyaganesh/.claude/skills/moi-deck/scripts/new-deck.sh`
-- `/Users/adithyaganesh/.claude/skills/moi-deck/scripts/render.sh`
+- `~/.claude/skills/moi-deck/SKILL.md`
+- `~/.claude/skills/moi-deck/assets/template.html` (framework with one title slide; stale presenter title)
+- `~/.claude/skills/moi-deck/reference/components.md` (copy-paste markup for every component, spacing budget)
+- `~/.claude/skills/moi-deck/reference/build.md` (render, variants, photos, logos, traps)
+- `~/.claude/skills/moi-deck/scripts/new-deck.sh`
+- `~/.claude/skills/moi-deck/scripts/render.sh`
 
 Worked examples:
 
@@ -631,7 +678,7 @@ Memory notes worth bundling into a skill: `moi-weekly-comms-cadence.md`, `blog-d
 14. Cap deck effort at about two hours when the content is already in hand (manager, 24 Aug).
 15. Any content that could go stale (counts, "last Friday") must be refreshed or cut on the day.
 16. Hand back with a list of what was left out and why (`build.md`); when the source is vague, the slide stays vague.
-17. Stay local and read-only when auditing; no pushes or PRs without being asked (memory `no-push-no-notify.md`). The deck folders are untracked; pushing them is a separate ask.
+17. Stay local and read-only when auditing; no pushes or PRs without being asked (memory `no-push-no-notify.md`). The deck folders were untracked when written (the CC14 deck has since been merged, see the update in Deliverables); pushing is a separate ask.
 
 ---
 
@@ -649,7 +696,7 @@ Memory notes worth bundling into a skill: `moi-weekly-comms-cadence.md`, `blog-d
 10. Stale README and duplicate variant files and PDFs: the guest variants are now identical; README says 13 slides.
 11. Two copies of the script (HTML `NOTES` and `SCRIPT.md`) drift. Edit both in the same step.
 12. `render.sh` and `build.md` disagree on multi-file naming; `render.sh` uses a shared `/tmp` file.
-13. The skill points to a deck path that does not exist in the main checkout; the deck folders are untracked and exist only on this Mac (`DEPENDENCIES.md` section 19). A lost laptop loses both decks.
+13. The skill points to a deck path that did not exist in the main checkout; the deck folders were untracked and existed only on this Mac (`DEPENDENCIES.md` section 19), so a lost laptop would lose both decks. Update, 13 October 2026: the CC14 deck is now in the GitHub repo; the intro-session deck is not recorded as merged.
 14. Wikimedia logo fetches: wordmarks carry a stray box; wrong filenames return a 404 HTML page; check the file with `file --mime-type`.
 15. Release time written as "12:00 AM UTC" was misread; use "00:00 UTC".
 16. ~/Downloads may be unreadable to Claude's process (EPERM); move the file to `/tmp` or the repo first (CC13 sessions).
@@ -664,15 +711,15 @@ Scheduling, hosting, promotion:
 1. What day and time is the call? Thursday (memory, CC13) or Friday (CC14, inferred)? Local timezone of the audience? How long does it run?
 2. Which platform is the public call on? Google Meet is named only in the deck README for presenting. Is there a webinar link, Luma event or Discord stage for the community call?
 3. Who hosts and moderates? Who is the Slack author asking for planted questions and 15-second clips?
-4. Who announces the call, on which channels, and with what copy? The pasted line "MOI Community Call #14 is happening tomorrow — The Campfire Chat..." suggests a marketing post; origin unknown.
-5. Is the call added to the website's homepage calendar (`/admin/calendar`, `community_calls` table, currently failing in production)?
+4. Who announces the call, on which channels, and with what copy? The pasted line "MOI Community Call #14 is happening tomorrow: The Campfire Chat..." suggests a marketing post; origin unknown.
+5. Is the call added to the website's homepage calendar (`/admin/calendar`, `community_calls` table, failing in production at the time of writing)?
 6. Is the rehearsal on Wednesday real for CC14?
 7. Is the call recorded, uploaded to YouTube, and given a description with chapters for every edition? CC14 evidence is silent.
 
 Content and numbers:
 
 8. Who produced the first-draft HTML deck and who owns its content for each segment?
-9. Which presenters take slides 5 to 11 at CC14?
+9. Which presenters take slides 5 to 11 (AI visibility through what is next) at CC14?
 10. Are 47 queries, 5 engines, and 221 of 226 responses current? What is the fifth engine's number (Claude)? Is "12.8" correct for both ChatGPT's level and Gemini's movement?
 11. Should the "MOI versus Lit Protocol" bullet on slide 8 and in its note stay?
 12. Was devnet actually on v0.13.0 when the call ran?
@@ -692,9 +739,11 @@ Housekeeping:
 
 ---
 
-## What a skill for this should contain
+## Proposals for skills (not built from this note)
 
-Recommend two skills and one fix.
+This section is a set of proposals, not a description of existing material: none of the reference files, scripts or templates listed here are in this repo. At the time of writing a skill called `moi-community-call` was available in Adithya's Claude setup; this note did not check whether it follows these proposals.
+
+The research assistant recommended two skills and one fix.
 
 ### Skill 1: `moi-community-call` (new)
 
@@ -726,7 +775,7 @@ Recommend two skills and one fix.
 
 Scripts worth writing (put in the skill's `scripts/`):
 
-- `check-deck.py <deck.html>`: (a) extract the script and run `node --check`; (b) parse the DOM and assert every `<section class="slide">` is a direct child of `#stage` and every `.slide-num` is inside its section (this catches the CC14 slide 10 defect; verified by DOM dump); (c) assert badge equals page number; (d) assert no two adjacent slides share a background class; (e) assert `TITLES` and `NOTES` lengths equal the slide count; (f) grep for stale phrases ("Voyage devnet", "Building in public", "Open Q&A", "Presenter — MOI Builders · Intro" when the deck is not an intro); (g) grep for em dashes in slide and notes text; (h) for each `NOTES` entry check it is present in `SCRIPT.md` when that file exists.
+- `check-deck.py <deck.html>`: (a) extract the script and run `node --check`; (b) parse the DOM and assert every `<section class="slide">` is a direct child of `#stage` and every `.slide-num` is inside its section (this catches the CC14 slide 10 defect; verified by DOM dump); (c) assert badge equals page number; (d) assert no two adjacent slides share a background class; (e) assert `TITLES` and `NOTES` lengths equal the slide count; (f) grep for stale phrases ("Voyage devnet", "Building in public", "Open Q&A", "Presenter: MOI Builders · Intro" when the deck is not an intro); (g) grep for em dashes in slide and notes text; (h) for each `NOTES` entry check it is present in `SCRIPT.md` when that file exists.
 - `variant-diff.sh`: fail if the two variant HTML files are identical or if one is older than the other.
 - `youtube-description.py <deck.html> --chapters`: draft the description from `TITLES` and the blog links, leaving `[__:__]` timestamps.
 - `numbers-ledger-check.py`: compare the figures found in the deck's text with the ledger CSV, so a stale figure fails loudly.
@@ -744,10 +793,81 @@ Templates to bundle: a CC14-shaped deck skeleton (12 slides with empty text) cop
 
 ### Fix to the existing `moi-deck` skill
 
-- Add the DOM nesting check from `check-deck.py` to `render.sh` and make it fail the render. Today `render.sh` passes the CC14 deck.
+- Add the DOM nesting check from `check-deck.py` to `render.sh` and make it fail the render. At the time of writing `render.sh` passes the CC14 deck.
 - Replace the hard-coded presenter title with the deck title in `template.html` and `new-deck.sh`.
 - Replace "short sentences" with the user's actual preference in the Script section, and add the slide-change cue format.
 - Fix the example path in "A deck to copy from" and add the deck folders to the repo, or say where they live.
 - Make `render.sh` write its parse check to a `mktemp` file, and reconcile its multi-file naming with `build.md`.
 - Add the "after deleting a slide" checklist and the background alternation rule to the verify step.
 - Note in `SKILL.md` that two variant files that become identical should be collapsed.
+
+---
+
+## Known inconsistencies in these notes
+
+These are places where this file disagrees with itself or with a sibling note. They are listed, not resolved. Line numbers refer to this file unless another file is named.
+
+1. Hours spent on CC14: L129 says about 45 hours of wall clock between the first request (23 Sep 15:31 UTC) and the last script edit (25 Sep 12:37 UTC). L254 says the slow part was the user deciding what to cut "over about 30 hours" without saying which hours it counts. The two may measure different spans.
+2. Coverage arithmetic: L213 and L214 give 47 queries across 5 engines and 221 of 226 responses; L259 notes that 47 x 5 is 235, not 226, and the deck does not explain the gap.
+3. Number of engines: L213 says 5 engines, but L214 lists values for four (Perplexity, Gemini, Copilot, ChatGPT), L640 lists four engine logos, and L723 asks what the fifth engine's number (Claude) is.
+4. The 12.8 figure: L214 gives ChatGPT's level as 12.8; the slide 6 sentence (L412) says Gemini is "up 12.8 points" and ChatGPT "slipped 4.3"; L260 flags this as possibly a slip. Using the older values at L692 (Gemini 6.4, ChatGPT 17) against the newer ones gives roughly 12.7 and 4.2, so the sentence does not match exactly either.
+5. "Live on Voyage devnet": L451 quotes the release pack as "live on Voyage devnet since 11 September 2026", while the script rules at L403 and L674 say to write "devnet", never "Voyage devnet" (the user's instruction, REQ 1375).
+6. Buffer: L526 says the Buffer pipeline creates drafts only and never publishes; `webinars-mature.md` (L435) says its Buffer tool schedules posts when given `--confirm` and saves drafts with `--draft`. They may be two different tools.
+7. Rahul's role: L83 calls the person who set priorities on the 24 Aug call "the manager" (Rahul, inferred); L406 and L568 attribute the 14 Sep terminology corrections to "the founder"; `webinars-mature.md` (L44) records Rahul only as a reviewer. The notes do not say whether these labels name the same person.
+8. Slide count of the CC14 deck: L37, L384 and L783 say 12 slides, while L297 records a browser check of "13 dots for 13 slides" on 24 Sep, and L335 and L696 say the README still says 13 slides (with the guest speaker). The guest slide was removed later, which explains the difference but is not stated in one place.
+9. The "no guest" variant: L302 describes `index-no-guest.html` as cut from `index.html` by deleting the guest slide; L38 and L336 find the two files byte-identical (the guest was later removed from both); L738 asks whether to collapse them.
+10. Intro-session agent counts: L576 uses `registered` (20 on 15 Sep) because `activeAgents` (22) overcounts, while the slide 9 note (L605) says "Eleven agents are listed right now". These may be different measures or a stale number.
+11. Untracked decks: L105-L106, L309, L339, L681 and L699 describe the decks as untracked and only on Adithya's Mac. That is out of date for the CC14 deck (merged 13 October 2026, see the header).
+
+---
+
+## Glossary
+
+Terms are defined as the MOI team uses them. "(as used in these notes)" marks the research assistant's reading, not an official definition.
+
+- **AI visibility**: how often AI answer engines (ChatGPT, Perplexity, Gemini, Copilot) mention or cite MOI for a set of tracked questions.
+- **Algix / MeitY**: a third-party enterprise tender story in the CC14 first draft, removed later (MeitY is India's electronics and IT ministry).
+- **anu**: the atomic units of KMOI. **KMOI**: MOI's native asset; fuel is paid in it.
+- **Campfire Chat**: the name of the community call from call 14 on (tagline "Ideas. Updates. Community. Conversations."); the earlier name was "Building in Public".
+- **CC13 / CC14**: Community Call 13 (27 Aug 2026) and Community Call 14 (25 Sep 2026, inferred).
+- **Coinfest Asia (Bali)**: an event whose guests were promised for CC14 in the CC13 description; dropped from the final CC14 deck.
+- **CTR**: click-through rate, the share of people who click a link; the campaign's CTR was reported as 0 and "needs investigation".
+- **Devnet**: MOI's test network, reset from time to time; it can lag the released protocol version.
+- **EPERM**: the macOS "operation not permitted" error, seen when Claude's process tried to read a file in `~/Downloads`.
+- **Fee delegation**: lets another account (the payer) pay the fuel for someone's interaction; it covers fuel only, and the payer signs each interaction separately.
+- **Fuel**: what an interaction pays to run.
+- **Futuremode**: the Taipei event (4 to 6 September) shown with real photos on CC14 slide 10.
+- **Game Night**: the community game events run in Discord (the seventh run had 42 at peak, up from 20, per the draft).
+- **Host (of the call)**: the person who moderates the call and may ask a planted question; not named in these notes.
+- **humanizer / stop-slop**: Claude skills that strip AI-sounding patterns from text.
+- **IOME**: a protocol change that affects validators, given its own CC13 slide; these notes do not explain it (as used in these notes).
+- **Krexa**: the company of the removed CC14 guest (Mohit Bansal); not described in these notes.
+- **Lit Protocol**: a third-party protocol; a "MOI vs Lit" comparison slide was cut from CC14.
+- **MASN, notary exception, participant lists**: release-note details listed on slides 2 and 3 that these notes do not explain (as used in these notes).
+- **MDAG**: MOI's structure used instead of a "per-account chain"; say MDAG, not per-account chain (as used in these notes).
+- **Memory note**: a note in Claude's memory folder on Adithya's Mac; see the header.
+- **moi-deck**: the Claude skill (in `~/.claude/skills/moi-deck/`) that builds the single-file HTML decks and PDFs.
+- **Network ID**: MOI's term for what other chains call a chain ID; say network ID.
+- **parseKmoi**: an SDK helper that converts KMOI amounts to anu; use it instead of calculating by hand.
+- **Participant-centric**: MOI is participant-centric, not account-centric.
+- **Pip**: a MOI community item listed as live in Discord on slide 9; what it does is not described in these notes (as used in these notes).
+- **Planted question**: a question the host asks on purpose so the presenter can give a prepared answer, partly to produce short clips.
+- **Presenter window**: the second browser window (opened with `P`) that shows the script, the next slide title and a clock.
+- **Proofly**: a product presented by Prateek on CC13 and in the CC14 first draft; not described in these notes.
+- **RC**: release candidate, a pre-release version; never present one as shipped.
+- **Scribble**: the tool that produced the "Community Call Prep" AI visibility report; what it is, who pays and who can log in are open questions (as used in these notes).
+- **Supabase**: the hosted database service behind the website's homepage calendar (`community_calls` table).
+- **TITLES / NOTES arrays**: two lists inside the deck's HTML holding each slide's title and its presenter notes; one entry per slide.
+- **TX13 / TX13b / TX14**: saved Claude Code session transcripts on Adithya's Mac (paths in the appendix).
+- **Voyage**: MOI's explorer and dev tooling site; the user wants "devnet", not "Voyage devnet", in deck copy.
+- **x402**: a web payment standard built on the HTTP 402 "Payment Required" status (as used in these notes).
+
+---
+
+## Appendix: Source transcripts
+
+Full paths of the transcripts cited as TX13, TX13b and TX14. All are on Adithya's Mac and not in the repo.
+
+- `TX14` = `~/.claude/projects/-Users-...-MOI-Webinars--claude-worktrees-relaxed-mccarthy-368dbc/58e97e8b-f23d-4b3d-aa62-d3ddefd7068b.jsonl` (the session that built the intro deck, the CC14 deck and the moi-deck skill; line numbers are jsonl lines, times are UTC).
+- `TX13` = `~/.claude/projects/-Users-...-mw-MOI-Website--claude-worktrees-compare-repos-main-4ec89e/2aa9fad0-da96-4692-b568-37f1de9f7028.jsonl` (the session that prepared Community Call 13 and recorded the 24 Aug planning call).
+- `TX13b` = `~/.claude/projects/-Users-...-mw-MOI-Website--claude-worktrees-compare-repos-main-4ec89e/f9be64ac-1d0f-4a0b-8482-53dbdbbed0cc.jsonl` (a later session in the same worktree that repeats the 24 and 27 Aug history at different line numbers; used for the Haiku audit result, the Buffer draft IDs and the deck-update prompt).

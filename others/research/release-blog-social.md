@@ -1,6 +1,22 @@
 # Protocol release communications, the blog, and social distribution
 
-Researcher note for the MOI DevRel skills project. Everything here is OBSERVED (with a path, and a line or section where useful) unless marked "(inferred)". "unknown" means the evidence does not say; each unknown is repeated under Open questions.
+## Read first
+
+- **What this is.** An evidence log of how the September 2026 release pack (X thread, LinkedIn post, Discord post) and the release blog post were written, scheduled and fact-checked, plus the original proposal for a release-pack skill (since built, see the proposal section).
+- **What it was used for.** It fed the skill `skills/moi/moi-blog/` and the skill built from it, `skills/moi/moi-blog/release-pack/`. For current guidance read those; this file is the reasoning and evidence behind them.
+- **When it was written.** Around 2 October 2026. The latest dates it gives are 1 and 2 October 2026 (for example PR #56 "still open as of 2 Oct 2026"); the events it covers run from 4 August to 2 October 2026.
+- **Who "I" and "the user" are.** "I" is the research assistant (Claude) that compiled the notes. "The user" is Adithya (DevRel), who did the work described.
+- **Evidence key.** Everything here is OBSERVED (with a path, and a line or section where useful) unless marked "(inferred)". "unknown" means the evidence does not say; each unknown is repeated under Open questions.
+- **Paths and citations.** `_user-requests.txt:<n>` cites point to a request log kept on Adithya's Mac (not in this repo). Paths starting `~/` or `WT/` are on Adithya's Mac (`WT` is the worktree, a working copy of the MOI-Webinars repo). The session code is in https://github.com/moi-foundation/MOI-Webinars. Transcripts are not in the repo. A cleaned copy of the v0.13.0 release pack is in this repo at `skills/moi/moi-blog/release-pack/examples/v0.13.0/`; where this file says `SOCIAL.md`, `RELEASE-NOTE.md`, `BLOG.md` or `social/`, that folder holds the copy. "The existing skill" means the `moi-blog` skill as it stood on 2 October 2026; its references now live in `skills/moi/moi-blog/references/` (`mailchimp.md` became `newsletter.md`), and the old copy is in `others/legacy-skills/moi-blog/`.
+- **People.**
+  - Adithya: DevRel, wrote and shipped the work.
+  - Rahul: reviews and approves DevRel work and sets priorities; the internal reviewer of the blog posts (PR #53 body, "Internal review (Rahul)").
+  - Vardan Aggarwal: marketing; asked with Sai Kiran about the Mailchimp sender identity. Sai Kiran: role not recorded in these notes.
+  - Srikar: DevOps; built the blog hosting and deploy workflow.
+  - Abhinav Agarwalla: author of docs PR #120 on `sarvalabs/moidocs`; role not recorded in these notes.
+  - Chandra: owns the Buffer organisation (only an organisation owner can create a Buffer API key).
+  - The protocol team writes the release note (author unknown). An unnamed team reviewer commented on the 10 Sep posts.
+- **Jargon.** Terms are defined in the Glossary at the end.
 
 Short version of the area: there are two release deliverables that are easy to confuse and live in different repos with different tooling.
 
@@ -13,35 +29,23 @@ The existing `moi-blog` skill covers the second one in depth and the first one n
 
 ## Sources read
 
-Release folder (all in `/Users/adithyaganesh/MOI-Webinars/.claude/worktrees/relaxed-mccarthy-368dbc/`, the "worktree" below):
+This note draws on the following.
 
-- `protocol-release-0.13.0/RELEASE-NOTE.md`, `BLOG.md`, `SOCIAL.md`
-- `protocol-release-0.13.0/social/discord.txt`, `linkedin.txt`, `x.txt`, `x-correction-reply.txt`, `thread/1.txt` to `thread/7.txt`
-- `scripts/buffer.mjs` (232 lines, read in full)
-- `otter-transcript/Project Launch and Blog Strategy_summary.txt` and `..._transcript.txt` (4 Aug 2026; read in full)
-- Also read for comparison: `session-8-policies/SOCIAL.md` (webinar social pack), `session-7/blog-assets/PUBLISH.md`, `session-7/blog-assets/social-pack.md`, `session-7/blog-assets/factcheck-report.md`
-- `git log` for `protocol-release-0.13.0` and `scripts/buffer.mjs` in the worktree (commits `5bcfbcd`, `27efaa3`, `a28bbfc`)
-- Env variable NAMES only (never values) in the worktree `.env` files
-
-Existing skill (`/Users/adithyaganesh/.claude/skills/moi-blog/`): `SKILL.md` and `references/authoring.md`, `distribution.md`, `buffer.md`, `geo.md`, `mailchimp.md`, `assets.md`, `mailchimp-header.html`, `mailchimp-body.html`, `mailchimp-footer.html`, head of `mailchimp-template.html`.
-
-Website repo (`/Users/adithyaganesh/untitled folder 10/MOI-Website`, branch `local/sweep-oct1`; `scripts/`, `social/`, `blog/src/content/` have no uncommitted changes, `.github/workflows/deploy.yml` does and I did not read it):
-
-- `social/README.md`, `social/moi-august-2026-release.md`, `social/move-your-voyage-login-to-moi-wallet.md`
-- `scripts/social-init.js`, `scripts/distribute.js`, `scripts/lib/social.js`, `scripts/lib/senders.js`, `scripts/lib/share.js`
-- `.github/workflows/social-prepare.yml`, `.github/workflows/distribute.yml`
-- `blog/src/content/posts/moi-september-2026-release.md` (byte-identical to the worktree `BLOG.md`, verified with `diff`), `moi-august-2026-release.md` (read to line 175 plus all headings), `move-your-voyage-login-to-moi-wallet.md` (head)
-- `git log` and read-only `gh pr view` / `gh pr diff` on PRs #53, #55, #56 of `sarvalabs/MOI-Website`; `gh pr list` for the PR timeline
-
-User requests: `/Users/adithyaganesh/moi-devrel-skills/_research/_user-requests.txt`, grep hits and the context around them (release session lines 1150-1345, 2013-2125; Agency-Website session lines 28-66; webinar/social lines 888-1110; distribution-pipeline build lines 2283-2486).
-
-User memory notes read for rules: `devnet-build-lag.md`, `moi-terminology-corrections.md`, `no-claude-attribution.md`, `no-multi-agent-workflows.md`, `moi-source-on-disk.md`, `batch-review-changes.md` (all under `/Users/adithyaganesh/.claude/projects/-Users-adithyaganesh-MOI-Webinars/memory/`).
+- The v0.13.0 release folder (examples copy in this repo): release note, blog draft, social pack (X thread files 1 to 7, LinkedIn, Discord, correction reply), and `scripts/buffer.mjs` (232 lines, read in full).
+- The 4 August 2026 Otter transcript and summary of the content strategy meeting (read in full).
+- For comparison: the webinar social pack (`session-8-policies/SOCIAL.md`), and the Session 7 blog assets (`PUBLISH.md`, `social-pack.md`, `factcheck-report.md`).
+- The existing skill (`SKILL.md`, and references on authoring, distribution, Buffer, GEO, Mailchimp and assets, plus the Mailchimp header, body, footer and template files).
+- The `sarvalabs/MOI-Website` repo: `social/`, `scripts/`, the Prepare and Distribute workflows, the August and September release posts and the Voyage migration post (the September post is byte-identical to `BLOG.md`, checked with `diff`), and read-only views of PRs #53, #55 and #56 and the PR timeline. The deploy workflow had uncommitted changes and was not read.
+- Git history of the release folder and `buffer.mjs`.
+- The request log (release session, webinar and social prompts, the distribution-pipeline build).
+- Adithya's memory notes for rules: `devnet-build-lag`, `moi-terminology-corrections`, `no-claude-attribution`, `no-multi-agent-workflows`, `moi-source-on-disk`, `batch-review-changes`.
+- Only the names of environment variables were noted, never values.
 
 Limits of the evidence:
 
-- Every prompt in `_user-requests.txt` is cut at about 415 characters, so long pasted messages (the Rahul Discord message, the 11 Sep review-call transcript, the reviewer's critique) are truncated.
+- Every prompt in the request log is cut at about 415 characters, so long pasted messages (the Rahul Discord message, the 11 Sep review-call transcript, the reviewer's critique) are truncated.
 - The Otter transcript has speaker numbers, not names. Speaker 3 is Adithya ("Adi"). Speaker 2 is the person who reviews and directs (inferred: Rahul, who is named elsewhere as the internal reviewer).
-- File mtimes in the worktree appear to be in a different timezone from the git commit times (inferred: the Mac clock was US Eastern; commits are +0400 and +0530). I treat mtime-based timings as approximate.
+- File timestamps (mtimes) are approximate, so timings taken from them are approximate.
 
 ---
 
@@ -101,7 +105,7 @@ Reconstructed from the prompt sequence at `_user-requests.txt:1158-1204` and the
 - Buffer: needs an API key. `scripts/buffer.mjs` reads `BUFFER_API_KEY` from a `.env` at the root of the repo that holds the script (`ROOT` is the parent of `scripts/`), or from the process environment. Last occurrence in `.env` wins (so appending a rotated key works); an already-set environment variable beats the file. Only a Buffer organisation owner can create a key (`moi-blog/references/buffer.md`). The user said the API key question is one he will deal with at the end of the DevRel handover.
 - X and LinkedIn: connected inside Buffer; no direct login is used by the script.
 - Node (v24 was used). No other dependency; the script is dependency free.
-- In the worktree, `BUFFER_API_KEY` appears (twice) only in `session-8-policies/.env`; the root `.env` has `DATABASE_URL` only. Not checked: where the key was when the posts were sent.
+- Not checked: where the Buffer key was kept when the posts were sent. A Buffer key was once pasted into chat and was revoked (31 August).
 
 ### Quality rules and house style applied
 - Verbatim from the protocol team where the user said so; restructure only for clarity; add no facts (`SOCIAL.md` line 4: "no facts added").
@@ -114,14 +118,14 @@ Reconstructed from the prompt sequence at `_user-requests.txt:1158-1204` and the
 ### Traps and things that failed silently
 - **Release time ambiguity.** The note says "today at 12:00 AM UTC". The post was scheduled on 10 Sep, roughly 08:45 UTC, so "today at 12:00 AM UTC" had already passed and many readers would read it as noon. The user himself asked whether 12:00 UTC means 12:00 AM and whether "00:00 AM UTC" is the correct form (`_user-requests.txt:1186-1188`); two wrong schedules were deleted by hand (`:1190-1192`). The correction reply file states the real moment: 00:00 UTC on 11 September. The rewritten pack uses "11 September at 12:00 AM UTC (5:30 AM IST)".
 - **`SOCIAL.md` is internally inconsistent.** Its header says the time was "corrected to 12:00 UTC (noon) per the user" while its own post text says 12:00 AM UTC. It also says `social/linkedin.txt` was sent to Buffer, but `linkedin.txt` now holds the shorter rewrite (mtime 04:46, four minutes after `SOCIAL.md` and `thread/1.txt` at 04:42). The text actually sent is the LinkedIn text inline in `SOCIAL.md` (inferred). Do not trust the folder as a record of what went out.
-- **`RELEASE-NOTE.md` is labelled "as sent by the protocol team, unedited" but is not.** The note the user pasted had an em dash in the title and the sentence "We are rolling out moipod v0.13.0 with several important updates", plus separate sentences about the sender not paying (`_user-requests.txt:1158, 1169`). `RELEASE-NOTE.md` has the restructured sentences from the thread. The original is not in the repo (file mtime Sep 11 01:31, after the post; inferred: regenerated from the thread).
+- **`RELEASE-NOTE.md` is labelled "as sent by the protocol team, unedited" but is not.** The note the user pasted had an em dash in the title and the sentence "We are rolling out moipod v0.13.0 with several important updates", plus separate sentences about the sender not paying (`_user-requests.txt:1158, 1169`). `RELEASE-NOTE.md` has the restructured sentences from the thread. The original is not in that folder (file mtime Sep 11 01:31, after the post; inferred: regenerated from the thread).
 - **Placeholders ship literally.** `discord.txt` and `linkedin.txt` end with `RELEASE_URL`. `buffer.mjs` does not check for placeholders. The same family exists in the webinar packs (`LUMA_URL`, `CANONICAL_URL`).
 - **`--at` without a timezone is local time.** `Date.parse("2026-09-10T08:45:00")` uses the machine's zone. Always end in `Z`, and read the printed UTC string before `--confirm`.
 - **A scheduled post publishes with nobody reviewing it.** `buffer.mjs` is the opposite of the website pipeline's draft-only guarantee. The reviewer's complaint (the user "posted directly on our socials") is the cost of that. Use `--draft` unless an exact publish time matters.
 - **No length check in `buffer.mjs`.** It prints characters per post but does not stop at 280 (the website pipeline does, counting URLs as 23).
 - **Thread files must be named `<n>.txt`** (regex `^\d+\.txt$`, numeric sort). The first file is the root post and is also repeated in the thread metadata. `--thread-dir` works only for the `twitter` service and cannot be combined with `--follow`.
 - **Run from the repo root.** On 31 Aug the command failed because the user ran it from inside `session-8-policies/`, where `scripts/buffer.mjs` does not exist (`_user-requests.txt:913`).
-- **A Buffer API key was pasted into chat on 31 Aug** and then revoked (`_user-requests.txt:910`, "i revoked the key i accidentally posted"). Keys go into `.env` only. A stale revoked key left above the new one in `.env` is harmless only because of the last-wins rule; the symptom of a stale key is "access token is not valid".
+- **A Buffer key was once pasted into chat and was revoked (31 August).** Never paste keys into chat. The symptom of a stale or revoked key is "access token is not valid".
 - "Voyage devnet" wording: the user later corrected this (see Rules). `discord.txt` still says "live on Voyage devnet".
 
 ### How long it takes
@@ -177,7 +181,7 @@ See Rules and house style. The two that mattered most in September: lead with wh
 ### Traps
 - The two builds validate differently; run both (existing skill).
 - Count consistency: the September post says "three breaking changes" in the opening, "Four changes for developers" in the table, and "Five things break" in the checklist (granularity differs: changes versus code breakages). Pick one framing per audience or label the granularity (inferred risk; the commit "soften breaking-change count" shows the user already touched this).
-- "Participant: an account on MOI" in the glossary may conflict with the founder's 14 Sep correction that MOI is participant-centric and the account is only the vehicle for a participant's state (memory `moi-terminology-corrections.md`). The post predates that call. (inferred; needs a decision)
+- "Participant: an account on MOI" in the glossary may conflict with the 14 Sep terminology correction that MOI is participant-centric and the account is only the vehicle for a participant's state (memory `moi-terminology-corrections.md`). The post predates that call. (inferred; needs a decision)
 - "Voyage devnet" (post line 40 and a takeaway) versus the user's 25 Sep correction "it's not called Voyage devnet, just say went live on devnet" (`_user-requests.txt:1375`; the correction was made on a deck script, not on the post).
 - The published post still contains "not save a setting, not call your logic" and "Your app holds one funded account and names it as the payer" in places; on 25 Sep the user removed those from the community-call deck script (`_user-requests.txt:1377`). Whether to change the post is unknown.
 - PR #53 body and commits carry the Claude co-author trailer and the "Generated with Claude Code" footer. The user later ruled that no attribution lines go on commits or PRs (memory `no-claude-attribution.md`, 1 Oct 2026). Do not add them.
@@ -315,7 +319,7 @@ Documented in `moi-blog/references/mailchimp.md`; I confirm the evidence and add
 
 ## Reusable assets
 
-Release pack (worktree = `/Users/adithyaganesh/MOI-Webinars/.claude/worktrees/relaxed-mccarthy-368dbc`):
+Release pack (`<worktree>` = `WT`, a working copy of the MOI-Webinars repo on Adithya's Mac; a cleaned copy of the pack is in this repo at `skills/moi/moi-blog/release-pack/examples/v0.13.0/`):
 
 | Asset | Path | Use |
 |---|---|---|
@@ -328,7 +332,7 @@ Release pack (worktree = `/Users/adithyaganesh/MOI-Webinars/.claude/worktrees/re
 | Medium publish checklist | `<worktree>/session-7/blog-assets/PUBLISH.md`, `MEDIUM.md`, `schema.jsonld` | Cross-posting steps and the canonical URL warning |
 | Strategy meeting | `<worktree>/otter-transcript/Project Launch and Blog Strategy_summary.txt` and `_transcript.txt` | Source for the content strategy decisions (this is gitignored; internal) |
 
-Website repo (`/Users/adithyaganesh/untitled folder 10/MOI-Website`):
+Website repo (`sarvalabs/MOI-Website`):
 
 | Asset | Path | Use |
 |---|---|---|
@@ -340,7 +344,7 @@ Website repo (`/Users/adithyaganesh/untitled folder 10/MOI-Website`):
 | Workflows | `.github/workflows/social-prepare.yml`, `.github/workflows/distribute.yml`, `.github/workflows/preview.yml` | Prepare, Distribute, per-PR previews |
 | Example PRs | `https://github.com/sarvalabs/MOI-Website/pull/53` (release post, with Verification and Before marking ready sections), `/pull/55` (preview-only comparison PR), `/pull/56` (seeded copy PR) | PR body template and conventions |
 
-Existing skill (`/Users/adithyaganesh/.claude/skills/moi-blog/`): `SKILL.md`, `references/authoring.md`, `distribution.md`, `buffer.md`, `geo.md`, `mailchimp.md`, `assets.md`, `mailchimp-header.html`, `mailchimp-body.html`, `mailchimp-footer.html`. Do not paste `mailchimp-template.html` (documented as broken).
+Existing skill (now `skills/moi/moi-blog/` in this repo; the older copy is `others/legacy-skills/moi-blog/`): `SKILL.md`, `references/authoring.md`, `distribution.md`, `buffer.md`, `geo.md`, `mailchimp.md`, `assets.md`, `mailchimp-header.html`, `mailchimp-body.html`, `mailchimp-footer.html`. Do not paste `mailchimp-template.html` (documented as broken).
 
 ---
 
@@ -376,7 +380,7 @@ Social copy:
 21. **Shorter is better on LinkedIn, and do not leak implementation trivia.** The user cut a LinkedIn draft as too long and removed specifics like a builtin error name and "86 fuel" (`:914, 920, 1037`).
 22. **AI-slop sentences get cut on sight.** Examples rejected: "and it is the part worth caring about." (`:966`), "That is not a rule other chains enforce and we relaxed." (`:967`), "Most teams quietly accept both" (vague attribution; the assistant itself flagged it, `:932-933`), "not this, not that" constructions in speech and posts (`:1063`).
 23. **Plain English over jargon in comparisons:** "Off chain, the service owns the row" was rewritten as an entry in the app's backend service (`:965`).
-24. **Links:** webinar Luma link goes in the LinkedIn post body, not the first comment (`:1039`). Whether to put the blog link in the X post body or as the second post is unresolved; the website pipeline puts `{{link}}` in the body, `buffer.mjs --follow` puts it second "because links in the post body suppress reach" (script comment), and the strategy meeting wanted the link in the post so AI crawlers follow it (see decisions).
+24. **Links:** webinar Luma link goes in the LinkedIn post body, not the first comment (`:1039`). Whether to put the blog link in the X post body or as the second post is unresolved; the website pipeline puts `{{link}}` in the body, `buffer.mjs --follow` puts it second "because links in the post body suppress reach" (script comment), and the strategy meeting wanted the link in the post so AI crawlers follow it (see "What the strategy meeting (4 Aug 2026) decided", point 5).
 25. **Verification gating for posts:** every specific claim in a social post is re-checked against its source article before commit (`f99e348`).
 26. **No attribution lines** on commits or PRs (memory, 1 Oct).
 
@@ -391,19 +395,21 @@ Process rules the user enforces:
 (Source: the Otter summary and transcript. Speaker 3 is Adithya; Speaker 2 directs.)
 
 1. **Everything done becomes text content.** All activity must come out as text so LLMs can index it and "improve our scoring"; there was an audit report, "we're doing a lot of stuff but nothing is visible online". Every dev talk, AMA, and any video content is accompanied by a blog.
-2. **The blog link is the announcement.** Publish the blog, then tell people "here is the blog, these are the highlights". Adithya does not need to be on every call; the blog is also a testimonial for his work. The manager reviews the blog and says what to highlight.
+2. **The blog link is the announcement.** Publish the blog, then tell people "here is the blog, these are the highlights". Adithya does not need to be on every call; the blog is also a testimonial for his work. The reviewing speaker (Speaker 2, inferred to be Rahul) reviews the blog and says what to highlight.
 3. **Structure:** big picture first (the "aha": why we did this), then how-tos; a college student should get the high-level idea, then "what can I do now". Same for DevX content. Phase framing: phase one is identity (register and discover agents), phase two is authority.
 4. **Backlinks on purpose:** link the JS SDK, the agent registry SDK, earlier blogs, the native assets docs. "Don't load it up, but as much as possible." The goal is "a comprehensive web of information" for ranking and for AI crawlers.
 5. **Markdown, GEO-optimized,** published on the MOI website's blog section, which "should be very simple: take a Markdown file, render it". Also post on Twitter and LinkedIn with the link, because AI systems scanning LinkedIn see only the (short) post content and follow the link to crawl the detail.
 6. **Storyline across talks:** break demos into phases (V1 register, discover, facilitate; V2 add authority; V3 more) so each dev talk adds one idea; do not give everything in one day.
 7. **Plan a month of content ahead** to avoid last-minute rush ("a one month plan should be ahead"). Adithya managed the process.
-8. Product decisions that are not DevRel: integrate the agent dating plugin as a demand driver via points; keep X42 demo to a simple value transfer; use an existing x402 service if one exists.
+8. Product decisions that are not DevRel: integrate the agent dating plugin as a demand driver via points; keep X42 demo (x402?) to a simple value transfer; use an existing x402 service if one exists.
 
-How these show up in the skills (inferred but direct): a blog per release or event is mandatory; social copy must link the blog (UTM-tagged); every blog follows aha-then-how-to with backlinks; a monthly content calendar exists (the `blog-calendar` skill is available); the manager's review is a gate before promotion.
+How these show up in the skills (inferred): a blog per release or event is mandatory; social copy must link the blog (UTM-tagged); every blog follows aha-then-how-to with backlinks; a monthly content calendar exists (the `blog-calendar` skill is available); Rahul's review (inferred) is a gate before promotion.
 
 ---
 
 ## Traps
+
+This list repeats the points above, kept as a quick checklist.
 
 1. Release time wording and the word "today" (above). Use date + 24-hour UTC + IST/Dubai conversion in one line, never "today" in a post that is scheduled hours earlier.
 2. `buffer.mjs` schedules for automatic publish; the website pipeline only drafts. Know which one you are in.
@@ -411,7 +417,7 @@ How these show up in the skills (inferred but direct): a blog per release or eve
 4. Placeholders (`RELEASE_URL`, `LUMA_URL`, `CANONICAL_URL`) are not checked by any tool.
 5. Folder-as-record drift: `SOCIAL.md`, `linkedin.txt`, and `RELEASE-NOTE.md` disagree with each other and with what was sent.
 6. Buffer cannot delete from `buffer.mjs`; deleting is manual in Buffer.
-7. Seeded copy repeats the summary and still includes Discord and Telegram blocks; PR #56 for September is still open.
+7. Seeded copy repeats the summary and still includes Discord and Telegram blocks; PR #56 for September is still open (as of 2 Oct 2026).
 8. Distribute has no idempotency; re-running re-posts to Discord/Telegram and duplicates Buffer drafts (existing skill).
 9. Two Buffer variable names: `BUFFER_ACCESS_TOKEN` (website pipeline, GitHub secrets) and `BUFFER_API_KEY` (`buffer.mjs`, local `.env`).
 10. Do not paste keys into chat; the Buffer key was revoked once after being pasted. `.env` is gitignored (`**/.env`).
@@ -434,7 +440,7 @@ How these show up in the skills (inferred but direct): a blog per release or eve
 4. Canonical wording for the release time: "12:00 AM UTC", "00:00 UTC", or both with IST; and the rule for "today".
 5. How does the protocol team deliver the release note (Discord, Slack, email) and who is the named contact? For August the evidence is Rahul's Discord request; for September the user pasted the note.
 6. Is a pre-release social pack expected for every release, or was September a one-off? There was no such pack for v0.12.0.
-7. Why was PR #56 (social copy for the September post) never merged? Was the blog announced at all, and where?
+7. Why was PR #56 (social copy for the September post) not merged (still open as of 2 Oct 2026)? Was the blog announced at all, and where?
 8. Byline policy: "Sarva Labs, Engineering" (August, Voyage post) or "Adithya Ganesh, Ecosystem, Sarva Labs" (September).
 9. Should the published September post change "Voyage devnet" to "Devnet" and the glossary line "Participant: an account on MOI"? Should it drop the lines the user cut from the deck script?
 10. Is Medium still a channel? The first blog went to Medium only on 8 Aug; no later release used it.
@@ -443,13 +449,15 @@ How these show up in the skills (inferred but direct): a blog per release or eve
 13. Is the weekly Mailchimp RSS blast live and did it include the September post? The in-repo statements conflict (weekly versus per-post).
 14. Hashtags: the user asked whether they help; no answer is recorded.
 15. Where should `BUFFER_API_KEY` live for a new hire, and who creates it (org owner only)? The user said the API key question comes at the end.
-16. Posting-time convention: why 12:45 Dubai (2 PM IST) for a 00:00 UTC release; is there a standard lead time?
+16. Posting-time convention: why 12:45 Dubai (14:15 IST) for a 00:00 UTC release; is there a standard lead time?
 17. How long does the claim-verification step take, and is there a budget the user wants stated (credit-cost concern is recorded in memory)?
 18. Does the go-live date confirmation (open checkbox in PR #53) have an owner?
 
 ---
 
-## What a skill for this should contain
+## Original proposal for the release-pack skill (since built as `skills/moi/moi-blog/release-pack/`)
+
+The built skill lives inside `moi-blog` as `release-pack/` (GUIDE.md, references, templates, scripts, evals, and the v0.13.0 example). It differs from this proposal in name and layout, so read it for the current state; the proposal below is kept as the reasoning. Everything in the lists below is (proposed), not built as written.
 
 Recommendation: a new skill `moi-release-pack` for the announcement and the release post, plus a refresh of `moi-blog` so the two do not contradict each other. Keep `moi-blog` as the blog/distribution/measurement reference; make `moi-release-pack` the playbook for "a protocol release just happened or is about to".
 
@@ -463,7 +471,7 @@ Recommendation: a new skill `moi-release-pack` for the announcement and the rele
 All of the sampled facts I re-checked in code and PRs held (Prepare opens the PR within seconds; `social:init` seeds four channels; distribute is dispatch-only).
 
 ### What in it is out of date
-- Corpus: "four published posts" and "18 URLs, 4 articles, 13 tag pages"; there are now six posts (adds the Voyage migration post, 27 Aug, and the September release, 11 Sep) and open PRs #52 and #54 for two more.
+- Corpus: "four published posts" and "18 URLs, 4 articles, 13 tag pages"; as of 2 October 2026 there are six posts (adds the Voyage migration post, 27 Aug, and the September release, 11 Sep) and open PRs #52 and #54 for two more.
 - Em dash guidance (the genre-matching table): the last two posts have zero and the user said no em dashes; make zero the default.
 - Channels: it assumes four channels in the loop and the description; the 31 Aug decision is X and LinkedIn only, with Discord and Telegram blocks emptied (the scaffold still seeds them).
 - Silence on `scripts/buffer.mjs` (the scheduler), threads, `--follow`, `--at`, delete-by-hand, and the fact that real release announcements were scheduled to publish automatically; "do not add a publish path; answer is a PR" describes only the website pipeline.
@@ -474,7 +482,7 @@ All of the sampled facts I re-checked in code and PRs held (Prepare opens the PR
 - The distribution step's expectation that a Prepare PR is merged and a distribute run follows is not tracked: PR #56 shows it can stall unnoticed.
 - `SKILL.md` end-to-end table has no "T-minus" announcement step, and its description does not trigger on "release note", "protocol release", "thread" or "announcement".
 
-### What a release-pack skill needs that the blog skill lacks
+### What a release-pack skill needs that the blog skill lacks (proposed)
 1. A release-note intake step with a fixed list of things to get from the protocol team: version, exact release moment in UTC, change list, breaking list, action-required list, SDK versions, link for "full release notes".
 2. Time handling: write the moment as date + 24-hour UTC + IST + Dubai in one line; forbid "today" and bare "12:00 AM"; a converter script; the correction-reply template.
 3. The pre-release pack format: X thread of N posts (title and time; one post per change; Action required; SDK versions), a single-post version, LinkedIn, Discord; plain text only; verbatim-or-rewrite decision recorded up front; the read-alone check.
@@ -485,7 +493,7 @@ All of the sampled facts I re-checked in code and PRs held (Prepare opens the PR
 8. The voice rules above, with the rejected-phrase list.
 9. A record-keeping step so the folder shows what was sent, with a "sent / not sent" field per file.
 
-### SKILL.md outline for `moi-release-pack`
+### SKILL.md outline for `moi-release-pack` (proposed)
 1. When to use (trigger phrases: protocol release, release note, network upgrade, breaking release, announce a release, release thread, correction).
 2. The three deliverables and their order: T-minus pack (X thread, LinkedIn, Discord) -> release post PR -> post-publish announcement via the website pipeline.
 3. Decision table: which tool for which channel (scheduler vs draft pipeline), and who must approve.
@@ -495,7 +503,7 @@ All of the sampled facts I re-checked in code and PRs held (Prepare opens the PR
 7. What never to do: guess the time, schedule without a printed UTC check, auto-publish unreviewed, paste keys, add attribution, spawn sub-agents unasked.
 8. Handover notes: who to ask for what (protocol team for note and time; Rahul for review).
 
-### Reference files to bundle
+### Reference files to bundle (proposed)
 - `references/release-note-intake.md`: the question list, and a worked example from v0.13.0.
 - `references/announcement-pack.md`: the thread, LinkedIn, Discord, single X formats with the v0.13.0 text as examples; length limits (X 280 with URLs counted as 23, LinkedIn 3,000, Discord 2,000); plain-text rules.
 - `references/time-and-corrections.md`: the 12:00 AM trap, conversion table (12:00 AM UTC = 5:30 AM IST = 4:00 AM Dubai, computed), correction reply template, how to delete in Buffer.
@@ -506,7 +514,7 @@ All of the sampled facts I re-checked in code and PRs held (Prepare opens the PR
 - `references/strategy.md`: the 4 Aug decisions in one page, so the "why" is available.
 - `references/past-releases.md`: a table of releases with dates, versions, post slugs, PR numbers, what was announced where, and what is unknown.
 
-### Scripts worth writing
+### Scripts worth writing (proposed)
 - `release-pack-init`: from a pasted release note create `protocol-release-<ver>/` with `RELEASE-NOTE.md`, thread files split on section headings, `linkedin.txt`, `discord.txt`, `x-correction-reply.txt`, and a `STATUS.md` with sent/not-sent fields.
 - `check-pack`: fail on unreplaced `[A-Z_]+_URL`, em dashes, backticks, over-280 posts (X counting URLs as 23), a release time that lacks UTC and a date, the words "today" or "tonight" near a time, and any file without a matching `STATUS.md` entry.
 - `utc-times <ISO>`: print UTC, IST, Dubai, and "in N hours from now"; exit non-zero if the moment is in the past.
@@ -515,7 +523,7 @@ All of the sampled facts I re-checked in code and PRs held (Prepare opens the PR
 - `preflight-release-post`: frontmatter checks (8 takeaways, FAQ count, title pattern, `draft: false`, date), grep for `<!--`, em dashes, `# ` headings, "fixed supply", "the token", "the fee", "Voyage devnet"; run both builds; print the preview URL for the PR number.
 - `devnet-live-check`: read-only `net.Version` and a sample interaction's field names so "live on devnet" is not asserted blind.
 
-### Templates to bundle
+### Templates to bundle (proposed)
 - Release-note intake form.
 - X thread skeleton (7 posts), single X post, LinkedIn, Discord, correction reply.
 - Release blog post skeleton with frontmatter, glossary list, change table, per-change question H2s, developer checklist, versions table, runbook, recap.
@@ -524,5 +532,56 @@ All of the sampled facts I re-checked in code and PRs held (Prepare opens the PR
 - Reviewer handoff message (what to check, link to preview).
 - The `STATUS.md` for a release folder.
 
-### Changes to make to `moi-blog` at the same time
+### Changes to make to `moi-blog` at the same time (proposed)
 Update the corpus and counts; replace the em dash genre rule with "none"; add the X-and-LinkedIn-only decision and the Prepare-seeding caveat; add a pointer from `distribution.md` and `buffer.md` to `moi-release-pack` for scheduled posts and threads; add the terminology corrections and "no attribution" rule; add the strategy-meeting rationale as a short "why" section.
+
+---
+
+## Known inconsistencies in these notes
+
+- `SOCIAL.md` header says the time was "corrected to 12:00 UTC (noon)" while its post text says 12:00 AM UTC; it also says `social/linkedin.txt` was sent, but that file holds the shorter rewrite (see the Traps in the announcement process).
+- `RELEASE-NOTE.md` is labelled "as sent by the protocol team, unedited" but holds the restructured sentences from the thread.
+- Release moment: the note says "today at 12:00 AM UTC"; the correction reply says 00:00 UTC on 11 September; the rewritten pack says "11 September at 12:00 AM UTC (5:30 AM IST)". The same moment, three wordings.
+- Request-log truncation: this file says prompts are cut at about 415 characters; `request-patterns.md` (Researcher note, "Shape of the data") says about 300 characters. The cut length of the log is not settled.
+- Opening line of the September post: this file records "You can now pay fuel for another user." (rule 1); `request-patterns.md` (regression checks and corrections log) records "Your app can now pay the fuel for its users". Check the published post for the actual line.
+- Breaking-change counts in the September post: "three", "four" and "five" (Traps in the release blog process).
+- Claim counts for September: 200 atomic claims in the first pass, 86 changed claims in the refuter run, 152 claims in a later sweep. They are different passes, not one number.
+- Posting hour: 12:45 PM Dubai is about 08:45 UTC and 14:15 IST; an earlier draft of this note said "2 PM IST" (corrected above).
+- Mailchimp: the in-repo statements conflict on weekly versus per-post sending (open question 13).
+- Colon after section labels (user request) versus bare label lines in the sent thread (rule 14, open question 11).
+- Distribution to Discord and Telegram: the 31 Aug decision was X and LinkedIn only, but the scaffold still seeds all four channels (rule list and Traps).
+
+---
+
+## Glossary
+
+Terms are defined as MOI uses them; "(as used in these notes)" marks my best reading.
+
+- **Prepare / Distribute:** the two GitHub Actions workflows of the website repo. Prepare opens a PR with seeded copy in `social/<slug>.md` when a new post is merged; Distribute (run by hand) sends the copy to Buffer drafts, Discord and Telegram.
+- **Buffer:** the social scheduling tool used for X and LinkedIn; `scripts/buffer.mjs` and the website pipeline both call its API.
+- **moipod:** the MOI node software; v0.13.0 is the September 2026 network upgrade (as used in these notes).
+- **Fee payer / fee delegation:** an interaction can name a separate account that signs it and pays its fuel instead of the sender.
+- **Fuel:** what an interaction pays to run.
+- **KMOI:** MOI's native asset.
+- **anu:** KMOI's atomic units (fuel is measured in anu).
+- **Devnet:** MOI's test network, reset from time to time. Write "devnet", not "Voyage devnet".
+- **Voyage:** MOI's explorer and dev tooling site. The "Voyage login" moved to MOI Wallet.
+- **PISA:** MOI's logic execution engine, released as `go-pisa` (as used in these notes).
+- **Coco:** MOI's contract language (`cocolang`); CocoLab is its playground.
+- **Otter:** Otter.ai, the call transcription tool.
+- **Participant-centric:** MOI treats the participant, not the account, as the unit; an account is only the vehicle for a participant's state. Not "account-centric".
+- **x402:** a payment protocol built on HTTP status 402; MOI's x402 work is separate from release posts.
+- **MAS0:** an asset standard created without a contract. **MASX:** a logic-backed asset. **MASN:** the native-asset class used for KMOI, where Mint and Burn are reserved for the protocol (as used in these notes).
+- **Luma:** the event page tool used for webinars and calls.
+- **UTM:** tags added to links (for example `utm_campaign=<slug>`) so analytics show where a visit came from.
+- **GA4:** Google Analytics 4. **Search Console:** Google's tool for indexing and search performance.
+- **llms.txt:** a site file that lists pages for AI crawlers.
+- **Mailchimp RSS:** the newsletter campaign that sends new blog posts from the site's RSS feed.
+- **GEO:** generative engine optimisation, writing so AI search tools find and cite the page.
+- **Humanizer, stop-slop:** two skills that remove AI-sounding patterns from prose.
+- **Readability jury:** a panel of agents that scores how easily a newcomer reads a draft (as used in these notes).
+- **Atomic claims:** a post split into one-fact claims, each checked against source. **Adversarial refuter:** a checker whose job is to try to disprove a claim.
+- **T-minus:** a step done a stated time before the release moment.
+- **Idempotency:** running the same step twice has the same effect as once; Distribute lacks it, so a re-run posts again.
+- **Slug:** the URL name of a post. **Frontmatter:** the metadata block at the top of a post file. **Takeaways / FAQ:** fields in that metadata that feed summaries and schema.
+- **Worktree:** a second working copy of a git repo (here the MOI-Webinars repo on Adithya's Mac).

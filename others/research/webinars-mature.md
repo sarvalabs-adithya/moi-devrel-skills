@@ -1,27 +1,30 @@
 # MOI Builders developer webinars, sessions 7, 8, 8-policies and 9 (the mature format)
 
-Conventions used in this note.
-
-- `WT` = `/Users/adithyaganesh/MOI-Webinars/.claude/worktrees/relaxed-mccarthy-368dbc` (branch `claude/agent-payments-simple`). All repo paths below are relative to `WT` unless they start with `/`.
-- `REQ` = `/Users/adithyaganesh/moi-devrel-skills/_research/_user-requests.txt`. Cited as `REQ:<line>`.
-- Everything without a tag was OBSERVED in a file, a commit, or a request line. Anything I concluded is marked `(inferred)`. Gaps are marked `unknown` and repeated under Open questions.
-- No secret values are reproduced. Variable names and where they live are named. Two secret leaks that happened in chat are mentioned as incidents only (see Traps).
-
----
-
-## Sources read
-
-Read in full:
-
-- `WT/session-7/`: `README.md`, `DEMO-PLAN.md`, `STORYLINE.md`, `EXPLAINER.md`, `FACILITATOR-NOTE.md`, `TRANSCRIPT.md`, `BLOG.md`, `deck/README.md`, `blog-assets/PUBLISH.md`, `blog-assets/factcheck-report.md`, `blog-assets/social-pack.md`, `blog-assets/schema.jsonld` (head), `blog-assets/MEDIUM.md` (head + diff against BLOG.md). `blog-assets/*.png|svg` and `deck/*.pptx` read by name; both pptx files had their slide text and speaker notes extracted read-only with `python3 zipfile`.
-- `WT/session-8/`: `PLAN.md`, `DEMO-PLAN.md`, `README.md`, `BLOG.md`, `package.json`, `.env.example`, `scripts/demo.ts` (head), `scripts/02-provision-agents.ts` (head), `budget-logic/agentbudget.coco`, package layout.
-- `WT/session-8-policies/`: `README.md`, `NOTES.md`, `RUNBOOK.md`, `GAMEDAY.md`, `LUMA.md`, `SOCIAL.md`, `SCRIPT.md`, `BLOG.md`, `scripts/{preflight,demo,tick,grant,revoke,policy,counter-lib,spike-policy,00-fund-agent,01-deploy-ticker}.ts`, `ticker-logic/coco.nut`, `packages/shared/src/{chain,config,log}.ts` (greps), `deck/index.html` (structure, slide titles, presenter-view code), `recording/{demo.tape,build-vo.sh,vo/01.txt}`, all 25 files in `social/` and 3 in `social/variants/`, `.vscode/settings.json`, `.gitignore`, `.env.example`. `.env` was never opened.
-- `WT/session-9/`: `PLAN.md`, `DEMO-PLAN.md`, `README.md`, `BLOG.md`, `package.json`, `.env.example`, `scripts/x402-probe.ts`, `scripts/02-grant-authority.ts` (head), `scripts/attack-test.ts` (head).
-- Cross-cutting: `WT/.gitignore`, `WT/README.md` (series table), `WT/scripts/buffer.mjs` (CLI surface), `WT/otter-transcript/Project Launch and Blog Strategy_{summary,transcript}.txt` (the 4 Aug call), read-only `git log` / `git ls-files` / `git ls-tree` / `git show --stat 6a4de4e`, session-7 scripts `preflight.ts`, `verify-sdk.ts` (head), `spike-allowance.ts` (head), `attack-test.ts` (head), `_fix2.ts`, `_unstick2-tmp.ts`, `showcase-discover-all.ts`.
-- `REQ`: lines 219-262 (worktree sessions on session 8), 493-1100 (the main session, 3 Aug to 4 Sep), 1325-1430 (later webinar mentions). Prompts in `REQ` are truncated by the extractor at roughly 300 characters, so the long pasted call transcripts (e.g. `REQ:866`, `REQ:897`, `REQ:957`) cannot be read past their opening.
-- Existing skills inspected for overlap: `/Users/adithyaganesh/.claude/skills/moi-deck/SKILL.md` and `/Users/adithyaganesh/.claude/skills/moi-blog/SKILL.md`.
-
-Not read (out of scope or skipped by rule): `node_modules`, lock files, `.env` files, session-8-policies `recording/vo/*.wav|m4a`, `recording/demo.mp4|gif`, `deck/MOI_Builders_S8.pdf`, the `session-9/packages` and `session-8/packages` source (only layout and a few file heads), personal projects.
+> **What this file is.** A research note on how one MOI Builders developer webinar is planned, built, rehearsed, delivered and written up, in the "mature" format. "Mature format" means sessions 7 onward (the early sessions 1 to 6 are in `webinars-early.md`). It covers session 7, session 8 (a design that was dropped), session 8-policies (the session that replaced it) and session 9 (planned, not delivered as written). Claude (an AI research assistant) compiled it from Adithya's work history to design a Claude skill for running a webinar. The last section proposes that skill (`moi-webinar`) and says which existing skills (`moi-deck`, `moi-blog`) it should hand off to. This file does not say whether `moi-webinar` was built.
+>
+> **When it was written.** September and October 2026. The evidence runs from 3 August 2026 to 15 September 2026.
+>
+> **Internal use only.** This note names internal reviewers and quotes internal feedback. Trap 13 below says reviewer names must be stripped from tracked files before they reach `main` of the public repo; the same applies here. Do not publish this file.
+>
+> **Who "I" and "the user" are.** "I" is the research assistant. "The user" is Adithya (DevRel at MOI), who built and presented the sessions.
+>
+> **Evidence key.** Anything without a tag was OBSERVED in a file, a commit or a request line. Anything the research assistant concluded is marked `(inferred)`. Gaps are marked `unknown` and repeated under "Open questions". No secret values are reproduced; variable names and where they live are named. Two secret leaks that happened in chat are mentioned as incidents only (see Traps).
+>
+> **Paths and citations.**
+> - `REQ:<n>` cites line n of a request log kept on Adithya's Mac (`~/moi-devrel-skills/_research/_user-requests.txt`). It is not in this repo.
+> - `WT` is Adithya's working copy of the webinar repo on his Mac: `~/MOI-Webinars/.claude/worktrees/relaxed-mccarthy-368dbc` (branch `claude/agent-payments-simple`). Repo paths below are relative to `WT` unless they start with `/`.
+> - Paths starting `~/` or `WT/` are on Adithya's Mac. The session code is in https://github.com/moi-foundation/MOI-Webinars. Session transcripts are not in the repo.
+> - Several documents named here (anything marked "gitignored", and the session 8, 8-policies and 9 folders, which were on a branch rather than `main`) exist only on Adithya's Mac. This is said once here and not repeated.
+> - Commit hashes (for example `6a4de4e`) are from that repo's history.
+>
+> **People.**
+> - Adithya: DevRel at MOI (the blog byline reads "Adithya Ganesh, Ecosystem, Sarva Labs"); does nearly all of the work, mostly through Claude Code.
+> - Rahul: reviews and approves DevRel work and sets priorities. In these notes he receives the deck and the blog and supplied the narrative framing for session 8.
+> - Ram: role not recorded in these notes. His feedback ended the first session-8 design.
+> - "A lead" who ran the 4 August and 31 August calls: not named in these notes.
+> - Not named here but relevant to the processes below: Vardan (marketing, Luma pages) and Chandra (owns the Buffer organisation).
+>
+> **Reading guide.** One "Process" section per stage (lifecycle, topic and storyline, demo build, run-of-show, deck and script, Luma page, social campaign, game day, rehearsal recording, blog, bounty), then reusable assets, rules and house style, traps, open questions, a proposal for the skill, known inconsistencies, a glossary of jargon, and an appendix listing the sources read.
 
 ---
 
@@ -32,11 +35,18 @@ Turn one idea about MOI into five linked things: a verified live demo, a spoken 
 
 ### Trigger or cadence
 - The trigger is a call with a lead, recorded and transcribed (Otter), whose transcript Adithya pastes into Claude. Session 7: the 4 Aug call (`WT/otter-transcript/…_summary.txt`; `WT/session-7/STORYLINE.md` line 7). Session 8-policies: the 31 Aug 9:47am call, titled "Refining Agent Demo and Access Policies", 7 min (`REQ:219-224`, `REQ:866`, `REQ:897`).
-- Intended cadence is weekly on Fridays: `STORYLINE.md` says V1 "this Friday", V2 "+1", V3 "+2". Actual: session 7 on Friday 7 Aug 2026 (inferred from `REQ:663` "were done sesh went great" dated 7 Aug), session 8-policies on Friday 4 Sep 2026 at 4:00pm IST (`WT/session-8-policies/LUMA.md`). Roughly monthly in practice (inferred).
+- Intended cadence is weekly on Fridays: `STORYLINE.md` says V1 "this Friday", V2 "+1", V3 "+2" (V1, V2 and V3 are the three phases of the series; this file ties V2 to session 8 and V3 to session 9 under "Traps" of the storyline process, and V1 to session 7 by inference). Actual: session 7 on Friday 7 Aug 2026 (inferred from `REQ:663` "were done sesh went great" dated 7 Aug), session 8-policies on Friday 4 Sep 2026 at 4:00pm IST (`WT/session-8-policies/LUMA.md`). Roughly monthly in practice (inferred).
 - A topic is only valid if it fits one idea. The call that set the series said: "If you give everything in a single dev talk, everyone will lose it" (quoted in `STORYLINE.md` line 9).
 
 ### Who does it
-Adithya (ecosystem, Sarva Labs; the blog byline is "Adithya Ganesh, Ecosystem, Sarva Labs") does all of it, mostly through Claude Code in this worktree. Two reviewers appear by first name only: **Rahul** (asked to receive the deck and the blog; supplied the narrative framing for session 8; roles otherwise `unknown`) and **Ram** (killed the first session-8 design, see below). Sub-agents were used twice, each on Adithya's explicit instruction: Haiku agents for the 24 Aug build of sessions 8 and 9 (`REQ:731`, `REQ:742`) and parallel readers for the 7 Aug protocol-claim verification (`REQ:687` "deploy a few agents if you wanna"; `factcheck-report.md` "three parallel readers"). His rule otherwise: do not start multi-agent runs unprompted because they burn credits (`REQ:515`).
+- Adithya (ecosystem, Sarva Labs; the blog byline is "Adithya Ganesh, Ecosystem, Sarva Labs") does all of it, mostly through Claude Code in this worktree.
+- Two reviewers appear by first name only:
+  - **Rahul** reviews and approves DevRel work and sets priorities. In these notes he asked to receive the deck and the blog and supplied the narrative framing for session 8; his role is otherwise not recorded in these notes.
+  - **Ram** (role not recorded in these notes) killed the first session-8 design, see below.
+- Sub-agents were used twice, each on Adithya's explicit instruction:
+  - Haiku agents for the 24 Aug build of sessions 8 and 9 (`REQ:731`, `REQ:742`).
+  - Parallel readers for the 7 Aug protocol-claim verification (`REQ:687` "deploy a few agents if you wanna"; `factcheck-report.md` "three parallel readers").
+- His rule otherwise: do not start multi-agent runs unprompted because they burn credits (`REQ:515`).
 
 ### Inputs needed before starting
 A recorded call transcript or an explicit instruction from Rahul/Ram; the previous session's folder (each session is built by copying the previous one forward); a funded Voyage devnet wallet (faucet https://voyage.moi.technology); reference docs for the new mechanism (session 8: `sarvalabs/moidocs` PR 120, files `access-control.md`, `access-policy-tutorial.md`, per `NOTES.md` end).
@@ -76,11 +86,20 @@ A recorded call transcript or an explicit instruction from Rahul/Ram; the previo
 | `BLOG.md` | before (8) or after (7) the session | search engines, AI engines, developers | the canonical write-up, GEO-structured | tracked |
 | `blog-assets/` (7) | with the blog | publishing | `PUBLISH.md`, `factcheck-report.md`, `social-pack.md`, `MEDIUM.md`, `schema.jsonld`, hero and chart | tracked |
 
+"Gitignored" means the file never left Adithya's Mac. "Tracked" means it is committed on the branch, which is not the same as being on `main` (see Deliverables).
+
 ### Deliverables and where each ends up
 Repo folder `WT/session-N/` on branch `claude/agent-payments-simple` (pushed to `origin`). On `origin/main` only session-7's `README.md`, `EXPLAINER.md` and `deck/` exist (read via `git ls-tree origin/main`); sessions 8, 8-policies, 9 and all blogs are branch-only (observed). Luma page, Google Meet, Buffer posts, Medium story, bounty form: external (see their processes).
 
 ### Accounts and tools involved
-Claude Code; Voyage devnet and faucet (no key, a funded mnemonic in `.env`); Luma (login, manual); Google Meet; Buffer (API key in `WT/.env` as `BUFFER_API_KEY`); Medium (login); Groq (`GROQ_API_KEY`, free, for the session-7 agents' brains and for the TTS voiceover); GitHub (`moi-foundation/MOI-Webinars`; gh auth must be the `sarvalabs-adithya` account, `REQ:978`, `REQ:1001`).
+- Claude Code.
+- Voyage devnet and faucet (no key; a funded mnemonic in `.env`).
+- Luma (login, manual).
+- Google Meet.
+- Buffer (API key in `WT/.env` as `BUFFER_API_KEY`).
+- Medium (login).
+- Groq (`GROQ_API_KEY`, free): the "brains" of the session-7 agents and the text-to-speech voiceover.
+- GitHub (`moi-foundation/MOI-Webinars`); gh auth must be the `sarvalabs-adithya` account (`REQ:978`, `REQ:1001`).
 
 ### Quality rules and house style
 See "Rules and house style".
@@ -121,12 +140,12 @@ Inputs: call transcript, previous session, SDK and docs. Deliverable: `STORYLINE
 ### Quality rules
 - One idea per session; "Nothing before its turn" (`STORYLINE.md`).
 - Say which phase this is and that the platform has a bigger scope coming (`STORYLINE.md` "Positioning").
-- Each session builds on the last: S7 identity, S8 "+ authority", S9 "+ standard". Deck slide 6 of session 7 shows "session 7, then 8 is 7 + context inheritance, then 9 is 8 + x402" (`REQ:655`, deck notes).
+- Each session builds on the last. In short: session 7 is about identity (who the agent is), session 8 adds authority (what the agent is allowed to do), session 9 adds a standard (x402). Slide 6 of the session-7 deck, which predates the move from context inheritance to access policies, shows "session 7, then 8 is 7 + context inheritance, then 9 is 8 + x402" (`REQ:655`, deck notes).
 - Honesty guardrails are written before the build and constrain stage copy (`session-8/PLAN.md` §1).
 
 ### Traps
 - Sessions 8 and 9 as planned (V2 allowance/context-inheritance, V3 x402) were superseded by session-8-policies. `session-9/PLAN.md`, `README.md` and `.env.example` still depend on session 8's allowance (`setup:authority`, `AGENT_ALLOWANCE`), and `session-9/BLOG.md` links to `/blog/agent-budget-on-chain-moi`, a post for a session that was not delivered. Anyone resuming session 9 must re-plan on the policies work.
-- `STORYLINE.md` is stale against the build: it says sessions are "green in mock mode" with a book seller; the demo has no mock mode (Adithya: "no mock mode for chain, chain always has to run", `REQ:534`) and sells bitcoin probabilities.
+- `STORYLINE.md` is stale against the build. It describes an older demo: a seller of books, "green in mock mode" (mock mode means a pretend run that does not touch the chain). The demo as built has no mock mode (Adithya: "no mock mode for chain, chain always has to run", `REQ:534`) and sells bitcoin probabilities.
 - Reviewer rejection can land late. "Ram killed it on the 27th" (`NOTES.md`) and "Ram's phrasing on the 27th" (`README.md`) do not match the 31 Aug call evidence (`REQ:866`, `REQ:897`); unknown whether there was a separate call.
 
 ### Open questions
@@ -152,7 +171,7 @@ Funded devnet mnemonic in `.env` (`USER_MNEMONIC`, `USER_DERIVATION_PATH`; agent
 1. **Scaffold from the previous session.** Copy the folder forward (`session-8: scaffold from session 7`, `git log`). Rename the headers. (Trap: `.env.example` headers in sessions 8 and 9 still say "MOI Builders #7".)
 2. **Spike the mechanism alone.** Session 8-policies: `npm run spike:policy` runs create, read, update, delete of a policy (`scripts/spike-policy.ts`). Session 7/8/9: `npm run spike:allowance`. Header comment states what it proves or kills.
 3. **Verify SDK claims live with throwaway keys.** `npm run verify-sdk` (`scripts/verify-sdk.ts`): "Every claim in SDK_NOTES.md marked VERIFIED LIVE is produced here", needs no funded wallet, reports `UNVERIFIABLE-WITHOUT-FUNDS` rather than assuming. 63 assertions in session 7 README.
-4. **Write numbered idempotent setup scripts that write ids back to `.env`.**
+4. **Write numbered setup scripts that are safe to run again (idempotent) and write ids back to `.env`.**
    - Session 7: `npm run setup:asset` (`00-setup-asset.ts`: creates MAS0 asset USDM, mints 100,000 to buyer, writes `SETTLEMENT_ASSET_ID`; reuses an existing asset and skips mint if funded), `npm run setup:registry` (`01-register-agents.ts`: writes `SELLER_AGENT_ID`, `BUYER_AGENT_ID`).
    - Session 8-policies: `npm run setup:fuel` (`00-fund-agent.ts`: owner creates the agent with `ParticipantCreate` and sends KMOI; tops up when below 6,000), `npm run setup:logic` (`01-deploy-ticker.ts`: `LogicFactory.deploy` with `RoutineOption({ storageFund: 6000 })`, writes `LOGIC_ID`; reuses existing). `.env` writing is done by `scripts/env-file.ts` `updateEnv`.
    - Compile the logic first: `coco compile` (not `coco build`, which is not a subcommand), needs a `coco.nut` beside the source (`ticker-logic/coco.nut`, coco 0.8.0).
@@ -169,12 +188,16 @@ Funded devnet mnemonic in `.env` (`USER_MNEMONIC`, `USER_DERIVATION_PATH`; agent
 Runnable folder; `.env.example`; `NOTES.md`; recording.
 
 ### Accounts and tools
-Voyage devnet RPC `https://dev.voyage-rpc.moi.technology/devnet/` (in `session-7/scripts/verify-sdk.ts`), faucet https://voyage.moi.technology, `js-moi-sdk` (^0.7.1 in sessions 7-9; ^0.8.0 in 8-policies), `js-moi-agent-registry` 0.1.1, `js-polo`, `coco` 0.8.0 compiler, Groq (`GROQ_API_KEY`). Needs a funded mnemonic; Groq key optional with a fallback (see Traps for why the fallback must not be demoed).
+- Voyage devnet RPC `https://dev.voyage-rpc.moi.technology/devnet/` (in `session-7/scripts/verify-sdk.ts`) and the faucet https://voyage.moi.technology.
+- `js-moi-sdk` (^0.7.1 in sessions 7-9; ^0.8.0 in 8-policies), `js-moi-agent-registry` 0.1.1, `js-polo`.
+- The `coco` 0.8.0 compiler.
+- Groq (`GROQ_API_KEY`): the key is optional because there is a fallback (see Traps for why the fallback must not be demoed). The Groq model's name is not recorded in these notes.
+- A funded mnemonic is needed.
 
 ### Quality rules (the standard)
-- **Chain always real.** No mock mode: "no mock mode for chain, chain always has to run" (`REQ:534`); "the integrity of the demo is correct, everything is an onchain action, nothing is a mock" (`REQ:604`). Session 7 README: "No offline mode — every run settles on Voyage devnet."
+- **Chain always real.** No mock mode: "no mock mode for chain, chain always has to run" (`REQ:534`); "the integrity of the demo is correct, everything is an onchain action, nothing is a mock" (`REQ:604`). Session 7 README: "No offline mode: every run settles on Voyage devnet."
 - **Prove before building**: spike first (above).
-- **MAS0 fails silently.** A refused pull returns an interaction hash with no error. The only oracle is a balance diff. "Show balances, never receipts" (`session-8/README.md`, `session-9/DEMO-PLAN.md`, `spike-allowance.ts` header).
+- **MAS0 fails silently.** When a MAS0 transfer is refused (for example a payment pulled from an account that did not allow it), the chain still returns an interaction hash and no error. The only way to know what happened is to compare balances before and after (a "balance diff"). "Show balances, never receipts" (`session-8/README.md`, `session-9/DEMO-PLAN.md`, `spike-allowance.ts` header).
 - **A refusal only counts for the right reason.** `isPolicyRefusal()` in `session-8-policies/scripts/demo.ts` requires the text `AccessError`; anything else prints "stopped, but NOT by a policy" and exits non-zero. Reason: an out-of-fuel agent and a forbidden agent look identical, and an early run showed beat 3 "passing" because the agent was broke (`NOTES.md`).
 - **Guard the guard.** Pre-run balance check (`FUEL_LIMIT * 3`), and the guard was tested by forcing it: `FUEL_LIMIT=50000 npm run demo` must stop immediately. "A guard nobody has seen fire is not a guard." (`NOTES.md`)
 - **Include an honest control** in any adversarial suite.
@@ -183,7 +206,7 @@ Voyage devnet RPC `https://dev.voyage-rpc.moi.technology/devnet/` (in `session-7
 - **Small files on screen.** `identity-check.ts` 42 lines, shown whole without scrolling; `ticker.coco` 30 lines; `tick.ts` about 25 lines. "Only two pieces of this touch MOI" (session 7 deck slide 4). The README for session 7 lists "the seven files, in demo order".
 - **Long "why" header comments** in every script (the code is read live and by students).
 - **Models get judgment, code gets money** (session 7). Model output is clamped by arithmetic bounds computed in code (`pricing.ts`, `worth.ts`).
-- **Measure, do not assume**: "5 questions x 5 runs each, zero drift, all four markets reachable" for the keyed model (`session-7/DEMO-PLAN.md`).
+- **Measure, do not assume**: "5 questions x 5 runs each, zero drift, all four markets reachable" for the model called with the Groq key (model name not recorded in these notes) (`session-7/DEMO-PLAN.md`).
 - **Numbers of record** in the demo cost sheet: refused write 86 fuel, permitted write 134, policy create/delete 100, deploy 719, ParticipantCreate 399 (`NOTES.md`); a full run costs 506 KMOI, agent 306 plus owner 200 (`GAMEDAY.md`; `RUNBOOK.md` says about 600).
 
 ### Traps (build-time)
@@ -265,7 +288,10 @@ Demo built; storyline fixed. Session 7: 5 Aug. Session 8-policies: 31 Aug (first
 Adithya writes or edits the style; Claude drafts and rewrites. Rahul reviews narrative.
 
 ### Inputs
-Brand source: session 7 used a PowerPoint (`session-7/deck/MOI_Builders_S7-new.pptx`, 7 slides, then `MOI_Builders_S7new1f.pptx`, 8 slides, the one presented per `TRANSCRIPT.md`), palette sampled from `MOI_Builders_S5_2.pptx` (gitignored). Session 8-policies used a single-file HTML deck (`session-8-policies/deck/index.html`, 19 slides, 1920x1080, Poppins, MOI tokens `--moi-main:#4B17E5`, `--moi-dark:#320F99`, `--moi-black:#0A0026`, lavender backgrounds), skills `ToseaAI/awesome-html-slide-skills` for the HTML deck (`REQ:926`), MOI logo on every slide (`REQ:959`).
+- Brand source, session 7: a PowerPoint (`session-7/deck/MOI_Builders_S7-new.pptx`, 7 slides, then `MOI_Builders_S7new1f.pptx`, 8 slides, the one presented per `TRANSCRIPT.md`); palette sampled from `MOI_Builders_S5_2.pptx` (gitignored).
+- Brand source, session 8-policies: a single-file HTML deck (`session-8-policies/deck/index.html`, 19 slides, 1920x1080, Poppins font, MOI tokens `--moi-main:#4B17E5`, `--moi-dark:#320F99`, `--moi-black:#0A0026`, lavender backgrounds).
+- Skills used for the HTML deck: `ToseaAI/awesome-html-slide-skills` (`REQ:926`).
+- MOI logo on every slide (`REQ:959`).
 
 ### Steps
 1. Decide slide count small: "the slide deck doesn't need to be too long" (`REQ:575`); session 7 ended at 7-8 slides.
@@ -273,8 +299,8 @@ Brand source: session 7 used a PowerPoint (`session-7/deck/MOI_Builders_S7-new.p
 3. Order the code slide by demo order: "explain every bit of the previous demo", first registry, then how it contacts the agent, then 402 (`REQ:618`); later cut to "only the files we are actually talking about" (`REQ:661`, commit `00fe08b`).
 4. Put the honest-limits slide near the end ("Every guardrail here is self-imposed" in 7; "Honest scope" in 8).
 5. Roadmap slide shows the series split (7, then 7+X, then +Y). Session 7 also has a bounty slide with the form link (`https://forms.gle/NToEMG47QHro9SiB8`).
-6. Write the script per slide as paragraphs to read word for word. Cue grammar in session-7 notes: `[ DECK · slide 1 ]`, `[ >>> SWITCH TO BROWSER — http://localhost:4000 ]`, `[ FILE 1 — open scripts/showcase-discover-all.ts ]`, `[ L22 — const TAG = "sells-books" ]`, `[ point at … ]`. Adithya asked for line numbers and function names together "so if the number fails I can just search the header" (`REQ:654`). Session 8-policies cue grammar in `SCRIPT.md`: banner `==== ## PRESS NEXT --> SLIDE N · title ====`, italic stage directions in parentheses `*(switch to Cursor, ticker.coco)*`, bold beat labels.
-7. Generate the deck's presenter notes from the script: "Presenter notes are generated from SCRIPT.md, cues included, so the teleprompter and the printed script cannot drift" (commit message `6a4de4e`). The generator itself is not in the repo (`unknown`); the `moi-deck` skill now owns this (`/Users/adithyaganesh/.claude/skills/moi-deck/SKILL.md` step 4, `NOTES` array).
+6. Write the script per slide as paragraphs to read word for word. Cue grammar in session-7 notes: `[ DECK · slide 1 ]`, `[ >>> SWITCH TO BROWSER: http://localhost:4000 ]`, `[ FILE 1: open scripts/showcase-discover-all.ts ]`, `[ L22: const TAG = "sells-books" ]`, `[ point at … ]` (the originals use an em dash where these have a colon). Adithya asked for line numbers and function names together "so if the number fails I can just search the header" (`REQ:654`). Session 8-policies cue grammar in `SCRIPT.md`: banner `==== ## PRESS NEXT --> SLIDE N · title ====`, italic stage directions in parentheses `*(switch to Cursor, ticker.coco)*`, bold beat labels.
+7. Generate the deck's presenter notes from the script: "Presenter notes are generated from SCRIPT.md, cues included, so the teleprompter and the printed script cannot drift" (commit message `6a4de4e`). The generator itself is not in the repo (`unknown`); the `moi-deck` skill now owns this (`~/.claude/skills/moi-deck/SKILL.md` step 4, `NOTES` array).
 8. Open the presenter window with `P` (`index.html` `openPresenter`, keys: arrows, space, PageUp/PageDown, Home, End). Share the deck window in Meet, keep the presenter window private (`GAMEDAY.md` item 7).
 9. Export PDF via print (`@page { size: 1920px 1080px }`), file `deck/MOI_Builders_S8.pdf`. A PDF does not keep animations (Adithya asked, `REQ:985`).
 10. Humanize: run `humanizer` and `stop-slop` over the script, several rounds (`REQ:1043`, `REQ:1070`).
@@ -324,7 +350,7 @@ A public registration page and a joinable meeting.
 Topic locked; date and time agreed. Session 8: drafted 31 Aug, page link `https://luma.com/g0bmqt8p` in use by 31 Aug (`REQ:910`).
 
 ### Who
-Claude drafts `LUMA.md`; Adithya pastes it into Luma by hand. There is no Luma automation: "is there a claude code luma mcp or a luma skill?" then "nvm its not luma plus" (`REQ:902-903`; (inferred) the API needs a paid plan).
+Claude drafts `LUMA.md`; Adithya pastes it into Luma by hand. There is no Luma automation. Adithya asked in chat whether a Claude Code Luma MCP or skill existed, then withdrew the question ("nvm its not luma plus", `REQ:902-903`). (inferred) He meant that the Luma API needs a paid plan.
 
 ### Inputs
 Date, time zone, duration, repo URL, prerequisites.
@@ -370,7 +396,18 @@ Same day as the topic lock.
 Drive registrations to the Luma page and, after the event, drive readers to the blog.
 
 ### Trigger
-Luma link exists. Observed cadence for session 8 (from `social/` filenames, file mtimes and `REQ`): an announcement pair drafted Mon 31 Aug (`x.txt`, `linkedin.txt`, with `x-reply.txt` and `linkedin-comment.txt` carrying the link, mtimes 08-31 08:16 to 08:45), a Tue/Wed/Thu daily pair (`tue-*`, `wed-*`, `thu-*`, mtime 08-31 10:15 except `tue-linkedin.txt` 09-01 12:47), a "why"-focused pair written 1 Sep (`mon-x.txt`, `mon-linkedin.txt`, `mon-x-reply.txt`, `mon-linkedin-comment.txt`, mtimes 09-01 01:59 to 02:30, so the `mon-` prefix is not a reliable post day; `REQ:960` "schedule a post for today, focus on the why"), then Friday 4 Sep: `fri-linkedin-t5h.txt` (five hours out), `fri-x.txt` (locked as "Option 3", 273 chars), `fri-linkedin-t1h.txt`, `fri-x-t30.txt` ("WE'RE LIVE IN 30."), `fri-x-live.txt`, `fri-linkedin-live.txt`. Scheduling times mentioned: 10am IST next morning for the Voyage posts (not session 8), 5:30pm IST on 1 Sep, 11am IST on 4 Sep, 3:30pm IST on 4 Sep (`REQ:946`, `REQ:971`, `REQ:1039`, `REQ:1081`). Whether every file went out as scheduled is `unknown`. Note `voyage-x.txt` and `voyage-linkedin.txt` in the same folder are an unrelated Voyage login-migration announcement.
+Luma link exists. Observed cadence for session 8 (from `social/` filenames, file mtimes and `REQ`):
+
+| Batch | Files | Written (file mtimes) | Notes |
+|---|---|---|---|
+| Announcement pair, Mon 31 Aug | `x.txt`, `linkedin.txt`, plus `x-reply.txt` and `linkedin-comment.txt` carrying the link | 08-31 08:16 to 08:45 | |
+| Daily pair, Tue / Wed / Thu | `tue-*`, `wed-*`, `thu-*` | 08-31 10:15, except `tue-linkedin.txt` at 09-01 12:47 | |
+| "Why"-focused pair, written 1 Sep | `mon-x.txt`, `mon-linkedin.txt`, `mon-x-reply.txt`, `mon-linkedin-comment.txt` | 09-01 01:59 to 02:30 | The `mon-` prefix is not a reliable post day. `REQ:960`: "schedule a post for today, focus on the why". |
+| Day-of posts, Fri 4 Sep | `fri-linkedin-t5h.txt` (five hours out), `fri-x.txt` (locked as "Option 3", 273 chars), `fri-linkedin-t1h.txt`, `fri-x-t30.txt` ("WE'RE LIVE IN 30."), `fri-x-live.txt`, `fri-linkedin-live.txt` | not recorded | |
+
+- Scheduling times mentioned: 10am IST next morning for the Voyage posts (not session 8), 5:30pm IST on 1 Sep, 11am IST on 4 Sep, 3:30pm IST on 4 Sep (`REQ:946`, `REQ:971`, `REQ:1039`, `REQ:1081`).
+- Whether every file went out as scheduled is `unknown`.
+- `voyage-x.txt` and `voyage-linkedin.txt` in the same folder are an unrelated Voyage login-migration announcement.
 
 ### Who
 Claude drafts (using the `writing-x-posts` and `linkedin-skills` skills, `REQ:917`, `REQ:1161`), Adithya reads every post once before scheduling ("lemme read it once then u can schedule", `REQ:1038`).
@@ -380,7 +417,7 @@ Luma URL; the narrative angle (Rahul's participant-centric "why"); verified clai
 
 ### Steps
 1. Draft `SOCIAL.md`: one X single post (two variants), a 5-post X thread, one LinkedIn post, a Notes block (e.g. "The LinkedIn post carries the storage caveat … Do not cut it").
-2. Rewrite with a different approach if the framing is wrong. Session 8's first pack in `SOCIAL.md` ("a gate with no fence", the lockup argument) was replaced by the `social/*.txt` posts after Adithya said "these are still references to the reason why we're [not] doing session 8 as originally planned" (`REQ:916`) and "rewrite both of them, use a different approach" (`REQ:921`); that the lockup argument is what he objected to is (inferred). Note `SOCIAL.md` and `LUMA.md` still carry the old lockup framing today, while the posts in `social/` do not.
+2. Rewrite with a different approach if the framing is wrong. Session 8's first pack in `SOCIAL.md` (framed as "a gate with no fence" and an argument about lockups, whose exact content is not recorded in these notes) was replaced by the `social/*.txt` posts after Adithya said "these are still references to the reason why we're [not] doing session 8 as originally planned" (`REQ:916`) and "rewrite both of them, use a different approach" (`REQ:921`); that the lockup argument is what he objected to is (inferred). Note that `SOCIAL.md` and `LUMA.md` still carry the old lockup framing (at the time of writing), while the posts in `social/` do not.
 3. Split each approved post into its own file `social/<day>-<platform>[-reply|-comment|-t1h|-live].txt`.
 4. Run stop-slop and humanizer, producing variants A (stop-slop only), B (humanizer only), C (both) in `social/variants/`; Adithya picked A ("ok push A", `REQ:970`).
 5. Verify every factual claim (`REQ:931-933`): remove vague attributions like "most teams quietly accept both" because it cannot be cited.
@@ -483,7 +520,7 @@ Google Meet (screen share), Cursor editor (`SCRIPT.md` says "switch to Cursor"),
 - Known state at the time: the bounty was **not live** (needs a migration, `MOI_RPC_URL` in the deploy environment, and the flag flipped; announce it as coming), the Points repo moved to `sarvalabs/Points-Program` (PR `#1` unmerged), nothing about access policies on `docs.moi.technology` because PR 120 had not merged, so do not point people at docs (`GAMEDAY.md` "Known state"). Whether `docs.moi.technology` later had it: `REQ:978` asked Claude to check.
 - Session 7: Ctrl-C during `--tamper` leaves the registry pointed at the attacker and the happy path then refuses at step 7; rerun tamper to completion (`session-7/DEMO-PLAN.md`). Tamper was removed from the live path after the 7 Aug registry outage.
 - Without `GROQ_API_KEY` the buyer matches keywords and a vague audience question buys the wrong market on screen; only do `npm run ask` with the key and confirm `decided by` shows the model name, not `local-fallback` (`session-7/DEMO-PLAN.md`).
-- Timing for the 7th-of-August order of play: slide 3 browser demo is the longest piece; the pptx cues were rewritten at least six times (`git log` `deck:` commits on 5 and 7 Aug).
+- Session 7 (live on 7 Aug): the browser demo on slide 3 is the longest piece of the running order, and the cues in the pptx speaker notes were rewritten at least six times (`git log` `deck:` commits on 5 and 7 Aug).
 
 ### Time
 Setup about an hour; a full rehearsal run about 45 seconds plus pauses.
@@ -553,14 +590,14 @@ Claude writes, Adithya edits sentence by sentence (16-change editorial pass, com
    - FAQ of 7-8 questions (the answers go verbatim into FAQPage JSON-LD).
    - Footer: "Built at Sarva Labs for the MOI Builders series. Earlier sessions cover …" with links.
    - Session 7 also embeds an HTML-comment publishing checklist (slug, title tag 58 chars, meta description 159 chars, canonical, schema, hero alt text, second image, 48h rule) to delete before publish.
-   - Session 8 and 9 drafts use `<<< EVIDENCE: … >>>` placeholders for hero, hashes, terminal output and "FAQ — write after the session, matching the questions actually asked", so the blog can be written before the demo output exists and filled after.
+   - Session 8 and 9 drafts use `<<< EVIDENCE: … >>>` placeholders for hero, hashes, terminal output and "FAQ: write after the session, matching the questions actually asked", so the blog can be written before the demo output exists and filled after.
 4. **Fact-check pass.** Two layers in `session-7/blog-assets/factcheck-report.md`: (a) every link and external claim fetched, verdicts VERIFIED / SUPPORTED / FIXED / INTERNAL; (b) claims checked against SDK sources by "three parallel readers" with verdicts TRUE / FALSE / OVERSTATED / ARGUABLE / SCOPED / UNVERIFIABLE and an action per row. Example corrections: "only the owner can move funds, there can't be a custodian" was FALSE (MAS0 has Approve/TransferFrom and Lockup/Release); "registry is an on-chain listing of capabilities" was FALSE (skills live in the off-chain card); "eleven forgeries" was OVERSTATED (ten hit the verifier). Adithya's own request: "check every line and every claim against MOI's actual protocol code" (`REQ:687`).
 5. Run the blog-skill scoring and fix: session 7 ended at AI citation readiness 80/100 and blog quality 69/100, with 3,193 words (~13.7 min) and 27 resolving external links (`PUBLISH.md`).
 6. Humanizer, stop-slop. In session 8 this pass removed most em dashes (commit `6a4de4e` diff).
 7. Assets: chart as SVG for the site and PNG for Medium; hero image; `schema.jsonld` with BlogPosting plus FAQPage (and TechArticle per the checklist); `MEDIUM.md` is the same body with frontmatter and H1 stripped and image slots removed.
 8. Publish. Session 7 path actually chosen: **Medium only, text-only, 8 Aug** (`REQ:726-728`, commits `b18113f`, `ed1f1e1`; `PUBLISH.md`). Steps: paste `MEDIUM.md`, check the five code blocks survived, keep the numbering and blockquotes, pick five tags (`AI Agents`, `Agentic AI`, `Blockchain`, `Payments`, `Web3`), and replace `CANONICAL_URL` in `social-pack.md` with the Medium URL.
 9. Post-event social: X thread of 9, LinkedIn, Reddit (plain tone); they link the canonical (`blog-assets/social-pack.md`).
-10. Newer path: blog now lives at `blog.moi.technology` and is handled by the `moi-blog` skill (PR into `blog/src/content/posts/<slug>.md`, distribution workflow, Buffer, Mailchimp RSS), `/Users/adithyaganesh/.claude/skills/moi-blog/SKILL.md`. The `blog.moi.technology/article/<slug>/` pattern appears in the 31 Aug Voyage post (`social/voyage-x.txt`).
+10. Newer path: blog now lives at `blog.moi.technology` and is handled by the `moi-blog` skill (PR into `blog/src/content/posts/<slug>.md`, distribution workflow, Buffer, Mailchimp RSS), `~/.claude/skills/moi-blog/SKILL.md`. The `blog.moi.technology/article/<slug>/` pattern appears in the 31 Aug Voyage post (`social/voyage-x.txt`).
 
 ### Deliverables
 `BLOG.md`, `blog-assets/*` or equivalent, published post, social pack.
@@ -581,7 +618,7 @@ Medium login; moi.technology blog (deploy via PR); Buffer; skills `blog*`, `seo-
 - `schema.jsonld` is not usable on Medium (strips custom JSON-LD).
 - The social pack's hook still leads on the $2.9B BEC stat that the blog cut (`PUBLISH.md` step 5).
 - Corrections made in the blog were not propagated to the other docs (see Traps below).
-- The Sept 15 question "did we ever push the last webinars blog" (`REQ:1353`, `REQ:1415`) was followed by "rm" (`REQ:1354`), so the published state of the session-8 blog is `unknown`.
+- On 15 September 2026 Adithya asked "did we ever push the last webinars blog" (`REQ:1353`, `REQ:1415`). His next message was just "rm" (`REQ:1354`). `community-call.md` reads that as an instruction to remove the stats row from the intro deck, so the log shows no answer to the blog question and the published state of the session-8 blog is `unknown`.
 
 ### Time
 Session 7: about 25 commits over 7-8 Aug; session 8: written 31 Aug to 4 Sep, polished 9 Sep.
@@ -608,10 +645,10 @@ Announce as "coming", not "open", until the deploy steps are done.
 
 ## Reusable assets
 
-Paths are absolute. `WT` expanded: `/Users/adithyaganesh/MOI-Webinars/.claude/worktrees/relaxed-mccarthy-368dbc`.
+Paths are on Adithya's Mac. `WT` expanded: `~/MOI-Webinars/.claude/worktrees/relaxed-mccarthy-368dbc`. A path starting with `…/` is shortened: read `…/` as `WT/` (for example `…/session-8-policies/GAMEDAY.md` is `WT/session-8-policies/GAMEDAY.md`). In the GitHub repo drop that prefix, but see the header: not every session folder was on `main`.
 
 **Templates in all but name (copy the skeleton, replace the content)**
-- `/Users/adithyaganesh/MOI-Webinars/.claude/worktrees/relaxed-mccarthy-368dbc/session-8-policies/GAMEDAY.md` (day-before, T-60, T-10, running order, if-breaks, known state, after)
+- `~/MOI-Webinars/.claude/worktrees/relaxed-mccarthy-368dbc/session-8-policies/GAMEDAY.md` (day-before, T-60, T-10, running order, if-breaks, known state, after)
 - `…/session-8-policies/RUNBOOK.md` (timed run-of-show, likely questions, if-breaks table)
 - `…/session-8-policies/SCRIPT.md` (per-slide speech with PRESS NEXT banners, cues, "If the demo dies", "Likely questions")
 - `…/session-8-policies/LUMA.md` (event page copy shape)
@@ -650,13 +687,13 @@ Paths are absolute. `WT` expanded: `/Users/adithyaganesh/MOI-Webinars/.claude/wo
 
 **Decks**
 - `…/session-8-policies/deck/index.html` and `MOI_Builders_S8.pdf` (HTML deck with presenter view); `…/session-7/deck/MOI_Builders_S7new1f.pptx`, `MOI_Builders_S7-new.pptx`, `deck/assets/{moi-logo.svg,moi-mark.png,pip.png}`
-- Existing skill: `/Users/adithyaganesh/.claude/skills/moi-deck/` (`assets/template.html`, `scripts/new-deck.sh`, `scripts/render.sh`, `reference/{build,components}.md`)
+- Existing skill: `~/.claude/skills/moi-deck/` (`assets/template.html`, `scripts/new-deck.sh`, `scripts/render.sh`, `reference/{build,components}.md`)
 
 **Example outputs worth bundling as references**
 - `…/session-8-policies/social/*.txt` and `social/variants/{A-stopslop,B-humanizer,C-both}.txt` (before/after of a humanizer and stop-slop pass on one post)
 - `…/session-7/blog-assets/factcheck-report.md` (claims audit)
 - `…/session-8-policies/NOTES.md` (what a verified-live log looks like)
-- Existing skill: `/Users/adithyaganesh/.claude/skills/moi-blog/` (publish, distribute, Buffer, GEO)
+- Existing skill: `~/.claude/skills/moi-blog/` (publish, distribute, Buffer, GEO)
 
 ---
 
@@ -704,7 +741,7 @@ Paths are absolute. `WT` expanded: `/Users/adithyaganesh/MOI-Webinars/.claude/wo
 
 ## Traps
 
-1. **Corrections not propagated.** The session-7 factcheck (`blog-assets/factcheck-report.md`, row 1, 7 Aug) proved "only the owner can move funds / there can't be a custodian" FALSE and rewrote the blog, but the same claim survives in `session-7/README.md` lines 85 and 154 ("On MOI only the owner of funds can move them"), `session-7/EXPLAINER.md` line 46 ("only you can move your own funds"), `session-7/DEMO-PLAN.md` lines 63 and 248 ("on MOI nobody can move it for you"; "not a design choice — on MOI only the owner can move their own funds"), `session-7/TRANSCRIPT.md` line 23, `session-7/FACILITATOR-NOTE.md` line 57, and the speaker notes of slide 3 in the presented deck `session-7/deck/MOI_Builders_S7new1f.pptx` ("on MOI only the owner can move their own funds"). Fix by search-and-replace across all docs and the deck notes whenever a claim is corrected; the `check-claims.sh` script in the skill section exists for this.
+1. **Corrections not propagated.** The session-7 factcheck (`blog-assets/factcheck-report.md`, row 1, 7 Aug) proved "only the owner can move funds / there can't be a custodian" FALSE and rewrote the blog, but the same claim survives in `session-7/README.md` lines 85 and 154 ("On MOI only the owner of funds can move them"), `session-7/EXPLAINER.md` line 46 ("only you can move your own funds"), `session-7/DEMO-PLAN.md` lines 63 and 248 ("on MOI nobody can move it for you"; "not a design choice: on MOI only the owner can move their own funds"), `session-7/TRANSCRIPT.md` line 23, `session-7/FACILITATOR-NOTE.md` line 57, and the speaker notes of slide 3 in the presented deck `session-7/deck/MOI_Builders_S7new1f.pptx` ("on MOI only the owner can move their own funds"). Fix by search-and-replace across all docs and the deck notes whenever a claim is corrected; the `check-claims.sh` script proposed in the skill section (not yet written) would do this.
 2. **Stale docs after a pivot.** `session-7/FACILITATOR-NOTE.md` describes a `packages/facilitator` that was removed in commit `bc5f509`; `STORYLINE.md` says mock mode and books; `session-7/DEMO-PLAN.md` references a missing RUNBOOK; `session-8/README.md` and `DEMO-PLAN.md` describe context inheritance while `session-8/BLOG.md` and `session-9/*` describe an allowance; `session-8/.env.example` and `session-9/.env.example` still say "#7".
 3. **Counts drift.** Forgeries: session-7 README says 11 forgeries plus one control; the blog says ten (after audit); session-9 says twelve; `attack-test.ts` says ten of twelve make real transfers. Deck line counts and blog line counts must be recounted after every code change.
 4. **Green for the wrong reason.** Broke agent versus forbidden agent; keyless Groq fallback picks the wrong market; MAS0 fails silently. Defences are listed in the Build process.
@@ -719,7 +756,7 @@ Paths are absolute. `WT` expanded: `/Users/adithyaganesh/MOI-Webinars/.claude/wo
 13. **Internal names in tracked docs.** `session-8-policies/README.md` (line about "Ram's phrasing on the 27th") and `NOTES.md` ("Ram killed it") are tracked while `RUNBOOK.md`, `LUMA.md`, `SOCIAL.md`, `social/` are gitignored. The repo is public at `moi-foundation/MOI-Webinars` (blog links to it as open). Whether branch contents were ever made public: `unknown`. (inferred) Strip reviewer names from tracked files before merge to `main`.
 14. **Medium canonical** (see Blog process).
 15. **Publishing before a feature is live**: the bounty and `docs.moi.technology` pages were not live on game day; announce as coming.
-16. **Self-impersonation of other sessions.** `session-9/BLOG.md` links a post for a cancelled session; `session-8/BLOG.md` embeds `<<< EVIDENCE >>>` placeholders. A publish gate must grep for `<<<` and `REPLACE-WITH`.
+16. **Leftover drafts that point at a cancelled or unfinished session.** `session-9/BLOG.md` links a post for a cancelled session; `session-8/BLOG.md` embeds `<<< EVIDENCE >>>` placeholders. A publish gate must grep for `<<<` and `REPLACE-WITH`.
 17. **Hash links.** Requested but not present in the shipped S8 blog.
 18. **Node version.** Live scripts need a Node that runs `.ts` directly, but `engines` says `>=20`.
 19. **Encoding.** Mojibake in `recording/vo/01.txt`.
@@ -748,7 +785,9 @@ Paths are absolute. `WT` expanded: `/Users/adithyaganesh/MOI-Webinars/.claude/wo
 
 ---
 
-## What a skill for this should contain
+## Proposal for a skill: what it should contain
+
+This section is a proposal written during the research, before the skill existed. The reference files, scripts and templates listed here are proposals, not files that exist in this repo.
 
 ### Shape
 One orchestrating skill, `moi-webinar`, that owns the lifecycle and hands off to existing skills rather than duplicating them: `moi-deck` for deck, presenter window and PDF; `moi-blog` for publish, distribute, Buffer, Mailchimp, GEO; `humanizer` and `stop-slop` for prose; `blog-factcheck`, `blog-geo`, `blog-write` for the post. Do not tell the skill to spawn sub-agents unless the user asks (Adithya's stated rule); if the user opts in, Haiku for bulk drafting and Sonnet for judgment is what he has used.
@@ -788,3 +827,92 @@ One orchestrating skill, `moi-webinar`, that owns the lifecycle and hands off to
 
 ### Decisions the skill must make the user confirm, not assume
 Date and time zone; whether the demo has a failure beat; whether a bounty is live; where the blog is canonical (Medium versus `blog.moi.technology`); whether to post or only draft (Buffer `--draft`); which reviewer approves before the Luma goes public.
+
+---
+
+## Known inconsistencies in these notes
+
+These are places where this file, or this file and a sibling note, disagree. They are listed, not resolved. Line numbers refer to this file unless another file is named.
+
+1. Narration pause default: L248 sets `DEMO_PAUSE_MS=1200` and says the browser `gap` default is 700; L261 says the default became 6 seconds per card and the deck uses `gap=7000`; L268 and L493 say the runbook uses `DEMO_PAUSE_MS=1500`; L542 records the recording tape using 1200.
+2. Ram's feedback: L113 says it killed the first session-8 design; L149 (and L756, L774) say "Ram killed it on the 27th" does not match the 31 Aug call evidence. Whether there was a separate call on the 27th is open.
+3. Owner's KMOI balance for the demo: L213 says give the owner about 100k KMOI (10,000 failed, about 109,000 worked); L493 says at least 30,000, "about 88k at last check".
+4. KMOI per full run: L210 and L488 say 506 KMOI (agent 306 plus owner 200) and that the runbook says about 600; L501 says a rerun costs about 600 KMOI.
+5. What the Buffer tooling does: L435 says nothing is scheduled without `--confirm` and `--draft` saves for a human to publish. `community-call.md` (L479) says the Buffer pipeline creates drafts only and never publishes. These may be two different tools; the notes do not say.
+6. What session 7 is about: L143 says identity; `webinars-early.md` (L905) calls session 7 "Agentic Payments"; the blog checklist at L561 onward keeps the exact phrase "agentic payments" for it. The notes do not reconcile "identity" with "agentic payments".
+7. Slide count and talk length: L266 says the deck has 19 slides and the runbook and gameday docs speak of 18; L269 gives three talk lengths (about 30 minutes, about 24 minutes, 60 minutes); L292 says 19 slides. Which was used live is unknown.
+8. When the registry went down for session 7: L221 and L750 say writes were down on 7 Aug and forced the pivot; L108 says the live session was Friday 7 Aug; L308 says the pivot was made two days before the show. If the show was 7 Aug the pivot was about 5 Aug, before the outage date given.
+9. Rahul's role: L44 and L773 treat it as unknown beyond reviewing the deck and blog; other notes in this folder (`community-call.md`) describe him as the manager (marked inferred there). The header of this file uses the team's known role (reviews and approves DevRel work, sets priorities).
+
+---
+
+## Glossary
+
+Terms are defined as the MOI team uses them. "(as used in these notes)" marks the research assistant's reading, not an official definition.
+
+- **Access policy**: an on-chain rule about who may read or write an account's storage (session 8-policies). Only storage policies are live; asset, logic and key policies are reserved (as used in these notes).
+- **Actor state**: Coco storage kept separately for each participant who calls a logic.
+- **Allowance**: the mechanism in the first session-8 design that let an agent spend up to a set amount (as used in these notes).
+- **anu**: the atomic units of KMOI.
+- **BEC**: business email compromise, the kind of fraud behind the "$2.9B" statistic the blog cut (as used in these notes).
+- **Balance diff**: comparing an account's balance before and after an action; the only reliable way to see a refused MAS0 transfer.
+- **Buffer**: a social-media scheduling service; Chandra owns MOI's Buffer organisation.
+- **CASA**: the name of an x402-related compatibility effort tracked in `WT/x402-compat/`; these notes do not expand it (as used in these notes).
+- **Canonical URL**: the one official address of a post, which search engines should credit when the post is also published elsewhere (for example on Medium).
+- **Claim audit**: checking every claim in the blog, deck and posts against docs, SDK source and live receipts.
+- **Coco**: MOI's contract language (`coco.nut` is the compiler config beside a source file). **Logic**: a deployed Coco contract on MOI.
+- **Context inheritance**: giving a sub-account its own storage slot for a logic so the logic can keep per-agent state; the dropped session-8 design used it.
+- **Demand counters / list price / drawdown market**: the session-7 seller raises its quote as demand grows; restarting the UI resets the counters so the first quote is the base "list price"; "drawdown" is one of the demo's four markets (as used in these notes).
+- **Devnet**: MOI's test network; it is reset from time to time and can lag the released protocol version.
+- **ERC-7715 / ERC-7710**: Ethereum proposals for granting and redeeming scoped permissions to another account; the session-8 blog compares MOI policies with them (as used in these notes).
+- **Facilitator**: in x402, a service that checks and settles payments; session 7 had one (`packages/facilitator`) and removed it.
+- **Fuel**: what an interaction pays to run. **KMOI**: MOI's native asset, which pays for fuel.
+- **GEO**: generative engine optimisation, writing so that AI answer engines can find and cite a page.
+- **FAQPage / JSON-LD**: JSON-LD is structured data embedded in a page for search and AI engines; FAQPage is the type that marks up questions and answers.
+- **Game day**: the day of a live session; `GAMEDAY.md` is its checklist. **T-60, T-30, T-10**: minutes before the start.
+- **Gitignored / tracked**: gitignored files are never committed (they live only on Adithya's Mac); tracked files are committed on the branch.
+- **Groq**: an AI service used for the session-7 agents' model calls and for text-to-speech; it has a free tier.
+- **Haiku / Sonnet**: Claude model sizes; Haiku is the smaller, cheaper one and Sonnet the mid-sized, more capable one.
+- **Humanizer / stop-slop**: Claude skills that strip AI-sounding patterns from text.
+- **Idempotent**: safe to run more than once with the same result.
+- **Interaction / interaction hash**: MOI's word for a transaction, and its identifier.
+- **Luma**: the event-page and registration service used for the webinars; the page is made by hand.
+- **MAS0**: an asset standard created without a contract. **MASX**: a logic-backed asset. **MAS1**: the NFT standard.
+- **MeterExhausted**: the error from the registry call `getAllAgentIds()` at roughly 135 agents (as used in these notes).
+- **Medium**: a blogging platform; session 7's post went out there first.
+- **Mojibake**: garbled characters caused by a text-encoding mix-up.
+- **Otter**: a service that records and transcribes calls.
+- **Orpheus**: the text-to-speech voices offered through Groq (austin, hannah, troy) used for the rehearsal voiceover.
+- **ParticipantCreate**: the interaction that creates a new account (participant) on MOI.
+- **Participant-centric**: MOI is participant-centric, not account-centric.
+- **Points**: the Points program and app (`points.moi.technology`) that hosts the session-8 bounty challenge (as used in these notes).
+- **Preflight**: a read-only script that checks the chain, accounts and fuel are ready before a demo.
+- **Receipts**: interaction receipts read back from the chain, used as proof that something happened.
+- **Registry (agent registry)**: the on-chain list where agents register; `js-moi-agent-registry` is its SDK.
+- **Roman numeral session numbers**: webinars are titled "MOI Builders #N" or with a Roman numeral (VII for 7); the live Luma title for session 8 wrongly said VII.
+- **RPC**: the remote procedure call interface of a MOI node.
+- **Spike**: a quick throwaway experiment to prove or kill a mechanism before building on it.
+- **Squashed repo**: a repository whose history was flattened into few commits, so earlier commits are not visible (as used in these notes).
+- **Tamper / forgery**: the attack steps of the session-7 demo and `attack-test` suite, which try to fake a payment or alter a registry entry.
+- **VHS**: a tool that turns a script file (`.tape`) into a recorded terminal video or GIF.
+- **Voyage**: MOI's explorer and dev tooling site (voyage.moi.technology); the devnet faucet and RPC are reached through it.
+- **WT (worktree)**: a second checked-out working folder of a git repo; see the header.
+- **x402**: a payment standard built on the HTTP 402 "Payment Required" status code (as used in these notes).
+
+---
+
+## Appendix: Sources read
+
+These are the sources the research assistant read. `WT` and `REQ` are explained in the header.
+
+Read in full:
+
+- `WT/session-7/`: `README.md`, `DEMO-PLAN.md`, `STORYLINE.md`, `EXPLAINER.md`, `FACILITATOR-NOTE.md`, `TRANSCRIPT.md`, `BLOG.md`, `deck/README.md`, `blog-assets/PUBLISH.md`, `blog-assets/factcheck-report.md`, `blog-assets/social-pack.md`, `blog-assets/schema.jsonld` (head), `blog-assets/MEDIUM.md` (head + diff against BLOG.md). `blog-assets/*.png|svg` and `deck/*.pptx` read by name; both pptx files had their slide text and speaker notes extracted read-only with `python3 zipfile`.
+- `WT/session-8/`: `PLAN.md`, `DEMO-PLAN.md`, `README.md`, `BLOG.md`, `package.json`, `.env.example`, `scripts/demo.ts` (head), `scripts/02-provision-agents.ts` (head), `budget-logic/agentbudget.coco`, package layout.
+- `WT/session-8-policies/`: `README.md`, `NOTES.md`, `RUNBOOK.md`, `GAMEDAY.md`, `LUMA.md`, `SOCIAL.md`, `SCRIPT.md`, `BLOG.md`, `scripts/{preflight,demo,tick,grant,revoke,policy,counter-lib,spike-policy,00-fund-agent,01-deploy-ticker}.ts`, `ticker-logic/coco.nut`, `packages/shared/src/{chain,config,log}.ts` (greps), `deck/index.html` (structure, slide titles, presenter-view code), `recording/{demo.tape,build-vo.sh,vo/01.txt}`, all 25 files in `social/` and 3 in `social/variants/`, `.vscode/settings.json`, `.gitignore`, `.env.example`. `.env` was never opened.
+- `WT/session-9/`: `PLAN.md`, `DEMO-PLAN.md`, `README.md`, `BLOG.md`, `package.json`, `.env.example`, `scripts/x402-probe.ts`, `scripts/02-grant-authority.ts` (head), `scripts/attack-test.ts` (head).
+- Cross-cutting: `WT/.gitignore`, `WT/README.md` (series table), `WT/scripts/buffer.mjs` (CLI surface), `WT/otter-transcript/Project Launch and Blog Strategy_{summary,transcript}.txt` (the 4 Aug call), read-only `git log` / `git ls-files` / `git ls-tree` / `git show --stat 6a4de4e`, session-7 scripts `preflight.ts`, `verify-sdk.ts` (head), `spike-allowance.ts` (head), `attack-test.ts` (head), `_fix2.ts`, `_unstick2-tmp.ts`, `showcase-discover-all.ts`.
+- `REQ`: lines 219-262 (worktree sessions on session 8), 493-1100 (the main session, 3 Aug to 4 Sep), 1325-1430 (later webinar mentions). Prompts in `REQ` are truncated by the extractor at roughly 300 characters, so the long pasted call transcripts (e.g. `REQ:866`, `REQ:897`, `REQ:957`) cannot be read past their opening.
+- Existing skills inspected for overlap: `~/.claude/skills/moi-deck/SKILL.md` and `~/.claude/skills/moi-blog/SKILL.md`.
+
+Not read (out of scope or skipped by rule): `node_modules`, lock files, `.env` files, session-8-policies `recording/vo/*.wav|m4a`, `recording/demo.mp4|gif`, `deck/MOI_Builders_S8.pdf`, the `session-9/packages` and `session-8/packages` source (only layout and a few file heads), personal projects.

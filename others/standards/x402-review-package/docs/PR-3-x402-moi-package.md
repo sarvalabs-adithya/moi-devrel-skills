@@ -79,7 +79,7 @@ From the repo's contributing guide and the Stellar package it is modelled on.
 
 ## 1. PR description
 
-### PR description — x402-foundation/x402 (TypeScript mechanism)
+### PR description: x402-foundation/x402 (TypeScript mechanism)
 
 **Title:** feat(moi): add `@x402/moi` mechanism package for the `exact` scheme
 
@@ -573,7 +573,7 @@ its parity byte, variant 0), and the transfer read-back described below. Anythin
 from one fails rule 3.
 
 `spentStore` is the replay boundary and MUST be durable in production. Its `reserve` has to be
-atomic — under this flow two concurrent settlements can both observe the same settled transfer
+atomic: under this flow two concurrent settlements can both observe the same settled transfer
 before either records it, so a separate has-then-add would let one payment buy twice. The bundled
 `InMemorySpentStore` is for development only.
 
@@ -787,8 +787,8 @@ export const isMoiNetwork = (network: string): boolean => network.startsWith(`${
 /**
  * Compare two MOI identifiers.
  *
- * Participant and asset identifiers arrive from several sources — a payload, an RPC response,
- * configuration — and differ only in case or 0x prefix. Comparing them raw produces false
+ * Participant and asset identifiers arrive from several sources (a payload, an RPC response,
+ * configuration) and differ only in case or 0x prefix. Comparing them raw produces false
  * mismatches, so every comparison in this package goes through here.
  *
  * @param a - First identifier.
@@ -1270,8 +1270,8 @@ export function decodeTransferCalldata(calldata: string): { beneficiary: string;
  * Does this error mean the node has no such interaction?
  *
  * Voyage devnet answers `moi.InteractionByHash` for an unknown hash with "error fetching
- * interaction" and `moi.InteractionReceipt` with "tesseract hash not found". Anything else —
- * a refused connection, a malformed response — is not a missing transfer and propagates.
+ * interaction" and `moi.InteractionReceipt` with "tesseract hash not found". Anything else
+ * (a refused connection, a malformed response) is not a missing transfer and propagates.
  *
  * @param error - What the provider threw.
  * @returns True when the interaction is absent.
@@ -1958,7 +1958,7 @@ export class ExactMoiScheme implements SchemeNetworkFacilitator {
     if (freshness) return fail("moi_exact_payment_expired", freshness);
 
     // 7. The transfer settled, read back off the chain rather than believed. A read that fails
-    //    outright — node down, malformed calldata — is a rejection, not a crash: nothing was
+    //    outright (node down, malformed calldata) is a rejection, not a crash: nothing was
     //    confirmed, so nothing is settled.
     let facts: Awaited<ReturnType<MoiChainReader["readTransfer"]>>;
     try {
@@ -2975,7 +2975,7 @@ facilitator.register(
 );
 ```
 
-The constructor takes a `MoiChainReader`, not a signer array — this facilitator only reads.
+The constructor takes a `MoiChainReader`, not a signer array, because this facilitator only reads.
 `createMoiChainReader` supplies the three reads over a JSON-RPC node with js-moi-sdk: signature
 verification, deriving a participant identifier from a public key, and reading a settled transfer
 back via `moi.InteractionByHash` plus `moi.InteractionReceipt`, POLO-decoding the operation's
@@ -2987,7 +2987,7 @@ beyond a demo.
 
 ## 5. Verification record
 
-### PR 3 — TypeScript mechanism package
+### PR 3: TypeScript mechanism package
 
 Built and verified. The package mirrors `@x402/stellar`'s layout and implements the scheme spec.
 
@@ -3008,8 +3008,8 @@ x402/.github/workflows/publish_npm_scoped_x402_moi.yml
 
 #### Verified 10 September 2026
 
-Against the real dependencies installed from npm — `@x402/core@2.25.0`, `js-moi-sdk@0.9.0-rc2`,
-`js-polo@0.1.5` — with upstream's `tsconfig.base.json`:
+Against the real dependencies installed from npm (`@x402/core@2.25.0`, `js-moi-sdk@0.9.0-rc2`,
+`js-polo@0.1.5`) with upstream's `tsconfig.base.json`:
 
 - `tsc` clean. `eslint` clean under the config copied verbatim from `@x402/stellar`. Prettier
   clean.
@@ -3023,12 +3023,12 @@ Against the real dependencies installed from npm — `@x402/core@2.25.0`, `js-mo
 
 #### Second pass, 10 September
 
-- **A chain reader ships.** `src/reader.ts` — `createMoiChainReader({ rpcUrl | provider })`,
+- **A chain reader ships.** `src/reader.ts`: `createMoiChainReader({ rpcUrl | provider })`,
   `JsonRpcMoiChainReader`, `decodeTransferCalldata`. The package previously defined the
   `MoiChainReader` interface and left every deployer to implement it. Signature verification goes
   through js-moi-sdk's `Signer.verify` (blake2b-256 digest, ECDSA secp256k1) via a verify-only
   subclass; identifier derivation mirrors `Wallet.getIdentifier` (v0 tag, compressed key bytes
-  1–25 as the fingerprint, variant 0); the read-back does both RPC calls and POLO-decodes the
+  1 to 25 as the fingerprint, variant 0); the read-back does both RPC calls and POLO-decodes the
   `Transfer` calldata. A missing interaction reads as `null`; any other failure propagates and the
   facilitator turns it into `moi_exact_chain_read_failed` rather than throwing.
 - **`keyId` is enforced**, with a test. STATUS previously claimed it was pinned; the code only
@@ -3144,7 +3144,7 @@ here.
 
 Left as it was, having checked it: `defaultAssetTransferMethod = "default"` is correct. The
 interface documents that value for a scheme with no on-wire choice of transfer method, and core
-strips the key from the wire when it is used. `areFeesSponsored` also stays — it is not a
+strips the key from the wire when it is used. `areFeesSponsored` also stays; it is not a
 `SchemeNetworkFacilitator` member, but `@x402/stellar` declares it as a class property, so it is
 the house convention rather than an invention.
 

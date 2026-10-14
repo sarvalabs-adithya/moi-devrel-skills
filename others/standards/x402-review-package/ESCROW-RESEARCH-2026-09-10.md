@@ -1,23 +1,26 @@
 # Can MOI do code-enforced escrow without a custodian? (research note, 2026-09-10)
 
+> For current status, blockers and a glossary of the terms used here, see [README.md](README.md) in this folder.
+
 Question asked: is `upfront` definitely the only production-grade way to do x402 on MOI, and is
 there a compromise that gets closer to Ethereum's trustless flows? This note records the answer
 and the evidence. Private repos are referenced by repo-relative path only.
 
 ## Bottom line
 
-1. **I was wrong earlier.** I told you a logic cannot move its own asset balance, so any escrow on
-   MOI would be custodial. At source level that is false. PISA lets a logic bind *itself* as the
+1. **An earlier version of this note was wrong.** It said a logic cannot move its own asset
+   balance, so any escrow on MOI would be custodial. That was wrong: at source level it is false. PISA lets a logic bind *itself* as the
    origin of an extern call, and the asset engine then treats the logic's account as the
    sender of the transfer.
-2. **Programmable escrow is expressible today.** A Coco logic can hold a buyer's deposit in its
+2. **Programmable escrow is expressible as of 10 September 2026.** A Coco logic can hold a buyer's deposit in its
    own account and release it to the seller by code. No third party holds a key. The
    proof-of-concept is in `escrow-poc/escrow.coco`; it compiles, and the `Release` endpoint emits
    `XBIND` with the logic as origin followed by `CALLX` into the asset's `Transfer`.
 3. **What is proven and what is not.** Every gate between "buyer calls Release" and "seller's
    balance rises" is verified by reading go-pisa v0.8.0 and go-moi `origin/develop`. The path has
-   not been executed on a node yet. cocolab cannot model it, and I did not submit anything to
-   devnet (standing rule). A devnet run needs a funded wallet and your go-ahead.
+   not been executed on a node yet. cocolab cannot model it, and nothing was submitted to
+   devnet (standing rule: no interactions without approval). A devnet run needs a funded wallet and
+   DevRel's go-ahead.
 4. **`upfront` stays the right first scheme.** It is one interaction, final on commit, nothing
    pending, and it is what the three PRs describe. Escrow moves from "custodial only" to
    "programmable, follow-up spec". Wording in `FUTURE.md`, the spec Summary, the PR 2
@@ -73,7 +76,7 @@ Gates 1, 2, 3 and 5 were each read in full; gates 4, 6 and 7 were confirmed on t
 | Third-party key required | No | No | Yes |
 | Buyer refund path | Contract code | Logic code (to add) | None; no expiry exists |
 | Extra interactions | 2 (deposit, release) | 2 | 2 |
-| Exists today | Yes | Compiles; execution pending | Yes |
+| Exists as of 10 September 2026 | Yes | Compiles; execution pending | Yes |
 
 ## A compiler bug found on the way
 
@@ -84,9 +87,9 @@ and the call arguments but **no `CALLX`**: the transfer was silently deleted. Bi
 | Form | `-O 0` | `-O 1` | `-O 2` (coco default) |
 |---|---|---|---|
 | Bare `A.Transfer(...)` in straight-line code | kept | kept | **dropped** |
-| Same, with an `if ... throw` before it | | | kept |
-| Same, followed by `A.BalanceOf(...)` into a return | | | kept |
-| `mountain_trail.coco` reference (has branches) | | | kept |
+| Same, with an `if ... throw` before it | not run | not run | kept |
+| Same, followed by `A.BalanceOf(...)` into a return | not run | not run | kept |
+| `mountain_trail.coco` reference (has branches) | not run | not run | kept |
 
 The pass is one of the two that only run at level 2 (`replace_copied_destinations`,
 `remove_disposable_instructions` in `pisa/codegen/src/function/optimize.rs`). It treats an
@@ -105,7 +108,7 @@ the same session behaved normally (mint 1000, transfer 20, balances 980/20).
 
 ## The rest of the sweep, in brief
 
-The adversarial sweep (62 sonnet agents, prior to this trace) also found:
+The automated adversarial review (62 agent runs, made before this trace) also found:
 
 - `upfront` is production-safe as specified: settle first, prove second, nothing pending.
 - **Authorization compromise:** `Approve(cap, expires_at)` + facilitator `TransferFrom`, with
@@ -120,7 +123,7 @@ The adversarial sweep (62 sonnet agents, prior to this trace) also found:
 ## Next steps
 
 1. Devnet execution of `escrow-poc` (deploy, deposit 1000, `Release(400)`, read both balances).
-   I will not submit interactions without your go-ahead; you or I can run it with a funded
+   No interactions are submitted without DevRel's go-ahead; once given, it can be run with a funded
    wallet in `.env`.
 2. One question for Gokul: is `XBIND` to the logic's own identifier an intended, stable rule?
    The comment in go-pisa says so; confirming it protects a future scheme from a silent change.

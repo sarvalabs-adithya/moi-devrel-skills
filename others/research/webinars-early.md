@@ -1,24 +1,45 @@
-# MOI Builders Webinar Series (Sessions 1–6): Research Note
+# MOI Builders Webinar Series (Sessions 1-6): Research Note
+
+> **What this file is.** A research note on how the MOI Builders webinar sessions 1 to 6 (the "early" series, before the newer format used from session 7) were built and run: for each session the purpose, the live demo steps, the inputs, the traps, and the shared patterns across sessions. Claude (an AI research assistant) compiled it from Adithya's work history to help design the Claude skills now in `skills/moi/`. This file does not say which skills it fed.
+>
+> **When it was written.** September and October 2026 (this file gives no date of its own). It describes the repo and devnet as they stood then; see "What may break now" near the end.
+>
+> **Who "I" and "the user" are.** "I", where it appears, is the research assistant. "The user" is Adithya (DevRel at MOI), who built and presented every session.
+>
+> **Evidence key.** "observed" means the fact was seen in one of the source files listed under "Sources read". "inferred" means the research assistant's reasoning, not confirmed by a source. A statement with neither tag comes from the sources read. "Unknown" and "unverified" mean nobody checked.
+>
+> **Paths and citations.** Paths starting `~/` or `WT/` are on Adithya's Mac. The session code is in https://github.com/moi-foundation/MOI-Webinars. Session transcripts are not in the repo. This file has no REQ cites; other research notes in this folder cite `REQ:<n>`, which points to a request log kept on Adithya's Mac (not in this repo).
+>
+> **People.**
+> - Adithya: DevRel at MOI; the only real person named in this file. The notes call him the sole facilitator ("observed").
+> - Jack and Jill (two demo agents), Alice and Bob (two demo wallets) and Pip (the Session 6 demo agent) are characters in the demos, not people.
+> - Nobody else is named here. For the reviewers and teammates around the later sessions (Rahul and others), see `webinars-mature.md`.
+>
+> **How the file is laid out.** One "Process" section per session (1 to 6), then the shared skeleton (folders, `.env`, versions, code patterns), attendee prerequisites, what may break now, the stated plan, reusable assets, house style, accumulated traps, proposals for a skill, open questions, known inconsistencies, and a glossary of jargon at the end.
 
 ## Sources read
 
-- `/Users/adithyaganesh/MOI-Webinars/OVERVIEW.md` — comprehensive repo orientation and Session 3 live demo flow
-- `/Users/adithyaganesh/MOI-Webinars/README.md` — quick-start table for all sessions
-- `/Users/adithyaganesh/MOI-Webinars/webinar-code-reference.md` — code walkthrough for Sessions 1–2, 4–5
-- `/Users/adithyaganesh/MOI-Webinars/webinar-vibecode-plans.md` — alternative "skills-only" format (LLM vibecoding)
-- `/Users/adithyaganesh/MOI-Webinars/session-1/README.md`, `package.json` — install, CocoLab + SDK flow, bounty framing
-- `/Users/adithyaganesh/MOI-Webinars/session-2/README.md`, `package.json` — MAS0 + TaxToken flow, bounty form
-- `/Users/adithyaganesh/MOI-Webinars/session-3/README.md`, `moi-agent-dating/SKILL.md`, `scripts/package.json` — OpenClaw setup, three operations (register/discover/say-hi)
-- `/Users/adithyaganesh/MOI-Webinars/session-4/README.md`, `package.json` — two-wallet swap, setup/CLI/UI tiers, patch-package gotcha
-- `/Users/adithyaganesh/MOI-Webinars/session-5/README.md`, `package.json` — NFT collection, Coco + SDK + UI, vibecode prompts
-- `/Users/adithyaganesh/MOI-Webinars/session-6/README.md`, `package.json` — context inheritance, multi-agent budget enforcement
-- `/Users/adithyaganesh/moi-agent-budget/README.md`, `WEBINAR-PLAN.md`, `TEACHING-GUIDE.md` — session 6 deep-dive (same content as session-6 README but with teaching notes)
+- `~/MOI-Webinars/OVERVIEW.md`: comprehensive repo orientation and Session 3 live demo flow
+- `~/MOI-Webinars/README.md`: quick-start table for all sessions
+- `~/MOI-Webinars/webinar-code-reference.md`: code walkthrough for Sessions 1-2, 4-5
+- `~/MOI-Webinars/webinar-vibecode-plans.md`: alternative "skills-only" format (LLM vibecoding)
+- `~/MOI-Webinars/session-1/README.md`, `package.json`: install, CocoLab + SDK flow, bounty framing
+- `~/MOI-Webinars/session-2/README.md`, `package.json`: MAS0 + TaxToken flow, bounty form
+- `~/MOI-Webinars/session-3/README.md`, `moi-agent-dating/SKILL.md`, `scripts/package.json`: OpenClaw setup, three operations (register/discover/say-hi)
+- `~/MOI-Webinars/session-4/README.md`, `package.json`: two-wallet swap, setup/CLI/UI tiers, patch-package gotcha
+- `~/MOI-Webinars/session-5/README.md`, `package.json`: NFT collection, Coco + SDK + UI, vibecode prompts
+- `~/MOI-Webinars/session-6/README.md`, `package.json`: context inheritance, multi-agent budget enforcement
+- `~/moi-agent-budget/README.md`, `WEBINAR-PLAN.md`, `TEACHING-GUIDE.md`: session 6 deep-dive (same content as session-6 README but with teaching notes)
+
+All paths above are on Adithya's Mac. The `MOI-Webinars` files are the repo https://github.com/moi-foundation/MOI-Webinars (same relative paths in his checkout; which branch carries each file was not checked). `moi-agent-budget` is a separate folder on his Mac; these notes do not record whether it is published.
 
 ---
 
-## Process: Session 1 — CocoLab + SDK fundamentals
+## Process: Session 1: CocoLab + SDK fundamentals
 
 **Purpose:** Teach Coco basics (state, endpoints, message context) inside CocoLab REPL, then replicate the same logic from JavaScript using the SDK. Establish the pattern: write contract, compile, deploy, call.
+
+In plain terms: first the audience types a small contract into CocoLab and watches it work, then the same contract is deployed and called from a JavaScript program using the MOI SDK.
 
 **Trigger/cadence:** Live webinar, ~45 min. One-time session; served as foundation for all subsequent sessions.
 
@@ -43,6 +64,7 @@
    - Run `coco lab init` again
    - Same three operations, but each actor (participant) sees its own bool value, not shared
    - This introduces Coco's `state actor` (vs `state logic`) and per-sender isolation
+   - In plain terms: actor state is storage kept separately for each participant; logic state is one shared copy that everyone sees
 
 3. **SDK deployment (Demo 3a)**
    - Copy `.env.example` to `.env`, paste funded mnemonic
@@ -96,7 +118,7 @@
 
 ---
 
-## Process: Session 2 — Native Assets (MAS0 + TaxToken)
+## Process: Session 2: Native Assets (MAS0 + TaxToken)
 
 **Purpose:** Show MOI's dual asset model: SDK-native MAS0 tokens and custom logic-backed MASX assets (fee-on-transfer). Bounty drives completion.
 
@@ -156,7 +178,7 @@
 - Asset creation succeeds with a zero-amount initial mint, but minting to manager requires positive amount
 - Google Form submissions are one-way; if an asset ID is wrong, no easy way to resubmit
 
-**Duration:** ~30 min live (Demos 1–2 ~10 min, Q&A + submission help ~20 min)
+**Duration:** ~30 min live (Demos 1-2 ~10 min, Q&A + submission help ~20 min)
 
 **Open questions:**
 - Were multiple Demo 1 / Demo 2 runs done, or was it one shot per webinar? (inferred: one shot; asset IDs are unique per run)
@@ -164,11 +186,11 @@
 
 ---
 
-## Process: Session 3 — On-chain Agent Registry × OpenClaw
+## Process: Session 3: On-chain Agent Registry × OpenClaw
 
 **Purpose:** Prove that a real, third-party agent framework (OpenClaw, by Nous Research) can integrate with MOI's on-chain agent registry without modification. Two agents (Jack and Jill) register, discover each other, and message live.
 
-**Trigger/cadence:** Follows Session 2. Headline demo of the series. ~50–60 min live, with pre-recorded fallback. Two bounty tracks (participation + open/competitive).
+**Trigger/cadence:** Follows Session 2. Headline demo of the series. ~50-60 min live, with pre-recorded fallback. Two bounty tracks (participation + open/competitive).
 
 **Who does it:** Adithya. OpenClaw chat is interactive; SDK scripts pre-written; background HTTP services pre-configured.
 
@@ -212,16 +234,16 @@
    - **Pane 1:** Type `who else is on the registry?`
    - Script calls `registry.getAllAgentIds()`, then per-agent `getAgentProfile(id)`, prints list
    - **Output:** List including Jill's ID, name, URL
-   - **Narration:** "Jack has no idea Jill exists, but the registry knows — two agents finding each other through a public ledger"
+   - **Narration:** "Jack has no idea Jill exists, but the registry knows: two agents finding each other through a public ledger"
 
-6. **Jack and Jill message (90 sec — the money shot)**
+6. **Jack and Jill message (90 sec, the money shot)**
    - **Pane 1:** Type `say hi to agent_M and ask what she can do` (where `agent_M` is Jill's ID from step 4)
    - Before typing, say "watch the bottom pane"
    - Script calls `registry.getAgentProfile(agent_M)`, extracts URL, does `HTTP POST {url}/message {from, text}`
    - Jill's `message-server.mjs` receives the POST, calls `completionClient.create()` with LLM prompt, generates reply
    - **Pane 3 (Jill's inbox tail):** Two lines appear in real time:
      - `[Jill] ...IN   from=0x000…  text="Hi Jill, what can you do?"`
-     - `[Jill] ...OUT  text="Welcome aboard — I can help with on-chain coordination…"`
+     - `[Jill] ...OUT  text="Welcome aboard: I can help with on-chain coordination…"`
    - **Pane 1:** Jack receives Jill's reply
    - **Narration:** "Jack's message hit Jill's inbox, she generated a real LLM reply, no coordination layer. Two agents talking through the MOI registry."
 
@@ -278,7 +300,7 @@
 - Indexer lag: agent IDs land on-chain immediately but explorer (voyage.moi.technology) lags a few minutes
 - OpenClaw chat can misinterpret prompts; best wording: "please register me on the MOI agent registry" or "register me on the MOI registry too" (not "publish", not "deploy")
 
-**Duration:** ~50–60 min live (pre-flight 5 min, beats 1–8 ~50 min, Q&A + bounty pitch ~5 min)
+**Duration:** ~50-60 min live (pre-flight 5 min, beats 1-8 ~50 min, Q&A + bounty pitch ~5 min)
 
 **Failure recovery modes (documented in OVERVIEW.md):**
 - Jack's chat replies "I need MOI_MNEMONIC": env got dropped; restart: `Ctrl+D` to exit chat, then `openclaw --profile jack chat` again
@@ -297,11 +319,11 @@
 
 ---
 
-## Process: Session 4 — Account-to-Account Swap (Lockup + Release)
+## Process: Session 4: Account-to-Account Swap (Lockup + Release)
 
 **Purpose:** Teach MAS0 native `Lockup` and `Release` operations for atomic-ish (trust-based, not chain-enforced) two-wallet swaps. Two tiers: CLI step-by-step and Vite UI with live on-chain state checks.
 
-**Trigger/cadence:** Follows Sessions 1–3. ~50 min live. Bounty form collects submissions (Google Form: https://forms.gle/mM9Rf6dqxZQd1fuz6).
+**Trigger/cadence:** Follows Sessions 1-3. ~50 min live. Bounty form collects submissions (Google Form: https://forms.gle/mM9Rf6dqxZQd1fuz6).
 
 **Who does it:** Adithya. Scripts pre-written; UI pre-built. Live narration; UI clicks during demo.
 
@@ -320,7 +342,7 @@
    - Writes `VITE_TKA_ASSET_ID` and `VITE_TKB_ASSET_ID` to `.env`
    - **Output:** Asset IDs, interaction hashes, starting balances
 
-2. **Demo flow — CLI (step-by-step, ~20 min)**
+2. **Demo flow: CLI (step-by-step, ~20 min)**
    - Show starting balances: `node extras/swap-cli.js balances`
    - **Step 1:** Alice locks 100 TKA for Bob: `node extras/swap-cli.js lock-alice`
      - Calls `MAS0AssetLogic(tka, alice).lockup(bob_address, 100)`
@@ -336,7 +358,7 @@
      - Bob's TKA balance increases; Alice's TKA balance decreases
    - **Narration:** "Alice started with 100 TKA, ends with 90 TKB; Bob started with 90 TKB, ends with 100 TKA. No pool, no escrow contract, just two irrevocable offers and mutual claims."
 
-3. **Demo flow — Vite UI (interactive, ~20 min)**
+3. **Demo flow: Vite UI (interactive, ~20 min)**
    - `npm run dev` (opens http://localhost:5174)
    - **Scenario:** Fresh swap (or rebalance first: `node extras/rebalance.js`)
    - **As Alice:**
@@ -384,7 +406,7 @@
 
 **Traps and things that failed silently:**
 - `patch-package` must run (postinstall script) to fix SDK's ESM build; if UI is broken, re-run: `npm install`
-- MAS0's `release()` has no on-chain guard—calling it when nothing is locked "succeeds" but moves zero funds. The UI's `claim()` checks the balance delta and reports "nothing to claim yet" unless funds actually moved.
+- MAS0's `release()` has no on-chain guard, so calling it when nothing is locked "succeeds" but moves zero funds. The UI's `claim()` checks the balance delta and reports "nothing to claim yet" unless funds actually moved.
 - `moi.Lockups` is a raw JSON-RPC method, not wrapped by SDK. Provider must call `provider.execute('moi.Lockups', ...)` directly.
 - Swaps are trust-based, not atomic: nothing on-chain forces Bob to lock his side in return if Alice locks first. True atomicity needs an escrow contract.
 - Balances are stale if the UI is open during a simultaneous on-chain transaction; no live refresh hook (inferred).
@@ -398,11 +420,11 @@
 
 ---
 
-## Process: Session 5 — NFT Marketplace (MAS1 mint + transfer + UI)
+## Process: Session 5: NFT Marketplace (MAS1 mint + transfer + UI)
 
 **Purpose:** Teach NFT minting (MAS1 with metadata) in Coco, SDK deployment and transfer, and a web UI that drives the flow. All vibecoded live (alternative mode, not read-only).
 
-**Trigger/cadence:** Follows Sessions 1–4. ~45 min live. Bounty form (Google Form: https://forms.gle/PaUqk13GrbULYS928): baseline (500 KMOI) for mint + transfer, bonus for extras (images, UI, sell flow).
+**Trigger/cadence:** Follows Sessions 1-4. ~45 min live. Bounty form (Google Form: https://forms.gle/PaUqk13GrbULYS928): baseline (500 KMOI) for mint + transfer, bonus for extras (images, UI, sell flow).
 
 **Who does it:** Adithya (in vibecode mode: Claude Code agent writes contract and scripts from prompts, Adithya narrates). In traditional mode: scripts pre-written, executed live.
 
@@ -423,7 +445,7 @@
    - `cd coco && coco compile`
    - Pre-compiled `mas1.json` is checked in, so this step is often skipped
 
-3. **CLI — mint (Demo 1)**
+3. **CLI: mint (Demo 1)**
    - `npm run mint`
    - Script calls `AssetFactory.create(wallet, "ART", 10_000, owner, true, manifest, "Init")`
    - Runs `Init()` endpoint during deploy
@@ -431,7 +453,7 @@
    - Writes `sdk/deployment.json` with `{ asset_id, token_id, owner }`
    - **Output:** Asset ID, Token ID, interaction hashes
 
-4. **CLI — transfer (Demo 2)**
+4. **CLI: transfer (Demo 2)**
    - `npm run transfer -- 0xRECIPIENT_ADDRESS`
    - Script reads `deployment.json`, calls `MAS1AssetLogic(asset_id, wallet).transfer(tokenId, recipient)`
    - Verifies ownership moved via `getTDU()` (get token distributed units, inferred)
@@ -441,12 +463,12 @@
    - `npm run dev`
    - Opens http://localhost:3000
    - Express server in `ui/server.js` exposes:
-     - `GET /api/status` — reads `sdk/deployment.json`
-     - `POST /api/mint` — runs `sdk/mint.js`
-     - `POST /api/transfer` — runs `sdk/transfer.js`
+     - `GET /api/status`: reads `sdk/deployment.json`
+     - `POST /api/mint`: runs `sdk/mint.js`
+     - `POST /api/transfer`: runs `sdk/transfer.js`
    - Browser UI shows:
-     - **Mint NFT** button — creates asset, mints token #0
-     - **Transfer NFT** form — input recipient address, click transfer
+     - **Mint NFT** button: creates asset, mints token #0
+     - **Transfer NFT** form: input recipient address, click transfer
    - Each button click shells out to the SDK scripts, shows status (loading, success, error)
 
 **Deliverables and where they end up:**
@@ -485,7 +507,7 @@
   1. "Read coco-skills. Write a MAS1 NFT collection: manager-gated Mint with name + image_uri metadata, Transfer by token_id, Init that zeroes a token counter. Compile it."
   2. "With js-moi-sdk, deploy the manifest via AssetFactory (Init at create), mint one NFT to my wallet, print asset_id and token_id. Cap fuel to KMOI balance."
   3. "Add a transfer script: read the saved deployment state, transfer token #0 to a recipient address, verify ownership moved via getTDU."
-  4. "Add a minimal Express UI — Mint button and Transfer form that shell out to those SDK scripts."
+  4. "Add a minimal Express UI: Mint button and Transfer form that shell out to those SDK scripts."
 - Takes ~60 min (slower than pre-written scripts due to Claude's thinking time and prompt refinement)
 
 **Open questions:**
@@ -494,11 +516,11 @@
 
 ---
 
-## Process: Session 6 — Context Inheritance (One Wallet, Many Agents)
+## Process: Session 6: Context Inheritance (One Wallet, Many Agents)
 
 **Purpose:** Teach MOI's context inheritance: giving multiple AI agents their own derived sub-account identities and enforcing per-agent budgets on-chain. One primary wallet → many sub-accounts with independent state and enforced spend caps.
 
-**Trigger/cadence:** Follows Sessions 1–5. ~60 min live. Two bounty tracks: completion (token) + bonus (500 MOI + $15 cash).
+**Trigger/cadence:** Follows Sessions 1-5. ~60 min live. Two bounty tracks: completion (token) + bonus (500 MOI + $15 cash).
 
 **Who does it:** Adithya. Squad manager (squad.js) and Pip agent (agent.js) pre-written. Live provisioning and spend attempts.
 
@@ -530,13 +552,13 @@
      - **Output:** Agent address, provision tx hash, budget confirmation
    - Repeat for other agents: `node squad.js provision scraper 200`
 
-4. **Agents act — and can't overspend**
+4. **Agents act, and can't overspend**
    - `node squad.js run trader "look up who won the last F1 race, then record a spend for the lookup"`
      - If `ANTHROPIC_API_KEY` is set: Claude agent does web_search, returns result, calls `RecordSpend(cost)` on-chain
      - **Output:** Agent result, spend amount, updated balance
    - `node squad.js spend trader 500 "bust the cap"`
      - Script calls `RecordSpend(500)` where agent only has 500 budget
-     - **Expected:** Revert on-chain with "exceeds remaining budget" (the payoff—contract enforces the cap)
+     - **Expected:** Revert on-chain with "exceeds remaining budget" (the payoff: the contract enforces the cap)
    - `node squad.js report`
      - Reads each agent's actor state: budget, spent, remaining
      - **Output:** Table of agents with their ledgers (all read from chain)
@@ -589,7 +611,7 @@
 - Sub-accounts are indexed sequentially (1, 2, 3…) per agent name
 - Budget enforcement is the *logic's* job, not inheritance's (honest framing: it's identity + state allocation, not a sandbox)
 - Sub-accounts share the primary's key (not enforced by chain; the agent's tool surface is the guard)
-- Actor-state reads use a `Sender`-based static endpoint (call it *as* the agent, not `Actor(owner)`)
+- To read an agent's stored budget, call a read-only endpoint as the agent itself (the endpoint uses the caller's identity, `Sender`). Do not pass the owner's address with `Actor(owner)` instead
 - `.squad.json` (local name → index map) is gitignored; the chain needs no registry
 - `.env` must not have inline `#` comments (parser doesn't strip them)
 
@@ -606,10 +628,10 @@
 
 **Teaching framing (from TEACHING-GUIDE.md):**
 - **Idea 1:** Primary vs sub-account (primary is you, sub-account is an account at one bank)
-- **Idea 2:** Actor state—why inheritance must exist (app-specific data lives on account, not app; plain account has no slot)
+- **Idea 2:** Actor state: why inheritance must exist (app-specific data lives on account, not app; plain account has no slot)
 - **Idea 3:** Address is math, not lookup (28 bytes + index; no registry, just arithmetic + RPC)
 - **Idea 4:** Provisioning is one atomic tx (AccountInherit does create + link + fund)
-- **The aha moment:** Same question (step 1 vs step 4 in Pip demo), same math, different answer—identity computed, never stored
+- **The aha moment:** Same question (step 1 vs step 4 in Pip demo), same math, different answer: identity computed, never stored
 
 **Open questions:**
 - How many attendees attempted the $15 cash bonus tier? (inferred: incentive structures matter but not tracked here)
@@ -679,10 +701,10 @@ session-N/
 # Always present
 MOI_MNEMONIC=your twelve word mnemonic here
 
-# Session 1–2, 5–6 optional
+# Session 1-2, 5-6 optional
 MOI_DERIVATION_PATH=m/44'/6174'/7020'/0/0
 
-# Session 1, 3–4, 5 optional
+# Session 1, 3-4, 5 optional
 LOGIC_ID=
 ASSET_ID=
 TAX_ASSET_ID=
@@ -707,6 +729,8 @@ ANTHROPIC_API_KEY=
 ```
 
 ### `package.json` pattern
+
+This is a pattern, not valid JSON: some version fields hold prose such as "or later" (and the dependency list merges what different sessions use). Pick one concrete version per package when copying.
 
 ```json
 {
@@ -769,14 +793,14 @@ ANTHROPIC_API_KEY=
 
 ### SDK versions (pinned in each session)
 
-- Session 1–2, 4: `js-moi-sdk@0.7.0-rc15`
+- Session 1-2, 4: `js-moi-sdk@0.7.0-rc15`
 - Session 3: `js-moi-sdk@0.7.0-rc16`, `js-moi-agent-registry@0.1.0`
-- Session 5–6: `js-moi-sdk@0.7.0` or `0.7.1`
+- Session 5-6: `js-moi-sdk@0.7.0` or `0.7.1`
 
 ### Coco versions (in `coco.nut`)
 
-- Session 1–2, 4: Coco 0.7.0
-- Session 5–6: Coco 0.8.0–0.8.2
+- Session 1-2, 4: Coco 0.7.0
+- Session 5-6: Coco 0.8.0-0.8.2
 
 ### Common patterns in code
 
@@ -832,37 +856,37 @@ ANTHROPIC_API_KEY=
 
 ### Must-have
 
-1. **Node.js 20+** — LTS version, npm included
-2. **One funded MOI devnet wallet** — create at https://voyage.moi.technology, get 12-word mnemonic
-3. **Internet connection** — devnet access via Voyage RPC
+1. **Node.js 20+**: LTS version, npm included
+2. **One funded MOI devnet wallet**: create at https://voyage.moi.technology, get 12-word mnemonic
+3. **Internet connection**: devnet access via Voyage RPC
 
 ### Should-have
 
-4. **Coco toolchain** — only for Sessions 1–2, 5–6 if you want to edit `.coco` sources (pre-compiled `.json` manifests are checked in)
-5. **Git** — to clone the repo
-6. **Text editor or IDE** — to edit `.env` and view code
+4. **Coco toolchain**: only for Sessions 1-2, 5-6 if you want to edit `.coco` sources (pre-compiled `.json` manifests are checked in)
+5. **Git**: to clone the repo
+6. **Text editor or IDE**: to edit `.env` and view code
 
 ### Optional but recommended
 
-7. **OpenClaw** — required for Session 3 (install: https://docs.openclaw.ai)
-8. **OpenAI API key** — for Session 3 chat LLM + Session 6 agent search (fallbacks exist)
-9. **Anthropic API key** — for Session 6 real-agent `run` command (scripted `spend` works without it)
+7. **OpenClaw**: required for Session 3 (install: https://docs.openclaw.ai)
+8. **OpenAI API key**: for Session 3 chat LLM + Session 6 agent search (fallbacks exist)
+9. **Anthropic API key**: for Session 6 real-agent `run` command (scripted `spend` works without it)
 
 ---
 
-## What breaks today and why (devnet changes)
+## What may break now, and why (devnet changes, at the time of writing)
 
-1. **Devnet has been reset** — wallet mnemonics fund on-demand at faucet, so sessions still work. Old agent_ids from Session 3 are stale (registry never expires agents; old IDs still exist but are orphaned).
+1. **Devnet has been reset**: wallet mnemonics fund on-demand at faucet, so sessions still work. Old agent_ids from Session 3 are stale (registry never expires agents; old IDs still exist but are orphaned).
 
-2. **SDK versions have moved on** — Sessions 1–6 pin specific RC versions (0.7.0-rc15, 0.7.0-rc16, 0.7.0, 0.7.1). Current mainnet SDK is likely 1.0.0+. Devnet compatibility unknown.
+2. **SDK versions have moved on**: Sessions 1-6 pin specific RC versions (0.7.0-rc15, 0.7.0-rc16, 0.7.0, 0.7.1). At the time of writing the mainnet SDK is likely 1.0.0+ (unsourced, see Known inconsistencies). Devnet compatibility unknown.
 
-3. **Coco compiler versions** — Sessions 1–2 use 0.7.0, Sessions 5–6 use 0.8.0+. Installation docs point to latest, so fresh installs may get mismatched compiler + manifest.
+3. **Coco compiler versions**: Sessions 1-2 use 0.7.0, Sessions 5-6 use 0.8.0+. Installation docs point to latest, so fresh installs may get mismatched compiler + manifest.
 
-4. **OpenClaw API has evolved** — Session 3 uses OpenClaw 1.0.0+ with JSON5 config. Config schema may have changed (unverified).
+4. **OpenClaw API has evolved**: Session 3 uses OpenClaw 1.0.0+ with JSON5 config. Config schema may have changed (unverified).
 
-5. **OpenAI API changes** — Session 3 message servers use `gpt-5.4-mini` (observed in OVERVIEW.md); current API may deprecate older models.
+5. **OpenAI API changes**: Session 3 message servers use `gpt-5.4-mini` (observed in OVERVIEW.md); current API may deprecate older models.
 
-6. **Voyage explorer indexer lag** — Sessions assume explorer is within a few minutes of on-chain state; if lag has increased, attendees may think their txs didn't land.
+6. **Voyage explorer indexer lag**: Sessions assume explorer is within a few minutes of on-chain state; if lag has increased, attendees may think their txs didn't land.
 
 ---
 
@@ -870,7 +894,7 @@ ANTHROPIC_API_KEY=
 
 From README.md and OVERVIEW.md:
 
-- **Sessions 1–6:** Core MOI Builders series
+- **Sessions 1-6:** Core MOI Builders series
   - S1: fundamentals (Flipper, state)
   - S2: assets (MAS0, TaxToken)
   - S3: agents (agent registry, OpenClaw)
@@ -881,7 +905,7 @@ From README.md and OVERVIEW.md:
 - **Session 7:** Agentic Payments (find + pay an agent on MOI)
   - Combines Sessions 3 (agent registry discovery) + 2/4 (settlement via MAS0)
   - Newer format (npm workspaces, TypeScript monorepo, always-on-chain)
-  - Not part of the "early" series (Sessions 1–6)
+  - Not part of the "early" series (Sessions 1-6)
 
 - **Vibecode alternative:** All sessions can be taught with skills-only (agent writes contracts + scripts from prompts)
   - Requires coco-skills and js-moi-sdk-skills setup
@@ -891,42 +915,44 @@ From README.md and OVERVIEW.md:
 
 ## Reusable assets
 
+Paths below start with `~/` and are on Adithya's Mac. The `MOI-Webinars/...` ones also exist at the same relative path in the repo (for example `session-4/logic/wallets.js`); `moi-agent-budget/...` is a separate folder on his Mac.
+
 ### Templates and configs
 
-1. **`.env.example` template** — `/Users/adithyaganesh/MOI-Webinars/session-1/.env.example` (pattern for all sessions)
-2. **`package.json` template** — pattern repeated in S1 (`moi-webinar-s1`), S2 (`moi-webinar-s2`), etc.
-3. **`README.md` structure** — consistent across all sessions (Install → Demo flow → Bounty → Troubleshooting)
+1. **`.env.example` template**: `~/MOI-Webinars/session-1/.env.example` (pattern for all sessions)
+2. **`package.json` template**: pattern repeated in S1 (`moi-webinar-s1`), S2 (`moi-webinar-s2`), etc.
+3. **`README.md` structure**: consistent across all sessions (Install → Demo flow → Bounty → Troubleshooting)
 
 ### Scripts and utilities
 
-1. **Wallet loader** — `/Users/adithyaganesh/MOI-Webinars/session-4/logic/wallets.js` (load Alice + Bob from env)
-2. **Fuel capping** — `/Users/adithyaganesh/MOI-Webinars/session-5/sdk/mint.js` `cappedFuel()` function
-3. **Manifest loader** — Standard `import manifest from '../coco/flipper.json' with { type: 'json' }` (ES module import)
-4. **Error handling** — Standard pattern: `const { error } = await ix.result(); if (error) throw new Error(error)`
+1. **Wallet loader**: `~/MOI-Webinars/session-4/logic/wallets.js` (load Alice + Bob from env)
+2. **Fuel capping**: `~/MOI-Webinars/session-5/sdk/mint.js` `cappedFuel()` function
+3. **Manifest loader**: Standard `import manifest from '../coco/flipper.json' with { type: 'json' }` (ES module import)
+4. **Error handling**: Standard pattern: `const { error } = await ix.result(); if (error) throw new Error(error)`
 
 ### Coco contracts
 
-1. **Flipper** — `/Users/adithyaganesh/MOI-Webinars/session-1/flipper/flipper.coco` (simplest contract, reused in vibecode examples)
-2. **ContextFlipper** — `/Users/adithyaganesh/MOI-Webinars/session-1/context-flipper/context_flipper.coco` (per-actor state)
-3. **TaxToken** — `/Users/adithyaganesh/MOI-Webinars/session-2/coco/taxtoken.coco` (5% fee-on-transfer)
-4. **MAS1** — `/Users/adithyaganesh/MOI-Webinars/session-5/coco/mas1.coco` (NFT collection with metadata)
-5. **AgentBudget** — `/Users/adithyaganesh/moi-agent-budget/budget-logic/agentbudget.coco` (actor-state budgets + enforcement)
+1. **Flipper**: `~/MOI-Webinars/session-1/flipper/flipper.coco` (simplest contract, reused in vibecode examples)
+2. **ContextFlipper**: `~/MOI-Webinars/session-1/context-flipper/context_flipper.coco` (per-actor state)
+3. **TaxToken**: `~/MOI-Webinars/session-2/coco/taxtoken.coco` (5% fee-on-transfer)
+4. **MAS1**: `~/MOI-Webinars/session-5/coco/mas1.coco` (NFT collection with metadata)
+5. **AgentBudget**: `~/moi-agent-budget/budget-logic/agentbudget.coco` (actor-state budgets + enforcement)
 
 ### OpenClaw skill
 
-1. **moi-agent-dating** — `/Users/adithyaganesh/MOI-Webinars/session-3/moi-agent-dating/` (complete skill with SKILL.md, three .mjs scripts, message server, uploader)
+1. **moi-agent-dating**: `~/MOI-Webinars/session-3/moi-agent-dating/` (complete skill with SKILL.md, three .mjs scripts, message server, uploader)
 
 ### UI components
 
-1. **Swap card UI** — `/Users/adithyaganesh/MOI-Webinars/session-4/frontend/` (Vite app with lock/flip/claim buttons)
-2. **NFT mint + transfer UI** — `/Users/adithyaganesh/MOI-Webinars/session-5/ui/` (Express server + browser form)
+1. **Swap card UI**: `~/MOI-Webinars/session-4/frontend/` (Vite app with lock/flip/claim buttons)
+2. **NFT mint + transfer UI**: `~/MOI-Webinars/session-5/ui/` (Express server + browser form)
 
 ### Documentation
 
-1. **webinar-code-reference.md** — `/Users/adithyaganesh/MOI-Webinars/webinar-code-reference.md` (code walkthrough with snippets)
-2. **webinar-vibecode-plans.md** — `/Users/adithyaganesh/MOI-Webinars/webinar-vibecode-plans.md` (vibecode prompt flow for all sessions)
-3. **OVERVIEW.md** — `/Users/adithyaganesh/MOI-Webinars/OVERVIEW.md` (Session 3 live demo flow, exhaustive)
-4. **TEACHING-GUIDE.md** — `/Users/adithyaganesh/moi-agent-budget/TEACHING-GUIDE.md` (context inheritance teaching notes)
+1. **webinar-code-reference.md**: `~/MOI-Webinars/webinar-code-reference.md` (code walkthrough with snippets)
+2. **webinar-vibecode-plans.md**: `~/MOI-Webinars/webinar-vibecode-plans.md` (vibecode prompt flow for all sessions)
+3. **OVERVIEW.md**: `~/MOI-Webinars/OVERVIEW.md` (Session 3 live demo flow, exhaustive)
+4. **TEACHING-GUIDE.md**: `~/moi-agent-budget/TEACHING-GUIDE.md` (context inheritance teaching notes)
 
 ---
 
@@ -955,14 +981,14 @@ From README.md and OVERVIEW.md:
 - **Addresses:** Hex strings starting with `0x`, 64 chars = 32 bytes
 - **Asset/Logic IDs:** Also hex, printed with `0x` prefix
 - **Amounts:** Plain numbers (not bigint) for `.send()`, BigInt for balance comparisons
-- **Fuel limits:** Capped to wallet's KMOI balance, typical values 20k–500k
+- **Fuel limits:** Capped to wallet's KMOI balance, typical values 20k-500k
 
 ### Bounty style
 
 - **Forms:** Google Forms (https://forms.gle/...) with timestamp + email collection
 - **On-chain verification:** Voyage explorer (https://voyage.moi.technology) search by address or tx hash
 - **Submission deadlines:** "Before the next session" (loose, soft-enforcement)
-- **Rewards:** Token bounties (KMOI) for completion, cash bonuses ($15–500 MOI) for excellence
+- **Rewards:** Token bounties (KMOI) for completion, cash bonuses ($15-500 MOI) for excellence
 
 ### Documentation style
 
@@ -976,41 +1002,45 @@ From README.md and OVERVIEW.md:
 
 ## Traps and gotchas (accumulated from all sessions)
 
-1. **Derivation path mismatch** — Voyage faucet uses `m/44'/6174'/7020'/0/0`; if wallet was funded at a different path, scripts fail silently on "account not found"
+1. **Derivation path mismatch**: Voyage faucet uses `m/44'/6174'/7020'/0/0`; if wallet was funded at a different path, scripts fail silently on "account not found"
 
-2. **BigInt in signing** — `.send()` payloads must use plain numbers, not bigint (breaks signing on devnet)
+2. **BigInt in signing**: `.send()` payloads must use plain numbers, not bigint (breaks signing on devnet)
 
-3. **Pre-compiled manifests** — Checked in for convenience, but if `.coco` source is edited, manifest must be recompiled or old manifest will be used
+3. **Pre-compiled manifests**: Checked in for convenience, but if `.coco` source is edited, manifest must be recompiled or old manifest will be used
 
-4. **CocoLab is interactive** — Can't be scripted or recorded; must be walked through live (or pre-recorded as demo)
+4. **CocoLab is interactive**: Can't be scripted or recorded; must be walked through live (or pre-recorded as demo)
 
-5. **Session 3: env vars in multiple places** — `MOI_MNEMONIC` must be in both `openclaw.json` `env.vars` (for injection) AND `skills.entries.*.env` (for ✓ Ready gate); discovered during setup
+5. **Session 3: env vars in multiple places**. `MOI_MNEMONIC` must be in both `openclaw.json` `env.vars` (for injection) AND `skills.entries.*.env` (for ✓ Ready gate); discovered during setup
 
-6. **Session 3: dual-stack binding** — Message servers must bind on `::` (dual-stack), not just `127.0.0.1`, for Node 18+ `fetch` compatibility
+6. **Session 3: dual-stack binding**. Message servers must bind on `::` (dual-stack), not just `127.0.0.1`, for Node 18+ `fetch` compatibility
 
-7. **Session 3: message-server OPENAI_API_KEY** — Read from shell env, not from scripts/.env; must be exported before `start-demo.sh`
+7. **Session 3: message-server OPENAI_API_KEY**. Read from shell env, not from scripts/.env; must be exported before `start-demo.sh`
 
-8. **Session 4: patch-package** — Postinstall script must run to fix SDK's ESM build; if broken, UI won't load
+8. **Session 4: patch-package**. Postinstall script must run to fix SDK's ESM build; if broken, UI won't load
 
-9. **Session 4: Lockup has no guard** — Calling `release()` when nothing is locked succeeds but moves zero funds; app must check balance delta
+9. **Session 4: Lockup has no guard**. Calling `release()` when nothing is locked succeeds but moves zero funds; app must check balance delta
 
-10. **Session 5: MAS1 is logic-backed** — Deploy via AssetFactory + manifest, not protocol-native MAS1AssetLogic.create
+10. **Session 5: MAS1 is logic-backed**. Deploy via AssetFactory + manifest, not protocol-native MAS1AssetLogic.create
 
-11. **Session 6: AccountInherit must be signed by primary** — Sub-account can't create siblings; only primary can mint sub-accounts
+11. **Session 6: AccountInherit must be signed by primary**. Sub-account can't create siblings; only primary can mint sub-accounts
 
-12. **Session 6: Seed transfer can't be zero** — Must send at least 1 KMOI; zero amount is rejected
+12. **Session 6: Seed transfer can't be zero**. Must send at least 1 KMOI; zero amount is rejected
 
-13. **Session 6: `.env` value format** — Inline `#` comments are NOT stripped; must keep values comment-free on their own lines
+13. **Session 6: `.env` value format**. Inline `#` comments are NOT stripped; must keep values comment-free on their own lines
 
-14. **General: Devnet reset** — Agent IDs accumulate; old IDs from earlier runs still exist (registry never expires)
+14. **General: Devnet reset**. Agent IDs accumulate; old IDs from earlier runs still exist (registry never expires)
 
-15. **General: Explorer lag** — Voyage may be minutes behind on-chain state; verify with CLI commands instead (discover.mjs, report)
+15. **General: Explorer lag**. Voyage may be minutes behind on-chain state; verify with CLI commands instead (discover.mjs, report)
 
 ---
 
-## What a skill for this should contain
+## Proposals for a skill (not written out)
+
+This section is an outline of what a skill for these webinars could contain. It is a proposal, not finished content: the per-session examples below were never written, and no code is included. The real material is under "Reusable assets".
 
 ### SKILL.md structure (for vibecode)
+
+Outline only; the sections are headings with no content yet.
 
 ```yaml
 ---
@@ -1025,30 +1055,29 @@ metadata:
 
 # MOI Builders DevRel Skills
 
-## Session 1 — CocoLab + SDK Fundamentals
+## Session 1: CocoLab + SDK Fundamentals
 
-Write a Flipper contract... [full example]
+(Example not written.)
 
-## Session 2 — Native Assets
+## Session 2: Native Assets
 
-Create a MAS0 token... [full example]
+(Example not written.)
 
-## Session 3 — Agent Registry (contract + client)
+## Session 3: Agent Registry (contract + client)
 
-Write an Agent Registry class... [full example]
-OpenClaw integration: write a skill that calls these SDK functions...
+(Example not written. Idea: write an Agent Registry class, then an OpenClaw skill that calls the SDK functions.)
 
-## Session 4 — Swap Logic
+## Session 4: Swap Logic
 
-Teach Lockup/Release semantics...
+(Not written. Idea: teach Lockup/Release semantics.)
 
-## Session 5 — MAS1 NFT Collection
+## Session 5: MAS1 NFT Collection
 
-Write an NFT collection contract...
+(Example not written.)
 
-## Session 6 — Context Inheritance
+## Session 6: Context Inheritance
 
-Write AgentBudget with actor state and budget enforcement...
+(Example not written. Idea: AgentBudget with actor state and budget enforcement.)
 ```
 
 ### SKILL.md reference files to bundle
@@ -1082,33 +1111,35 @@ Structured as markdown with:
 
 Example (Session 1):
 ```markdown
-## Session 1 — Flipper (The fundamentals)
+## Session 1: Flipper (The fundamentals)
 
 We're building a simple state-toggling contract and deploying it from JavaScript.
 
-### Prompt 1 — Write the contract
+### Prompt 1: Write the contract
 > Read the coco-skills. Write a Flipper contract: one boolean logic-state field, 
 > a deploy endpoint that sets it false, a dynamic Flip endpoint that toggles it, 
 > and a static Get endpoint that returns it.
 
-### Prompt 2 — Compile
+### Prompt 2: Compile
 > Compile it with `coco compile` and show me the manifest it produced.
 
-### Prompt 3 — Deploy and flip
+### Prompt 3: Deploy and flip
 > Now read js-moi-sdk-skills. Write a script that loads my wallet on Voyage devnet, 
 > deploys that manifest, calls Flip, and prints the value before and after.
 
 **One point to land:** "Empty repo → a deployed contract I flip on-chain, in two prompts."
 ```
 
-### Reference implementations (complete, copy-paste ready)
+### Pointers to reference implementations (no code included here)
 
-1. **Flipper** (S1) — 30 LOC Coco + 20 LOC SDK
-2. **TaxToken** (S2) — 30 LOC Coco + 15 LOC SDK
-3. **AgentRegistry + OpenClaw integration** (S3) — 50 LOC Coco + 3 SDK scripts (100 LOC total)
-4. **Swap logic** (S4) — 0 LOC Coco (MAS0 native) + 80 LOC SDK (lockup/release) + 50 LOC UI
-5. **MAS1 NFT** (S5) — 100 LOC Coco + 60 LOC SDK + 30 LOC UI
-6. **AgentBudget** (S6) — 50 LOC Coco + 120 LOC SDK (squad manager) + 50 LOC Pip agent
+The line counts below are rough sizes as given in these notes ("LOC" = lines of code); they were not counted or verified. The code itself is in the paths listed under "Reusable assets".
+
+1. **Flipper** (S1): 30 LOC Coco + 20 LOC SDK
+2. **TaxToken** (S2): 30 LOC Coco + 15 LOC SDK
+3. **AgentRegistry + OpenClaw integration** (S3): 50 LOC Coco + 3 SDK scripts (100 LOC total)
+4. **Swap logic** (S4): 0 LOC Coco (MAS0 native) + 80 LOC SDK (lockup/release) + 50 LOC UI
+5. **MAS1 NFT** (S5): 100 LOC Coco + 60 LOC SDK + 30 LOC UI
+6. **AgentBudget** (S6): 50 LOC Coco + 120 LOC SDK (squad manager) + 50 LOC Pip agent
 
 ---
 
@@ -1134,3 +1165,66 @@ We're building a simple state-toggling contract and deploying it from JavaScript
 
 10. **Multi-language variants:** Are these materials translated or localized, or English-only? (observed: English only; no translation mentioned)
 
+---
+
+## Known inconsistencies in these notes
+
+The notes disagree with themselves in the places below. They are listed, not resolved; check the source files before relying on either side. Line numbers refer to this file.
+
+1. Agent IDs after a devnet reset: L879 says the old Session 3 IDs are "stale" and "orphaned"; L1031 says old IDs "still exist"; L1148 says whether IDs persist is unconfirmed.
+2. Bounty amounts and units: L264 "open 500-MOI bounty", L427 "500 KMOI" baseline, L523 "500 MOI + $15 cash", L991 "$15-500 MOI". It is not clear whether "MOI" and "KMOI" mean the same asset, or what the cash and token amounts really were.
+3. Model used by the Session 3 message servers: L269 gives `openai/gpt-4-mini` or `gpt-5.4-mini`; L887 says `gpt-5.4-mini`, both marked observed.
+4. Session 3 derivation-path variable: L280 names `MOI_DERIVATION_PATH`; the `.env.example` pattern at L716 names `MOI_AGENT_DERIVATION_PATH`.
+5. Session 6 mnemonic variable: L595 lists `USER_MNEMONIC`; every other place (L98, L166, L483, L774) uses `MOI_MNEMONIC`.
+6. "Current mainnet SDK is likely 1.0.0+" (L881 and L1152) has no source and sits next to SDK versions of 0.7.x. Treat it as a guess.
+7. Session 7's topic: L905 and L1164 call it "Agentic Payments" (find and pay an agent). `webinars-mature.md` describes the series arc as "S7 identity, S8 + authority, S9 + standard".
+8. Coco versions: Session 5 needs "0.8.2+" (L433) and uses "0.8.2 default" (L486); Session 6 needs "0.8.0+" (L530); L803 gives a range "0.8.0-0.8.2" for both. L802 puts Session 4 under Coco 0.7.0, but L1140 says Session 4 has 0 lines of Coco (it uses the built-in MAS0 asset).
+9. Session 3 timing: the timed beats (L220 to L256) add up to roughly 6 to 8 minutes, yet L303 says "beats 1-8 ~50 min".
+10. Folder layout: L654 shows `coco/` as used by Sessions 1-2 and 5-6, while L682 shows Session 6's Coco source in `budget-logic/` instead.
+
+---
+
+## Glossary
+
+Terms are defined as the MOI team uses them. Anything marked "(as used in these notes)" is the research assistant's reading, not an official definition.
+
+- **Actor state**: Coco storage kept separately for each participant who calls a logic (declared `state actor`). Contrast with logic state.
+- **AccountInherit**: the interaction that creates a sub-account, links it to a logic and funds it in one step (Session 6, as used in these notes).
+- **AgentBudget**: the Session 6 demo logic that records a per-agent budget and refuses spending past it.
+- **AssetFactory / LogicFactory**: SDK helper classes that deploy an asset (with a manifest) or a logic from a compiled manifest (as used in these notes).
+- **Basis points (bps)**: hundredths of a percent; 500 bps = 5%.
+- **BIP-44**: a standard that says how to derive wallet addresses from one mnemonic; `m/44'/6174'/7020'/0/0` is such a path.
+- **Bounty**: a reward offered to attendees who finish the session task and submit a form, in these notes.
+- **Coco**: MOI's contract language. **CocoLab**: Coco's playground, an interactive prompt (a REPL) where you type commands one at a time.
+- **Context inheritance**: giving a sub-account its own storage slot for a logic so the logic can keep per-agent state (Session 6, as used in these notes).
+- **Derivation path**: the part of a wallet address recipe that says which account to take from a mnemonic. The Voyage faucet default is `m/44'/6174'/7020'/0/0`.
+- **Devnet**: MOI's test network; it is reset from time to time, so old assets, logics and agent IDs may disappear or become stale.
+- **Dual-stack**: a server listening on both IPv4 and IPv6 (the `::` address).
+- **ESM**: ECMAScript modules, JavaScript's `import`/`export` format.
+- **Express**: a small Node.js web server library (used for the Session 5 UI server).
+- **Faucet**: a service that gives free devnet funds; the Voyage faucet also issues a new wallet.
+- **Fee-on-transfer**: a token that takes a cut on every transfer (the Session 2 TaxToken takes 5%).
+- **Flipper / ContextFlipper**: the Session 1 demo contracts that toggle a true/false value, shared (Flipper) or per participant (ContextFlipper).
+- **Fuel**: what an interaction pays to run; `fuel_limit` caps it.
+- **Interaction / interaction hash**: MOI's word for a transaction, and its identifier.
+- **IPFS / data URI**: IPFS is a decentralised file store; a data URI puts the file content inside the link itself. Session 3 used data URIs for agent cards and says production would use IPFS.
+- **JSON5**: a relaxed form of JSON that allows comments, unquoted keys and trailing commas.
+- **KMOI**: MOI's native asset; it pays for fuel.
+- **LOC**: lines of code.
+- **Lockup / Release**: MAS0 operations that set funds aside for a named counterparty and later let that party claim them (Session 4).
+- **Logic / logic ID**: a deployed Coco contract on MOI, and its identifier. **Logic state** is one copy shared by all callers.
+- **Manifest**: the compiled JSON description of a Coco contract that the SDK deploys.
+- **MAS0**: an asset standard created without a contract. **MASX**: a logic-backed asset. **MAS1**: the NFT standard (in Session 5 it is deployed logic-backed, via AssetFactory).
+- **Mnemonic**: the 12-word phrase from which a wallet's keys are derived. Devnet mnemonics only; never reuse real ones.
+- **OpenClaw**: the third-party AI agent framework used in Session 3 (the notes attribute it to Nous Research; unverified here).
+- **patch-package**: an npm tool that re-applies local fixes to a dependency; Session 4 uses it to fix the SDK's ESM build.
+- **Pip**: the demo agent in Session 6 (`agent.js`) that works out and provisions its own sub-account.
+- **Participant-centric**: MOI is participant-centric, not account-centric. "Actor" in these notes (as in "actor state") means a participant.
+- **RPC**: the remote procedure call interface of a MOI node; `moi.Lockups` is a raw JSON-RPC method here.
+- **SDK**: software development kit; here `js-moi-sdk`, the JavaScript library for MOI. **js-moi-agent-registry** is its companion package for the agent registry.
+- **Squad**: the Session 6 script `squad.js` that provisions and runs named agents; `.squad.json` is its local name-to-index map.
+- **TKA / TKB**: the two demo tokens in the Session 4 swap. **TaxToken**: the Session 2 fee-on-transfer demo.
+- **Vibecode**: building by prompting an AI agent (here Claude Code) to write the contract and scripts, rather than running pre-written ones.
+- **Vite**: a front-end build and dev-server tool (used for the Session 4 UI).
+- **Voyage**: MOI's explorer and dev tooling site (voyage.moi.technology); `VoyageProvider` is the SDK class that connects to it.
+- **Wallet / sub-account**: a key pair that signs interactions; a sub-account is an account derived from a primary one (Session 6, address = primary's first 28 bytes plus a 4-byte index).

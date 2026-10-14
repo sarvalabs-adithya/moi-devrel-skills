@@ -1,5 +1,7 @@
 List of dependencies:
 
+**Status: snapshot.** Written by Adithya on 4 October 2026, in the first person, and kept for the record. The product docs supersede it; where they disagree, the product doc is right.
+
 As of 4 October 2026. No secret value is written here, only names and where to find them. (confirm) marks what neither the code nor GitHub settles.
 
 
@@ -110,16 +112,16 @@ As of 4 October 2026. No secret value is written here, only names and where to f
 3. Agent Launchpad:
 
    1. Stack:
-      1. Supabase — Postgres for all app state
-      2. Next.js 14 + TypeScript + Tailwind — the web app and every API route
-      3. js-moi-sdk + js-moi-agent-registry — all on-chain calls, MOI devnet
-      4. Coco — the AgentMarket contract for marketplace payments. Not
+      1. Supabase: Postgres for all app state
+      2. Next.js 14 + TypeScript + Tailwind: the web app and every API route
+      3. js-moi-sdk + js-moi-agent-registry: all on-chain calls, MOI devnet
+      4. Coco: the AgentMarket contract for marketplace payments. Not
          redeployed since the devnet wipes, so paid agents are off (confirm)
-      5. Telegram bot (@moinetworkbot) — delivers agent messages to users
-      6. WalletConnect — phone sign-in by QR. Written, not merged: production
+      5. Telegram bot (@moinetworkbot): delivers agent messages to users
+      6. WalletConnect: phone sign-in by QR. Written, not merged: production
          signs in with the desktop wallet extension only
-      7. Docker + GitHub Actions + Teleport — build and deploy to the DevOps VM
-      8. Agent runtime — one bundled file users run on their own laptop under pm2
+      7. Docker + GitHub Actions + Teleport: build and deploy to the DevOps VM
+      8. Agent runtime: one bundled file users run on their own laptop under pm2
 
    2. Variables:
       1. Codebase (sarvalabs/moi-agent-launchpad deploys, my fork
@@ -153,49 +155,49 @@ As of 4 October 2026. No secret value is written here, only names and where to f
             in the Dockerfile and a --build-arg in the build workflow
 
       2. Needed to boot:
-         1. SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY — Supabase dashboard →
+         1. SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY: Supabase dashboard →
             the project → Settings → API
-         2. SESSION_SECRET — generate with: openssl rand -hex 32
-         3. AGENT_KEY_ENCRYPTION_SECRET — copy it from the VM env file.
+         2. SESSION_SECRET. Generate with: openssl rand -hex 32
+         3. AGENT_KEY_ENCRYPTION_SECRET: copy it from the VM env file.
             Never generate a new one, every stored agent key would be lost
-         4. MOI_RPC_URL — leave empty. The code uses the SDK's built-in devnet
+         4. MOI_RPC_URL: leave empty. The code uses the SDK's built-in devnet
             endpoint, and the host in .env.example does not resolve
-         5. MOI_PLATFORM_MNEMONIC — the funded devnet wallet, in Actions
+         5. MOI_PLATFORM_MNEMONIC: the funded devnet wallet, in Actions
             secrets and the VM env file. The code uses it for registry reads
             and the heartbeat (the README calls it optional: confirm)
-         6. NEXT_PUBLIC_APP_URL — https://launchpad.moi.technology
+         6. NEXT_PUBLIC_APP_URL: https://launchpad.moi.technology
 
       3. Telegram:
-         1. TELEGRAM_BOT_TOKEN — Telegram → BotFather → /mybots →
+         1. TELEGRAM_BOT_TOKEN: Telegram → BotFather → /mybots →
             moinetworkbot → API Token
-         2. TELEGRAM_BOT_USERNAME — moinetworkbot
-         3. TELEGRAM_WEBHOOK_SECRET — generate with: openssl rand -hex 20,
+         2. TELEGRAM_BOT_USERNAME: moinetworkbot
+         3. TELEGRAM_WEBHOOK_SECRET. Generate with: openssl rand -hex 20,
             then re-run setWebhook or messages stop arriving. If it is unset
             the secret is derived from SESSION_SECRET, so rotating that one
             would stop Telegram too
-         4. ADMIN_ALERT_TELEGRAM_CHAT_ID — the chat that receives alerts
+         4. ADMIN_ALERT_TELEGRAM_CHAT_ID: the chat that receives alerts
 
       4. Chain:
-         1. MOI_AGENT_REGISTRY_LOGIC_ID — from whoever redeployed the
+         1. MOI_AGENT_REGISTRY_LOGIC_ID: from whoever redeployed the
             registry. The one value to change after a devnet reset
-         2. MOI_AGENT_MARKET_LOGIC_ID — printed by
+         2. MOI_AGENT_MARKET_LOGIC_ID: printed by
             contracts/agent_market/deploy.mjs. deploy.yml does not pass it
             yet, so setting it also needs a deploy.yml edit
 
       5. Activating new users:
-         1. MOI_REGISTRATION_MNEMONIC_1, _2, _3 — ask DevOps, never copy
+         1. MOI_REGISTRATION_MNEMONIC_1, _2, _3: ask DevOps, never copy
             them around
-         2. or MOI_REGISTRATION_API_URL + MOI_REGISTRATION_API_KEY — also
+         2. or MOI_REGISTRATION_API_URL + MOI_REGISTRATION_API_KEY: also
             DevOps, not in use today
 
       6. The rest:
-         1. GROQ_API_KEY — console.groq.com/keys
-         2. CRON_SECRET — generate with: openssl rand -hex 32. Only for calling
+         1. GROQ_API_KEY: console.groq.com/keys
+         2. CRON_SECRET. Generate with: openssl rand -hex 32. Only for calling
             the cleanup route by hand: the cleanup runs inside the app every
             6 hours
-         3. INBOX_WAIT_MS — 20000, hard-coded in deploy.yml
-         4. GLOBAL_DAILY_SPEND_CAP_CENTS — 500
-         5. NEXT_PUBLIC_MOI_EXPLORER_URL, NEXT_PUBLIC_WALLET_INSTALL_URL —
+         3. INBOX_WAIT_MS: 20000, hard-coded in deploy.yml
+         4. GLOBAL_DAILY_SPEND_CAP_CENTS: 500
+         5. NEXT_PUBLIC_MOI_EXPLORER_URL, NEXT_PUBLIC_WALLET_INSTALL_URL:
             values are in .env.example
          6. Phone sign-in branch only, not on master: NEXT_PUBLIC_WC_PROJECT_ID
             (cloud.reown.com → the project → Project ID) and
@@ -242,24 +244,24 @@ As of 4 October 2026. No secret value is written here, only names and where to f
 4. MOI Website:
 
    1. Stack:
-      1. React 19 + Vite 7 + React Router 7 + Tailwind 4, Three.js, GSAP — the
+      1. React 19 + Vite 7 + React Router 7 + Tailwind 4, Three.js, GSAP: the
          site at moi.technology: home, why-moi, manifesto, papers, calendar admin
-      2. Express 4 in server/ — chat and calendar API at moi.technology/api
-      3. Supabase — documents (chatbot) and community_calls (calendar); the SQL
+      2. Express 4 in server/: chat and calendar API at moi.technology/api
+      3. Supabase: documents (chatbot) and community_calls (calendar); the SQL
          files at the repo root are run by hand and may not match production
-      4. Chatbot (Claude, OpenAI embeddings) — hidden since 2026-06-08, so no
+      4. Chatbot (Claude, OpenAI embeddings): hidden since 2026-06-08, so no
          chat on the live page on 2026-10-04; the route is in the code, untested
-      5. Community calendar — on 2026-10-04 the API answers 500 and the live
+      5. Community calendar: on 2026-10-04 the API answers 500 and the live
          bundle calls the dev host, so the homepage shows three AMA dates from
          the code (17 Oct, 13 Nov, 11 Dec), none confirmed
-      6. Astro 5 — blog.moi.technology, in blog/ of the same repo. The same
+      6. Astro 5: blog.moi.technology, in blog/ of the same repo. The same
          markdown feeds the listing at moi.technology/blog, RSS, sitemap, llms.txt
-      7. scripts/ + social/ — announce a post: Buffer drafts for X and LinkedIn
+      7. scripts/ + social/, which announce a post: Buffer drafts for X and LinkedIn
          (Discord, Telegram not used since 2026-08-31); Mailchimp mails from
          /rss-email.xml on the 15th of every month (RSS campaign)
-      8. GitHub Actions + Teleport — start a script on the VM that builds and
+      8. GitHub Actions + Teleport: start a script on the VM that builds and
          restarts the server (nginx 1.24); PR previews on the VM and Cloudflare
-      9. Tag Manager, Analytics, Search Console — measurement
+      9. Tag Manager, Analytics, Search Console: measurement
 
    2. Variables:
       1. Codebase (sarvalabs/MOI-Website, main deploys; I push to it, no fork)
@@ -284,26 +286,26 @@ As of 4 October 2026. No secret value is written here, only names and where to f
             reach the VM only at deploy, and only the names deploy.yml lists
 
       2. The server and the build:
-         1. ANTHROPIC_API_KEY, OPENAI_API_KEY — the two consoles → API keys
-         2. SUPABASE_URL, SUPABASE_KEY — Supabase dashboard → the project →
+         1. ANTHROPIC_API_KEY, OPENAI_API_KEY: the two consoles → API keys
+         2. SUPABASE_URL, SUPABASE_KEY: Supabase dashboard → the project →
             Settings → API (which project, and anon or service key: confirm)
-         3. VITE_CHATBOT_API — the browser's API address. The live bundle has
+         3. VITE_CHATBOT_API: the browser's API address. The live bundle has
             the dev host baked in; likely fix https://moi.technology or empty
             (untried, confirm with DevOps)
-         4. ADMIN_API_KEY — generate with: openssl rand -hex 32. deploy.yml on
+         4. ADMIN_API_KEY. Generate with: openssl rand -hex 32. deploy.yml on
             main does not pass it; the change that passes it is local, not merged
-         5. ALLOWED_ORIGINS, PORT — values in .env.example. deploy.yml does not
+         5. ALLOWED_ORIGINS, PORT: values in .env.example. deploy.yml does not
             pass them, so DevOps sets them on the VM (confirm)
          6. Passed by deploy.yml, read by nothing in production: VITE_GA_ID,
             PUBLIC_GA_ID (Tag Manager measures instead), DATA_ROOM_CHAT_URL (dev
             proxy only). DATA_ROOM_API_KEY: old Vercel function only, not passed
 
       3. Announcing a post, GitHub secrets only (no secret, channel skipped):
-         1. BUFFER_ACCESS_TOKEN — Buffer; only the organisation owner can make one
-         2. BUFFER_CHANNEL_X, BUFFER_CHANNEL_LINKEDIN — run npm run buffer:channels
-         3. DISCORD_WEBHOOK_URL — Discord → Server Settings → Integrations
-         4. TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID — BotFather, bot added as admin
-         5. BLOG_ORIGIN — optional, in no template, passed by no workflow
+         1. BUFFER_ACCESS_TOKEN: Buffer; only the organisation owner can make one
+         2. BUFFER_CHANNEL_X, BUFFER_CHANNEL_LINKEDIN: run npm run buffer:channels
+         3. DISCORD_WEBHOOK_URL: Discord → Server Settings → Integrations
+         4. TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID: BotFather, bot added as admin
+         5. BLOG_ORIGIN: optional, in no template, passed by no workflow
 
       4. Deploy access (DevOps): secrets TELEPORT_PROXY, TELEPORT_JOIN_TOKEN,
          TELEPORT_NODE, VM_USERNAME; variables PREVIEW_VM_HOST, PREVIEW_VM_USER
@@ -367,19 +369,19 @@ As of 4 October 2026. No secret value is written here, only names and where to f
 5. Dataroom:
 
    1. Stack:
-      1. Next.js 16 + React 19 + TypeScript + Tailwind 4 + pdfjs-dist — the
+      1. Next.js 16 + React 19 + TypeScript + Tailwind 4 + pdfjs-dist: the
          site, the admin page and every API route, in moi-data-room/. The PDF
          viewer loads its worker from cdnjs
-      2. Supabase — Postgres with pgvector and the private investor-docs
+      2. Supabase: Postgres with pgvector and the private investor-docs
          bucket. No login, the whole site is open. adopters, document_leads
          and documents.require_email were made by hand, in no SQL file
-      3. pdf-parse, mammoth + OpenAI text-embedding-3-small — read each upload
+      3. pdf-parse, mammoth + OpenAI text-embedding-3-small: read each upload
          and index it. PDF and Word work, PPTX cannot be read. 2026-10-04: 23
          documents, 17 indexed, 5 stuck, 1 failed
-      4. Claude (claude-sonnet-4-20250514) — the chat, answers only from the
+      4. Claude (claude-sonnet-4-20250514): the chat, answers only from the
          indexed documents. Widget hidden since 2026-08-21, route still
          deployed. The website's server code does not call it
-      5. GitHub Actions + SSH key — deploy to the DevOps VM behind nginx 1.24,
+      5. GitHub Actions + SSH key: deploy to the DevOps VM behind nginx 1.24,
          by a script that is on the VM, not in the repo. Last deploy 2026-08-22
 
    2. Variables:
@@ -411,13 +413,13 @@ As of 4 October 2026. No secret value is written here, only names and where to f
          4. A changed secret needs a manual run of the workflow. NEXT_PUBLIC_
             values are baked in at build: a rebuild, not a restart
       2. Needed to boot:
-         1. NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY —
+         1. NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY:
             Supabase dashboard → the project → Settings → API
-         2. SUPABASE_SERVICE_ROLE_KEY — same page. Server side only
-         3. ANTHROPIC_API_KEY — console.anthropic.com → API keys
-         4. OPENAI_API_KEY — platform.openai.com → API keys. Missing, every
+         2. SUPABASE_SERVICE_ROLE_KEY: same page. Server side only
+         3. ANTHROPIC_API_KEY: console.anthropic.com → API keys
+         4. OPENAI_API_KEY: platform.openai.com → API keys. Missing, every
             upload ends failed and the chat answers without document text
-         5. ADMIN_SECRET — generate with: openssl rand -hex 32. Never leave it
+         5. ADMIN_SECRET. Generate with: openssl rand -hex 32. Never leave it
             empty. Production has one (lock screen showed on 2026-10-04)
       3. Chat limits, optional, defaults in the code, set by nothing (a DevOps
          job): CLAUDE_PER_IP_HOURLY_LIMIT 30, CLAUDE_DAILY_TOKEN_BUDGET
@@ -489,20 +491,20 @@ As of 4 October 2026. No secret value is written here, only names and where to f
 6. Agent dating Plugin:
 
    1. Stack:
-      1. TypeScript 6 + Node 22 — an OpenClaw plugin, version 1.2.0. Two
+      1. TypeScript 6 + Node 22: an OpenClaw plugin, version 1.2.0. Two
          agents with their own wallets register on the MOI registry, find
          each other and talk
-      2. js-moi-sdk 0.7.0-rc15 + js-moi-agent-registry 0.1.1 — identity
+      2. js-moi-sdk 0.7.0-rc15 + js-moi-agent-registry 0.1.1: identity
          and discovery on chain. Both old: npm has 0.9.0-rc2 and 0.3.0-rc1
          (as of 2026-10-04)
-      3. relay/broker.mjs — one file, no dependencies. Passes messages,
+      3. relay/broker.mjs: one file, no dependencies. Passes messages,
          serves the live viewer at /app, keeps history as plain files
-      4. systemd + GitHub Actions + ssh — runs the broker on one VPS and
+      4. systemd + GitHub Actions + ssh: runs the broker on one VPS and
          deploys it on a push to master that touches the broker
-      5. Docker Compose — two test agents on one host. Not the relay
-      6. A model key through OpenClaw — the agents' replies. Optional,
+      5. Docker Compose: two test agents on one host. Not the relay
+      6. A model key through OpenClaw: the agents' replies. Optional,
          canned lines without one
-      7. install.sh — one-command agent setup on someone's machine
+      7. install.sh: one-command agent setup on someone's machine
 
    2. Variables:
       1. Codebase sarvalabs-adithya/agent-dating (public, my account, never
@@ -533,24 +535,24 @@ As of 4 October 2026. No secret value is written here, only names and where to f
             and the wallet file in ~/.agent-dating
          4. Two-agent demo: .env copied from .env.example
       2. Relay (relay/broker.mjs), all optional:
-         1. RELAY_TOKEN — shared secret agents must send, empty is open.
+         1. RELAY_TOKEN: shared secret agents must send, empty is open.
             generate with: openssl rand -hex 32, same value as each
             agent's DATING_RELAY_TOKEN. The build's default is empty;
             whether the live relay has one: confirm
          2. RELAY_PORT, RELAY_DATA, RELAY_PUBLIC_VIEW, RELAY_WHEEL_TTL, and
-            four limits starting RELAY_RL_ — defaults are fine
-         3. MOI_FAUCET_KEY, MOI_FAUCET_URL — the devnet faucet key (ask
+            four limits starting RELAY_RL_: defaults are fine
+         3. MOI_FAUCET_KEY, MOI_FAUCET_URL: the devnet faucet key (ask
             Protocol team who issues it: confirm) and an optional address
             template for it. Without the key the faucet answers "not
             configured"
       3. Per agent:
-         1. MOI_MNEMONIC — the agent's wallet seed phrase. install.sh creates
+         1. MOI_MNEMONIC: the agent's wallet seed phrase. install.sh creates
             and funds one; scripts/gen-keys.mjs fills the two demo slots. A
             throwaway devnet wallet, never one with real funds
          2. DATING_RELAY_URL, DATING_RELAY_TOKEN, MOI_NETWORK and the persona
-            names — your choice; the relay address defaults to the one in
+            names: your choice; the relay address defaults to the one in
             src/network.ts
-         3. OPENAI_API_KEY (or an Anthropic key pasted into install.sh) — the
+         3. OPENAI_API_KEY (or an Anthropic key pasted into install.sh): the
             agents' replies. Optional, canned lines without one
       4. Full list: .env.example (agent side), ARCHITECTURE.md section D
          (relay side)
@@ -608,13 +610,13 @@ As of 4 October 2026. No secret value is written here, only names and where to f
 7. Contextual Compute website:
 
    1. Stack:
-      1. Next.js 14.2 + React 18 + Tailwind 4 + Framer Motion 12 — a
+      1. Next.js 14.2 + React 18 + Tailwind 4 + Framer Motion 12: a
          one-page marketing site: hero, thesis, six papers, a join form
-      2. One API route — the join form posts each email to a webhook
-      3. Papers — a list in src/components/Papers.tsx. CC0 and CC2 open PDFs
+      2. One API route: the join form posts each email to a webhook
+      3. Papers: a list in src/components/Papers.tsx. CC0 and CC2 open PDFs
          that the site serves itself from public/docs/. The other four
          cards are marked locked
-      4. Vercel — hosting through its GitHub connection. No workflow in
+      4. Vercel: hosting through its GitHub connection. No workflow in
          the repo
 
    2. Variables:
@@ -634,7 +636,7 @@ As of 4 October 2026. No secret value is written here, only names and where to f
    3. Env vars:
       1. Where they live: Vercel → the project → Settings → Environment
          Variables. The repo has no .env.example
-      2. SUBSCRIBE_WEBHOOK_URL — the address the join form posts each email
+      2. SUBSCRIBE_WEBHOOK_URL: the address the join form posts each email
          to. The only variable the code reads. Nothing in the repo says
          where it points (confirm). Unset, the form still says thank you
          and keeps nothing
@@ -668,13 +670,13 @@ As of 4 October 2026. No secret value is written here, only names and where to f
 8. Moinkee NFT Minter:
 
    1. Stack:
-      1. Next.js 16.1 + React 19.2 + Tailwind 4 — the Moinkee World Tour
+      1. Next.js 16.1 + React 19.2 + Tailwind 4: the Moinkee World Tour
          site, where visitors mint a memento NFT
-      2. Three.js with react-globe.gl — the globe
-      3. js-moi-sdk 0.7.0-rc8 — mints on MOI devnet. Old: npm has
+      2. Three.js with react-globe.gl: the globe
+      3. js-moi-sdk 0.7.0-rc8: mints on MOI devnet. Old: npm has
          0.9.0-rc2 (as of 2026-10-04)
-      4. Pinata — keeps the images and each token's metadata on IPFS
-      5. Vercel — hosting through its GitHub connection. vercel.json gives
+      4. Pinata: keeps the images and each token's metadata on IPFS
+      5. Vercel: hosting through its GitHub connection. vercel.json gives
          the mint, token and Pinata routes 15 seconds
 
    2. Variables:
@@ -703,14 +705,14 @@ As of 4 October 2026. No secret value is written here, only names and where to f
          3. Anything starting NEXT_PUBLIC_ is baked into the build, so
             changing it needs a redeploy
       2. Needed to run:
-         1. PINATA_JWT — Pinata → API Keys
-         2. ADMIN_MNEMONIC — the minting wallet's seed phrase, all 12 words
+         1. PINATA_JWT: Pinata → API Keys
+         2. ADMIN_MNEMONIC: the minting wallet's seed phrase, all 12 words
             on one line, no quotes. A devnet wallet only, funded at the
             Voyage faucet
-         3. NEXT_PUBLIC_ASSET_ID — printed by scripts/create-collection.mjs
+         3. NEXT_PUBLIC_ASSET_ID: printed by scripts/create-collection.mjs
             when it creates the collection (it reads ADMIN_MNEMONIC). New
             after every reset
-         4. NEXT_PUBLIC_FOLDER_CID — optional, the IPFS folder for gallery
+         4. NEXT_PUBLIC_FOLDER_CID: optional, the IPFS folder for gallery
             images. The code has a default
       3. Helper script only: MNEMONIC, read by the token-listing script in
          scripts/
@@ -769,15 +771,15 @@ As of 4 October 2026. No secret value is written here, only names and where to f
 9. Points Program:
 
    1. Stack:
-      1. Next.js 16 + React 19 + TypeScript + Tailwind 4 — web app and API
-      2. Supabase — Postgres for all state, through Drizzle, 11 migrations
-      3. Better Auth — Google sign-in, the only login
-      4. X, Discord, Telegram — linked by members, checked by the app
-      5. Reown + js-moi-signer — wallet linking, keys read from the devnet RPC
-      6. Resend — sign-in emails
-      7. Docker + GitHub Actions + GHCR + Teleport — build and deploy to the
+      1. Next.js 16 + React 19 + TypeScript + Tailwind 4: web app and API
+      2. Supabase: Postgres for all state, through Drizzle, 11 migrations
+      3. Better Auth: Google sign-in, the only login
+      4. X, Discord, Telegram: linked by members, checked by the app
+      5. Reown + js-moi-signer: wallet linking, keys read from the devnet RPC
+      6. Resend: sign-in emails
+      7. Docker + GitHub Actions + GHCR + Teleport: build and deploy to the
          DevOps box, one container behind nginx
-      8. Health route and a nightly job route — health check; re-audit,
+      8. Health route and a nightly job route: health check; re-audit,
          purge and point totals (nothing is known to call the job)
 
    2. Variables:
@@ -809,33 +811,33 @@ As of 4 October 2026. No secret value is written here, only names and where to f
             the five names under Needed to boot
 
       2. Needed to boot:
-         1. DATABASE_URL — Supabase dashboard → the project → Connect
-         2. BETTER_AUTH_SECRET — generate with: openssl rand -hex 32.
+         1. DATABASE_URL: Supabase dashboard → the project → Connect
+         2. BETTER_AUTH_SECRET. Generate with: openssl rand -hex 32.
             Replacing it signs everyone out and makes every stored X
             connection unreadable until members reconnect X
-         3. BETTER_AUTH_URL — https://points.moi.technology, https required
-         4. GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET — Google Cloud console →
+         3. BETTER_AUTH_URL: https://points.moi.technology, https required
+         4. GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET: Google Cloud console →
             APIs & Services → Credentials; redirect must match BETTER_AUTH_URL
 
       3. Tasks and email (an enabled task missing a name stops the container):
-         1. X_CLIENT_ID, X_CLIENT_SECRET, X_TARGET_URL — developer.x.com →
+         1. X_CLIENT_ID, X_CLIENT_SECRET, X_TARGET_URL: developer.x.com →
             the app; X_TARGET_URL is the profile members must follow
          2. DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, DISCORD_BOT_TOKEN,
-            DISCORD_GUILD_ID, DISCORD_INVITE_URL — Discord developer portal
-         3. TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_USERNAME, TELEGRAM_CHAT_ID —
-            BotFather and the group; TELEGRAM_INVITE_MODE — join_request or
-            direct; TELEGRAM_WEBHOOK_SECRET — generate with: openssl rand
+            DISCORD_GUILD_ID, DISCORD_INVITE_URL: Discord developer portal
+         3. TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_USERNAME, TELEGRAM_CHAT_ID:
+            BotFather and the group; TELEGRAM_INVITE_MODE: join_request or
+            direct; TELEGRAM_WEBHOOK_SECRET. Generate with: openssl rand
             -hex 32 (set the webhook again after a change)
-         4. MOI_NETWORK — devnet, the only value the code accepts;
-            REOWN_PROJECT_ID — Reown dashboard → the project
-         5. RESEND_API_KEY — resend.com → API keys; EMAIL_FROM — the sender
+         4. MOI_NETWORK: devnet, the only value the code accepts;
+            REOWN_PROJECT_ID: Reown dashboard → the project
+         5. RESEND_API_KEY: resend.com → API keys; EMAIL_FROM: the sender
             (MOI Points <no-reply@moi.technology>). Both, or no email is sent
 
       4. The rest:
-         1. CRON_SECRET — generate with: openssl rand -hex 32. ADMIN_EMAILS —
+         1. CRON_SECRET. Generate with: openssl rand -hex 32. ADMIN_EMAILS:
             emails that get the admin pages once Google has verified them.
             VERIFICATION_WINDOW_MINUTES, VERIFICATION_LIMIT_PER_USER,
-            VERIFICATION_LIMIT_PER_IP, SOCIAL_AUDIT_BATCH_SIZE — plain numbers
+            VERIFICATION_LIMIT_PER_IP, SOCIAL_AUDIT_BATCH_SIZE: plain numbers
          2. In the template, read by code, not passed by the deploy, so unset:
             MOI_RPC_URL (dev challenges), X_TOKEN_ENCRYPTION_KEY,
             X_TOKEN_ENCRYPTION_KEY_PREVIOUS, CLIENT_IP_HEADER (unset, the
@@ -907,14 +909,14 @@ As of 4 October 2026. No secret value is written here, only names and where to f
 10. Agent Explorer:
 
    1. Stack:
-      1. React 19 + Vite + React Router 7 + TanStack Query — the web client
-      2. Express 4 + TypeScript + MySQL — the API and an indexer that copies
+      1. React 19 + Vite + React Router 7 + TanStack Query: the web client
+      2. Express 4 + TypeScript + MySQL: the API and an indexer that copies
          the on-chain agent registry into MySQL
-      3. js-moi-sdk + js-moi-agent-registry — registry reads and writes (main
+      3. js-moi-sdk + js-moi-agent-registry: registry reads and writes (main
          pins the SDK at ^0.8.0, PR #5 moves it to 0.9.0-rc2)
-      4. WalletConnect — wallet sign-in, registering an agent, admin sign-off
-      5. Pinata — IPFS pins for agent cards, but no key is passed in production
-      6. Docker + GitHub Actions + GHCR + SSH — a merge to main builds two
+      4. WalletConnect: wallet sign-in, registering an agent, admin sign-off
+      5. Pinata: IPFS pins for agent cards, but no key is passed in production
+      6. Docker + GitHub Actions + GHCR + SSH: a merge to main builds two
          images and runs them on one VM behind nginx 1.24 (the nginx config is not on record), at
          agents.moi.technology and api.agents.moi.technology
 
@@ -956,37 +958,37 @@ As of 4 October 2026. No secret value is written here, only names and where to f
          4. DEV and TEST environments exist but are empty (2026-10-04)
 
       2. Needed to boot:
-         1. DB_HOST, DB_PORT, DB_USER, DB_NAME, DB_PASSWORD — ask DevOps.
+         1. DB_HOST, DB_PORT, DB_USER, DB_NAME, DB_PASSWORD: ask DevOps.
             Local: your own MySQL
-         2. PORT — the workflow sets 5005, local default 4000
+         2. PORT: the workflow sets 5005, local default 4000
       3. Chain and admin:
-         1. MOI_RPC_URL — public, https://dev.voyage-rpc.moi.technology/devnet
-         2. MOI_AGENT_REGISTRY_LOGIC_ID — not passed by the workflow, so the
+         1. MOI_RPC_URL: public, https://dev.voyage-rpc.moi.technology/devnet
+         2. MOI_AGENT_REGISTRY_LOGIC_ID: not passed by the workflow, so the
             default in server/src/config.ts runs. New id after a reset: ask
             Gokul
-         3. MOI_MNEMONIC — the server's devnet wallet, a secret. Ask Gokul
-         4. MOI_AGENT_ID, MOI_INTELLIGENCE_LOGIC_ID — chain ids kept as
+         3. MOI_MNEMONIC: the server's devnet wallet, a secret. Ask Gokul
+         4. MOI_AGENT_ID, MOI_INTELLIGENCE_LOGIC_ID: IDs on the network, kept as
             secrets, wiped by a reset. Ask Gokul. These two and MOI_MNEMONIC
             were last set 2026-06-17, before the 2026-09-11 wipe
-         5. ADMIN_ADDRESSES — wallets allowed to verify agents. Not passed,
+         5. ADMIN_ADDRESSES: wallets allowed to verify agents. Not passed,
             so no admin exists unless the container was started by hand
-         6. PINATA_JWT — no default, not passed, so uploads answer "not
+         6. PINATA_JWT: no default, not passed, so uploads answer "not
             configured". From the Pinata account (owner: confirm)
          7. LAUNCHPAD_ORIGIN (PR #5: LAUNCHPAD_HOSTS), MOI_WS_URL,
-            MOI_DERIVATION_PATH — code defaults, none passed. PR #5 adds
+            MOI_DERIVATION_PATH: code defaults, none passed. PR #5 adds
             MOI_READ_CALLER_ADDRESS, SYNC_INTERVAL_HOURS and the client
             build override VITE_MOI_AGENT_REGISTRY_LOGIC_ID, same way
       4. Client build, variables in PROD:
          1. VITE_API_BASE_URL, VITE_WC_PROJECT_ID, VITE_TESSERACT_BASE_URL,
-            VITE_MOI_NETWORK, VITE_MOI_CHAIN_ID, VITE_TRANSACTION_FUEL_LIMIT
-            — ask Gokul; the project id comes from the Reown dashboard
-         2. VITE_INTELLIGENCE_LOGIC_ID — filled from MOI_INTELLIGENCE_LOGIC_ID
+            VITE_MOI_NETWORK, VITE_MOI_CHAIN_ID, VITE_TRANSACTION_FUEL_LIMIT:
+            ask Gokul; the project id comes from the Reown dashboard
+         2. VITE_INTELLIGENCE_LOGIC_ID: filled from MOI_INTELLIGENCE_LOGIC_ID
       5. Listed, but read by nothing or never passed:
-         1. VITE_AGENT_REGISTRY_LOGIC_ID — passed, no client code reads it
-         2. VITE_PARTICIPANT_BASE_URL, VITE_PUBLIC_URL — read, never passed
-         3. LAUNCHPAD_ORIGINS, LAUNCHPAD_CONFIRM_ORIGIN — closed PR #4 only
+         1. VITE_AGENT_REGISTRY_LOGIC_ID: passed, no client code reads it
+         2. VITE_PARTICIPANT_BASE_URL, VITE_PUBLIC_URL: read, never passed
+         3. LAUNCHPAD_ORIGINS, LAUNCHPAD_CONFIRM_ORIGIN: closed PR #4 only
       6. Build and deploy: GH_TOKEN (GHCR login). Deploy only:
-         SSH_PRIVATE_KEY, VM_HOST, VM_USER — ask Upendhar
+         SSH_PRIVATE_KEY, VM_HOST, VM_USER: ask Upendhar
 
       7. Full list with comments: server/.env.example in the repo
 

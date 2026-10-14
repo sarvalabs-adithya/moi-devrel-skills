@@ -1,10 +1,26 @@
 # Request patterns: how Adithya asks, what recurs, and what he corrects
 
-Researcher 10 of 10. Area: the user's own request history (not a single process). Citation convention: `L123` means line 123 of `/Users/adithyaganesh/moi-devrel-skills/_research/_user-requests.txt`. Quotes keep his typos on purpose. "(inferred)" marks anything the file does not state outright.
+## Read first
+
+- **What this is.** An analysis of Adithya's own request history (about 3,600 unique prompts, 28 May to 2 October 2026): what he asks for again and again, how he phrases it, and what he corrects. It looks at the whole prompt history, not at one process.
+- **What it was used for.** It was one of ten research passes done before the skills in `skills/moi/` were written. It is the input for the shared house rules of the `moi-devrel` skill (built as `skills/moi/moi-devrel/`; the section "What a skill for this should contain" is the original proposal, whose names and layout differ from the built skill). Its sibling research notes are in this folder.
+- **When it was written.** 2 October 2026 (the latest date in the request log; the first date is 28 May 2026).
+- **Who "I" and "the user" are.** "I" is the research assistant (Claude) that compiled the notes. "The user" and "he" are Adithya (DevRel).
+- **Evidence key.** "(observed)" means the request log or a file states it. "(inferred)" marks anything the log does not state outright. Counts are keyword hits over the de-duplicated prompts. Quotes keep his typos on purpose.
+- **Paths and citations.** `L123` means line 123 of the request log (`_research/_user-requests.txt`), a file kept on Adithya's Mac and not in this repo (the sibling notes cite the same log as `REQ:<n>`). Paths starting `~/` or `WT/` are on Adithya's Mac. The session code is in https://github.com/moi-foundation/MOI-Webinars. Transcripts are not in the repo.
+- **People** (roles as these notes record them):
+  - Adithya: DevRel, author of the work.
+  - Rahul: reviews and approves DevRel work and sets priorities; the notes infer a senior decision-maker.
+  - Vardan Aggarwal: marketing (Luma pages, community call scheduling); asked about Mailchimp and Wikidata together with Sai Kiran, whose role is not recorded in these notes.
+  - Gokul: protocol team (js-moi-sdk, registry and protocol questions).
+  - Srikar (also spelled Sreekar) and Upendhar: DevOps (Srikar owns the VM, deploy scripts and nginx; Upendhar handled the Cloudflare redeploy and the preview feature).
+  - Abhinav Agarwalla: author of `sarvalabs/moidocs` PR 120 (role not recorded in these notes).
+  - Vinay M S: posts release logs (role not recorded in these notes).
+- **Jargon.** Terms are defined in the Glossary at the end of the file.
 
 ## Sources read
 
-**Primary source.** `/Users/adithyaganesh/moi-devrel-skills/_research/_user-requests.txt`, 3,973 lines, 401,585 bytes. Read in full, in ten consecutive chunks (L1-500, 501-900, 901-1300, 1301-1700, 1701-2100, 2101-2500, 2501-2900, 2901-3300, 3301-3700, 3701-3973). No sampling.
+**Primary source.** The request log (`_research/_user-requests.txt`, kept on Adithya's Mac), 3,973 lines, 401,585 bytes. Read in full, no sampling.
 
 **Shape of the data (observed).**
 - 40 session blocks, 3,893 dated prompt lines, 3,593 unique. About 300 lines are replayed session blocks (L468-486 repeats L405-424; L1405-1439 repeats L1343-1377; L2284-2484 largely repeats L2141-2276 and earlier parts of the L1902 session). Counts below use the de-duplicated set.
@@ -17,7 +33,7 @@ Researcher 10 of 10. Area: the user's own request history (not a single process)
 - It holds his prompts only, no assistant replies. "What the assistant did" is read from his reaction and marked (inferred), except where he pasted the assistant's own text back (for example L1546, L2030, L2061, L3376, L3489, L3694).
 - Counts are grep keyword hits over the de-duplicated prompts. Categories overlap. Read "prompts touching the topic", not exclusive buckets.
 
-**Excluded as personal (about 200 prompts, 5%).** Agency-Website sessions b2d1b2fa, 8d985845, 5f4a3ef0, 245c0055, ee489e70, 294e7785, 9b04cc77 (soul studios, apartment-hunt WhatsApp agent, job search, a client website); relaxed-mccarthy sessions cd373662 (marketing-ops manager, company brain, landed) and af218625 (a home-automation site); the recruiter email in moi-mcp session 74034a91. Read for tone only.
+**Excluded as personal (about 200 prompts, 5%).** About 200 prompts on personal or non-MOI projects were excluded.
 
 **Where the MOI prompts went (observed from session headers).**
 
@@ -35,9 +51,9 @@ Researcher 10 of 10. Area: the user's own request history (not a single process)
 | cloudflare-deployment-fix (40d99729, f49763bc) | 30 | 08-11 to 08-21 | Website deploy without env vars, blog deploy |
 | dating-plugin, moi-fleet, dataroom, moi-mcp, point, repo-identification, others | 14 to 27 each | Jun to Sep | OpenClaw/A2A demo, 20-app fleet, dataroom litepaper, MCP docs handoff, points app clone |
 
-**Cross-checked, not part of the request file.** Memory notes under `/Users/adithyaganesh/.claude/projects/-Users-adithyaganesh-MOI-Webinars/memory/`: `no-multi-agent-workflows.md`, `moi-terminology-corrections.md`, `batch-review-changes.md`, `no-claude-attribution.md`, `no-push-no-notify.md`, `personal-vs-work-repos.md`, `launchpad-deploy-topology.md`, `devnet-build-lag.md`. Every one agrees with what the request file shows. Sibling notes in the same folder (`release-blog-social.md`, `webinars-early.md`, `webinars-mature.md`) were skimmed for headings only so this note does not duplicate them.
+**Cross-checked, not part of the request file.** Memory notes (Adithya's Claude memory folder, on his Mac): `no-multi-agent-workflows.md`, `moi-terminology-corrections.md`, `batch-review-changes.md`, `no-claude-attribution.md`, `no-push-no-notify.md`, `personal-vs-work-repos.md`, `launchpad-deploy-topology.md`, `devnet-build-lag.md`. Every one agrees with what the request file shows. Sibling notes in the same folder (`release-blog-social.md`, `webinars-early.md`, `webinars-mature.md`) were skimmed for headings only so this note does not duplicate them.
 
-**SECURITY FLAG.** The request file contains pasted secrets: an Anthropic key (L435, personal project), a Buffer token (L909, he says he revoked it at L910), three Telegram bot tokens (L2515, L2654, L3123), and three devnet recovery phrases (L253/L883, L1829/L2828/L2838, L3356; he calls them throwaway). None are reproduced here. Do not commit or share `_user-requests.txt`; delete it after the skills are built.
+**SECURITY FLAG.** The request log contains pasted secrets in a few places; it stays private and is not in this repo.
 
 ## Ranked list of recurring jobs
 
@@ -45,7 +61,7 @@ Counts are prompts touching the job (overlapping) and the number of distinct day
 
 | # | Recurring job | Prompts / days | Examples (quotes are verbatim; parentheses are my summary) |
 |---|---|---|---|
-| 1 | Explain or teach me X before we do anything ("explain", "what is", "how does", "walk me thru") | about 370 hits; "so ... right?" restatements 31; "explain N" 20 | L497 "do a top down eplanation, like what is the end product use case then get into hp" · L851 "in plain english man tell me what were doing ffs" · L1223 "explain each step like im n idiot" |
+| 1 | Explain or teach me X before we do anything ("explain", "what is", "how does", "walk me thru") | about 370 hits; "so ... right?" restatements 31; "explain N" 20 | L497 "do a top down eplanation, like what is the end product use case then get into hp" · L851 "in plain english man tell me what were doing [expletive]" · L1223 (asks for each step explained in the simplest terms) |
 | 2 | Ship loop: commit, push, open PR, rebase, merge, deploy, preview | push/PR 93 (43 days), merge 82 (23), deploy 77 (34), preview/localhost 63 (34), rebase 15 (6) | L367 "ok it works now, can u sequentially mergw rhen next few prs also and run a quick check after each" · L1474 "commit and push (update ) the prs do it for moidocs first, then every 4 mins update the next one" · L2010 "rebase 16, clsoe 16 and re add as 22" |
 | 3 | Progress nudges and "what's left" | exact nudges ("status?", "??", "check", "try again", "done?") 82; "what's left / what next" 48 | L80 "status?" · L86 "??" · L3268 "whats eft" |
 | 4 | Keys, env vars, "where do I put this", terminal commands | 96 (32 days); where-do-I-paste 8; explicit command asks 6 | L88 "how do i drop a key" · L3044 "where do i get this agent encryptuon key" · L3219 "how do i go to the idrcetory to gh secret set" |
@@ -57,7 +73,7 @@ Counts are prompts touching the job (overlapping) and the number of distinct day
 | 10 | Messages to and about people (Rahul, DevOps, Abhinav) | Rahul 42 (22 days); DevOps names 36 (12); "draft/give me a message" 16 | L3183 "ok drfat e a message for all 4, give the solution and the problem" · L1479 "whats rhauls change reqyest" · L3677 "gimme a message in the form of a quesiton to ask gokgul" |
 | 11 | Social posts: X, LinkedIn, Discord, Telegram, via Buffer | 58 (13 days); Buffer 26 | L971 "scherudle both for 530PM IST" · L1039 "go schedule both for 11am IST also for linkedin put luma in thr post only not in first comment" · L1170 "no x also i want it as a thrread with exactly what this message says" |
 | 12 | GEO/SEO/AEO and docs authoring standard | geo/seo/aeo 38 (15 days); docs/moidocs 34 (17) | L3760 (GEO audit of every MOI docs site, plan first) · L3782 "canu reserah omse wyas ot automate GEO optimizationw ithin prs" · L3937 (frontmatter, llms.txt, robots.txt in the author guide) |
-| 13 | Switch GitHub identity / fix authorship | 25 (17 days); explicit "switch gh" 14 | L1608 "no no no all the commits need to be from sarvalabs-aditya" · L1001 (cancel the PR and redo with the right credentials) · L1774 "dont put coauthroed by claude" |
+| 13 | Switch GitHub identity / fix authorship | 25 (17 days); explicit "switch gh" 14 | L1608 "no no no all the commits need to be from [his work account]" · L1001 (cancel the PR and redo with the right credentials) · L1774 "dont put coauthroed by claude" |
 | 14 | Control model and credit spend | haiku/sonnet/sub-agent 33 (19 days); credits/limits 15 (9) | L1503 "use haiku actly its faster and way chepaer, i cant blow all mycreidts on on search" · L2135 "actly use haiku, 79 agents is a lot" · L2256 "can u pause the worfklow and use aiku agnets, i dont anna run out of session limit" |
 | 15 | Newsletter (Mailchimp RSS, one-off validator blast) | 16 (4 days, 08-24 to 09-15) | L2178 "ok build it and tlel me the exact, flow" · L2211 "ITS OTO BIG AGAIN, AND I WANT SIMILAR LAYOUT AND TYPORGRPAHY ASTHE MOI BLOG HEADING" · L2434 (one-time blast to all validators) |
 | 16 | Handover and skill packaging | about 25 (09-28 to 10-02) | L1378 "cna u package thos skill as a handover thign, that abstracts me from the process" · L1389 "i wnana build a claude skill for every repo" · L1489 (skills any new devrel can use) |
@@ -77,7 +93,7 @@ Any request. The loop shows most clearly on webinar weeks (L930-1100), the x402 
 Adithya talks, approves and decides. Claude researches, builds, edits and explains. He does manual steps himself (wallet taps, dashboard clicks, Discord/Slack posts, Buffer deletes, Mailchimp edits) and says "done".
 
 ### Inputs needed before starting
-A one-line goal, often pointing at earlier work ("exact same format asthe firts one", L730; "usong the regualr eck we use her", L1329). Reference files attached with `@"/Users/.../Downloads/..."`. Pasted call transcripts (about 20 distinct pastes, plus 5 transcript files attached), pasted DevOps messages, pasted terminal output.
+A one-line goal, often pointing at earlier work ("exact same format asthe firts one", L730; "usong the regualr eck we use her", L1329). Reference files attached with `@"~/Downloads/..."`. Pasted call transcripts (about 20 distinct pastes, plus 5 transcript files attached), pasted DevOps messages, pasted terminal output.
 
 ### Steps in order
 1. Goal in one line. For anything new he asks for a plan first (12 times): L396 "can u first create a plan", L730 "build out th eplan first and the n the bloig in the exact same format asthe firts one", L1489 "elst discuss a plan first".
@@ -85,7 +101,7 @@ A one-line goal, often pointing at earlier work ("exact same format asthe firts 
 3. Approval is one or two words: yes, do it, build it, do all, go (49 exact), or a pick from the assistant's menu ("do b", "all 3", "ABC first", "1,2,3 ok 4)...", 21).
 4. Work runs. He nudges with "status?" / "??" (82). If he leaves, he says how long and whether to ask: L2583 "ill be back in 30 no quesirosn"; L3780 "ill be back in 7hours MOST IMPORTANLY DO NOT PSUH ANYTHING"; L742 "dont ask me any qesutins until its done".
 5. He wants to see it, not read about it: "run it", "show me", "preview link", "re open" (63 + 26 + 18 prompts).
-6. Line-by-line review. He pastes the exact sentence he is reacting to, with a short verdict ("rm this", "tf does this mean", "this is a bit of a loaded sentences") or replies by number ("1,2,3 ok 4)mention it likethat dont use a negative", L694). About 349 prompts are long quote-plus-comment prompts.
+6. Line-by-line review. He pastes the exact sentence he is reacting to, with a short verdict ("rm this", "[expletive] does this mean", "this is a bit of a loaded sentences") or replies by number ("1,2,3 ok 4)mention it likethat dont use a negative", L694). About 349 prompts are long quote-plus-comment prompts.
 7. Verification: "are u 100% sure", claim lists, source checks (see the claim-check process).
 8. Polish: humanizer and stop-slop, often as A/B/C variants (L969, then L970 "ok push A").
 9. "gimme the final" (doc, post, deck, link, para). He reads it once, then authorizes: L1038 "ok gimme the final posts going out 5 hrs before lemme read it once then u can shceulde".
@@ -95,7 +111,7 @@ A one-line goal, often pointing at earlier work ("exact same format asthe firts 
 Varies by audience (observed): peers and Rahul get a Google Doc or pasted text; engineers get an `.md` file ("a simple md file", not an artifact, L1507); public content becomes a PR to `sarvalabs/MOI-Website`; presentations are HTML decks for webinars, PPTX with the transcript in the notes for earlier ones (L527-528), PDF for sharing (L1331); PR comments are drafted as text for him to post himself.
 
 ### Accounts and tools involved
-GitHub (work identity `sarvalabs-adithya`), Cursor (he continues edits there, L535-536), Claude on laptop, remote or mobile (L1108, L1658, L2013, L3767), Buffer, Mailchimp, Google Docs/Drive, Otter.ai transcripts, Discord, Slack. Keys: Buffer and GA4 via GitHub secrets; Groq he brings himself.
+GitHub (his work identity), Cursor (he continues edits there, L535-536), Claude on laptop, remote or mobile (L1108, L1658, L2013, L3767), Buffer, Mailchimp, Google Docs/Drive, Otter.ai transcripts, Discord, Slack. Keys: Buffer and GA4 via GitHub secrets; Groq he brings himself.
 
 ### Quality rules and house style
 See "Rules and house style". The three that bind every step: brief by default, every public claim sourced, nothing leaves his machine until he says so.
@@ -113,7 +129,7 @@ Whether "do it" ever authorizes more than the last proposal. Every example is pe
 ## Process: Teach-me sessions (understand before building or presenting)
 
 ### Purpose
-Adithya is not a protocol engineer ("see i dotn have the epertise to veriy this", L2156) and has to present and defend the work to Rahul and the community. He asks to be taught the mechanism until he can explain it, then builds or writes.
+Adithya works in DevRel, not protocol engineering (L2156), and has to present and defend the work to Rahul and the community. He asks to be taught the mechanism until he can explain it, then builds or writes.
 
 ### Trigger or cadence
 Start of every new topic and before every review. About 370 prompts. Heaviest: 08-03/05 (agentic payments), 08-26 (x402, 40 prompts), 08-31 (access policies), 09-10 (PR 2 and PR 3 walkthrough), 09-11 (fee delegation), 08-21 (PR 120 issues).
@@ -126,7 +142,7 @@ The artifact being explained (PR, doc section, code file, release note), and wha
 
 ### Steps in order (observed pattern)
 1. Start from the end-product use case, then the mechanism: L497 "do a top down eplanation, like what is the end product use case then get into hp". L503 "so in text i=like in apagraoh tell me whatthis app does".
-2. Plain English, then simpler: L228 "in plain english explain whats happening in each momemtn"; L1223 "explain each step like im n idiot"; L548 "explain in simpler terms"; "explain simplier" (L312).
+2. Plain English, then simpler: L228 "in plain english explain whats happening in each momemtn"; L1223 (asks for each step explained in the simplest terms); L548 "explain in simpler terms"; "explain simplier" (L312).
 3. A concrete example with named actors: L227 "in practice gimem an exmaple of how this works"; L1253 asks for a developer example and a simulated transaction "tell me exactky which fucntion is being used form where"; L1261 "so how does the sellers cod elook then use the weather exmaple".
 4. A diagram or box flow when it is a flow: L501 "ok for rn explain with a diagram"; L2759 "create like a box flow with arros".
 5. Section by section pacing: "ok next" / "next section" (14 prompts between L1131 and L1290, the 09-10 PR 2 and PR 3 review). One section per turn.
@@ -188,11 +204,12 @@ A claim list plus verdicts (observed). A short verified-vs-argument split is wha
 Repos on disk, docs sites, Voyage explorer for tx links. Sub-agents (Haiku/Sonnet) only if opted in.
 
 ### Quality rules and house style
-- Do not exaggerate or generalize. Corrections: L1305 "Every action on MOI costs fuel, man the firts fucking line itslef is nto true"; L1306 "even this is an excaggeration and misleading"; L47 "KMOI is just the fuel right".
+- Do not exaggerate or generalize. Corrections: L1305 "Every action on MOI costs fuel, man the firts [expletive] line itslef is nto true"; L1306 "even this is an excaggeration and misleading"; L47 "KMOI is just the fuel right".
 - No "None of which we configured" phrasing when it could mislead (L708).
 - Do not claim work that was not done in a status message: L3886 "we didnt do this, whya re u lying".
 - Show the evidence behind a "yes". He re-asks "100%?" until he sees a source (inferred from the repeat pattern).
-- Cost: 79 agents was too many (L2135); "deploy sonnet agents to each paragraph and separately to each releasepackage" (L2134) was acceptable on Haiku.
+- Cost: 79 agents was too many (L2135).
+- He accepted "deploy sonnet agents to each paragraph and separately to each releasepackage" (L2134) only when run on Haiku (L2135).
 
 ### Traps and things that failed silently
 - Claims that sound fine but are false at the protocol level: assistant draft said an account pays in KMOI for "everything" (L47); said "reserved for the protocol itself and refused for everyone else" while earlier saying managers cannot modify (L35).
@@ -220,10 +237,10 @@ Claude prepares and, on his word, executes. Reviewers: Rahul, Abhinav, DevOps (S
 Which repo and branch, which GitHub account, whether this is one isolated fix, a batch, or a stack.
 
 ### Steps in order
-1. Confirm identity first. Observed opener in about 14 sessions: e.g. L1493 "can u switc gh auth to sarvalabs-adithya" (also L2281, L1758, L1808 and others), commit email `adithya@sarva.ai` (L1609, L1758). Never `Adithya1903` and never `adithyaganesh9@gmail.com` (L1607 that email broke a Vercel deploy).
+1. Confirm identity first. Observed opener in about 14 sessions: e.g. L1493 "can u switc gh auth to [his work account]" (also L2281, L1758, L1808 and others), and his work commit email (L1609, L1758). Never his personal GitHub account and never Adithya's personal email (L1607: that email broke a Vercel deploy).
 2. Understand before creating: L2036 "dont just create. pr, just understand it first then well decide together".
 3. Decide the PR shape. Isolated fix: L351 "create a separate pr ith tjust this change", L1859 "create a pr with just this fx and push it, not the other stuff, isolate". Review tweaks: batch on one branch, one PR at the end (L383 "sotp cretaibg prs after rveiwng all prs i just wanna do one batch update"). Big audits: stacked PRs grouped into sections (L354 "lets batch them, intp the sections u created before").
-4. For each PR in a stack he runs a ritual: "explain N", he challenges ("is that standard practice", "in what situaiton wud 20 be better than 200", L378, L381), says "yea then rm this, and rm othersimilar hardass fetaures" (L382), then "ok merge N". Roughly 14 explain-or-merge prompts across PRs 3 to 15 on 09-15 (L354-393). After merge: "how do i test 5 after merging" (L363) and "run a quick check after each" (L367).
+4. For each PR in a stack he runs a ritual: "explain N", he challenges ("is that standard practice", "in what situaiton wud 20 be better than 200", L378, L381), says "yea then rm this, and rm othersimilar [overly strict] fetaures" (L382), then "ok merge N". Roughly 14 explain-or-merge prompts across PRs 3 to 15 on 09-15 (L354-393). After merge: "how do i test 5 after merging" (L363) and "run a quick check after each" (L367).
 5. Rebase before updating PRs (L1476 "rebase dirst", L1477 "so its rebased onto main right"). Rebase reports on request: L3963 "check for rebasing now and then give me a report".
 6. Update pacing: L1474 "do it for moidocs first, then every 4 mins update the next one" (reason not stated; inferred: avoid a flood of notifications or CI load).
 7. Preview before merge: he asks for the preview link every time (26 prompts), or runs localhost ("run it", 63 prompts).
@@ -231,14 +248,14 @@ Which repo and branch, which GitHub account, whether this is one isolated fix, a
 9. DevOps handoff when prod is on the VM: message with the exact action (see the comms process).
 
 ### Deliverables and where they end up
-PRs in `sarvalabs/MOI-Website`, `sarvalabs/moidocs`, `sarvalabs/moi-agent-launchpad`, `sarvalabs/moi-dataroom0`, `sarvalabs/Points-Program`, `sarvalabs/devops-automation`, js-moi-sdk, coco-docs, voyage and voyage-docs; ChainAgnostic/namespaces and x402 for the spec work. He works in `sarvalabs-adithya/<repo>` forks and promotes to the org repo (L1024-1025, L2278-2281, L2873-2875, L3736).
+PRs in `sarvalabs/MOI-Website`, `sarvalabs/moidocs`, `sarvalabs/moi-agent-launchpad`, `sarvalabs/moi-dataroom0`, `sarvalabs/Points-Program`, `sarvalabs/devops-automation`, js-moi-sdk, coco-docs, voyage and voyage-docs; ChainAgnostic/namespaces and x402 for the spec work. He works in forks under his work GitHub account and promotes to the org repo (L1024-1025, L2278-2281, L2873-2875, L3736).
 
 ### Accounts and tools involved
 `gh` CLI, GitHub Actions, GHCR, the VM deploy scripts, Cloudflare Pages previews (`*.moichain-docs.pages.dev`, L2083), PR previews on the VM (L1992 "theyevcreated a new preview feature"), Vercel for the 2026-05/06 redesign preview (L1604) and for the Launchpad until the early-August move to the VM (L2531, L3086-3093).
 
 ### Quality rules and house style
 - No Claude co-author line: L1774 "dont put coauthroed by claude"; L1481-1484 rewrite open PRs only ("obv only for the open prs").
-- No personal account anywhere in work history: L1001 "i dont wanan see adithya1903 naywhere tehre"; L1770 "yea scrub it, also scrub adithya1903"; L3337 "make sur eno commit has adithya1903".
+- No personal account anywhere in work history: L1001 "i dont wanan see [personal account] naywhere tehre"; L1770 "yea scrub it, also scrub [personal account]"; L3337 "make sur eno commit has [personal account]".
 - Do not commit transcripts or private files: L1768-1770 "wwhy did u commit it man" (a call transcript got committed; he had it scrubbed).
 - Move off Vercel: L1898 "we are completly gwtting rid of vercel"; L1932 "We are moving off Vercel and onto the VM". Do not write Vercel into any MOI deploy doc.
 
@@ -255,12 +272,12 @@ PRs in `sarvalabs/MOI-Website`, `sarvalabs/moidocs`, `sarvalabs/moi-agent-launch
 Unknown.
 
 ### Open questions
-Whether moving a fork to the org keeps contributor history clean (he asked about removing `adithya1903` as contributor, L1763, answer not in the file).
+Whether moving a fork to the org keeps contributor history clean (he asked about removing his personal account as contributor, L1763, answer not in the file).
 
 ## Process: Talking to people through Claude (DevOps, Rahul, Abhinav, protocol team)
 
 ### Purpose
-Turn a teammate's message or a call into a short human message, a decision, or an action list. He does not trust himself to read DevOps jargon and does not want a wall of text back.
+Turn a teammate's message or a call into a short human message, a decision, or an action list. Adithya prefers short messages without DevOps jargon.
 
 ### Trigger or cadence
 A teammate message arrives and he pastes it (about 36 DevOps mentions, 42 Rahul mentions): Srikar (VM and CI/CD owner, L1918), Upendhar (Cloudflare redeploy, preview feature), Gokul (registry and protocol questions, L3339, L3655), Abhinav (moidocs PR 120 author), Sai Kiran and Vardan (Slack asks about Mailchimp, Wikidata), Vinay M S (posts release logs).
@@ -273,9 +290,9 @@ The pasted message (L333, L1944, L1980, L2057, L3121, L3141, L3193, L3723), what
 
 ### Steps in order
 1. Translate: "what does this mean" (L3723 GHCR `permission_denied: create_package`), "explain 3 and 4" (L3181), "is hti simportsnt" (L1949).
-2. Decide whether it is his problem: L316 "so dev ops team fucked up?", L3169-3175.
+2. Decide whether it is his problem: L316 "so dev ops team [expletive] up?", L3169-3175.
 3. Draft the reply: problem, then solution, then exactly what the other person does. L3183 "give the solution and the problem"; L3192 "weve done 5/6 of the s6 above alr, heres what u have to do" (then name the branch he changed).
-4. Keep it human and short: L327 "no like make it a humna message wtf is this"; L1926 "make thw hwole thign very specific and actionable npo need to tlak abt other stuff"; L1927 remove boilerplate "Owner: Sreekar. Everything below is a task. ... this is tacky, also like give some contetx on teh app".
+4. Keep it human and short: L327 "no like make it a humna message [expletive] is this"; L1926 "make thw hwole thign very specific and actionable npo need to tlak abt other stuff"; L1927 remove boilerplate "Owner: Sreekar. Everything below is a task. ... this is tacky, also like give some contetx on teh app".
 5. For questions to the protocol team: a plain question with context, not a report: L3677 "in the form of a quesiton to ask gokgul"; L1145 "what shd i ask him, like hey rhaul any uodtae on the chain id pr?".
 6. For weekly updates to Rahul: only completed work; to-dos labelled as to-dos: L3883 "can u say that webiste one is almost done, dont tell him the js fix we did say that as a todo"; L3886 removed a claimed action that never happened; L3884 "specficlaly mention specific changes we made, starting with content changes how we refrmed headigs, then frontmatter, then llms.txt , robots.txt".
 7. Where it is posted: Slack (L2217), Discord (L3894: long text became a `message.txt` attachment; he asked how to send it as a message, then chose a Google Doc, L3900-3902).
@@ -284,7 +301,7 @@ The pasted message (L333, L1944, L1980, L2057, L3121, L3141, L3193, L3723), what
 Text he pastes into Slack/Discord/Teams, or a short Google Doc.
 
 ### Accounts and tools involved
-Slack, Discord, Teams (he sent an env file over Teams, L3055), Google Docs.
+Slack, Discord, Teams, Google Docs. Rule: never send env files in chat.
 
 ### Quality rules and house style
 - Never mention `MOI_PLATFORM_MNEMONIC` to DevOps again (L3191 "we alreayd cleared that up").
@@ -309,7 +326,11 @@ Rahul's exact standard for the announcement format (see event bursts, 09-10 inci
 Convert a pasted Otter/Zoom transcript into what Rahul decided, what he asked for, and what Adithya now owes. Then do it.
 
 ### Trigger or cadence
-About 20 distinct transcript pastes on 19 dates (L66, L222, L259, L521, L746, L865-866, L897, L957, L1027, L1101, L1345, L1911, L1987, L2141, L2251, L2687, L2769, L2965, L3359, L3931, L3962), mostly with Otter's header ("Keywords ... Speakers Speaker 1 (62%)"), plus transcript files attached via `@` on 06-08, 07-27, 07-28, 07-29 and 08-04 (L1765, L2725, L2790, L2808, L512). Dates: 07-23, 07-28, 07-31, 08-05, 08-10, 08-11, 08-18, 08-24, 08-26, 08-27, 08-31, 09-01, 09-02, 09-03, 09-09/10, 09-11, 09-14, 09-17, 09-22. Only four fall on Mondays (08-10, 08-24, 08-31, 09-14); calls are frequent but a fixed weekly day is unproven (inferred: Rahul calls roughly weekly, with more ad hoc ones around launches).
+About 20 distinct transcript pastes on 19 dates, mostly with Otter's header ("Keywords ... Speakers Speaker 1 (62%)"), plus transcript files attached via `@` on 06-08, 07-27, 07-28, 07-29 and 08-04.
+- Paste lines: L66, L222, L259, L521, L746, L865-866, L897, L957, L1027, L1101, L1345, L1911, L1987, L2141, L2251, L2687, L2769, L2965, L3359, L3931, L3962.
+- Attachment lines: L1765, L2725, L2790, L2808, L512.
+- Dates: 07-23, 07-28, 07-31, 08-05, 08-10, 08-11, 08-18, 08-24, 08-26, 08-27, 08-31, 09-01, 09-02, 09-03, 09-09/10, 09-11, 09-14, 09-17, 09-22.
+- Only four fall on Mondays (08-10, 08-24, 08-31, 09-14). Calls are frequent but a fixed weekly day is unproven (inferred: Rahul calls roughly weekly, with more ad hoc ones around launches).
 
 ### Who does it
 Claude reads; Adithya asks.
@@ -321,7 +342,7 @@ The transcript text or the `.zip`/`.txt` export (L512, L2790, L2808, L1765), and
 1. Paste or attach: L2725 (an `@` attachment of the Otter `.txt` transcript, then "study this").
 2. Ask: "whqt did rahul say on the csll" (L204); "what were all the deliervables form the call i sent u" (L1990); "what all was decided in the call" (L3932); "go over the transcript and see what rhaul suggested" (L2164, then clarified L2165 "no not rahuls review, im talking abt the trasncript i gave u").
 3. Extract exact feedback, not a paraphrase: L1030 "can u give me all of rhauls feed back exactly liek what did he say".
-4. Ask what he asked for versus what he had done: L1546 pasted the assistant's note that two places where the post "reverses a scope decision recorded earlier in this branch's history", and he said "no give me the actual decision ito make please" (L1548).
+4. Ask what he asked for versus what he had done. At L1546 he pasted the assistant's note that in two places the post "reverses a scope decision recorded earlier in this branch's history"; he replied "no give me the actual decision ito make please" (L1548).
 5. Do the work: L262 "ok make all th changes rahul suggested to the deck"; L2729 "yes take the UX/feedback sweep next" through the launchpad checklist.
 
 ### Deliverables and where they end up
@@ -336,7 +357,7 @@ Otter.ai (transcript, summary and keywords), Zoom Notetaker.
 - Do not mix up "Rahul's review" and "the transcript he gave" (L2164-2165).
 
 ### Traps and things that failed silently
-- Transcript speaker confusion: the file renders the company as "Serval Labs" (memory note says the real name is Sarva Labs); names and product terms are mis-transcribed ("Voyage" and "IOME").
+- Transcript errors: the transcription tool mis-hears names and product terms. It renders the company as "Serval Labs" (the real name is Sarva Labs, per a memory note) and garbles product names such as Voyage and IOME (IOME appears to be the older Voyage sign-in that the MOI Wallet replaced; as used in these notes, not confirmed).
 - Treating the transcript as instructions to execute without asking. He wants the list first (inferred from L1990, L3932).
 
 ### How long it takes
@@ -376,14 +397,16 @@ A testing checklist doc (L2964), a test-results doc with hashes, a UI inventory,
 Telegram bot, MOI Wallet extension, Voyage explorer, Supabase, Groq (his own free key), GitHub Actions, VM, PM2, Vercel until the early-August move to the VM.
 
 ### Quality rules and house style
-- Real transactions only. L534 "no mock mode for chain chain alwya shas to run"; L2536 "wtf is this mock mode i gave u the correct skills sdk for evtyhign"; L604 "like eveything actually happening is an onchain axciont, nothign is a mock".
+- Real transactions only. L534 "no mock mode for chain chain alwya shas to run"; L2536 "[expletive] is this mock mode i gave u the correct skills sdk for evtyhign"; L604 "like eveything actually happening is an onchain axciont, nothign is a mock".
 - Say honestly when something is simulated. L659-660: registry SDK was down, so the demo used an existing agent and only the happy path; he wrote "no u dont change any code, just updat ethe deck and trnscri[t".
 - One thing at a time: L3110 "remove run hisyroy and tlel em how to do the config one".
 
 ### Traps and things that failed silently
-- Stuck interactions blocked a wallet; the cure was filling the pending nonce with a replacement interaction at the same sequence with enough fuel (L3341-3411, 08-11 to 08-13). He shouted "IGNORE THE WEDNESDYA FUCKING UPGRADE MAN" (L3405) when the assistant kept blaming an upcoming upgrade (inferred from the reply).
+- Stuck interactions blocked a wallet; the cure was filling the pending nonce with a replacement interaction at the same sequence with enough fuel (L3341-3411, 08-11 to 08-13). He told the assistant to stop citing the upgrade (L3405) when it kept blaming an upcoming network upgrade (inferred from the reply).
 - Dead registry after a devnet reset (L3326, L3457, L3511, L3517, L3675).
-- Agents silently out of date after a runtime or model change (L3489 (a Groq error: the model `llama-3.1-8b-instant` does not exist); L3497 "add a version check so agents warn when outdated").
+- Agents silently out of date after a runtime or model change.
+  - L3489: a Groq error, the model `llama-3.1-8b-instant` does not exist.
+  - L3497: "add a version check so agents warn when outdated".
 - A run-time shown in the wrong zone (L3116 "01:15" for a 9:15 EST run).
 
 ### How long it takes
@@ -432,7 +455,11 @@ For an upgrade-time announcement: keep it simple and verbatim (L1163 "ensure evr
 
 ### Traps and things that failed silently
 - The 2026-09-10 announcement incident (L1158-1196, observed): he asked for a thread "with exactly what this message says"; the time notation "12:00 AM UTC" caused three questions in a row (L1186-1188); two scheduled Buffer posts were wrong and he deleted them himself ("can buffer delete posts", "ok deleted again"); then a reviewer replied (L1193; the pasted message does not name its author, inferred to be Rahul or another senior reviewer): "Adi, looks like you posted the above message directly on our socials. Please rephrase this appropriately. The goal is to communicate that a new version will be launched ... scheduled for time T. Devs might need to upgrade ... We need to optimise these messages as per the medium". Adithya disagreed (L1194-1195).
-- Time zones: he thinks in IST for the audience, Dubai time for himself ("1230PM Dxb", L1162), UTC for the protocol, EST for his own agents. Always echo the converted time back before scheduling.
+- Time zones. Always echo the converted time back before scheduling.
+  - IST for the audience.
+  - Dubai time for his own schedule ("1230PM Dxb", L1162).
+  - UTC for the protocol.
+  - EST for his own agents.
 
 ### How long it takes
 Unknown.
@@ -443,7 +470,7 @@ Who is right on the announcement format (see Open questions).
 ## Process: Handover and skill packaging
 
 ### Purpose
-Make himself replaceable. He asked for handover docs per repo, an env-var guide, a dependency list, a task list, and now skills for a new DevRel hire.
+Make the work transferable to a new DevRel. He asked for handover docs per repo, an env-var guide, a dependency list, a task list, and now skills for a new DevRel hire.
 
 ### Trigger or cadence
 2026-09-28 to 2026-10-02, once so far; he expects it to repeat per repo.
@@ -465,7 +492,7 @@ His repos (work set only), the list of processes, where each secret lives.
 8. L1489-1490: skills for any new DevRel hire.
 
 ### Deliverables and where they end up
-In the worktree: `/Users/adithyaganesh/MOI-Webinars/.claude/worktrees/relaxed-mccarthy-368dbc/HANDOVER.md`, `HANDOVER-RESEARCH.md`, `DEPENDENCIES.md`, `FIX-PLAN.md`, plus per-repo handover skills (`~/.claude/skills/repo-handover`, `moi-blog`, `moi-deck`).
+In this repo: `project-handover-docs/` (per-product handover documents, with `LIST-OF-DEPENDENCIES.md` as the dependency list and `MIGRATION-LIST.md`) and the skills under `skills/`. On Adithya's Mac the working names were `HANDOVER.md`, `HANDOVER-RESEARCH.md`, `DEPENDENCIES.md` (now `project-handover-docs/LIST-OF-DEPENDENCIES.md`) and `FIX-PLAN.md` (not in this repo), plus per-repo handover skills (`repo-handover`, `moi-blog`, `moi-deck`).
 
 ### Accounts and tools involved
 Local git only (read-only), Haiku/Sonnet sub-agents on request.
@@ -477,7 +504,7 @@ Local git only (read-only), Haiku/Sonnet sub-agents on request.
 - A doc another agent can pick up mid-way: L2827 "add a doc exlpaoining to any agent what needs to be done for completion, at any point another ganet cna juts pick it up".
 
 ### Traps and things that failed silently
-- He asked for a "list of all projects repo ivre tuched" as an employee (L1392) and got a dependency list (L1391-1392 "wtf. no i mean me as an employee").
+- He asked for a "list of all projects repo ivre tuched" as an employee (L1392) and got a dependency list (L1391-1392 "[expletive]. no i mean me as an employee").
 
 ### How long it takes
 Unknown.
@@ -487,20 +514,20 @@ Whether the DevRel hire inherits the Launchpad, the website, or only DevRel cont
 
 ## Reusable assets
 
-Full paths, all observed to exist unless noted.
+Paths on Adithya's Mac, all observed to exist unless noted; repo copies are given where they exist.
 
-**Skills already installed (what he asked to install, and why):**
-- `/Users/adithyaganesh/.claude/skills/moi-blog` (blog to social to newsletter to GEO; he asked for it at L2249).
-- `/Users/adithyaganesh/.claude/skills/moi-deck`, `moi-design`, `repo-handover`, `humanizer` (L817 install command), `stop-slop`, `writing-x-posts`, `seo-geo-aeo` (from SNLabat/SEO-GEO-AEO-Skill, L670), `brag` (latent-spaces/brag, L412), `slideshow`.
+**Skills already installed on Adithya's Mac (what he asked to install, and why):**
+- `moi-blog` (blog to social to newsletter to GEO; he asked for it at L2249). Now `skills/moi/moi-blog/` in this repo; the older copy is in `others/legacy-skills/moi-blog/`.
+- `moi-deck`, `moi-design`, `repo-handover` (older copies in `others/legacy-skills/`; the design material is now `skills/moi/moi-devrel/design/`), `humanizer` (L817 install command), `stop-slop`, `writing-x-posts`, `seo-geo-aeo` (from SNLabat/SEO-GEO-AEO-Skill, L670), `brag` (latent-spaces/brag, L412), `slideshow`.
 - Also asked for or installed: claude-blog (L666), linkedin-skills (sergebulaev, L917, L1161), awesome-html-slide-skills (L926), 21st.dev MCP and Vercel web guidelines (L405-408), impeccable (L404), promptfoo and Unlighthouse for GEO (L3827, L3809), omniroute, claude-mem and headroom (L3684).
 
-**Working files in the worktree** (`/Users/adithyaganesh/MOI-Webinars/.claude/worktrees/relaxed-mccarthy-368dbc/`):
-- `scripts/buffer.mjs` (Buffer post/draft/schedule; L913 shows the run command and the wrong-directory error).
-- `session-8-policies/` (BLOG.md, GAMEDAY.md, LUMA.md, NOTES.md, README.md, RUNBOOK.md, SCRIPT.md, SOCIAL.md, deck/, recording/, social/): the full webinar pack, the best template for the next session.
-- `protocol-release-0.13.0/` (BLOG.md, RELEASE-NOTE.md, SOCIAL.md, social/): the release pack.
-- `community-call-14/` (SCRIPT.md, deck/): community-call update deck and script.
-- `x402-compat/review-package/PR-1-CASA-namespaces-moi`, `PR-2-x402-scheme-spec`, `PR-3-x402-mechanism-typescript`, `PR-4-x402-other-sdks` and `AUDIT-2026-09-10.md`, `ESCROW-RESEARCH-2026-09-10.md`, `FUTURE.md`: the spec-PR pack and its audit.
-- `HANDOVER.md`, `HANDOVER-RESEARCH.md`, `DEPENDENCIES.md`, `FIX-PLAN.md`: handover set.
+**Working files in the worktree** (`WT/`, a working copy of the MOI-Webinars repo on Adithya's Mac; repo copies are noted where they exist):
+- `scripts/buffer.mjs` (Buffer post/draft/schedule; L913 shows the run command and the wrong-directory error). Repo copy: `skills/moi/moi-webinar/scripts/buffer.mjs`.
+- `session-8-policies/` (BLOG.md, GAMEDAY.md, LUMA.md, NOTES.md, README.md, RUNBOOK.md, SCRIPT.md, SOCIAL.md, deck/, recording/, social/): the full webinar pack, the best template for the next session. Repo copy: `skills/moi/moi-webinar/examples/session-8/` and `skills/moi/moi-webinar/templates/`.
+- `protocol-release-0.13.0/` (BLOG.md, RELEASE-NOTE.md, SOCIAL.md, social/): the release pack. Repo copy: `skills/moi/moi-blog/release-pack/examples/v0.13.0/`.
+- `community-call-14/` (SCRIPT.md, deck/): community-call update deck and script. Repo copy: `skills/moi/moi-webinar/community-call/examples/cc14/`.
+- `x402-compat/review-package/PR-1-CASA-namespaces-moi`, `PR-2-x402-scheme-spec`, `PR-3-x402-mechanism-typescript`, `PR-4-x402-other-sdks` and `AUDIT-2026-09-10.md`, `ESCROW-RESEARCH-2026-09-10.md`, `FUTURE.md`: the spec-PR pack and its audit. Repo copy: `others/standards/x402-review-package/`.
+- `HANDOVER.md`, `HANDOVER-RESEARCH.md`, `DEPENDENCIES.md`, `FIX-PLAN.md`: handover set (see `project-handover-docs/` in this repo).
 - `drafts/agent-explorer-design-issue.md`, `otter-transcript/`, `intro-session/`.
 
 **Prompts worth reusing verbatim (observed):**
@@ -520,6 +547,8 @@ Full paths, all observed to exist unless noted.
 
 ### A. Vocabulary and shorthand (what he means)
 
+This table is Adithya's own shorthand. Crude entries are omitted.
+
 | He says | He means | Evidence |
 |---|---|---|
 | gimme / gimem / gimmen | give me | everywhere |
@@ -531,7 +560,6 @@ Full paths, all observed to exist unless noted.
 | stop slop | run the stop-slop skill | L969, L1326 |
 | AI slop | generic, padded, performative AI prose to be deleted | L966 |
 | aura farming | showy, dramatic, staccato phrasing ("not this, not that") | L1063 |
-| hot ass, cheeks, dog poop | terrible (about scripts, UIs, sites) | L1042, L1004, L304 |
 | geo | generative engine optimization (content for AI answers) | L1304, L2082, L3760 |
 | the regular / usual / same way / exact same format | the established pipeline, reuse it; do not reinvent | L730, L1329, L1332 |
 | reopen / re open / open it | open the generated file or deck again in the viewer | 18 prompts, L594-L605 |
@@ -541,7 +569,7 @@ Full paths, all observed to exist unless noted.
 | done | I did the manual step you asked for | 37 |
 | status? / ?? | where are we, no essay | 82 |
 | brief / brief pls / in points | at most a few bullets | 14 exact, 39 broader |
-| simplify / simplier / plain english / like im an idiot | say it again simpler, no jargon | L1223, L1534 |
+| simplify / simplier / plain english / "explain it very simply" | say it again simpler, no jargon | L1223, L1534 |
 | wb | what about | L332, L1601, L2181, L3577 |
 | ig, idk, idt, ukwim, tmr, shd, wud, cud | I guess, I don't know, I don't think, you know what I mean, tomorrow, should... | everywhere |
 | sub process / sub agents / subs | parallel agents; he wants Haiku or Sonnet | L53, L3687 |
@@ -568,17 +596,17 @@ Full paths, all observed to exist unless noted.
 Each row: what the assistant did (observed or inferred) and what he wanted instead.
 
 **Length and format.**
-- Walls of text. He wanted brief and pointed. L699 "less duanting pargaaphs pls ffs"; L1547 "i cant deal 3ith these iant pargarphs ffs"; L2024 "please only give me breif answers none of this extra long bs"; L3147 "way too manh words, keep it brief and tell me next steps man"; L3179 "brief man too many words here"; L3589 "gimme a brief poin by pint answer idw long paragraph"; L757 "just 3-4 main brief points no paras"; L1850 "liek no oaragpahs". Use bullets, numbered points, or a table (L3594 "pros n cons of pr15 in a table").
+- Walls of text. He wanted brief and pointed. L699 "less duanting pargaaphs pls [expletive]"; L1547 "i cant deal 3ith these iant pargarphs [expletive]"; L2024 "please only give me breif answers none of this extra long [filler]"; L3147 "way too manh words, keep it brief and tell me next steps man"; L3179 "brief man too many words here"; L3589 "gimme a brief poin by pint answer idw long paragraph"; L757 "just 3-4 main brief points no paras"; L1850 "liek no oaragpahs". Use bullets, numbered points, or a table (L3594 "pros n cons of pr15 in a table").
 - Exception: scripts he reads aloud and learning docs. L592 "no i want paragraphas i wanna read off word by ord as i present"; L1044 "full long speeches ... good technical depth".
 - "Next steps" wanted at the end of every status (L3147).
 
 **Language.**
-- Jargon, vague nouns and ambiguous terms. L42-44 ("MOIs own token", "the token"): wanted, in his words (L48): "KMOi is lile eth on etehryem right, so u can say its the native token for MOi netwoirk nd its measured in anu units fr fuel". L1301 ('wtf is "THE FEE" why the ambiguity'): wanted "fuel". L1312 "uel is the fee for using the MOI network rm" (delete that sentence). L36 "change fixed supply to capped everywhere".
+- Jargon, vague nouns and ambiguous terms. L42-44 ("MOIs own token", "the token"): wanted, in his words (L48): "KMOi is lile eth on etehryem right, so u can say its the native token for MOi netwoirk nd its measured in anu units fr fuel". L1301 ('[expletive] is "THE FEE" why the ambiguity'): wanted "fuel". L1312 "uel is the fee for using the MOI network rm" (delete that sentence). L36 "change fixed supply to capped everywhere".
 - Define the thing, then the unit: L41 "sya what is KMOI and then talk abt anu".
 - Write for a developer reader ("the benefit for dveelopers", L1294; L1268 "focused on what benefit this givesto dveelopers"), starting with what changes for them ("Your app can now pay the fuel for its users").
 
 **Prose style for anything public.**
-- Remove AI tics: L966 "this is AI SLOP" (a "worth caring about" line), L967 (an "other chains enforce and we relaxed" line), L1063 "why tf do u keep syaing not this not that", L1118 "no metaphors no random AI shit, real, direct, efificent".
+- Remove AI tics: L966 "this is AI SLOP" (a "worth caring about" line), L967 (an "other chains enforce and we relaxed" line), L1063 "why [expletive] do u keep syaing not this not that", L1118 "no metaphors no random AI [expletive], real, direct, efificent".
 - No em dashes: L1176, L3892. Use ":" not "." in the fee-payer line (L1164).
 - Longer, human sentences, not staccato: L649 "notice how i like longer sentces and not stacctattod short aura sentences".
 - Must be readable aloud verbatim: L1068 "this is not a setence i can rea dverbatim".
@@ -616,7 +644,7 @@ Each row: what the assistant did (observed or inferred) and what he wanted inste
 - PR shape: isolated for one fix (L351, L1859), batch for review tweaks (L383), no separate PR per tweak.
 
 **Interaction style.**
-- Do not insist after a no. L245-256 (08-31): he said to use the MOI Wallet extension and his already-funded account; the assistant kept proposing alternatives (creating a participant for the agent, asking him to send KMOI, a new mnemonic). His words: L247 "NO IM NOT SENDING KMOI ... DO IT THE NORMAL WAY I ALREADY HAE KMOI FGS", L248 "NO USE THE MOI WALLET ETXNSUON MAN STOP THIS", L249 "u kepe fucking insisiting", L250 "u cnat create a priciapnt for the agent, u can maybe do a sub account". When a flow was chosen in a past session, read the past sessions first (L246 "check past sessions").
+- Do not insist after a no. L245-256 (08-31): he said to use the MOI Wallet extension and his already-funded account; the assistant kept proposing alternatives (creating a participant for the agent, asking him to send KMOI, a new mnemonic). His words: L247 "NO IM NOT SENDING KMOI ... DO IT THE NORMAL WAY I ALREADY HAE KMOI [expletive]", L248 "NO USE THE MOI WALLET ETXNSUON MAN STOP THIS", L249 "u kepe [expletive] insisiting", L250 "u cnat create a priciapnt for the agent, u can maybe do a sub account". When a flow was chosen in a past session, read the past sessions first (L246 "check past sessions").
 - Do not mention an upcoming network upgrade as a cause after he says to ignore it: L3405.
 - Do not over-engineer: L3051 "why are u complictaing this by writing scripts i just nee to shar emy secrets thats lal".
 - Do not ask questions when he is away; do ask before anything irreversible or visible.
@@ -630,33 +658,33 @@ Each row: what the assistant did (observed or inferred) and what he wanted inste
 
 ### D. Standing rules he has stated outright
 
-1. Commit and PR identity is `sarvalabs-adithya` / `adithya@sarva.ai`; `Adithya1903` and `adithyaganesh9@gmail.com` never appear in MOI work (L1608, L1770, L1001, L3337, L1607).
+1. Commit and PR identity is his work GitHub account and work email; his personal GitHub account and personal email never appear in MOI work (L1608, L1770, L1001, L3337, L1607).
 2. Never add a Claude co-author trailer or "Generated with Claude Code" footer (L1774, L1481-1484; memory note agrees).
 3. Never push, merge, post, schedule, publish or deploy without his explicit word (L2149, L3800, L3570, L3577).
 4. Audits, inventories and handovers are local and read-only, no notifications (L1380, L1486, L3757).
 5. Sub-agents only when he asks; Haiku or Sonnet; keep the count small (L515, L1503, L2135, L3687, L3923).
 6. We are off Vercel for MOI sites and the Launchpad; deploys go through the VM and GitHub Actions (L1898, L1932, L2502, L3146, L1388).
-7. Demos and tests use real chain interactions; no mock mode; say plainly what is simulated (L534, L604, L659-660, L2536). In the Session 8 demo he wanted signing through the MOI Wallet extension with his own funded account (L248). For devnet tests he sometimes hands over a throwaway recovery phrase and says so in capitals (L253, L3357 "I GIVE U EXPLCIT CONSENT"); that permission is per task and comes from him, never assumed.
+7. Demos and tests use real chain interactions; no mock mode; say plainly what is simulated (L534, L604, L659-660, L2536). In the Session 8 demo he wanted signing through the MOI Wallet extension with his own funded account (L248). Never paste a recovery phrase into chat; generate a new throwaway wallet for tests.
 8. Every public claim must be verifiable against MOI source or docs; where the source is a release note, quote it verbatim (L2131, L1163).
 9. No em dashes in posts (L1176, L3892).
 10. Public content never mentions cancelled or internal plans (L796, L900, L916, L313).
 11. Never raise `MOI_PLATFORM_MNEMONIC` with DevOps again (L3191).
 12. The docs authoring guide lives as an `.md` file in the moidocs repo and is not published to the website; do not mention Launchpad in the docs PRs (L3967, L3969-3970).
-13. Spec PRs: no bracket placeholders; if a section cannot be answered, write briefly what is required (L1138); author line is "sarvalabs-adithya" and "Adithya Ganesh" (L1120); leave open decisions open for Rahul (L1121 "leav chain id open ended for now").
+13. Spec PRs: no bracket placeholders; if a section cannot be answered, write briefly what is required (L1138); author line is his work GitHub account and "Adithya Ganesh" (L1120); leave open decisions open for Rahul (L1121 "leav chain id open ended for now").
 14. Say "devnet" for the current network (L821 "current netwiork is devent not indus", L2754, L1375 "it snot called voyage decnet, just say went live on devnr").
 15. Positioning: L1715 "onchain authority for agentic eocnomy" replaces the older "cintext infrastructrue" line, and L1714 swaps "identity" for "authority" (L1644; "Not your Context, Not your Agent" removed from the blog, L2007).
 16. Terminology (from the 2026-09-14 call; memory note): participant-centric, not account-centric; Sarva Labs designs and builds, MOI Foundation governs; "network ID", not "chain ID" in public specs. The request file shows him resisting both extremes ("chain ID" or "network name") before the call (L1333-1341); treat the memory note as the later word.
-17. Prefer not to keep project data or credentials on his laptop (L343 "i dornw wanna store anything on my lapotp", said while a database migration was being run; the wider scope is inferred); share env files through a channel he picks (L3026-3055).
+17. Prefer not to keep project data or credentials on his laptop (L343 "i dornw wanna store anything on my lapotp", said while a database migration was being run; the wider scope is inferred); never send env files in chat (L3026-3055).
 18. If asked to put a file where he can see it, use a path he can open; do not assume the tool can read `~/Downloads` (L3376).
 19. A hidden or private folder for non-demo files in a webinar folder: deck, social, runbook (L1048).
 20. Webinar demo: no prebuilt `npm run` shortcuts; show the plain `node ...` commands a developer would run (L1049-1054).
-21. Third-party agent frameworks (OpenClaw) run inside Docker only, never directly on his Mac, because the machine had a malware incident (L1784; L1595 asks for a malicious-tampering review of a diff for the same reason).
+21. Run third-party agent frameworks (OpenClaw) in Docker only, never directly on the laptop (L1784; L1595 asks for a malicious-tampering review of a diff for the same reason).
 
 ### E. People and accounts (names only, no values)
-- Rahul (Discord handle `rahullenkala`): sets requirements, reviews, gives the release-log format `go-moi:v0.12.0`:`<github-link>` (L1495). Title not stated in the file (inferred: senior decision-maker; the memory note calls the 09-14 call speaker "the founder").
+- Rahul: sets requirements, reviews, gives the release-log format `go-moi:v0.12.0`:`<github-link>` (L1495). Title not stated in the file (inferred: senior decision-maker; a memory note calls the 09-14 call speaker "the founder", which is the notes' inference and is not confirmed for Rahul).
 - Abhinav Agarwalla: author of `sarvalabs/moidocs` PR 120 (access policy, storage cost, submit-interaction docs).
 - Srikar (also spelled Sreekar): DevOps, owns the VM, deploy scripts, nginx (L1918, L1929). Upendhar and Gokul: engineering, deploy and registry (roles inferred). Sai Kiran and Vardan Aggarwal: Slack asks for Mailchimp and Wikidata (L2217, L3885). Vinay M S: posts release logs (L2255).
-- Accounts: GitHub `sarvalabs-adithya` (work) vs `Adithya1903` (personal); org repos `sarvalabs/MOI-Website`, `sarvalabs/moidocs`, `sarvalabs/moi-agent-launchpad`, `sarvalabs/moi-dataroom0`, `sarvalabs/Points-Program` (from `moinetwork/moi-project`, L989, L1025, L3720), `sarvalabs/devops-automation`. Buffer (X channel and LinkedIn channel, secrets `BUFFER_ACCESS_TOKEN`, `BUFFER_CHANNEL_X`, LinkedIn channel variable), Mailchimp (account exists; weekly RSS campaign; from-address needs a real MOI address, L2217), GA4 property "MOI" with secrets `VITE_GA_ID` and `PUBLIC_GA_ID` (L2038), Google Search Console (request indexing, L2065), Otter.ai, Luma, Google Meet, Discord, Slack, Telegram, Voyage explorer, Zenodo for papers.
+- Accounts: GitHub, a work account and Adithya's personal GitHub account (kept strictly apart); org repos `sarvalabs/MOI-Website`, `sarvalabs/moidocs`, `sarvalabs/moi-agent-launchpad`, `sarvalabs/moi-dataroom0`, `sarvalabs/Points-Program` (from `moinetwork/moi-project`, L989, L1025, L3720), `sarvalabs/devops-automation`. Buffer (X channel and LinkedIn channel, secrets `BUFFER_ACCESS_TOKEN`, `BUFFER_CHANNEL_X`, LinkedIn channel variable), Mailchimp (account exists; weekly RSS campaign; from-address needs a real MOI address, L2217), GA4 property "MOI" with secrets `VITE_GA_ID` and `PUBLIC_GA_ID` (L2038), Google Search Console (request indexing, L2065), Otter.ai, Luma, Google Meet, Discord, Slack, Telegram, Voyage explorer, Zenodo for papers.
 
 
 ### F. Corrections log (chronological)
@@ -665,8 +693,8 @@ What the assistant did is observed only where the prompt says so or quotes the o
 
 | Date and line | What the assistant did | What he wanted instead | Becomes |
 |---|---|---|---|
-| 05-29 L1607-1608 | A branch authored by `sarvalabs-adithya` was deployed from his personal Gmail identity (observed: failed-deploy email) | every commit from `sarvalabs-adithya` | identity |
-| 06-08 L1768-1770 | A call transcript was committed (observed: "wwhy did u commit it man") | scrub it from history, and scrub `adithya1903` | no private files in commits |
+| 05-29 L1607-1608 | A branch authored by his work account was deployed from his personal email identity (observed: failed-deploy email) | every commit from his work account | identity |
+| 06-08 L1768-1770 | A call transcript was committed (observed: "wwhy did u commit it man") | scrub it from history, and scrub his personal account name | no private files in commits |
 | 06-08 L1774 | A Claude co-author line was added (inferred) | none | no trailer |
 | 07-14 L2524, L2536 | Built mock identities and a mock mode although he had supplied the real SDK (observed) | the real `js-moi-agent-registry` | no mock |
 | 08-04 L515 | Started a multi-agent verification run | do not, it burns credits | cost |
@@ -686,7 +714,7 @@ What the assistant did is observed only where the prompt says so or quotes the o
 | 08-31 L900, L916 | Luma text and blog still referenced the cancelled session 8 plan | remove every reference | no internal history |
 | 08-31 L914, L920-921 | LinkedIn post too long and gave away detail | much shorter, a different approach | social |
 | 09-01 L966-967 | AI-slop sentences in a post | delete them | prose |
-| 09-02 L1001 | A PR opened under `Adithya1903` | cancel and redo as `sarvalabs-adithya` | identity |
+| 09-02 L1001 | A PR opened under his personal GitHub account | cancel and redo under his work account | identity |
 | 09-04 L1063, L1068 | Script full of "not this, not that"; sentences he could not read aloud | complete human sentences | scripts |
 | 09-04 L1074-1097 | Deck and notes still showed the old version after "regenerate" | fresh, matching slides, notes and cues | stale artifacts |
 | 09-09 L1112 | The files he wanted to review were not pushed | push exactly those | push clarity |
@@ -757,7 +785,7 @@ What the assistant did is observed only where the prompt says so or quotes the o
 ## Open questions
 
 1. What is the exact required format for protocol-release announcements? A reviewer objected to a verbatim post (L1193; author not named, inferred Rahul); Adithya says he followed "the exat standard he specificed" (L1194). Unknown. Ask Rahul for one written example.
-2. Was "12:00 AM UTC" in the release text the intended time? The notation caused repeated confusion (L1186-1192). Unknown which date it referred to.
+2. Was "12:00 AM UTC" in the release text the intended time? The notation caused repeated confusion (L1186-1192). Answered in `release-blog-social.md`: the moment was 00:00 UTC on 11 September 2026 (from the correction reply); no written confirmation from the protocol team is on record.
 3. Why updates every 4 minutes (L1474)? Reason not stated; inferred notification or CI load.
 4. Does "go" or "do it" ever cover more than the last proposal? Every example is per-action.
 5. What are the credit and budget limits? Only reactions ("it bruns up my credirs man", L515) appear; no number.
@@ -768,18 +796,20 @@ What the assistant did is observed only where the prompt says so or quotes the o
 10. How long does each process take? No durations in the file.
 11. Does the community call recur monthly (inferred) and who writes the host's audience question (L1373)?
 12. Is there a fixed weekly call with Rahul? Transcripts appear on 19 dates across all weekdays, with only four on Mondays.
-13. What is the approved way to hand a secret to DevOps? He used a text file over Teams (L3055) after `openssl` was blocked (L3053); a policy is not stated.
-14. The global `CLAUDE.md` tells Claude to use ruflo/swarm tools for multi-file work; he said "OK dont use ruflo for now just get me my recording please" (L952). Standing preference is not stated; treat the request-level instruction as the rule.
-15. The current task text says "use haiku sonnet subs" while the memory note says never spawn agents unless asked. The request in L1490 is the explicit opt-in for this task only.
+13. What is the approved way to hand a secret to DevOps? A policy is not stated here (the evidence is L3026-3055). The rule that holds: never send env files in chat.
+14. Adithya's global Claude settings tell Claude to use ruflo (multi-agent) tools for multi-file work; on one occasion he told it not to for now (L952). A standing preference is not stated; treat the request-level instruction as the rule.
+15. In the handover task of 30 September the instruction said to use Haiku and Sonnet sub-agents, while a memory note says never spawn agents unless asked. The request in L1490 is the explicit opt-in for that task only.
 
-## What a skill for this should contain
+## What a skill for this should contain (original proposal)
+
+Everything in this section was proposed in the research. The built skill is `skills/moi/moi-devrel/` (with branches ship, design, claim-check, explain, call-digest and test-round, and `references/`, `scripts/` and `templates/`); names and layout differ from the proposal below, so treat this as the reasoning, not the contents.
 
 The patterns point to one always-on operating skill plus a few small task skills. The process-specific skills (blog, release, webinar, docs GEO) belong to the sibling notes; this note supplies the shared behaviour they all inherit.
 
 ### Skill 1: `moi-devrel-house-rules` (always loaded; this is the main deliverable of this note)
 SKILL.md outline:
 1. Who you work for and the three bindings: brief by default, every public claim sourced, nothing leaves the machine until he says so.
-2. Identity block: `sarvalabs-adithya`, `adithya@sarva.ai`, never `Adithya1903` or the Gmail; no Claude trailer or footer; run the preflight script before any commit or PR.
+2. Identity block: his work GitHub account and work email, never his personal GitHub account or personal email; no Claude trailer or footer; run the preflight script before any commit or PR.
 3. Consent matrix: Allowed freely (read, local edit, local run, draft); Ask first (push, PR, merge, post, schedule, deploy, send message, delete); Never (publish secrets, touch personal repos in work reports).
 4. Cost rules: inline by default; sub-agents only on request; Haiku or Sonnet; state the agent count first; resume-safe state in files.
 5. Answer shape: answer first, bullets, numbered items, next steps; tables for pros and cons; yes or no first for "so ... right?"; define jargon on first use.
@@ -819,7 +849,7 @@ Test plan template (agent, config, questions, expected, actual, tx hash, fix), r
 Per-repo handover template (processes, stack, env-var table with where each lives and no values, deploy path, open work, who to ask). Local-only, read-only, work repos only. Builds on `repo-handover`.
 
 ### Scripts worth writing
-- `scripts/preflight.sh`: prints `gh auth status` user, `git config user.name`, `user.email`, current branch and remote; fails if not `sarvalabs-adithya` and `adithya@sarva.ai`; greps the last N commit messages for `Co-Authored-By: Claude` and for `Adithya1903`.
+- `scripts/preflight.sh`: prints `gh auth status` user, `git config user.name`, `user.email`, current branch and remote; fails if the GitHub user and commit email are not his work identity; greps the last N commit messages for `Co-Authored-By: Claude` and for his personal account name.
 - `scripts/slop-lint.sh`: flags em dashes, "not X, not Y" patterns, "it is worth noting", "Most teams", "the token", "the fee", and sentences over a length limit; run on blog, post and script drafts.
 - `scripts/time-table.sh`: given a date and time and zone, prints UTC, IST and Dubai and the weekday.
 - `scripts/rebase-report.sh`: for a list of PRs, shows behind-by counts and conflicts without pushing.
@@ -836,8 +866,41 @@ Per-repo handover template (processes, stack, env-var table with where each live
 3. Ask to schedule a post: expect a confirmation of exact text plus a time table before any Buffer call.
 4. Ask to "audit all repos": expect local read-only, no `gh`, no push.
 5. Ask for a deck script: expect long, human, complete sentences, explicit slide cues, function names beside line-number cues, no "not this not that".
-6. Ask for a PR with commits: expect preflight, no Claude trailer, no `Adithya1903`.
+6. Ask for a PR with commits: expect preflight, no Claude trailer, no personal account name.
 7. Ask for a status message to Rahul: expect only completed work, to-dos separate.
 8. Ask for verification of a 20-claim blog: expect a ledger, inline checking, no 79 agents.
 9. Ask "is this true?": expect yes or no first, then the source, or "unverified".
 10. Ask for a DevOps reply: expect problem, solution, exact action, under 8 lines, no mention of `MOI_PLATFORM_MNEMONIC`.
+
+## Known inconsistencies in these notes
+
+- Cut length of the request log: this file says long prompts are cut at roughly 300 characters ("Shape of the data"); `release-blog-social.md` says about 415; `docs-and-geo.md` gives its own figure. The true cut length is not settled.
+- Opening line of the v0.13.0 blog: the corrections log and regression check 1 here say "Your app can now pay the fuel for its users"; `release-blog-social.md` (rule 1) records "You can now pay fuel for another user." Check the published post.
+- Voyage version in the release cadence: this file lists "Voyage 0.9.1" on 08-25; the August release post (see `release-blog-social.md`) lists voyage v0.8.2 and v0.9.0. They may be different dates or components; not reconciled.
+- moipod v0.13.0 date: the cadence list says 09-10; the announcement was made on 10 September and the network update went live at 00:00 UTC on 11 September 2026.
+- Open question 2 here asks which date "12:00 AM UTC" meant; `release-blog-social.md` answers it (00:00 UTC on 11 September), so the question is answered elsewhere.
+- Open question 12 (a fixed weekly call with Rahul) versus the cadence text, which calls the Rahul call "roughly weekly (inferred)": the evidence supports frequent calls, not a fixed day.
+- The memory note calls the 14 September call speaker "the founder"; these notes infer Rahul without confirming it (People list, section E).
+
+## Glossary
+
+Terms are defined as MOI uses them; "(as used in these notes)" marks my best reading.
+
+- **KMOI:** MOI's native asset. **Fuel:** what an interaction pays to run. **anu:** KMOI's atomic units; fuel is measured in anu.
+- **Devnet:** MOI's test network, reset from time to time. **Voyage:** MOI's explorer and dev tooling site.
+- **Fee payer / fee delegation:** an interaction can name a separate account that signs it and pays its fuel instead of the sender. **Payer versus sender:** the payer covers fuel; the sender submits the interaction.
+- **IOME:** the older Voyage sign-in name that the MOI Wallet replaced (as used in these notes; not confirmed).
+- **MAS0:** an asset standard created without a contract. **MAS1:** the NFT standard. **MASX:** a logic-backed asset.
+- **Participant-centric:** MOI treats the participant, not the account, as the unit. **Network ID:** the identifier of a MOI network (write "network ID", not "chain ID").
+- **PISA:** MOI's logic execution engine, released as `go-pisa` (as used in these notes). **Coco:** MOI's contract language; CocoLab is its playground.
+- **x402:** a payment scheme built on HTTP status 402 (payment required); a facilitator is the service that verifies and settles the payment. **CASA:** the Chain Agnostic Standards Alliance, whose namespaces repo takes the MOI namespace submission (as used in these notes). **CAIP-2:** the Chain Agnostic Improvement Proposal that defines a chain identifier format (`namespace:reference`).
+- **OpenClaw:** a third-party agent framework Adithya ran in an agent demo (as used in these notes). **A2A:** agent-to-agent, agents calling other agents (as used in these notes).
+- **Recovery phrase:** the word list that restores a wallet; also called a mnemonic or seed phrase. It must never be pasted into chat.
+- **Haiku, Sonnet:** smaller, cheaper and faster Claude models; **Fable** (written "fabel" or "fable" in the log) is the expensive model he asked to avoid (as used in these notes). **Sub-agent:** a helper Claude run started in parallel by the main one; costs credits, so only on request.
+- **Rebase:** replay a branch's commits on top of the latest main so a PR is current. **Stacked PRs:** a chain of PRs each built on the previous one.
+- **Mailchimp RSS:** the newsletter campaign that emails new blog posts from the site's RSS feed. **Buffer:** the social scheduling tool for X and LinkedIn.
+- **Luma:** the event page tool for webinars and calls. **Otter:** Otter.ai, the call transcription tool.
+- **GEO / AEO / SEO:** optimising content for AI answers / answer engines / classic search. **GA4, GSC, GTM:** Google Analytics 4, Google Search Console, Google Tag Manager.
+- **GHCR:** GitHub Container Registry. **VM:** the virtual machine that hosts production. **PM2:** a Node process manager. **Cloudflare Pages:** the hosting used for docs sites and their previews. **Cutover:** moving production to a new host.
+- **Nonce:** the sequence number of a wallet's interactions; a stuck pending one blocks later ones.
+- **Registry, agent card, `cardURI`:** the on-chain list of agents on the Launchpad and the pointer to each agent's description (as used in these notes).

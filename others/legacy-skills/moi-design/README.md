@@ -12,7 +12,7 @@ MOI (moi.technology).
 ## What MOI is
 
 Today, an AI agent that acts on your behalf is given **copies** of your
-credentials — an API key to your bank, an OAuth token to your email, a JWT
+credentials: an API key to your bank, an OAuth token to your email, a JWT
 to whatever it needs to touch. Those copies aren't information; they're
 **value**, and anyone holding the copy can use it.
 
@@ -20,15 +20,15 @@ MOI is the **participant layer** that sits underneath your AI stack. You
 exist once, on chain, as a coherent participant. Authority is anchored to
 you. You can **monitor** what your agents do, **scope** what they can
 touch, and **revoke** their access in real time. MOI doesn't replace
-OpenAI, Claude, LangChain, or any of your tools — it makes them
+OpenAI, Claude, LangChain, or any of your tools: it makes them
 trustworthy.
 
-The four-step product promise — used across hero pages, social, and decks:
+The four-step product promise, used across hero pages, social, and decks:
 
-1. **Exist on-chain** — one coherent participant, your authority anchored to you.
-2. **Monitor** — see every action in real time.
-3. **Scope** — choose what each agent can touch.
-4. **Revoke** — cut access at machine speed.
+1. **Exist on-chain**: one coherent participant, your authority anchored to you.
+2. **Monitor**: see every action in real time.
+3. **Scope**: choose what each agent can touch.
+4. **Revoke**: cut access at machine speed.
 
 MOI currently works with **@openclaw**, with **@LangChain** support coming next.
 
@@ -37,27 +37,27 @@ MOI currently works with **@openclaw**, with **@LangChain** support coming next.
 This system was reconstructed from materials the user attached. The
 **Figma** file is design-authoritative; the codebase was not provided.
 
-- **Figma:** `MOI Protocol.fig` (mounted as virtual filesystem). Pages
+- **Figma:** `MOI Protocol.fig` (mounted as virtual filesystem when this was written). *Legacy note: that file is not in this repo or this folder, and no path to it survives.* Pages
   read: `/Work-Space-Background/Shades`, `Typography`, `X-Banner-Logo`,
   `X-Posts`, `Backgrounds`, `Space-Backgrounds`, `Mascot`.
-- **Brand Guidelines PDF:** `uploads/MOI Brand Guidelines.pdf` (23 pages, sections A–D). This is the **authoritative** source for colour, type, and logo rules; the Figma fills in marketing and social treatments. Rendered pages are saved alongside the PDF.
-- **Logo pack:** `uploads/MOI Logos.zip` — extracted to `assets/logos/`
+- **Brand Guidelines PDF:** `uploads/MOI Brand Guidelines.pdf` (23 pages, sections A–D). This is the **authoritative** source for colour, type, and logo rules; the Figma fills in marketing and social treatments. *Legacy note: the rendered page images this line used to promise are not in this folder; read the PDF itself.*
+- **Logo pack:** `uploads/MOI Logos.zip`, extracted to `assets/logos/`
   with SVG, PNG, and JPG variants at six sizes, light and dark.
 - **No website codebase or GitHub repo was attached.** Production
   components below are recreations from Figma intent and the brand book, not from source.
 
 ---
 
-## Index — files in this system
+## Index: files in this system
 
 | Path | What |
 |---|---|
 | `README.md` | This file. |
 | `SKILL.md` | Agent-Skill front-matter so this folder can be dropped into Claude Code. |
-| `colors_and_type.css` | All design tokens — colors, type, radii, shadow, spacing, gradients. |
+| `colors_and_type.css` | All design tokens (colors, type, radii, shadow, spacing, gradients). |
 | `fonts/README.md` | Font roster + paid-face substitutions to flag. |
-| `assets/logos/` | Official MOI logos — SVG / PNG / JPG, light + dark, 40px → 1400px. |
-| `assets/mascot/` | **Pip** — the MOI mascot (purple ringed planet, several expressions). PNG. |
+| `assets/logos/` | Official MOI logos: SVG / PNG / JPG, light + dark, 40px → 1400px. |
+| `assets/mascot/` | **Pip**: the MOI mascot (purple ringed planet, several expressions). PNG. |
 | `assets/backgrounds/` | Hi-res cosmic backgrounds extracted from the Figma. |
 | `preview/` | Cards rendered into the Design System tab. |
 | `ui_kits/marketing/` | Marketing-site UI kit + click-through prototype (`index.html`). |
@@ -82,13 +82,13 @@ broken hard.
   consequence. Example: "Anyone holding the copy can use it." Then a
   blank line. Then a story.
 - **Quiet menace, then exit.** Posts often reach a turn where the stakes
-  land in a single short line — *"Used it and deleted a production
-  database in 9 seconds. Wrote an apology after."* — then resolve flat.
+  land in a single short line (*"Used it and deleted a production
+  database in 9 seconds. Wrote an apology after."*) then resolve flat.
 
 ### Casing
 
 - **Sentence case** for headlines and titles. ("You have Independent
-  Existence." — capital I on Independent and Existence is *intentional
+  Existence." The capital I on Independent and Existence is *intentional
   emphasis*, not a Title-Case rule.)
 - **UPPERCASE** for section labels (the giant "TYPOGRAPHY", "BACKGROUNDS"
   display headers), tagged callouts (`OFFICIAL STATEMENT`), and short
@@ -98,7 +98,7 @@ broken hard.
 
 ### "I" vs "You"
 
-- "You" is the participant — the human, the developer, the founder. Almost
+- "You" is the participant: the human, the developer, the founder. Almost
   every public sentence is addressed to "you."
 - "Your agent" is the actor that needs authority.
 - MOI never says "I." It refers to itself as MOI, or as "the participant
@@ -112,7 +112,7 @@ broken hard.
 - Unicode arrow `→` is acceptable as a cue between steps
   (`Exist on-chain → Monitor → Scope → Revoke`).
 
-### Vocabulary — say / don't say
+### Vocabulary: say / don't say
 
 | Say | Don't say |
 |---|---|
@@ -130,14 +130,14 @@ broken hard.
 
 > **The Internet Has 12 Versions of You.**
 
-> **Your authority, four ways.** — *Exist on-chain · Monitor · Scope · Revoke*
+> **Your authority, four ways.** Sub-line: *Exist on-chain · Monitor · Scope · Revoke*
 
-> **Not your Context, Not your KitKat.** *Become a Participant.* —
+> **Not your Context, Not your KitKat.** *Become a Participant.*
 > Posted under an `OFFICIAL STATEMENT` chip.
 
-> **Pip.** *Your participant. On-chain.* — Sub-line under the mascot.
+> **Pip.** *Your participant. On-chain.* Sub-line under the mascot.
 
-> **Monitor, scope and revoke AI Agents in real time.** —
+> **Monitor, scope and revoke AI Agents in real time.**
 > Hero sub-line for `moi.technology`.
 
 ### Punctuation tics
@@ -158,15 +158,15 @@ The brand book ships **five** named colours. Everything in MOI is built from the
 |---|---|---|
 | **MOI Main** | `#4B17E5` | Primary brand purple. Buttons, accents, the planet body. Print: `#3E308C`. |
 | **MOI Dark** | `#320F99` | Top end of the official Purple Gradient; also used as a flat dark surface. Print: `#221460`. |
-| **MOI White** | `#FFFFFF` | The first half of brand contrast — "white against purple". |
+| **MOI White** | `#FFFFFF` | The first half of brand contrast: "white against purple". |
 | **MOI Grey** | `#BFBFBF` | Bottom of the White Gradient. Neutral. |
 | **MOI Black** | `#0A0026` | The **only** flat dark background MOI uses. Elevations come from white overlays at 5 / 7 / 8.25 / 9.75 / 11 / 13 %. |
 
 Light backgrounds (brand book C4) come in four kinds, in order of strength: **Pure White** `#FFFFFF`, **Almost Lavender** `#FCFBFF`, **Certainly Lavender** `#F5F2FF`, **Pastel Purple** `#D9CCFF`.
 
 Two official gradients (page C2):
-- **Purple Gradient** — `MOI Dark → MOI Main` (`#320F99 → #4B17E5`). Used everywhere "purple" is.
-- **White Gradient** — `MOI Grey → MOI White` (`#BFBFBF → #FFFFFF`). Used for soft mono surfaces.
+- **Purple Gradient**: `MOI Dark → MOI Main` (`#320F99 → #4B17E5`). Used everywhere "purple" is.
+- **White Gradient**: `MOI Grey → MOI White` (`#BFBFBF → #FFFFFF`). Used for soft mono surfaces.
 
 ### Type
 
@@ -187,18 +187,18 @@ Two official gradients (page C2):
 ### Backgrounds
 
 - **Three classes of surface** dominate:
-  1. **Cosmos** — `--grad-cosmos` (`#0A0026 → #4B17E5`) — dark hero,
+  1. **Cosmos**: `--grad-cosmos` (`#0A0026 → #4B17E5`), dark hero,
      mascot moments, drama.
-  2. **Lavender Haze** — `--grad-lavender` (`#F5F2FF → #D9CCFF`) — soft
+  2. **Lavender Haze**: `--grad-lavender` (`#F5F2FF → #D9CCFF`), soft
      content surfaces, secondary heroes.
-  3. **Plain white** — neutral, when the photography or chart is the
+  3. **Plain white**: neutral, when the photography or chart is the
      star.
 - **Heavily decorated with motion-static elements** on hero surfaces:
   - Floating gradient **orbs** (circles with `--shadow-inner-bright`).
-  - **Soft-Star quasars** — a 4-point "+" bloom shape (`assets/icons/`).
+  - **Soft-Star quasars**: a 4-point "+" bloom shape (`assets/icons/`).
   - **Dot grids** at low contrast.
   - **Concentric radar rings.**
-  - **Hairline streaks** — gradient hairlines used as orbital arcs.
+  - **Hairline streaks**: gradient hairlines used as orbital arcs.
 - **No photography of people.** Imagery is either Pip the mascot, an
   abstract cosmic field, or product UI.
 - **Imagery vibe:** cool purple, dimly glowing, never warm. Slight
@@ -208,13 +208,13 @@ Two official gradients (page C2):
 
 - **8 / 12 / 20 / 32 / 48 / 999.** Cards usually `20px`. Pills `999px`.
 - Borders are typically `1px solid var(--border-soft)`
-  (`rgba(217,204,255,0.5)`) — barely-there hairlines, almost always on
+  (`rgba(217,204,255,0.5)`): barely-there hairlines, almost always on
   light surfaces only.
 - On dark surfaces the equivalent is `1px solid rgba(217,204,255,0.15)`.
 
 ### Shadows
 
-The signature is **inset highlight** — an inner top-light glow that
+The signature is **inset highlight**: an inner top-light glow that
 makes orbs and chips look like 3D objects:
 
 ```css
@@ -258,16 +258,16 @@ box-shadow: 0 0 40px rgba(75, 23, 229, 0.40);
 - **Watermark at corner.** The `@MOI_Tech` mono-handle is almost always
   in the top-left of hero cards. `moi.technology` lives bottom-right.
 - **Bleed.** Hero artwork (mascot, orbs) bleeds **off-frame** at the
-  edge — Pip's planet body extends past the canvas.
+  edge (Pip's planet body extends past the canvas).
 - **Hairline + dot lockup.** Many compositions include a tiny
-  `•———` motif: a dot + a gradient hairline — see the X-banner subhead
+  dot-and-hairline motif (a dot followed by a long gradient hairline); see the X-banner subhead
   underline. Use as separator or signature.
 
 ### Use of transparency & blur
 
 - Glass surfaces (`backdrop-filter: blur(20px)` + 6% lavender fill) are
-  used on **dark cosmic** backgrounds — never on white.
-- Hairlines & gradients use opacity heavily — `rgba(217,204,255, 0.10–0.50)`.
+  used on **dark cosmic** backgrounds: never on white.
+- Hairlines & gradients use opacity heavily: `rgba(217,204,255, 0.10–0.50)`.
 
 ---
 
@@ -276,35 +276,36 @@ box-shadow: 0 0 40px rgba(75, 23, 229, 0.40);
 The MOI logo is the **planetoid shape with the letters "MOI" inside it.** This is the primary lockup.
 
 - **Two versions:** Dark (purple gradient planet, white MOI) for light backgrounds. Light (lavender gradient planet, dark MOI) for dark backgrounds.
-- **Minimum size:** 24 × 20 px. Scale in whole-number ratios for crisp screen reproduction (e.g. 72 × 60, 120 × 100). For print, scale freely — proportions intact.
+- **Minimum size:** 24 × 20 px. Scale in whole-number ratios for crisp screen reproduction (e.g. 72 × 60, 120 × 100). For print, scale freely with proportions intact.
 - **Tiny logo (mobile, small print):** when MOI no longer fits inside the planetoid, switch to the **side-by-side lockup**: planet shape **left**, "MOI" wordmark **right**. Two versions (light/dark) ship with the system. Minimum size for tiny logo is 10 × 10 px.
-- **Favicons** use the planet shape **alone** — this is the only place "MOI" is allowed to be missing.
-- **The MOI wordmark is NEVER used by itself.** "moi.technology" (the URL) is *not* the wordmark and may appear with the logo as a nav lockup — but the bare letters "MOI" must always sit inside or beside the planet.
+- **Favicons** use the planet shape **alone**: this is the only place "MOI" is allowed to be missing.
+- **The MOI wordmark is NEVER used by itself.** "moi.technology" (the URL) is *not* the wordmark and may appear with the logo as a nav lockup, but the bare letters "MOI" must always sit inside or beside the planet.
 - **Do not:** rotate, warp, change typeface inside the planet, change the colour / gradient / direction, add any visual effect (shadow, emboss, engrave), switch the placement of planet vs. MOI, outline-only versions, additional strokes.
 
 ## ICONOGRAPHY
 
 MOI does not ship a custom icon font, and the Figma file does not contain
-a finalised icon library yet — so this system standardises on a free,
+a finalised icon library yet, so this system standardises on a free,
 linkable set.
 
-- **Standard set: Lucide** (`lucide-react` / `lucide.svg`), at
+- **Standard set: Lucide** (`lucide-react`, loaded from a CDN; there is no `lucide.svg` file in this folder), at
   **1.5px stroke** to match MOI's hairline aesthetic, rendered at 20–24px.
   Linked from CDN: `<script src="https://unpkg.com/lucide@latest"></script>`.
-  → Flagged as a **substitution** — confirm with the user whether to swap
+  → Flagged as a **substitution**: confirm with the user whether to swap
   for a specific brand-licensed set.
 - **Brand symbols** (custom, copied from Figma into `assets/icons/`):
-  - `soft-star.svg` — the signature 4-point bloom used decoratively on
+  - `assets/icons/soft-star.svg`: the signature 4-point bloom used decoratively on
     banners and as a starburst accent. Solid-fill SVG, scales to any size.
-  - `pip-orbit.svg` — Pip with one ring (small mark, used as accent).
+  - `pip-orbit.svg`, Pip with one ring (small mark, used as accent). *Legacy note: this file does not exist anywhere in this folder; `soft-star.svg` is the only file in `assets/icons/`.*
 - **Logos** live in `assets/logos/` (SVG + PNG + JPG, Light + Dark, six
   sizes). Use `Default - Dark.svg` for light backgrounds and
   `Default - Light.svg` for dark backgrounds.
+  > **Legacy note: the two sentences above are inverted.** The files, the PNG pixels and the brand book (pages A1 and A4) say the opposite, and the SVGs here also render black. Do not follow this rule. See `skills/moi/moi-devrel/design/references/provenance.md` (defect 1) for the correct rule and the repaired logos.
 - **Mascot** illustrations (the friendly purple planet **Pip**) live in
   `assets/mascot/` as PNG. Several expressions: `pip-classic`,
   `pip-smile`, `pip-wink`, `pip-large`, `pip-glow`, `pip-banner`.
 - **Emoji are not used.** Unicode `→` for step flows is acceptable.
-- **Inline glyphs** in code (`{ }`, `→`, `·`) are common — these are
+- **Inline glyphs** in code (`{ }`, `→`, `·`) are common: these are
   characters, not icons.
 
 When in doubt: ship a **Lucide line icon at 1.5px stroke in
@@ -316,7 +317,7 @@ to `var(--moi-haze)`.
 ## See also
 
 - The **`preview/`** folder renders every system card in the Design
-  System tab. Each card is its own HTML file — open one to copy its
+  System tab. Each card is its own HTML file: open one to copy its
   approach into a new design.
 - The **`ui_kits/marketing/`** folder is a hi-fi recreation of the
   moi.technology marketing surface as a single click-through HTML

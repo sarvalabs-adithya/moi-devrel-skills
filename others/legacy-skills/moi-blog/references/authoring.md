@@ -2,7 +2,7 @@
 
 ## Where the post goes
 
-One Markdown file at `blog/src/content/posts/<slug>.md`. The filename is the slug; the URL is `https://blog.moi.technology/article/<slug>/`. Nothing registers the post anywhere else — `getCollection('posts', …)` picks it up from the glob loader in `blog/src/content.config.ts`.
+One Markdown file at `blog/src/content/posts/<slug>.md`. The filename is the slug; the URL is `https://blog.moi.technology/article/<slug>/`. Nothing registers the post anywhere else: `getCollection('posts', …)` picks it up from the glob loader in `blog/src/content.config.ts`.
 
 Four published posts are the working reference corpus. Read at least one end to end before writing:
 
@@ -36,7 +36,7 @@ schema: z.object({
 }),
 ```
 
-`title`, `summary` and `date` are all required; `updated`, `author`, `takeaways`, `faq` and `cover` are optional, and `tags`/`draft` default to `[]`/`false`. Omitting `date` fails the build with `date: Invalid date`, not a missing-field message — `z.coerce.date()` coerces undefined to an Invalid Date first. A violation fails `npm run build --prefix blog`; it does not ship broken.
+`title`, `summary` and `date` are all required; `updated`, `author`, `takeaways`, `faq` and `cover` are optional, and `tags`/`draft` default to `[]`/`false`. Omitting `date` fails the build with `date: Invalid date`, not a missing-field message: `z.coerce.date()` coerces undefined to an Invalid Date first. A violation fails `npm run build --prefix blog`; it does not ship broken.
 
 ### What actually consumes each field
 
@@ -44,14 +44,14 @@ Trace before you decide a field is decorative. Renderers: `blog/src/pages/articl
 
 | Field | Where it lands |
 |---|---|
-| `title` | `<title>` and `og:title`, both as `` `${title} — MOI Blog` ``; article `<h1>`, both listings, RSS titles, llms.txt and JSON-LD `headline` get the bare title |
+| `title` | `<title>` and `og:title`, both as `${title}` followed by an em dash and `MOI Blog`; article `<h1>`, both listings, RSS titles, llms.txt and JSON-LD `headline` get the bare title |
 | `summary` | `<meta name="description">`, `og:description`, the hero paragraph under the h1, both listing cards, RSS `description`, llms.txt, JSON-LD `description` |
 | `date` | byline, sort key for every listing and feed, JSON-LD `datePublished`, RSS `pubDate` |
 | `updated` | JSON-LD `dateModified`; byline "Updated …" **only if it differs from `date`** |
 | `author.name` | byline; `.authors` line on the blog listing card; JSON-LD `author` |
 | `author.role` | byline only (`· Engineering`). Not in any JSON-LD |
 | `author.url` | wraps the name in a link; JSON-LD `author.url` |
-| `tags` | tag pages `/tags/<tag>/`, RSS `categories`, JSON-LD `keywords`. **Visible pills only for three slugs** — see below |
+| `tags` | tag pages `/tags/<tag>/`, RSS `categories`, JSON-LD `keywords`. **Visible pills only for three slugs**: see below |
 | `takeaways` | the `.takeaways` box above the body. Not in JSON-LD, not in feeds |
 | `faq` | `<details>` list at the bottom **and** a full `FAQPage` JSON-LD block |
 | `cover` | `og:image` (after an extension swap) and the apex listing thumbnail. **Not** the blog's own listing |
@@ -59,7 +59,7 @@ Trace before you decide a field is decorative. Renderers: `blog/src/pages/articl
 
 ### Field gotchas
 
-**Only three tags are visible anywhere.** `Base.astro` exports `NAV_TOPICS = [agents, protocol, native-assets]`, and both the article hero and `PostList.astro` filter tags through it. A tag outside that set still generates a real `/tags/<tag>/` page (`tags/[tag].astro` unions post tags with `NAV_TOPICS`) and still ships in RSS categories and JSON-LD keywords — but nothing on the site ever links to it. Right-looking-but-wrong: you tag a post `security` for discoverability, the build succeeds, the page exists, and no reader can reach it.
+**Only three tags are visible anywhere.** `Base.astro` exports `NAV_TOPICS = [agents, protocol, native-assets]`, and both the article hero and `PostList.astro` filter tags through it. A tag outside that set still generates a real `/tags/<tag>/` page (`tags/[tag].astro` unions post tags with `NAV_TOPICS`) and still ships in RSS categories and JSON-LD keywords, but nothing on the site ever links to it. Right-looking-but-wrong: you tag a post `security` for discoverability, the build succeeds, the page exists, and no reader can reach it.
 
 **`updated: <same value as date>` is a silent no-op in the byline.** `[...id].astro` guards on `updated.valueOf() !== date.valueOf()`. `moi-august-2026-release.md` sets both to `2026-08-21` and renders no "Updated" line. It still emits `dateModified`, identically valued. Set `updated` only when the post really changed after publication.
 
@@ -71,7 +71,7 @@ Trace before you decide a field is decorative. Renderers: `blog/src/pages/articl
 
 ## Cover images and the social card
 
-No post currently sets `cover` — it was removed from the release post in `902f78e` ("drop the release post's cover image"), leaving `blog/public/covers/moi-august-2026-release.{svg,png}` orphaned in the tree. As of `main`, **nothing on the blog emits `og:image`**.
+No post currently sets `cover`: it was removed from the release post in `902f78e` ("drop the release post's cover image"), leaving `blog/public/covers/moi-august-2026-release.{svg,png}` orphaned in the tree. As of `main`, **nothing on the blog emits `og:image`**.
 
 If you add one, the mechanics are:
 
@@ -82,23 +82,23 @@ const ogImage = cover ? new URL(cover.replace(/\.svg$/, '.png'), Astro.site).hre
 
 1. Put both files in `blog/public/covers/`: `<name>.svg` and `<name>.png`.
 2. Set `cover: "/covers/<name>.svg"`.
-3. The `.png` **must be exactly 1200×630** — `Base.astro` hardcodes `og:image:width`/`height` to those values and sets `twitter:card: summary_large_image`. The existing pair is a 1200×630 SVG viewBox rasterized to a 1200×630 PNG.
+3. The `.png` **must be exactly 1200×630**: `Base.astro` hardcodes `og:image:width`/`height` to those values and sets `twitter:card: summary_large_image`. The existing pair is a 1200×630 SVG viewBox rasterized to a 1200×630 PNG.
 
 What goes wrong if you get it right-looking-but-wrong:
 
-- Ship only the SVG: the build passes, the apex thumbnail renders, and `og:image` points at a `.png` that 404s. X, LinkedIn and Slack fall back to a bare text preview — the exact failure `122494b` was written to fix. Nothing warns you.
+- Ship only the SVG: the build passes, the apex thumbnail renders, and `og:image` points at a `.png` that 404s. X, LinkedIn and Slack fall back to a bare text preview: the exact failure `122494b` was written to fix. Nothing warns you.
 - Set `cover` to a `.png` directly: the regex only strips a trailing `.svg`, so `og:image` is that same PNG. Works, but the apex listing then uses the PNG as its thumbnail too.
 - Put the cover anywhere but `/covers/…`: `scripts/build-blog-index.js` resolves any other root-relative path against `BLOG_ORIGIN`, so it is fetched from the blog host instead of the apex host that copied it.
 
 ## Body
 
-**Start at `##`.** `title` is rendered as the `<h1>`; a body `#` produces a second `<h1>` on the page. No post in the corpus contains a `#` heading. CONTENT.md's "`# This becomes h2`" is wrong — Astro renders `#` as `<h1>`, it does not demote it.
+**Start at `##`.** `title` is rendered as the `<h1>`; a body `#` produces a second `<h1>` on the page. No post in the corpus contains a `#` heading. CONTENT.md's "`# This becomes h2`" is wrong: Astro renders `#` as `<h1>`, it does not demote it.
 
 **Make H2s questions.** 43 of the 53 H2s across the four posts end in a question mark ("What changed in go-moi v0.12.0?", "Why can't ownership models fix this?"). The two reference-shaped posts run 17/18 and the release post 7/9; the narrative webinar write-up is the outlier at 2/8. CONTENT.md gives the reason: LLMs parse q→a pairs readily. Answer the question in the section's first sentence.
 
-**Open with the claim, bolded.** `what-is-moi-network.md` line 50: `**MOI Network is the Participant Layer that provides on-chain authority.**` — one declarative sentence, first paragraph, before any setup.
+**Open with the claim, bolded.** `what-is-moi-network.md` line 50: `**MOI Network is the Participant Layer that provides on-chain authority.**`: one declarative sentence, first paragraph, before any setup.
 
-**Figures.** Assets go in a per-post subdirectory of `blog/src/assets/` (the directory name need not match the slug — `agent-authority-without-credentials/` serves the post slugged `how-to-give-an-ai-agent-authority-without-your-credentials`). Reference them relatively so Astro hashes and optimizes them:
+**Figures.** Assets go in a per-post subdirectory of `blog/src/assets/` (the directory name need not match the slug: `agent-authority-without-credentials/` serves the post slugged `how-to-give-an-ai-agent-authority-without-your-credentials`). Reference them relatively so Astro hashes and optimizes them:
 
 ```markdown
 ![Long, load-bearing alt text describing what the diagram shows](../../assets/what-is-moi-network/image5.png)
@@ -110,9 +110,9 @@ Alt text in this corpus is a full sentence, not a label. Captions are italic, nu
 
 Files under `blog/public/` are served as-is from the root instead (`/covers/…`, `/brand/…`); use that only for covers and brand assets.
 
-**Close with a recap.** Both long posts end with `## Key takeaways, recap` — a bullet list whose lead clause is bolded. This is separate from the `takeaways` frontmatter box at the top; write both.
+**Close with a recap.** Both long posts end with `## Key takeaways, recap`: a bullet list whose lead clause is bolded. This is separate from the `takeaways` frontmatter box at the top; write both.
 
-**Tables and code** are styled and safe. Tables get `overflow-x: auto` at 13.5px. Code blocks use Shiki with `github-light` (`blog/astro.config.mjs`) on a near-white surface — there is no dark theme.
+**Tables and code** are styled and safe. Tables get `overflow-x: auto` at 13.5px. Code blocks use Shiki with `github-light` (`blog/astro.config.mjs`) on a near-white surface: there is no dark theme.
 
 ## Voice
 
@@ -125,14 +125,14 @@ The rules that matter, from `CONTENT.md` and confirmed by the corpus:
 - Say `participant`, `authority`, `scope`, `revoke`, `on chain`, `agent`. Avoid `user`, `permissions`, `blockchain`, `AI assistant`.
 - Gloss every protocol term on first use. Round 4 of the release-post rewrite added first-use glosses for KMOI, fuel, logic, interaction, tesseract, actor state, POLO, ICS and Cocolab, and that is what moved the newcomer score from 61 to 87.
 
-The audience is protocol and agent-infrastructure developers. Copy that reads generated is a negative signal to them — which is also why `social/README.md` refuses to auto-generate social copy from `summary`.
+The audience is protocol and agent-infrastructure developers. Copy that reads generated is a negative signal to them, which is also why `social/README.md` refuses to auto-generate social copy from `summary`.
 
 ### The humanizer / stop-slop conflict, resolved
 
 Both skills are worth running. They disagree on dashes:
 
-- `stop-slop/SKILL.md:25` — "No em dashes." Absolute.
-- `humanizer/SKILL.md:38,183,193` — remove them *unless the writer's sample uses them*, in which case match the sample's rate.
+- `stop-slop/SKILL.md:25`: "No em dashes." Absolute.
+- `humanizer/SKILL.md:38,183,193`: remove them *unless the writer's sample uses them*, in which case match the sample's rate.
 
 **The published corpus is the sample, and it is not uniform:**
 
@@ -166,7 +166,7 @@ Sources to check against, in order of authority: the tagged source (`github.com/
 
 The op-code table in `moi-august-2026-release.md:142` was built by diffing `IxOpType` across both tags, not transcribed. Do the same for anything a reader will decode against.
 
-**When notes and source disagree and you cannot get a ruling:** word the post so it contradicts neither, and raise the discrepancy separately. `5c0f763` is the pattern — Registry/Deeds, the ID helpers and the MAS create flows were rewritten to the level of abstraction the notes use ("removed"/"new", "give you an ID before creation") without naming the specifics under dispute. Note that this leaves `moi.Registry` described as removed in the published post, which the tagged source contradicts; the post deliberately commits to neither reading. Do not silently pick a side.
+**When notes and source disagree and you cannot get a ruling:** word the post so it contradicts neither, and raise the discrepancy separately. `5c0f763` is the pattern: Registry/Deeds, the ID helpers and the MAS create flows were rewritten to the level of abstraction the notes use ("removed"/"new", "give you an ID before creation") without naming the specifics under dispute. Note that this leaves `moi.Registry` described as removed in the published post, which the tagged source contradicts; the post deliberately commits to neither reading. Do not silently pick a side.
 
 **Do not ship HTML comments.** `1d537dd` found four `<!-- … -->` blocks, including a `TODO` inside step 2 of the operator runbook, in a post already at `draft: false`. They render as invisible markup in production. Grep for `<!--` before you open the PR.
 
@@ -178,7 +178,7 @@ npm run dev --prefix blog       # localhost:4321
 npm run build                   # repo root: runs scripts/build-blog-index.js, then vite build
 ```
 
-**The two builds validate differently, and the root one does not validate at all.** Root `npm run build` is `node scripts/build-blog-index.js && vite build` — the script parses frontmatter with `gray-matter` and never touches the zod schema. A post with a missing `summary` produces `undefined` in the apex listing card and exits 0. Always run the blog build too; that is the one that fails.
+**The two builds validate differently, and the root one does not validate at all.** Root `npm run build` is `node scripts/build-blog-index.js && vite build`: the script parses frontmatter with `gray-matter` and never touches the zod schema. A post with a missing `summary` produces `undefined` in the apex listing card and exits 0. Always run the blog build too; that is the one that fails.
 
 Both builds must be run to see a post in both places. The blog build never writes `public/blog/index.html`, and the root build never renders the article.
 
@@ -189,9 +189,9 @@ Both builds must be run to see a post in both places. The blog build never write
 | Marketing site | `https://pr-<N>.preview.moi.technology` |
 | Blog | `https://pr-<N>-blog.preview.moi.technology` |
 
-Verify the post at `https://pr-<N>-blog.preview.moi.technology/article/<slug>/`. **Do not verify through the apex preview's `/blog` listing** — `BLOG_ORIGIN` is not set anywhere in the workflows, so `build-blog-index.js` falls back to `https://blog.moi.technology` and every card on the preview listing links to production, where an unpublished post 404s. The listing card itself (title, summary, date, tags, reading time) is still a valid check of the frontmatter.
+Verify the post at `https://pr-<N>-blog.preview.moi.technology/article/<slug>/`. **Do not verify through the apex preview's `/blog` listing**: `BLOG_ORIGIN` is not set anywhere in the workflows, so `build-blog-index.js` falls back to `https://blog.moi.technology` and every card on the preview listing links to production, where an unpublished post 404s. The listing card itself (title, summary, date, tags, reading time) is still a valid check of the frontmatter.
 
-Merging to `main` triggers `deploy.yml`, which authenticates via Teleport and runs `~/scripts/deploy-moi-website.sh` on the VM. The transfer mechanism is in that script, not in the repo — the `rsync` command in `blog/README.md:47` is documentation, not the workflow. Publishing and distribution are deliberately separate: merging opens a *Prepare social copy* PR at `social/<slug>.md` and sends nothing. See the distribution module and `social/README.md`.
+Merging to `main` triggers `deploy.yml`, which authenticates via Teleport and runs `~/scripts/deploy-moi-website.sh` on the VM. The transfer mechanism is in that script, not in the repo: the `rsync` command in `blog/README.md:47` is documentation, not the workflow. Publishing and distribution are deliberately separate: merging opens a *Prepare social copy* PR at `social/<slug>.md` and sends nothing. See the distribution module and `social/README.md`.
 
 ## CONTENT.md is stale in five places
 
@@ -202,7 +202,7 @@ Merging to `main` triggers `deploy.yml`, which authenticates via Teleport and ru
 | "`# This becomes h2` (h1 is reserved for title)" | `#` renders as a second `<h1>`. Start the body at `##` |
 | BlogPosting + BreadcrumbList + Organization schema, with `wordCount` | `[...id].astro` emits `@type: Article` and `FAQPage` only. No breadcrumb, no organization, no word count. (The apex listing separately emits `Blog` + `BlogPosting` + publisher `Organization`) |
 | `author.name` + `author.role` → `Person` in JSON-LD "with role context" | `@type: Organization`, name and url only; `role` never reaches JSON-LD |
-| "Word count and reading time displayed under the title … `3,247 words · 12 min read`" | The article byline is author · role · date only. Reading time appears on the apex listing only, as `N min read`, from `Math.round(words / 200)` — rounded, not up, floored at 1 |
+| "Word count and reading time displayed under the title … `3,247 words · 12 min read`" | The article byline is author · role · date only. Reading time appears on the apex listing only, as `N min read`, from `Math.round(words / 200)` (rounded, not up, floored at 1) |
 | `cover` is the "listing thumbnail"; `blog/public/covers/` | True on the apex listing (`scripts/build-blog-index.js`). `PostList.astro` never reads `cover`, so the blog's own listing is text-only for every post regardless |
 
-Palette: `CONTENT.md` names text `#15102B` and muted `#5B5570`. `blog/src/styles/global.css` defines `--ink: #0a051a` and `--muted: rgba(10, 5, 26, 0.62)`. The rest of the tokens match — `--moi-main #4b17e5`, `--moi-dark #320f99`, `--bg #fcfbff`, `--surface #f5f2ff`, `--pastel #d9ccff`, Poppins 400/500/600/700, light theme only.
+Palette: `CONTENT.md` names text `#15102B` and muted `#5B5570`. `blog/src/styles/global.css` defines `--ink: #0a051a` and `--muted: rgba(10, 5, 26, 0.62)`. The rest of the tokens match: `--moi-main #4b17e5`, `--moi-dark #320f99`, `--bg #fcfbff`, `--surface #f5f2ff`, `--pastel #d9ccff`, Poppins 400/500/600/700, light theme only.

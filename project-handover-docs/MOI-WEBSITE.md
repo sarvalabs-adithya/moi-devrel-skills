@@ -1,44 +1,50 @@
 # MOI Website
 
-**Status: active.** The site and the blog are live. The chatbot and the community calendar are gone: the site is static files plus the blog, and the calls live on Luma.
+**Status: active.** The site and the blog are live. The homepage's community calendar was replaced by a block that links to **Luma** (the event-calendar service the community calls are listed on), in PR #60, merged on 13 October 2026; the block stays hidden until the Luma address is set. The chatbot and the **Express server** (the small Node web server in server/ that answers the site's /api routes) stay as they are, decided on 13 October.
 
-moi.technology and the blog at blog.moi.technology. One repo, one deploy. The site is a React app whose marketing pages are prerendered at build time (since 5 October 2026); the blog is built with Astro from the same repo. There is no server: the chatbot and the calendar were removed in October 2026. I own the code and the content. DevOps owns the server.
+Marketing: Variables, Process (publishing, announcing, updating the next call), Open items. Developers: Stack, Env vars, Process (shipping, settings, health), Claude skill, Open items.
+
+moi.technology and the blog at blog.moi.technology. One repo, one deploy. The site is a React app whose marketing pages are **prerendered** at build time (written out as finished HTML files, so crawlers and AI tools see the text; since 5 October 2026); the blog is built with **Astro** (a static site builder) from the same repo. The Express server runs beside the static files: it holds the chatbot route and the old calendar routes. DevRel owns the code and the content. DevOps (Srikar) owns the server.
 
 ## Variables
 
 | Variable | Owner | Notes |
 |---|---|---|
-| Codebase | DevRel | https://github.com/sarvalabs/MOI-Website, public. Merging to main deploys. I push branches to it, no fork |
-| Server, nginx, TLS, DNS, the deploy script | DevOps (Srikar) | The deploy script lives on the server, not in the repo |
+| Codebase | DevRel | https://github.com/sarvalabs/MOI-Website, public. Merging to main deploys. DevRel pushes branches to it, no fork |
+| Server, **nginx** (the web server in front of the files), TLS, DNS, the deploy script | DevOps (Srikar) | The deploy script lives on the server, not in the repo |
 | Blog posts | DevRel | Markdown files under blog/src/content/posts |
-| Community calls on the homepage | DevRel, dates from Vardan | A block that links to the MOI calendar on Luma. The link in the code is a placeholder (LUMA_URL_PLACEHOLDER in src/components/CommunityCalls.jsx) until the real calendar address goes in. The next call's date, title and link come from content/next-call.json; only the date is required, a past date hides the line |
+| Community calls on the homepage | DevRel, dates from Vardan | A block that links to the MOI calendar on Luma (PR #60). It is off until `lumaUrl` in content/community-calls.json holds the real calendar address; today it is empty, so the homepage shows no community section. The same file takes an optional `nextCall` (date, title, link); only the date is required, and a past date hides the line |
 | Papers | DevRel | PDFs the site serves under /papers |
 | Analytics | The sarvalabsdeveloper@gmail.com account | Google Tag Manager is the script on every page that loads Analytics. Its container id is typed into the code (the site's index.html and the blog's Analytics component), so that account decides what runs on the site, and changing containers means editing those two files. Google Search Console (indexing and sitemaps for moi.technology) is under the same account |
-| Supabase project | Inactive | Held the calendar's events; which project, and under which login, is not recorded. The chatbot's documents lived in the Dataroom's Supabase project. Nothing on the site reads either any more |
+| Supabase project | Not recorded | Holds the old calendar's events (the community_calls table, used only by the Express server's /api/community-calls routes now that the homepage uses Luma) and the chatbot's documents. Which project, and under which login, is not recorded; the documents probably sit in the Dataroom's project |
 
 ## Stack
 
 | Piece | What it is |
 |---|---|
 | React 19 + Vite 7 + Tailwind 4 | The site. Four marketing routes, prerendered by scripts/ssg.mjs at build |
-| Astro 5 | The blog, in blog/, with its own package.json |
+| Astro 5 | The blog, in blog/, with its own package.json. Its build also writes the sitemap, the RSS feed and **llms.txt** (a plain-text map of the site for AI tools) |
+| Express server | server/index.js. Serves /api/chat (the chatbot), /api/community-calls (the old calendar, with admin routes behind ADMIN_API_KEY) and /api/health. Run by **PM2** (a process manager that restarts a Node app if it stops) behind nginx's /api location, both set up by DevOps |
+| Chatbot | The "Ask the protocol" chat. Hidden on the homepage (a comment in HomePage.jsx says temporarily hidden, backend not responding); the route and its keys stay |
 | scripts/build-blog-index.js | Writes the site's /blog listing from the posts and copies the covers |
-| GitHub Actions + Teleport | A merge to main runs the deploy script on the VM, which builds both and serves the files. Pull requests get a preview of each |
-| Distribute and social-prepare workflows | Announce a post: draft copy as a PR, then Buffer drafts |
+| GitHub Actions + **Teleport** | Teleport is the secure-access gateway the deploy goes through. A merge to main runs the deploy script on the VM, which builds both and serves the files. Pull requests get a preview of each |
+| Distribute and social-prepare workflows | Announce a post: draft copy as a PR, then **Buffer** (a social media scheduling service) drafts |
 | Tag Manager | Measurement, with the container id in the code |
 
 ## Env vars
 
 The index across every product, with the consoles and who holds each login, is ENV-VARS.md.
 
-Where they live: GitHub Actions secrets and variables on sarvalabs/MOI-Website. Both sites build with none. What is left serves the deploy and the announcement workflow.
+Where they live: GitHub Actions secrets and variables on sarvalabs/MOI-Website. They serve the Express server, the announcement workflow and the deploy.
 
 | Variable | What it is | Where the value comes from |
 |---|---|---|
-| BLOG_ORIGIN | Where the site's blog listing links to. Optional; defaults to https://blog.moi.technology | |
-| BUFFER_ACCESS_TOKEN, BUFFER_CHANNEL_X, BUFFER_CHANNEL_LINKEDIN, DISCORD_WEBHOOK_URL, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID | The "Distribute a post" workflow, one per channel. A missing one skips its channel. Only the three Buffer names are set today, so Discord and Telegram are skipped | Buffer (Chandra), Discord server settings, BotFather |
+| BLOG_ORIGIN | Where the site's blog listing links to. Optional; defaults to https://blog.moi.technology | Not needed; the code default is used |
+| BUFFER_ACCESS_TOKEN, BUFFER_CHANNEL_X, BUFFER_CHANNEL_LINKEDIN, DISCORD_WEBHOOK_URL, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID | The "Distribute a post" workflow, one per channel. A missing one skips its channel. This doc says only the three Buffer names are set, so Discord and Telegram are skipped; ENV-VARS.md lists all six as set (see Open items) | Buffer (Chandra), Discord server settings, BotFather |
 | TELEPORT_PROXY, TELEPORT_JOIN_TOKEN, TELEPORT_NODE, VM_USERNAME, PREVIEW_VM_HOST, PREVIEW_VM_USER | Deploy and preview access | DevOps |
-| SUPABASE_URL, SUPABASE_KEY, ADMIN_API_KEY, VITE_CHATBOT_API, ANTHROPIC_API_KEY, OPENAI_API_KEY, DATA_ROOM_CHAT_URL, VITE_GA_ID, PUBLIC_GA_ID | Dead once the removal merges: nothing reads them | Delete them from the repo's secrets |
+| SUPABASE_URL, SUPABASE_KEY, VITE_CHATBOT_API, ANTHROPIC_API_KEY, OPENAI_API_KEY, DATA_ROOM_CHAT_URL | Live: the chatbot and the Express server use them, and the deploy passes them to the server script | Supabase, the two model consoles, the Dataroom (see ENV-VARS.md) |
+| ADMIN_API_KEY | The calendar admin routes on the Express server. The deploy does not pass it, so the routes accept a default written in the source, and the repo is public | `openssl rand -hex 32`; pass it in the deploy and remove the fallback |
+| VITE_GA_ID, PUBLIC_GA_ID | Passed by the deploy, read by nothing (Tag Manager measures instead). Leave | The GA4 property |
 
 The example file is .env.example in the repo.
 
@@ -47,9 +53,9 @@ The example file is .env.example in the repo.
 **Shipping a change**
 
 - Work on a branch and push it to the repo.
-- Run lint and both builds myself: the site and the blog. A pull request builds both for its preview links, but nothing runs lint.
+- DevRel runs lint and both builds: the site and the blog. A pull request builds both for its preview links, but nothing runs lint.
 - Open a pull request. It gets a preview link for the site and one for the blog.
-- Merging to main deploys: GitHub Actions reaches the server and runs its script, which builds and serves the files. The workflow passes nothing but the branch name any more.
+- Merging to main deploys: GitHub Actions reaches the server and runs its script, which builds and serves the files. The workflow passes the branch name and the Express server's values (the live row under Env vars) to that script.
 - Open the live page afterwards. A green run proves little.
 - There is no rollback. Revert in a new pull request.
 - A new page also needs a line in the sitemap file in the repo.
@@ -71,7 +77,7 @@ The example file is .env.example in the repo.
 
 **Updating the next community call on the homepage**
 
-- Edit content/next-call.json: `{ "date": "2026-11-18", "title": "Community call 16", "url": "https://lu.ma/..." }`. Only the date is required. Open a pull request, merge. If the date has passed or the file is empty, the block shows only the Luma button.
+- Edit content/community-calls.json: `{ "lumaUrl": "https://lu.ma/...", "nextCall": { "date": "YYYY-MM-DDTHH:MM:SSZ", "title": "...", "url": "https://lu.ma/..." } }`. `lumaUrl` must be a web link or the whole block stays hidden. In `nextCall` only the date is required; a date with no time counts for that whole UTC day. Open a pull request, merge: the file is read at build time. If the date has passed or `nextCall` is null, the block shows only the Luma button.
 
 **Changing a setting or a secret**
 
@@ -82,23 +88,28 @@ The example file is .env.example in the repo.
 
 - Open moi.technology, blog.moi.technology and one post.
 - Check robots.txt, llms.txt and the sitemap answer.
-- Check the homepage's community calls block links to Luma.
+- Check the homepage's community calls block links to Luma (once `lumaUrl` is set; until then the homepage correctly shows no such block).
 
 ## Claude skill
 
-The **moi-web-products-ops** skill covers running the site: shipping, settings and health. Its calendar and chatbot runbooks describe what was removed in October 2026 and are kept only for the history. The **moi-blog** skill covers posts: writing, publishing, announcing and the newsletter. The search and AI-visibility layer of the site is in **moi-docs** (its geo part).
+The **moi-web-products-ops** skill covers running the site: shipping, settings and health. Its calendar runbook describes the calendar that PR #60 replaced with the Luma block, and its runbooks were written on 3 October, before that change; its chatbot runbook still applies, since the chatbot and the server stay. The **moi-blog** skill covers posts: writing, publishing, announcing and the newsletter. The search and AI-visibility layer of the site is in **moi-docs** (its geo part).
 
 | When | What to tell Claude | What the skill does |
 |---|---|---|
 | Something looks wrong | "Is the website healthy?" | Runs a read-only health check on the live site and blog, and names the known faults. |
 | Shipping | "Ship this website change." | Walks the branch, the local checks and the pull request, and says what merging will deploy. |
 | A post | "Write a blog post on ..." | Drafts it in the house style, checks every claim, and prepares the pull request. |
-| Announcing | "Announce the post." | Rewrites the social copy and walks the Distribute run. I publish the drafts. |
-| The next call | "Update the next community call on the homepage." | Edits content/next-call.json and opens the pull request for me to merge. |
+| Announcing | "Announce the post." | Rewrites the social copy and walks the Distribute run. DevRel publishes the drafts. |
+| The next call | "Update the next community call on the homepage." | Edits content/community-calls.json and opens the pull request for DevRel to merge. |
 | A setting | "I need to change this website setting: ..." | Says where it is set and whether it needs a rebuild. It never sees the secret's value. |
 
-What the skills never do without my yes: push, merge (a merge deploys), run a workflow, post, send or change a secret.
+What the skills never do without DevRel's yes: push, merge (a merge deploys), run a workflow, post, send or change a secret.
 
 ## Open items
 
-- Two local branches in ~/moi-website-handover, ready since 12 October and not pushed: handover/sweep-oct (seven commits: the admin key fix, the chatbot switch, the calendar's API base, the Vercel-era files removed, the guides corrected, the Distribute confirm step) and handover/drop-calendar on top of it (the calendar, the admin page and the Express server removed; the site is static). Push them as two PRs in that order. Before the merge, DevOps removes the PM2 restart and the /api location from the server; after it, the dead secrets listed under Env vars are deleted and the real Luma address replaces the placeholder in the code.
+- Set the Luma address. `lumaUrl` in content/community-calls.json is empty, so the homepage shows no community section. Ask Vardan for the calendar address, then open a pull request. The date of the next call (CC15, expected the last week of October) is not set either; ask Vardan.
+- The chatbot answers: unknown. It is hidden on the homepage, and GitHub issue 3 on the repo (opened 20 April) reports the retrieval query failing against the Supabase project. Whether the route works today, and which Supabase project SUPABASE_URL points at, is for DevOps (Srikar) to confirm.
+- VITE_CHATBOT_API is believed to hold the dev host, not https://moi.technology (ENV-VARS.md). Confirm what it holds.
+- ADMIN_API_KEY is not passed by the deploy, so the calendar admin routes accept the default written in the public source. Pass the key and remove the fallback, or remove the routes.
+- Discord and Telegram for the Distribute workflow: this doc says their secrets are not set, ENV-VARS.md says set. Check the repo's Actions secrets and correct whichever doc is wrong.
+- The moi-web-products-ops skill's website runbooks date from 3 October; bring the calendar and content ones in line with PR #60.

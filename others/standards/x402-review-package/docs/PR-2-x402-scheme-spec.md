@@ -56,11 +56,11 @@ The file follows the structure of the merged `stellar`, `near` and `ton` specs. 
 
 ## 1. PR description
 
-### PR description — x402-foundation/x402 (spec only)
+### PR description: x402-foundation/x402 (spec only)
 
 **Title:** specs: add `exact` scheme for MOI (`moi:*`), upfront flow
 
-Adds `specs/schemes/exact/scheme_exact_moi.md`. Specification only, no code — per the repo's
+Adds `specs/schemes/exact/scheme_exact_moi.md`. Specification only, no code, per the repo's
 process, the spec lands before any mechanism package is reviewed.
 
 This scheme uses the `upfront` payment flow (spec v2 section 6.1): the buyer settles a
@@ -69,7 +69,7 @@ Per the upfront ordering, `/verify` is omitted and all validation runs inside `/
 confirms the transfer by reading the interaction and its receipt back from the chain. The
 facilitator holds no keys and sponsors no fuel, making self-facilitation the natural deployment.
 
-`upfront` is a choice, not a limit. MOI supports the other two flows natively — `escrow` through
+`upfront` is a choice, not a limit. MOI supports the other two flows natively: `escrow` through
 the asset standard's `Lockup`/`Release` endpoints or a Coco escrow logic, and `authorization` through third-party relay
 of a signed interaction with a co-signing fee payer (moipod v0.13.0) or the `Approve`/`TransferFrom`
 allowance. Those are intended as follow-up scheme specs once this one merges; this PR keeps to
@@ -102,15 +102,15 @@ ChainAgnostic/namespaces#TODO. This PR should not merge before that one does.
 > **Context.** x402 v1 carried a closed enum of network names, so no MOI network can be expressed in it; every merged non-EVM spec marks v1 unsupported the same way. v2 names networks by CAIP-2 string, which is why PR 1 has to exist before this one.
 
 
-- ❌ `v1` — not supported; v1's closed network enum cannot name a MOI network.
-- ✅ `v2`
+- `v1`: not supported; v1's closed network enum cannot name a MOI network.
+- `v2`: supported.
 
 #### Supported Networks
 
 > **Context.** Only the live public network. `moi:mainnet` is reserved in the CASA doc but deliberately not listed here, because a scheme spec lists what a facilitator can settle on today. The scope note carries the two facts every later rule depends on: native fungible assets only, and no fuel sponsorship by the facilitator.
 
 
-- `moi:devnet` — Voyage devnet ([CASA namespace](https://namespaces.chainagnostic.org/moi/caip2))
+- `moi:devnet`: Voyage devnet ([CASA namespace](https://namespaces.chainagnostic.org/moi/caip2))
 
 > [!NOTE]
 > **Scope:** This spec covers transfers of protocol-native fungible assets only (MAS0, and MASN
@@ -183,6 +183,8 @@ Consequences:
 > **Context.** The wire shape the seller emits in `PAYMENT-REQUIRED`. Three `extra` keys: `paymentFlow`, which core writes itself once the scheme declares the flow; `areFeesSponsored`, which the facilitator advertises through `getExtra` exactly as Stellar does; and `resource`, which the server half copies in so the buyer can sign over it. No `assetTransferMethod`, because MOI has only one way to move a native asset.
 
 
+Annotated JSON (the `//` comments are explanatory and are not part of the payload):
+
 ```json
 {
   "scheme": "exact",
@@ -201,21 +203,21 @@ Consequences:
 
 **Field definitions:**
 
-- `network` — a `moi:*` CAIP-2 identifier from Supported Networks.
-- `asset` — the 32-byte identifier of a protocol-native asset (MAS0, or MASN for KMOI). These
+- `network`: a `moi:*` CAIP-2 identifier from Supported Networks.
+- `asset`: the 32-byte identifier of a protocol-native asset (MAS0, or MASN for KMOI). These
   assets carry no on-chain decimals or symbol, so amounts are always atomic units.
-- `amount` — atomic units, decimal string.
-- `payTo` — the seller's participant identifier.
-- `maxTimeoutSeconds` — bounds the claim's `validBefore`.
-- `extra.paymentFlow` — always `"upfront"` for this mechanism. This is a protocol-reserved key
+- `amount`: atomic units, decimal string.
+- `payTo`: the seller's participant identifier.
+- `maxTimeoutSeconds`: bounds the claim's `validBefore`.
+- `extra.paymentFlow`: always `"upfront"` for this mechanism. This is a protocol-reserved key
   and core writes it onto the wire itself once the scheme declares the flow; the scheme does not
   set it by hand.
-- `extra.areFeesSponsored` — always `false`. The facilitator advertises it through `getExtra`,
+- `extra.areFeesSponsored`: always `false`. The facilitator advertises it through `getExtra`,
   as the Stellar scheme does; core merges it into the requirements. The buyer, or a fee payer it
   names, pays the fuel.
-- `extra.resource` — the URL of the resource being purchased, copied from the request's
+- `extra.resource`: the URL of the resource being purchased, copied from the request's
   `ResourceInfo`. The buyer signs over it and the facilitator checks it (rule 5).
-- `extra.assetTransferMethod` — absent. MOI offers one way to move a native asset, so the scheme
+- `extra.assetTransferMethod`: absent. MOI offers one way to move a native asset, so the scheme
   declares the SDK's `"default"` asset transfer method, and core strips the key from the wire.
 
 #### `PAYMENT-SIGNATURE` Header Payload
@@ -223,7 +225,7 @@ Consequences:
 > **Context.** The buyer's proof. The claim repeats the quoted fields so the facilitator can compare them, and adds the transfer hash, the resource, a validity window and a nonce. `keyId` MUST be 0 because rule 3 derives the paying account from the public key, and only key 0 derives to it.
 
 
-The `payload` member of the standard `PaymentPayload` envelope carries:
+The `payload` member of the standard `PaymentPayload` envelope carries the following annotated JSON (the `//` comments are explanatory and are not part of the payload):
 
 ```json
 {
@@ -262,7 +264,7 @@ signature produced here from being valid as a signature over anything else the s
 
 Encoding MUST be exact so that implementations in different languages agree: no whitespace
 between elements; every element a JSON string; string escaping limited to `"`, `\` and control
-characters U+0000–U+001F (as `\uXXXX`, or the short forms `\n`, `\r`, `\t`, `\b`, `\f`); no
+characters U+0000 to U+001F (as `\uXXXX`, or the short forms `\n`, `\r`, `\t`, `\b`, `\f`); no
 escaping of `/`, `<`, `>`, `&`, and no `\u` escaping of any character above U+001F. This is what
 JavaScript's `JSON.stringify` produces; other encoders MUST be configured to match (for example,
 Go's `SetEscapeHTML(false)`, Python's `ensure_ascii=False` with `separators=(",", ":")`).
@@ -361,6 +363,8 @@ receipt carries neither the beneficiary nor the amount, so the read-back takes b
 
 A settled transfer on Voyage devnet returns:
 
+Annotated JSON (the `//` comments are explanatory and are not part of the response):
+
 ```json
 // moi.InteractionByHash
 {
@@ -422,10 +426,12 @@ as messages, and facilitators MAY ignore it.
 > **Context.** `transaction` is the buyer's own hash, confirmed rather than executed, which is the visible difference from an `authorization` mechanism.
 
 
+Annotated JSON (the `//` comment is explanatory and is not part of the response):
+
 ```json
 {
   "success": true,
-  "transaction": "0x…",       // claim.txHash — the buyer's own transfer, confirmed not executed
+  "transaction": "0x…",       // claim.txHash: the buyer's own transfer, confirmed not executed
   "network": "moi:devnet",
   "payer": "0x00000000…",
   "amount": "1000"
@@ -486,10 +492,10 @@ settlement and never produces a claim; the seller sees no request.
 
 ##### MOI in brief
 
-MOI is an account-centric protocol. Each participant account holds its own state and its own
+MOI is a participant-centric protocol. Each participant account holds its own state and its own
 ordered sequence of tesseracts; there is no single global chain of blocks. Fungible assets are
 protocol-native (the MAS0 standard, and MASN for the KMOI token) rather than contract-deployed,
-and interactions — the signed unit of state change — are signed by the sending account with
+and interactions (the signed unit of state change) are signed by the sending account with
 ECDSA over secp256k1. Because the buyer can submit its own transfer directly, this scheme
 settles first and proves second.
 
@@ -501,15 +507,15 @@ VM implementations are not public, so this spec describes only wire-visible beha
 An interaction envelope contains: `sender { id, sequence, key_id }`, an optional `fee_payer`
 (named `payer` before moipod v0.13.0; when set, that account co-signs and pays the fuel),
 `fuel_price` and `fuel_limit`, a `funds` list, `ix_operations` (each `{ type, payload }`),
-a `participants` list (account id, lock type and a notary flag — a scheduling and co-signing
+a `participants` list (account id, lock type and a notary flag: a scheduling and co-signing
 declaration, not a permission), and consensus preferences. The whole envelope is POLO-encoded and signed with ECDSA over
 secp256k1; `sender.key_id` selects which of the account's keys signed.
 
 A participant identifier is 32 bytes: a tag byte, a flags byte, two standard bytes (zero for a
 participant), a 24-byte fingerprint sliced directly from the account's compressed public key
 (the 24 bytes after its parity byte), and a 4-byte variant carrying the sub-account index. It
-derives from the key, not from a network, so the same identifier can exist on every MOI network
-— one reason explicit network identification matters for this scheme.
+derives from the key, not from a network, so the same identifier can exist on every MOI network,
+which is one reason explicit network identification matters for this scheme.
 
 A receipt contains `ix_hash`, an interaction-level `status`, `fuel_used`, `from`, and
 per-operation results (`{ tx_type, status, data { outputs, error } }`). Interaction-level status

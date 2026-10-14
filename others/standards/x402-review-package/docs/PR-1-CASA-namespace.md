@@ -23,9 +23,9 @@ CASA's `_template/` defines both files. Modelled on the accepted `stellar`, `apt
 
 - Both files drafted and self-consistent; syntax regex, test cases and rationale corrected on 10 September.
 - **Blocking:** Resolution Mechanics needs the network-identity RPC the protocol team is adding. No merged namespace has filed without one.
-- **Blocking, same dependency:** the reference format. Names (`moi:devnet`) today; if the RPC exposes a stable numeric chain id, the reference becomes numeric (`moi:112`) and the changes listed in `DECISIONS.md` apply to this PR, to PR 2 and to `constants.ts` in PR 3.
+- **Blocking, same dependency:** the reference format. As of 10 September 2026 the reference is a name (`moi:devnet`); if the RPC exposes a stable numeric network ID, the reference becomes numeric (`moi:112`) and the changes listed in `DECISIONS.md` apply to this PR, to PR 2 and to `constants.ts` in PR 3.
 - `discussions-to` is the PR's own URL, filled in once opened. Whoever owns it must watch it.
-- MOI Wallet currently uses `moi:14`; the namespace must reconcile with the wallet before filing.
+- As of 10 September 2026, MOI Wallet uses `moi:14`; the namespace must reconcile with the wallet before filing.
 
 ### Index
 
@@ -39,20 +39,20 @@ CASA's `_template/` defines both files. Modelled on the accepted `stellar`, `apt
 
 ## 1. PR description
 
-### PR description — ChainAgnostic/namespaces
+### PR description: ChainAgnostic/namespaces
 
 **Title:** Add `moi` namespace (CAIP-104 profile + CAIP-2 chains profile)
 
-This PR adds a namespace profile for MOI, an account-centric protocol in which each participant
+This PR adds a namespace profile for MOI, a participant-centric protocol in which each participant
 account holds its own state and tesseract sequence. Because there is no chain-wide genesis
 artefact, the CAIP-2 reference is a short network name (pending: the protocol team is adding a
-chain-id RPC, and the reference format will be confirmed against it before this PR is opened).
+network-ID RPC, and the reference format will be confirmed against it before this PR is opened).
 
 Files follow `_template/`, modelled on the accepted `stellar`, `aptos` and `neo` profiles.
 
-- [x] `author`: Adithya Ganesh (@sarvalabs-adithya) — this person answers CASA's comments
+- [x] `author`: Adithya Ganesh (@sarvalabs-adithya), who answers CASA's comments
 - [ ] `discussions-to` URL created and monitored
-- [ ] Reference format confirmed against the protocol chain-id PR
+- [ ] Reference format confirmed against the protocol network-ID PR
 - [ ] Internal review (Rahul) complete
 
 Drafted with AI assistance; reviewed by the listed author.
@@ -77,14 +77,14 @@ requires: ["CAIP-2"]
 
 ### Namespace for MOI Chains
 
-> **Context.** This is the CAIP-104 namespace profile, the file CASA reads first. It has to say what the namespace covers and, for MOI, explain the one structural difference (account-centric, no global chain) that every later choice depends on.
+> **Context.** This is the CAIP-104 namespace profile, the file CASA reads first. It has to say what the namespace covers and, for MOI, explain the one structural difference (participant-centric, no global chain) that every later choice depends on.
 
 
 The namespace `moi` refers to the wider MOI ecosystem, including public networks such as the
 Voyage devnet and any private deployment of the MOI protocol.
 
 MOI differs from account-balance chains in one way that matters when reading the rest of these
-profiles: it is **account-centric**. There is no single global chain of blocks. Each participant
+profiles: it is **participant-centric**. There is no single global chain of blocks. Each participant
 account holds its own sequence of *tesseracts*, and an *interaction* is the signed unit that moves
 state. Consequently there is no chain-wide genesis block whose hash could serve as a network
 reference, which is why the CAIP-2 profile uses a named reference rather than a hash.
@@ -101,13 +101,13 @@ Most namespaces in this registry describe chains that keep one global ledger: a 
 chain of blocks, a genesis hash, and often a numeric chain id. MOI has none of these, and the
 identifiers in this namespace reflect that.
 
-MOI is account-centric. Each participant account carries its own state and its own ordered
-sequence of tesseracts — per-account state checkpoints — rather than a position in one shared
+MOI is participant-centric. Each participant account carries its own state and its own ordered
+sequence of tesseracts (per-account state checkpoints) rather than a position in one shared
 chain. State changes travel as interactions, envelopes signed whole by the submitting account
 (ECDSA over secp256k1). Because tesseracts are per-account, there is no chain-wide genesis block
-to hash. The protocol also exposes no chain id on the wire: the client SDK defines a numeric
+to hash. The protocol also exposes no network ID on the wire: the client SDK defines a numeric
 `Chain` enum, but no RPC method or interaction field reads or emits it. Neither of the two most
-common CAIP-2 reference conventions — `eip155`'s chain id or `solana`'s genesis hash — is usable
+common CAIP-2 reference conventions (`eip155`'s chain id or `solana`'s genesis hash) is usable
 today, so the CAIP-2 profile uses a short, well-known network name, in the manner of the
 `stellar` namespace.
 
@@ -139,7 +139,7 @@ process.
 New network references do not require changes to this profile: any reference that follows the
 syntax in `caip2.md` is valid, and a new public network becomes *well-known* by being added to
 the table there. References for retired networks remain syntactically valid so that historical
-data can still name the network it settled on — the reference format deliberately keeps working
+data can still name the network it settled on: the reference format deliberately keeps working
 for a chain that no longer runs.
 
 #### References
@@ -147,11 +147,11 @@ for a chain that no longer runs.
 > **Context.** Only public artefacts. A reviewer can open every link.
 
 
-- [MOI Protocol](https://moi.technology) — protocol overview
-- [MOI documentation](https://docs.moi.technology) — protocol fundamentals (assets, logics, interactions)
-- [Voyage Explorer](https://voyage.moi.technology) — public network explorer
-- [Sarva Labs on GitHub](https://github.com/sarvalabs) — protocol and SDK repositories
-- [js-moi-sdk](https://www.npmjs.com/package/js-moi-sdk) — reference client library
+- [MOI Protocol](https://moi.technology): protocol overview
+- [MOI documentation](https://docs.moi.technology): protocol fundamentals (assets, logics, interactions)
+- [Voyage Explorer](https://voyage.moi.technology): public network explorer
+- [Sarva Labs on GitHub](https://github.com/sarvalabs): protocol and SDK repositories
+- [js-moi-sdk](https://www.npmjs.com/package/js-moi-sdk): reference client library
 
 [CAIP-2]: https://chainagnostic.org/CAIPs/caip-2
 [CAIP-10]: https://chainagnostic.org/CAIPs/caip-10
@@ -196,7 +196,7 @@ requires: ["CAIP-2"]
 > **Context.** One paragraph of context and the single sentence that matters to CASA: no chain-wide genesis, so the reference is a name, in the manner of `stellar`.
 
 
-MOI is an account-centric protocol.
+MOI is a participant-centric protocol.
 Unlike chains that append blocks to one global ledger, each participant account on MOI holds its
 own sequence of *tesseracts*, and state changes are carried by signed *interactions*.
 
@@ -209,7 +209,7 @@ namespace.
 
 ##### Semantics
 
-> **Context.** What the two halves of `moi:<reference>` mean. This is the paragraph that changes if the protocol team decides on a numeric chain id (Option B in DECISIONS).
+> **Context.** What the two halves of `moi:<reference>` mean. This is the paragraph that changes if the protocol team decides on a numeric network ID (Option B in DECISIONS).
 
 
 The `namespace` is `moi`.
@@ -248,7 +248,7 @@ Private deployments SHOULD choose a reference that is unlikely to collide with t
 
 ##### Resolution Mechanics
 
-> **Context.** BLOCKING. CAIP-2 requires a real RPC call that tells a client which network a node is on, and every merged namespace has one. MOI has no such method today. The section states the requirement and will be written against the network-identity RPC the protocol team is adding (Rahul: chain-id PR in progress).
+> **Context.** BLOCKING. CAIP-2 requires a real RPC call that tells a client which network a node is on, and every merged namespace has one. MOI had no such method as of 10 September 2026. The section states the requirement and will be written against the network-identity RPC the protocol team is adding (Rahul: network-ID PR in progress).
 
 
 *To be completed.* This section requires a JSON-RPC method that reports which network a node
@@ -262,7 +262,7 @@ this section will be written against it.
 
 #### Rationale
 
-> **Context.** Explains why a name was chosen over a chain id or a genesis hash, and commits to reconsidering if the planned RPC exposes a stable numeric id. Every knock-on change for a numeric reference is listed in DECISIONS.
+> **Context.** Explains why a name was chosen over a numeric network ID or a genesis hash, and commits to reconsidering if the planned RPC exposes a stable numeric id. Every knock-on change for a numeric reference is listed in DECISIONS.
 
 
 MOI has no stable, RPC-readable network identifier today, so the reference is a short network
@@ -275,7 +275,7 @@ first tesseract of a genesis-era account, which would tie the identifier to an i
 detail.
 
 A name is human-legible, stable across protocol upgrades, and lets a client construct an
-identifier without fetching anything — only verify one. If the planned network-identity method
+identifier without fetching anything, only verify one. If the planned network-identity method
 exposes a stable numeric id, a numeric reference becomes available and this choice should be
 reconsidered before the profile leaves Draft.
 
@@ -328,7 +328,7 @@ moi:this-reference-is-far-too-long-to-be-valid   # exceeds 32 characters
 A network reference is only as trustworthy as the endpoint reporting it.
 Clients SHOULD authenticate their RPC endpoint and SHOULD NOT infer a network from an unverified
 URL. Because MOI participant identifiers are derived from public keys rather than allocated per
-network, the same identifier may exist on more than one MOI network — so a client that submits an
+network, the same identifier may exist on more than one MOI network, so a client that submits an
 interaction to the wrong network may find it succeeds.
 
 #### References
@@ -336,8 +336,8 @@ interaction to the wrong network may find it succeeds.
 > **Context.** CAIP-2, CAIP-104 and public MOI links only.
 
 
-- [CAIP-2][] — Blockchain ID Specification
-- [CAIP-104][] — Chain Agnostic Namespaces
+- [CAIP-2][]: Blockchain ID Specification
+- [CAIP-104][]: Chain Agnostic Namespaces
 - [MOI Protocol](https://moi.technology)
 - [Voyage Explorer](https://voyage.moi.technology)
 - [js-moi-sdk](https://www.npmjs.com/package/js-moi-sdk)
@@ -358,31 +358,31 @@ Copyright and related rights waived via [CC0](https://creativecommons.org/public
 
 ## 4. Open decisions
 
-### Open decisions — PR 1
+### Open decisions: PR 1
 
-Four things are undecided. One blocks the PR, one can be closed today, two are judgement calls.
+Four items are undecided. Two block the PR (items 1 and 2, the second depending on the first), one has no dependency and can be closed at any time (item 3), and one groups two judgement calls (item 4).
 Each says who decides and exactly what changes.
 
 ---
 
-#### 1. The reference format — BLOCKING
+#### 1. The reference format: BLOCKING
 
 **Decides:** protocol team / Rahul.
 
 The reference half of `moi:<reference>` is currently a network name (`moi:devnet`). The client SDK
-also carries `enum Chain { TEST_NET = 111, DEV_NET = 112, MAIN_NET = 113 }`, unused today, and the
+also carries `enum Chain { TEST_NET = 111, DEV_NET = 112, MAIN_NET = 113 }`, unused as of 10 September 2026, and the
 planned network-identity RPC may surface exactly those numbers. If it does, a numeric reference
 becomes available and every other registered chain that has a chain id uses one.
 
-**Option A — keep names.** `moi:devnet`, `moi:mainnet`. Human-legible, matches `stellar:pubnet`.
+**Option A: keep names.** `moi:devnet`, `moi:mainnet`. Human-legible, matches `stellar:pubnet`.
 Nothing in the document changes.
 
-**Option B — use the chain id.** `moi:112` for devnet. Matches `eip155` and `neo`. Changes:
+**Option B: use the network ID.** `moi:112` for devnet. Matches `eip155` and `neo`. Changes:
 
 | Section | Change |
 | --- | --- |
-| Semantics | reference becomes the network's chain id, not its name |
-| Syntax | regex becomes `^(0\|[1-9][0-9]{0,9})$`, plus a range bound — copy Neo's wording |
+| Semantics | reference becomes the network ID, not its name |
+| Syntax | regex becomes `^(0\|[1-9][0-9]{0,9})$`, plus a range bound; copy Neo's wording |
 | Well-known networks | table keys on ids: devnet `112`, mainnet `113` |
 | Resolution Mechanics | reads the id from the new RPC |
 | Rationale | the "numeric chain id was rejected" paragraph inverts; the "short network name" paragraph becomes the rejected option |
@@ -395,7 +395,7 @@ Roughly an hour of editing, mechanical once the choice is made.
 
 ---
 
-#### 2. Resolution Mechanics — BLOCKING, same dependency
+#### 2. Resolution Mechanics: BLOCKING, same dependency
 
 **Decides:** protocol team ships it; nobody can write around it.
 
@@ -404,7 +404,7 @@ namespace has one backed by a real call: Neo `getversion` → `protocol.network`
 `/` → `network_passphrase`, Klever `/node/status`, Tenzro `tenzro_getBlock` at genesis. There is
 no precedent for filing without one.
 
-MOI has nothing equivalent today. Re-probed 10 September: `net.Network`, `net.ChainId`,
+As of 10 September 2026 MOI has nothing equivalent. Re-probed that day: `net.Network`, `net.ChainId`,
 `net.NetworkInfo`, `moi.Network`, `moi.ChainId`, `moi.NetworkInfo`, `net.Chain` and `moi.Chain`
 all return method-not-found. Nothing existing substitutes: `net.Info` returns a per-node peer id,
 `net.Version` the node's software version, and `KMOI_ASSET_ID` is a hardcoded SDK constant
@@ -414,18 +414,18 @@ The section states what it requires and nothing more: a method reporting which n
 on, its request and response, and the rule for deriving the reference. Nothing is invented. When
 the method lands, write it in.
 
-One finding worth recording. `commit_info.cluster_id` is network-wide at the latest tesseract —
-two unrelated accounts return the same value — but it differs at tesseract 0, so it tracks the
+One finding worth recording. `commit_info.cluster_id` is network-wide at the latest tesseract
+(two unrelated accounts return the same value), but it differs at tesseract 0, so it tracks the
 current validator cluster and rotates. A CAIP-2 reference has to be stable for the life of the
 network, so it cannot be used.
 
 ---
 
-#### 3. `discussions-to` — can be closed today
+#### 3. `discussions-to`: no dependency, can be closed at any time
 
 **Decides:** Adithya.
 
-Currently `https://github.com/ChainAgnostic/namespaces/pull/TODO` — the CASA PR's own URL, with
+Currently `https://github.com/ChainAgnostic/namespaces/pull/TODO`, the CASA PR's own URL, with
 the number filled in once the PR is opened. That is the simplest route and needs nothing set up
 beforehand.
 
@@ -448,7 +448,7 @@ template is the better authority.
 says it MUST NOT be treated as resolvable. The alternative is to list only `devnet` and add
 mainnet when it launches. Reserving it is defensible and tells tooling authors what is coming;
 dropping it removes a row a reviewer might question. Neo avoids the problem entirely by defining a
-rule rather than a table — which is also what Option B in decision 1 would give us.
+rule rather than a table, which is also what Option B in decision 1 would give us.
 
 ---
 
@@ -460,7 +460,7 @@ returns a different tesseract per account. There is genuinely no global chain.
 The rationale previously claimed no genesis artefact exists at all. That was too strong: a
 genesis-era account's first tesseract carries `timestamp: 0x0` and an empty `cluster_id`, and its
 hash is plausibly stable and network-unique. Using it would tie the identifier to an
-implementation detail, which is a reason to prefer a name — but not the reason the document gave.
+implementation detail, which is a reason to prefer a name, but not the reason the document gave.
 Corrected.
 
 #### What is not undecided
@@ -468,4 +468,4 @@ Corrected.
 The author is set: Adithya Ganesh (@sarvalabs-adithya). The syntax regex is fixed (it previously
 accepted a trailing hyphen that the prose and test cases forbade). The frontmatter `title` follows
 the template's `<name> - Blockchain ID Specification` form. Test cases cover four valid and eight
-invalid identifiers, each with a reason — stronger than the profile this was modelled on.
+invalid identifiers, each with a reason, which is stronger than the profile this was modelled on.

@@ -1,9 +1,9 @@
 # The newsletter
 
 Mailchimp polls an RSS feed on a schedule and mails whatever is new. There is no code
-path, no credential, and no CI step on our side — which is why the newsletter is absent
-from `.github/workflows/` while the four channels that do send — Discord, Telegram, X and
-LinkedIn — are all in `distribute.yml`. Verified:
+path, no credential, and no CI step on our side, which is why the newsletter is absent
+from `.github/workflows/` while the four channels that do send, Discord, Telegram, X and
+LinkedIn, are all in `distribute.yml`. Verified:
 `grep -rniE 'mailchimp|newsletter|rss' .github/workflows/` returns nothing. (`devto` and
 `reddit` are in the `utm.js` vocabulary but have no workflow either.)
 
@@ -47,7 +47,7 @@ readers are not the newsletter, and filing their traffic as `medium=email` corru
 data in the other direction. Hence two feeds.
 
 `withUtm` takes an absolute URL (`new URL(url)` inside it), which is why `rss-email.xml.js`
-resolves against `context.site` while `rss.xml.js` can pass the bare path — `@astrojs/rss`
+resolves against `context.site` while `rss.xml.js` can pass the bare path, because `@astrojs/rss`
 absolutises the plain one for you.
 
 Only `/rss.xml` is advertised for autodiscovery (`blog/src/layouts/Base.astro:52-57`), and
@@ -56,10 +56,10 @@ That is correct: a feed reader that found it would report itself as email traffi
 
 ### Gotchas in the feed
 
-**Mailchimp's own "Google Analytics link tracking" must be OFF.** *(Operational — a
+**Mailchimp's own "Google Analytics link tracking" must be OFF.** *(Operational: a
 campaign setting, not in the repo.)* Left on, it rewrites every link with its own UTMs and
 names `utm_campaign` after the Mailchimp campaign instead of the post slug. The links still
-carry UTMs, GA4 still shows email traffic, and the numbers look fine — but the post no
+carry UTMs, GA4 still shows email traffic, and the numbers look fine, but the post no
 longer joins up with its X, LinkedIn, Discord and Telegram rows, which is the entire point
 of `utm_campaign = slug`.
 
@@ -72,7 +72,7 @@ full query string, identical to `<link>`:
 
 Edit the source, medium, or parameter order in `blog/src/lib/utm.js` and every guid in
 `/rss-email.xml` changes at once. Mailchimp decides what is new from guid and pubDate
-*(operational — its dedupe rules are not observable from here)*, so a cosmetic rename in
+*(operational: its dedupe rules are not observable from here)*, so a cosmetic rename in
 `utm.js` can look to Mailchimp like an archive of brand-new posts. Same hazard on a slug
 change, which moves both the URL and the guid.
 
@@ -80,7 +80,7 @@ change, which moves both the URL and the guid.
 and nothing sets `content`, so the built XML has `<description>` and no
 `<content:encoded>`. `*|RSSITEM:CONTENT|*` therefore renders the one-line summary. That is
 the intended digest shape. If someone asks why the email is "truncated", it is not
-truncated — full bodies would need a `content:` field added to the `rss()` items.
+truncated: full bodies would need a `content:` field added to the `rss()` items.
 
 ## The signup form
 
@@ -98,7 +98,7 @@ Two things carried over from Mailchimp's generated embed that must survive any r
 
 | Keep | If you drop it |
 | --- | --- |
-| `<input name="b_<user>_<audience>">`, hidden via `.sr-only` | Bots fill every field they find; a submission arriving with the honeypot non-empty is what Mailchimp discards. Signups still work, so nothing fails — the list just fills with junk and the send count against the plan climbs. |
+| `<input name="b_<user>_<audience>">`, hidden via `.sr-only` | Bots fill every field they find; a submission arriving with the honeypot non-empty is what Mailchimp discards. Signups still work, so nothing fails: the list just fills with junk and the send count against the plan climbs. |
 | `target="_blank"` on the form | Mailchimp's confirmation page navigates the reader out of the article they were reading. |
 
 The honeypot is hidden **off-screen** (`position:absolute; width:1px; clip:rect(0,0,0,0)`),
@@ -106,13 +106,13 @@ not with `display:none`. Switching to `display:none` looks tidier and is the exa
 bots skip fields that are not rendered, so the trap stops catching anything while still
 appearing to be there.
 
-The rest of Mailchimp's embed — a stylesheet, jQuery, `mc-validate.js`, and several hundred
-lines of SMS country-code handling for a field this audience does not have enabled — is
+The rest of Mailchimp's embed (a stylesheet, jQuery, `mc-validate.js`, and several hundred
+lines of SMS country-code handling for a field this audience does not have enabled) is
 deliberately absent. Do not "restore the official embed".
 
 ## Building the campaign
 
-*(Operational — Mailchimp UI, current as of this writing. The menu names move.)*
+*(Operational: Mailchimp UI, current as of this writing. The menu names move.)*
 
 1. **Automations → Flow templates → "Nurture leads" → "Share blog updates via RSS".**
 2. Name + audience. **Pick a segment or tag containing only test addresses.** Never point a
@@ -121,12 +121,12 @@ deliberately absent. Do not "restore the official embed".
 4. **Setup step:** subject line and From name.
 5. **Design:** see the template section below.
 6. **"Start RSS."** The dropdown beside it also offers *"Send now and start RSS
-   campaign"* — that one sends **immediately**, to whoever the audience is. The two sit in
+   campaign"*: that one sends **immediately**, to whoever the audience is. The two sit in
    the same control.
 
 Then rebuild the campaign against the real audience. Mailchimp generally will not let you
 swap the audience on a running RSS campaign, so "test on a segment, then switch" is not a
-sequence that exists — it is test, discard, rebuild.
+sequence that exists: it is test, discard, rebuild.
 
 ### Timing, which surprises people
 
@@ -152,7 +152,7 @@ so it needs no code and no secrets").
 | `references/mailchimp-footer.html` | Footer code block |
 
 `references/mailchimp-template.html` is the earlier single-file draft. It is kept as the
-worked example of the bug below and **should not be pasted into a campaign** — it still
+worked example of the bug below and **should not be pasted into a campaign**: it still
 carries the foster-parenting bug, and its masthead points at
 `/brand/logo-email.png`, which was renamed away in commit `b150873` and now 404s.
 
@@ -162,7 +162,7 @@ Mailchimp's loop is `*|RSSITEMS:|* … *|END:RSSITEMS|*`, with `*|RSSITEM:TITLE|
 `*|RSSITEM:URL|*`, `*|RSSITEM:CONTENT|*`, `*|RSSITEM:DATE|*` inside it.
 
 Putting those markers as bare text between `<tr>` elements does not work. Text cannot be a
-direct child of `<table>`, so the HTML5 parser *foster-parents* it — lifts it out of the
+direct child of `<table>`, so the HTML5 parser *foster-parents* it, lifts it out of the
 table and drops it immediately before. Both markers land next to each other, wrapping
 nothing.
 
@@ -181,14 +181,14 @@ Run `mailchimp-template.html` through a real parser and you can watch it happen:
 
 Source order has 25 lines and two `<tr>` blocks between those markers. After parsing,
 nothing but whitespace separates them. The same test on `mailchimp-body.html` leaves 1440
-characters — the whole repeating unit — still inside the loop.
+characters (the whole repeating unit) still inside the loop.
 
 **Symptom:** exactly one item renders, and the literal text `*|RSSITEMS:|* *|END:RSSITEMS|*`
 sits together on one line above the content. It looks like a merge-tag problem. It is a
 parser problem, and no amount of correcting the tag spelling fixes it.
 
 **Fix:** put the markers inside a `<td>`, and make the repeating unit a complete nested
-`<table>` — which is what `mailchimp-body.html:3-31` does:
+`<table>`, which is what `mailchimp-body.html:3-31` does:
 
 ```html
 <td style="padding:0;">
@@ -205,7 +205,7 @@ parser problem, and no amount of correcting the tag spelling fixes it.
 
 - Tables and inline styles only. Outlook ignores flexbox, grid, and most `<style>` blocks.
 - **No SVG.** Gmail strips it; Outlook never supported it. The brand SVGs in
-  `blog/public/brand/logos/SVG/` are unusable here — that is why the PNGs exist.
+  `blog/public/brand/logos/SVG/` are unusable here: that is why the PNGs exist.
 - Web fonts mostly do not load. Every declaration in these templates is
   `'Poppins','Helvetica Neue',Helvetica,Arial,sans-serif`; the fallback is what most
   recipients actually see. Design to it rather than to Poppins.
@@ -213,7 +213,7 @@ parser problem, and no amount of correcting the tag spelling fixes it.
   email. `#4b17e5` (`--moi-main`) and `#0a051a` (`--ink`) appear in the template set and
   match `blog/src/styles/global.css` exactly; the greys are opaque approximations of the
   `rgba()` muted and line tokens. `#fcfbff` (`--bg`) is the page background behind the
-  card — it is not in the three-part set, because the designer's own template supplies the
+  card: it is not in the three-part set, because the designer's own template supplies the
   outer wrapper; set it there.
 
 ### Required merge tags
@@ -226,7 +226,7 @@ parser problem, and no amount of correcting the tag spelling fixes it.
 | `*\|CURRENT_YEAR\|*` | `mailchimp-footer.html:42` |
 
 The physical postal address is required by CAN-SPAM and enforced by Mailchimp. It can be
-made visually quiet — ours is 10px `#c4c0cf` alongside the copyright — but it cannot be
+made visually quiet (ours is 10px `#c4c0cf` alongside the copyright) but it cannot be
 removed, and Mailchimp will refuse to send without it.
 
 ### Images: never overwrite, always rename
@@ -235,17 +235,17 @@ Mailchimp caches images by URL and gives you no way to purge one. Its designer *
 campaign archive* keep serving the copy it fetched first.
 
 This is not theoretical here. `blog/public/brand/logo-email.png` was added (`b8c3dea`),
-then replaced in place with a different variant (`85629a5`) — and the old dark-on-lavender
+then replaced in place with a different variant (`85629a5`), and the old dark-on-lavender
 mark kept being served no matter what the origin returned. The only fix was a rename to
 `moi-mark-purple.png` (`b150873`). The colour icons in `17bcf5a` were added as new
 filenames for the same reason.
 
 So: **changing an email image means a new filename, every time.** Overwrite it and the
 origin will be correct, the browser will show the new image, and the email will keep
-showing the old one — a failure that verifies as fixed everywhere except where it matters.
+showing the old one: a failure that verifies as fixed everywhere except where it matters.
 
 Current assets and their intended display sizes (retina source, displayed smaller, correct
-aspect ratio — the social assets are 2x/half, the header mark is 4x/quarter; set
+aspect ratio: the social assets are 2x/half, the header mark is 4x/quarter; set
 `width`/`height` as attributes as well as inline styles, because Outlook ignores the CSS):
 
 | File | Actual px | Displayed |
@@ -258,21 +258,21 @@ aspect ratio — the social assets are 2x/half, the header mark is 4x/quarter; s
 **`mailchimp-footer.html` currently references the monochrome icons** (`x.png`,
 `linkedin.png`, …). Commit `17bcf5a` added the `-colour.png` set precisely because a single
 purple tint "made the row read as five variations of one mark rather than five
-destinations" — X black, LinkedIn `#0A66C2`, Discord `#5865F2`, Telegram `#26A5E4`, GitHub
+destinations". The colours: X black, LinkedIn `#0A66C2`, Discord `#5865F2`, Telegram `#26A5E4`, GitHub
 `#181717`, with the MOI mark staying purple and staying first. Before pasting the footer,
 switch those five `src` values to the `-colour` filenames; leave `moi.png` alone.
 
 ## Plan and deliverability
 
-*(Operational — Mailchimp account facts, unverifiable from the repo.)*
+*(Operational: Mailchimp account facts, unverifiable from the repo.)*
 
 | | |
 | --- | --- |
 | Free tier (since 17 Feb 2026) | 250 contacts, 500 sends/month, 250/day |
-| MOI list size | ~5,496 subscribers — well past free; a paid plan is required |
+| MOI list size | ~5,496 subscribers, well past free; a paid plan is required |
 
 **Domain authentication is required, not recommended.** Google and Yahoo both enforce it
 for bulk senders. Two CNAME records (DKIM) plus one TXT (DMARC), up to 48h to propagate;
 Mailchimp's Entri flow automates it if the DNS provider is supported. Sending to thousands
-from an unauthenticated domain is not a warning to dismiss — it is a deliverability
+from an unauthenticated domain is not a warning to dismiss: it is a deliverability
 failure that shows up as a quietly collapsing open rate rather than as an error.
