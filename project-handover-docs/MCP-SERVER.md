@@ -44,6 +44,7 @@ The data directory (MOI_DATA_DIR, /var/lib/moi-mcp on both VMs) holds the sign-i
 | Agent registry writes | moi_register_agent, moi_set_agent_status, moi_transfer_agent | Yes | Yes |
 
 **Transfers to other people, through claude.ai.** Adithya reported (14 October 2026) that a newer Claude policy stops claude.ai from sending assets to someone else's address: a transfer or mint to your own account still goes through, a send to another address is refused by Claude. The refusal comes from Claude, not from this server, whose code still allows any recipient. The policy text was not saved; find it before relying on this, and test a 1 KMOI send to another address to see where it stands.
+
 | Launchpad | moi_launchpad_templates, _sign_in, _status, _create_agent, _register_agent, _telegram_link, _setup_script, _sign_out | Sign-in is a message to sign; register is a write | Yes |
 | Dapp | moi_dapp_sign_in, _api, _call, _sessions, _sign_out | Sign-in is a message to sign | Yes |
 
