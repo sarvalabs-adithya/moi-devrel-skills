@@ -6,13 +6,13 @@ Facts are as of 2026-10-02. Back to `../SKILL.md`. Mailchimp polls an RSS feed o
 Read on 2026-10-02 with GET requests and in the code:
 - `https://blog.moi.technology/rss-email.xml` answers 200 with every published post, each link tagged `utm_source=newsletter&utm_medium=email&utm_campaign=<slug>`. `/rss.xml` carries the same posts with bare links.
 - Every article page ends with a signup form that posts to Mailchimp's hosted endpoint (`blog/src/components/Subscribe.astro`). The live September page has it.
-Stated by the previous operator on 2026-10-06: the campaign is an RSS campaign scheduled for the 15th of every month, not weekly.
+Settled by `project-handover-docs/BLOG.md` (October 2026): the campaign is an RSS campaign, monthly, on the 15th. It sends on that day the posts that are new since the last send, and nothing if none is. Earlier notes in this repo (`social/README.md` says Mailchimp polls weekly, the signup form promises "One email per post", and a 24 August message described a weekly blast) are out of date. The 15 September send included the September post (per BLOG.md; confirm in the Mailchimp reports).
 Not confirmed, because no evidence shows it:
-- Its hour, its audience, its sender, and whether the September post went out in the October send. On 2026-08-24 the previous operator described a weekly blast that sends "if and only if any new blogs have gone up", and no artifact shows the result. His messages mention a Monday blast, so Monday is inferred, not recorded. The repo disagrees with itself: `social/README.md` says Mailchimp polls weekly, the message of `cc6ddf1` says an RSS campaign "mails each new post automatically", and the signup form on every article promises "One email per post". ASK: Sai Kiran, then Rahul.
-- Who owns the Mailchimp account, and the plan. Vardan has access (stated by the previous operator, 2026-10-06). About 5,500 subscribers is recorded (the previous operator's `DEPENDENCIES.md`, a file on his machine only; ASK: Adithya for a copy), which needs a paid plan. ASK: Rahul.
-- A one-off send to all validators (28 to 31 August 2026) about the Voyage login moving to MOI Wallet was prepared. The previous operator asked for the subject, the HTML and the logo, removed a line about the faucet and the network rename, and asked to schedule nothing until GitHub was back. Whether it was sent is not recorded. ASK: Adithya.
+- Its send hour, which sets the three-hour cutoff for a post. It is in the campaign's schedule settings in Mailchimp. ASK: Vardan to read it out, and record it in `project-handover-docs/BLOG.md`.
+- Its sender and the plan. Vardan has the Mailchimp login. About 5,500 subscribers is recorded (`project-handover-docs/BLOG.md`), which needs a paid plan. ASK: Vardan.
+- The August 2026 validator notice about the Voyage login moving to MOI Wallet was a one-off send (`project-handover-docs/BLOG.md`). Whether it reached every validator is not recorded (the previous DevRel's notes). ASK: Vardan.
 - Whether the sending domain has DKIM and DMARC records for Mailchimp. DevOps owns the DNS. ASK: Upendhar.
-Before you build anything, find out whether the campaign exists. Ask the operator to log in to Mailchimp, open the campaign list and read you its state, then write it in the hand-back. Claude never types a password.
+The campaign exists. Before you change anything, ask Vardan (or the operator, logged in with his access) to open it in Mailchimp and read you its state: schedule, sender, audience, last send. Write it in the hand-back. Claude never types a password.
 
 ## Two feeds, on purpose
 ```
@@ -33,7 +33,7 @@ The Mailchimp interface changes, so treat the menu names as a guide. Everything 
 1. Automations, Flow templates, "Share blog updates via RSS".
 2. Name and audience. Use a segment or tag that holds only test addresses. Never point a first run at the full list.
 3. RSS Feed step: the feed URL `https://blog.moi.technology/rss-email.xml`, and the schedule.
-4. Setup step: subject line and From name. The sender must be a real MOI address. Sai Kiran and Vardan Aggarwal were asked about the sender identity on 2026-08-24. ASK: Sai Kiran what was decided.
+4. Setup step: subject line and From name. The sender must be a real MOI address. The running campaign already has one: read it in Mailchimp rather than deciding again. ASK: Vardan.
 5. Design: paste the three templates (below).
 6. "Start RSS". The dropdown beside it also offers "Send now and start RSS campaign", which sends at once to whoever the audience is. Never choose it by habit.
 Mailchimp generally will not let you change the audience of a running RSS campaign, so "test, then switch" does not exist: test, discard, rebuild against the real audience.
@@ -42,7 +42,7 @@ Mailchimp generally will not let you change the audience of a running RSS campai
 | "Start RSS" only activates the schedule | Nothing sends at that moment. That is not a failure |
 | It sends only if the feed has new content | An unchanged feed at send time is a silent no-op |
 | A post should be in the feed at least 3 hours before the send time | A post deployed an hour before the window waits a cycle |
-| The first send looks back one cycle: 24 hours daily, 7 days weekly | A weekly campaign started today, with only older posts, sends nothing. That is correct |
+| The first send looks back one cycle (a day, a week or a month, as the schedule says) | A campaign started today, with only older posts, sends nothing. That is correct |
 | One email per cycle holds all new items | Three posts in a week make one email |
 
 ## The templates
@@ -61,7 +61,7 @@ Left out on purpose: the earlier single-file draft. It carries the bug below and
 - A Mailchimp preview is not an inbox. On 2026-08-24 an oversized logo, a single post and an all-purple layout were found only in a real test email. Send a test to the operator's own address and read it on a phone.
 
 ## One-off sends
-For an audience that is not the weekly list, such as the validators. Claude drafts the subject, the preview line and the body from `../templates/announce/one-off-send.md`. The operator builds and sends it in Mailchimp.
+For an audience that is not the monthly list, such as the validators. Claude drafts the subject, the preview line and the body from `../templates/announce/one-off-send.md`. The operator builds and sends it in Mailchimp.
 - Name the audience or segment exactly, and the number of people in it.
 - Tag the link `utm_source=newsletter&utm_medium=email&utm_campaign=<slug>`, lowercase, with the slug of the post it points to.
 - Put the send time as a date, 24-hour UTC and India time (`time-table.sh`).
@@ -72,7 +72,7 @@ For an audience that is not the weekly list, such as the validators. Claude draf
 Google and Yahoo require domain authentication for bulk senders. Two DKIM records and one DMARC record are the usual setup, and unauthenticated sending shows up as a falling open rate, not as an error (the previous operator's note). Whether MOI's Mailchimp domain is authenticated is not recorded. ASK: Upendhar.
 
 ## Not yet known
-- Whether the weekly campaign is live, and its day, hour and audience. ASK: Sai Kiran.
-- Who owns the account, the plan and the sender identity. ASK: Rahul.
-- Whether the validator email was sent. ASK: Adithya.
-- Whether the September post, or any post, was emailed. ASK: Sai Kiran.
+- The send hour of the monthly campaign. ASK: Vardan.
+- The plan and the sender identity. ASK: Vardan.
+- Whether the August validator email reached every validator. ASK: Vardan.
+- Whether any post other than the September one was emailed, and the result of the 15 October send once it has run. Read the campaign's reports in Mailchimp.

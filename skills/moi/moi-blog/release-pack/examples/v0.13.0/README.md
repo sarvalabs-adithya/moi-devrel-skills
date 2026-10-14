@@ -3,15 +3,15 @@
 A cleaned copy of the one release pack on record. The network update was set for 00:00 UTC on 11 September 2026. That moment comes from the previous operator's correction reply, not from the note, and no written confirmation is on record (ASK: Gokul). Use it to see the shape of a pack and the defects to avoid. **Do not copy a sentence without reading the table "Lines that must not be reused".** Facts are as of 2026-10-02. `ASK:` is defined in `moi-devrel/SKILL.md`. Back to `../../GUIDE.md`.
 
 ## What is here
-| File | What it is | Where the original is (checked with git on 2026-10-02) |
+| File | What it is | Where the original is |
 |---|---|---|
-| `RELEASE-NOTE.md` | The note as saved. Its header says "as sent by the protocol team, unedited". It is not (see defect 14) | Untracked, previous operator's machine only (ASK: Adithya for a copy). A second copy is in `moi-webinar/community-call/examples/cc14/sources/` |
-| `BLOG.md` | The release post draft. The published post is `blog/src/content/posts/moi-september-2026-release.md` in `sarvalabs/MOI-Website`, at `https://blog.moi.technology/article/moi-september-2026-release/` (answered HTTP 200 on 2026-10-02) | Untracked, previous operator's machine only |
+| `RELEASE-NOTE.md` | The note as saved. Its header says "as sent by the protocol team, unedited". It is not (see defect 14) | Committed locally on the MOI-Webinars session branch (4bdbe8e), never pushed. A second copy is in `moi-webinar/community-call/examples/cc14/sources/` |
+| `BLOG.md` | The release post draft. The published post is `blog/src/content/posts/moi-september-2026-release.md` in `sarvalabs/MOI-Website`, at `https://blog.moi.technology/article/moi-september-2026-release/` (answered HTTP 200 on 2026-10-02) | Committed locally (4bdbe8e), never pushed |
 | `SOCIAL.md` | The pack's record. It repeats the thread and LinkedIn text and contradicts itself | Local commit 27efaa3 (2026-09-10), not pushed |
 | `social/thread/1.txt` to `7.txt` | The X thread, version A, verbatim | Local commit 27efaa3, not pushed |
 | `social/x.txt`, `social/linkedin.txt`, `social/x-correction-reply.txt` | The channel-native single post, the shorter LinkedIn post, the correction reply | Local commit 27efaa3, not pushed |
-| `social/discord.txt` | The Discord copy | Untracked, previous operator's machine only (ASK: Adithya for a copy) |
-None of it is on `origin/main` or on `origin/claude/agent-payments-simple`. ASK: Adithya for the originals. Whether the Discord and rewritten posts and the correction reply were ever posted is not recorded. ASK: Adithya.
+| `social/discord.txt` | The Discord copy | Committed locally (4bdbe8e), never pushed |
+Every original is committed locally on the MOI-Webinars session branch (4bdbe8e, 27efaa3) and was never pushed. Do not push them: the repo is public and those commits carry an AI co-author trailer. Whether the Discord and rewritten posts and the correction reply were ever posted is not recorded (the previous DevRel's notes). ASK: Rahul.
 
 ## What was changed from the original
 1. Two em dashes in the headings of `SOCIAL.md` (lines 1 and 10) became colons. They were the only two in the pack.

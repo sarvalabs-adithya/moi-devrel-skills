@@ -4,7 +4,7 @@
 
 ## Where it comes from
 - The published post: `blog/src/content/posts/moi-september-2026-release.md` on `main` of `sarvalabs/MOI-Website` (commit `5e91afa`). It was merged as PR #53 on 2026-09-11 at 13:04 UTC, after 24 commits that landed as one. The byline as published is Adithya Ganesh, Ecosystem, Sarva Labs, and the byline policy is open (ASK: Rahul).
-- The published post still carries the wording corrected here. This copy is not an amendment. Whether the published post is amended is not decided. ASK: Rahul.
+- The published post still carries some of the wording corrected here (read 13 October 2026: "Voyage devnet" twice and "made for KMOI alone" once; the old glossary line is gone). This copy is not an amendment. Whether the published post is amended is not decided. ASK: Rahul. <!-- slop-lint:ignore -->
 - Do not reuse its facts or its byline. The facts are the post's, checked by the previous operator before publication (200 claims in the first independent pass, 86 re-checked after the rewrite, per the PR body) and not re-verified by this library, except as the last section says. The byline is the published one. Whose name goes on a new post is not settled (ASK: Rahul).
 - Source for the corrections: the wording rules in `moi-devrel/references/terminology.md`, the lint rules, and the claim checks recorded in `moi-webinar/community-call/references/release-slide-checks.md`.
 

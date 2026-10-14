@@ -7,14 +7,14 @@ Facts are as of 2026-10-02. **One correction case is on record**, the release ti
 2. Two wrong scheduled posts were deleted by hand in Buffer. `buffer.mjs` has no delete command.
 3. A correction reply for X was drafted in `social/x-correction-reply.txt`. Its text, in full: "Correction: the moipod v0.13.0 network update is scheduled for 00:00 UTC on 11 September, not 12:00 UTC today."
 4. A template of it is `../templates/social/x-correction-reply.txt`.
-5. Not recorded: whether the reply was ever posted, on which account, and whether LinkedIn or Discord needed one. ASK: Adithya.
+5. Not recorded: whether the reply was ever posted, on which account, and whether LinkedIn or Discord needed one. Not recorded (the previous DevRel's notes). ASK: Rahul.
 
 ## Kinds of wrong statement, and what is on record
 | Kind | What is on record |
 |---|---|
 | A wrong time in a scheduled post | The case above. The cost was two deletions by hand and a correction draft |
 | A wrong claim in the release post, caught before it published | The September post had five: the MAS0 versus MASN class for the KMOI code sample, failed interactions still charge the payer, an access-policies link that returned 404, a paragraph that contradicted the participant-list rule, and a recap bullet that left out the notary exception. All were fixed before the merge: they are listed in the message of the squashed merge commit 280ffb2 in `sarvalabs/MOI-Website` |
-| Retired wording in a published post | As of 2026-10-02 the live September post still has "Voyage devnet" twice, "a native asset standard made for KMOI alone" and "Participant: an account on MOI" (read from the live page that day). Whether to amend a published post, and how, is not recorded. ASK: Rahul <!-- slop-lint:ignore --> |
+| Retired wording in a published post | As of 13 October 2026 the live September post still has "Voyage devnet" twice and "a native asset standard made for KMOI alone" once ("Participant: an account on MOI" is gone; read from the live page). Whether to amend a published post, and how, is not recorded. ASK: Rahul <!-- slop-lint:ignore --> |
 
 ## Steps
 1. **Stop.** Tell the operator which statements are wrong, where each was posted, and whether each is still scheduled or already published.
@@ -34,7 +34,7 @@ Facts are as of 2026-10-02. **One correction case is on record**, the release ti
 - Keep one copy of each text. The v0.13.0 folder held the same sentences in four places and they disagreed (`traps.md`).
 
 ## Not yet known
-- Whether the v0.13.0 correction reply was posted, and where. ASK: Adithya.
+- Whether the v0.13.0 correction reply was posted, and where. Not recorded (the previous DevRel's notes). ASK: Rahul.
 - How a published post is amended after the merge, whether it carries an `updated` date, and who approves. ASK: Rahul.
 - Whether the live September post should lose its retired wording. ASK: Rahul.
 - Who may delete a published post on each channel. ASK: Rahul.

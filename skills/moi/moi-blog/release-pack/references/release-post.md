@@ -8,7 +8,7 @@ The release post is a blog post, "MOI <Month> 2026 Release", published on `blog.
 | Slug and title | `moi-august-2026-release`. The title first led with the version and was changed to lead with the month | `moi-september-2026-release`, "MOI September 2026 Release: fee delegation, a new KMOI asset id, and prices in anu" |
 | Pull request | #36 of `sarvalabs/MOI-Website`, merged 2026-08-21, about 2.5 days and more than 30 commits | #53, opened 2026-09-10 13:26 UTC and merged 2026-09-11 13:04 UTC, 24 commits |
 | Shape | Per-package subsections, an operator section and an op-code table. The research counts 12 component versions in it | The structure below |
-Cadence is monthly, inferred from two posts. No October date is on record. ASK: Rahul.
+Cadence is monthly (`project-handover-docs/BLOG.md`). No October date is on record. ASK: Rahul.
 Names: slug `moi-<month>-<year>-release`. File `blog/src/content/posts/<slug>.md`. The scaffold copies `moi-blog/templates/release-post-skeleton.md` into `protocol-release-<version>/BLOG.md`: that skeleton, `moi-blog/scripts/post-lint.py` and `moi-blog/references/authoring.md` decide the frontmatter, the title and summary lengths and the placeholder style (as of 2026-10-02 the lint warns above 60 characters of title and outside 130 to 170 of summary, and the September title is 82 characters and its summary 240). Only the rules specific to a release post are kept in this file. The skeleton shows one takeaway and one FAQ stub: a release post writes exactly 8 takeaways and at least 7 FAQ entries (see the frontmatter line below).
 
 ## Before writing
@@ -56,7 +56,7 @@ Frontmatter in September: `title`, `summary` (kept short, it feeds the meta desc
 The `moi-blog` run table (`moi-blog/SKILL.md`, steps 7 and 8) opens it. Opening it, merging it and pushing are gates. PR #53's body is the model: Summary (who it is for, the framing, the slug and URL), Shape (word count, headings, takeaways, FAQ, runbook), Verification (what was checked against which tags and packages, how many claims, build results), "Before marking ready" checkboxes (confirm the go-live date, internal review by Rahul) and "Nothing is announced by merging". The preview is `https://pr-<N>-blog.preview.moi.technology/article/<slug>/`. To compare an earlier draft with the current one, open a preview-only PR of the earlier commit, as PR #55 did, and close it after. No attribution line goes in a commit or a PR body.
 
 ## After the merge
-Merging deploys the post and announces nothing. Steps 9 and 10 of `moi-blog/SKILL.md` run Prepare and Distribute and the newsletter. Follow the copy PR to its end: for September it is #56, and it is still open on 2026-10-02.
+Merging deploys the post and announces nothing. Steps 9 and 10 of `moi-blog/SKILL.md` run Prepare and Distribute and the newsletter. Follow the copy PR to its end: for September it was #56, closed without merging (read 13 October 2026).
 
 ## Defects in the September post
 `../examples/v0.13.0/README.md` lists them with line numbers. Do not copy: "Voyage devnet", "Participant: an account on MOI", "a native asset standard made for KMOI alone", "not save a setting, not call your logic", the flat "an account with no KMOI could do nothing" (the CC14 script's version of it was rated OVERSTATED in `moi-webinar/community-call/references/release-slide-checks.md`). <!-- slop-lint:ignore -->

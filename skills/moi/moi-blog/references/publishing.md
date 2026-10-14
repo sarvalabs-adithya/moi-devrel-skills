@@ -17,7 +17,7 @@ Facts are as of 2026-10-02, from `sarvalabs/MOI-Website` on `main` (commit `5e91
 ## Branch, identity, files
 1. From inside the clone: `bash "$SKILLS/moi-devrel/scripts/preflight.sh"`, then `git status`.
 2. `git fetch origin`, then `git switch --no-track -c blog/<slug> origin/main`, so the branch starts from the current `main`, not a stale local copy. Prefixes seen in the repo: `blog/`, `content/`, `chore/`, `ci/`, `fix/`, `feature/`.
-3. Commit under your work identity. No AI co-author line and no "generated with" footer. The September PR body carries the footer and so do open PRs #52 and #54 (read 2026-10-02). On 2026-10-01 the previous operator had the trailer and footer removed from the six open geo-fixes pull requests, #57 here among them. Merged history is left as it is. Do not add either to a new commit or PR body.
+3. Commit under your work identity. No AI co-author line and no "generated with" footer. The September PR body carries the footer. On 2026-10-01 the previous operator had the trailer and footer removed from the six open geo-fixes pull requests, #57 here among them (it merged on 2026-10-05). Merged history is left as it is. Do not add either to a new commit or PR body.
 4. Local edits and local commits need no gate once the operator has asked for the commit. A push does.
 Pull requests #53 and #55 came from branches inside `sarvalabs/MOI-Website`, not from a fork, and #53 was merged by its author. ASK: Rahul whether you push to the org repo or to a fork, and how access is granted.
 
@@ -52,7 +52,8 @@ The operator may open it in the browser instead. Copy the template and fill it f
 
 ## Review and merge
 - The September PR body names the internal reviewer and says the post was framed per the internal review. It carried two boxes still unchecked when it merged: confirm the go-live date (the go-moi tag was dated 10 September, the upgrade 11 September) and the internal review. Keep such boxes open until someone answers them.
-- Who else must approve, and who may merge, is not recorded. ASK: Rahul.
+- Rahul reviews every post before it merges (`project-handover-docs/BLOG.md`). Whether anyone else must approve, and who may merge, is not recorded. ASK: Rahul.
+- There is no rollback button. The deploy builds whatever is on `main` and overwrites the live files; no earlier build is kept. To undo a bad merge, open a PR that reverts the merge commit and merge that: the deploy runs again and the live sites return to the previous state a few minutes later.
 - A merge to `main` deploys the site and the blog together. Merge only on a yes that names the PR number, never to look at it. #53 was a squash merge: `gh pr merge <N> --repo sarvalabs/MOI-Website --squash`, or the button.
 - About a minute after a merge the "Prepare social copy" workflow opens a second PR with `social/<slug>.md` (26 seconds on 2026-09-11). Nothing is sent.
 
@@ -77,16 +78,16 @@ Read-only health reads: `curl -sI https://blog.moi.technology/`, and the same fo
 ## Broken or unknown as of 2026-10-02
 | Item | State | Who knows |
 |---|---|---|
-| `CONTENT.md`, `DEPLOYMENT.md`, `blog/README.md` | Stale on `main`. Corrected copies are uncommitted on the previous operator's machine | ASK: Adithya for a copy |
-| Open PRs in `sarvalabs/MOI-Website` | #56 September copy (never merged), #52 access-policies post (open since 2026-08-31, not a draft; read 2026-10-03), #54 x402 post (draft), #57 prerender and metadata for the marketing routes, #8 Cloudflare preview test | ASK: Rahul what to do with #52 and #54 |
-| Owners of Search Console, Analytics, Tag Manager, Buffer, Mailchimp | Not recorded | ASK: Rahul |
+| `CONTENT.md`, `DEPLOYMENT.md`, `blog/README.md` | Stale on `main`. The corrected copies were never committed | Not recorded (the previous DevRel's notes); ASK: Rahul |
+| Pull requests in `sarvalabs/MOI-Website` (read 13 October 2026) | #53 merged 2026-09-11; #57 (prerender and metadata) merged 2026-10-05; #56 (September copy), #52 (access-policies post), #54 (x402 post) and #55 (preview-only) are closed, not merged. #8 (Cloudflare preview test) was not re-read | ASK: Rahul whether the access-policies and x402 posts will return |
+| Owners of the accounts | Buffer organisation: Chandra. Mailchimp login: Vardan. Search Console, Analytics and Tag Manager: the shared company developer account (`moi-devrel/references/keys-and-access.md`). Bing and Medium: not recorded | ASK: Rahul for Bing and Medium |
 | Whether a PR preview is open to anyone with the link | Not recorded | ASK: Upendhar |
 | Whether a merge needs a second approval | Not recorded | ASK: Rahul |
-The website's own faults and unknowns (the VM deploy script, the apex answering 200 for any address, the calendar API, `VITE_GA_ID`) are in `moi-web-products-ops/references/` (`website-health.md`, `website-ship.md`, `website-settings.md`), not here.
+The website's own faults and unknowns (the VM deploy script, the apex answering 200 for any address, the calendar, now a Luma block hidden until `lumaUrl` is set after website PR #60 on 2026-10-13, and `VITE_GA_ID`) are in `moi-web-products-ops/references/` (`website-health.md`, `website-ship.md`, `website-settings.md`), not here.
 
 Before touching the website's admin, read its row in `moi-devrel/references/repo-map.md`.
 
 ## Not yet known
-- The October release post date, and whether a release post is expected every month (two exist, so monthly is inferred). ASK: Rahul.
+- The October release post date. Release posts are monthly (`project-handover-docs/BLOG.md`), but no date is recorded. ASK: Rahul.
 - How long a deploy takes and how to see its log without admin access. ASK: Upendhar.
 - Whether Cloudflare Pages previews are used for the blog. ASK: Upendhar.

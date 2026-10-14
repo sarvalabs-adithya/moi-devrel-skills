@@ -7,7 +7,7 @@ Usage (SKILLS is the folder that holds the moi-* skills):
 Builds every input in a temporary folder from the example post and the templates, runs each lint, and compares the
 exit code and the rule names with what is expected. Writes nothing outside the temporary folder, uses no network and
 needs no key. check-live.py runs here only on the cases that need no network: the rest of it needs the live site (see evals/evals.md).
-Exit codes: 0 every case passed, 1 a case failed, 2 the skill folder could not be found.
+Exit codes: 0 every case passed (or --help), 1 a case failed, 2 the skill folder could not be found.
 """
 import os
 import re
@@ -51,6 +51,9 @@ def case(name, code, out, want_code, rules=(), not_rules=()):
 
 
 def main():
+    if any(a in ("-h", "--help") for a in sys.argv[1:]):
+        print((__doc__ or "").strip())
+        return 0
     if not EXAMPLE.is_file() or not POST_LINT.is_file():
         sys.stderr.write("selftest: cannot find the example post or post-lint.py next to this script\n")
         return 2

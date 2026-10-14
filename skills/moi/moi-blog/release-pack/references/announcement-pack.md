@@ -15,7 +15,7 @@ The limits are in `scripts/lib/social.js` of `sarvalabs/MOI-Website` (the X link
 *Verbatim* means the note's own sentences in the note's order, restructured only so each post stands alone, with no fact added. *Channel-native* means a shorter text written for the channel (a single X post, a short LinkedIn post, a Discord message with bold lead-ins) that carries the same facts, the moment and the action required. Both must say only what the note says. This is contested. Two packs exist for v0.13.0.
 - **A, verbatim.** The 7-post thread and a LinkedIn post that is the whole note. Sentences were restructured only for clarity and no fact was added. It followed the standard the previous operator was given, and `SOCIAL.md` of the pack records it as sent to Buffer.
 - **B, channel-native.** `x.txt`, a shorter LinkedIn post and `discord.txt`. In the v0.13.0 folder the shorter LinkedIn post is `linkedin.txt`, which overwrote the verbatim one (inferred from the file times and `SOCIAL.md`, which says `linkedin.txt` was the file sent). In this branch's templates (`templates/social/`) it is `linkedin.native.txt`, so both can exist until one is chosen. They say a version launches at a time, what it adds and that developers update. After the posts went out an unnamed team reviewer asked for exactly that: communicate that a new version will launch with certain capabilities at time T, that developers may need to upgrade, and write it "optimised as per the medium". The previous operator answered that he had followed the standard he was given and that protocol releases must be kept simple.
-- Whether B or the correction reply was ever posted is not recorded. ASK: Adithya. Who decides next time is not recorded. ASK: Rahul.
+- Whether B or the correction reply was ever posted is not recorded (the previous DevRel's notes). Who decides next time is not recorded. ASK: Rahul.
 - Procedure: draft A first, because it only restructures the note. Draft B. Show both. Record the pick in `SOCIAL.md`. Ask Rahul, through the operator, for one written example of the format he wants.
 
 ## The X thread
@@ -53,7 +53,7 @@ v0.13.0, one post per section of the note, characters counted after trimming:
 ## Other channels
 - Telegram: the website pipeline has it. Discord and Telegram were dropped from the August blog announcements on 2026-08-31. No release pack file exists for it. ASK: Rahul.
 - Medium: only the first blog post (8 August) went there. No release used it. Whether it is still a channel is not recorded. ASK: Rahul.
-- The newsletter is built from the blog feed (`moi-blog/references/newsletter.md`). Whether the September post went out in a newsletter is not recorded. ASK: Rahul.
+- The newsletter is built from the blog feed (`moi-blog/references/newsletter.md`). The 15 September send included the September post (per `project-handover-docs/BLOG.md`; confirm in the Mailchimp reports).
 
 ## What every announcement carries
 1. The name and version as the note writes them (moipod v0.13.0).
@@ -76,17 +76,19 @@ v0.13.0, one post per section of the note, characters counted after trimming:
 | A pack for every release | None on record for v0.12.0 | Open |
 
 ## Sending through Buffer
-The tool, its key, its flags, the branch it lives on and what it does not do are in `moi-blog/references/buffer.md`, the one home. Running `scripts/buffer.mjs` in any form, a dry run included (it sends the key to Buffer), is a GATE, and so is every `--confirm`. From the root of the working copy that holds the script, and with the channel ids from `node scripts/buffer.mjs channels`:
+The tool, its key, its flags, the branch it lives on and what it does not do are in `moi-blog/references/buffer.md`, the one home. Running `scripts/buffer.mjs` in any form, a dry run included (it sends the key to Buffer), is a GATE, and so is every `--confirm`. The script is in this library at `$SKILLS/moi-webinar/scripts/buffer.mjs`, with `--thread-dir`. From the root of the working copy that holds the pack folder, with the channel ids from `node "$B" channels`:
 ```
-node scripts/buffer.mjs post --thread-dir protocol-release-<version>/social/thread --channel <X channel id> --draft
-node scripts/buffer.mjs post --file protocol-release-<version>/social/linkedin.txt --channel <LinkedIn channel id> --draft
+B="$SKILLS/moi-webinar/scripts/buffer.mjs"
+node "$B" post --thread-dir protocol-release-<version>/social/thread --channel <X channel id> --draft
+node "$B" post --file protocol-release-<version>/social/linkedin.txt --channel <LinkedIn channel id> --draft
 ```
-- Pack points only. `--thread-dir` is in a commit that is not pushed (ASK: Adithya for a copy). Without it the operator posts the thread by hand in X from the numbered files, and `thread-lint.py` still applies. That fallback is this library's design, not a recorded practice.
+- Check with marketing (Vardan) before any of this: they own the company channels.
+- Pack points only. If there is no key, the operator posts the thread by hand in X from the numbered files, and `thread-lint.py` still applies. That fallback is this library's design, not a recorded practice.
 - The script checks no length and no placeholder. `thread-lint.py` does both. Discord is by hand.
 - Check any `--at` value against `time-table.sh` and end it in `Z`. There is no delete command.
 - After `--confirm`, open Buffer and read what is there. Record the id it printed in `SOCIAL.md`.
 
 ## Not yet known
 - The announcement format, who decides it, and the reviewer's name. ASK: Rahul.
-- What was posted for v0.13.0 on LinkedIn and Discord, and by what means. ASK: Adithya.
+- What was posted for v0.13.0 on LinkedIn and Discord, and by what means. Not recorded (the previous DevRel's notes). ASK: Rahul.
 - Whether a pack goes out for every release, and the lead time. See `timing.md`.

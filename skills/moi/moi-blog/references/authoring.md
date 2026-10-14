@@ -83,7 +83,7 @@ Gotchas, each silent:
 - Cite public artefacts only: js-moi-sdk, `docs.moi.technology`, the explorer, behaviour you saw on the wire. `go-moi`, `go-pisa`, `cocolang` and the other private repos are for checking, never for linking.
 - Open every external link before you open the PR. The September check found an access-policies link that returned 404.
 - Descriptive link text, not "here". No UTM tags in the body: tagged links belong to the announcement (`distribution.md`).
-- A transaction hash can link to the explorer. That was requested for the session 8 draft (`session-8-policies/BLOG.md`, branch `claude/agent-payments-simple`), which still has plain code-fenced hashes.
+- A transaction hash can link to the explorer. That was requested for the session 8 draft (`session-8-policies/BLOG.md`, a working branch of `moi-foundation/MOI-Webinars`), which still has plain code-fenced hashes.
 - Posting to Medium first makes Medium the canonical copy. Is Medium still a channel? ASK: Rahul.
 
 ## Must contain, must not contain
@@ -91,7 +91,7 @@ Must: a `summary` of about 140 to 160 characters (the docs standard; the blog's 
 Must not: `<!--` comments (four were found once in the August post at `draft: false`, one a TODO inside a runbook step, and they blocked publishing until they were removed: commit `1d537dd`, 2026-08-19); `<<<`, `REPLACE-WITH`, `RELEASE_URL`, `TODO`; a `# ` heading; an em dash; "Voyage devnet"; a path from a local home folder; a hostname from a pull request preview; an unqualified "live". <!-- slop-lint:ignore -->
 
 ## Converting a session write-up
-A Builders `BLOG.md` is a draft, not a blog file. The session 8 one is `session-8-policies/BLOG.md` on branch `claude/agent-payments-simple` of `moi-foundation/MOI-Webinars`, not on `main`. Convert before it goes in `blog/src/content/posts/`:
+A Builders `BLOG.md` is a draft, not a blog file. The session 8 one was `session-8-policies/BLOG.md` on a working branch of `moi-foundation/MOI-Webinars`, not on `main`; it may no longer exist (not recorded; ASK: Rahul). Convert before it goes in `blog/src/content/posts/`:
 | Webinar draft | Blog file |
 |---|---|
 | `description:` | `summary:` |
@@ -103,7 +103,7 @@ A Builders `BLOG.md` is a draft, not a blog file. The session 8 one is `session-
 Then run `python3 "$SKILLS/moi-blog/scripts/post-lint.py" blog/src/content/posts/<slug>.md`. The session itself belongs to `moi-webinar`. The target is a post within 48 hours of the session, and it was not shown met for session 8.
 
 ## CONTENT.md and the other guides are stale
-The checked-in `CONTENT.md`, `DEPLOYMENT.md` and `blog/README.md` describe the blog wrongly. Corrected copies exist only uncommitted on the previous operator's machine (ASK: Adithya for a copy). Until then trust the code.
+The checked-in `CONTENT.md`, `DEPLOYMENT.md` and `blog/README.md` describe the blog wrongly. Corrected copies were never committed (not recorded: the previous DevRel's notes; ASK: Rahul). Until then trust the code.
 | CONTENT.md says | The code does |
 |---|---|
 | `# This becomes h2` | `#` renders a second H1 |

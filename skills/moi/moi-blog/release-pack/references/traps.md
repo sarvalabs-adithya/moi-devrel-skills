@@ -18,8 +18,8 @@ Every row is a real incident or a property of a tool that was read. The full com
 | No delete, no length check, no placeholder check | `buffer.mjs` prints a post's length and stops at no limit. It checks no placeholder | `thread-lint.py` before any send. Delete a wrong post by hand in Buffer |
 | A dry run is not offline | It exits without `BUFFER_API_KEY` and still reads the organisation and channel list from Buffer | Say so when asking the operator to run it |
 | Thread file names | Only `<n>.txt` is read. Any other name is skipped silently. The first file is the root. X only. Not with `--follow` | `thread-lint.py` rules `thread-number` and `thread-file` |
-| Wrong folder | On 2026-08-31 the command failed because it ran inside a session folder | `cd "$(git rev-parse --show-toplevel)"` first |
-| `--thread-dir` is not on any shared branch | It is in commit 5bcfbcd, unpushed (as of 2026-10-02) | ASK: Adithya for a copy |
+| Wrong folder | On 2026-08-31 the command failed because a relative `scripts/buffer.mjs` ran inside a session folder | Call `$SKILLS/moi-webinar/scripts/buffer.mjs` by its full path |
+| An older copy of the script | The copy on the webinars repo's pushed branch lacks `--thread-dir` | Use the copy in this library, which has it |
 | A key pasted into chat | A Buffer key was pasted on 2026-08-31 and revoked | Keys go in `.env` only. A stale key above a new one is harmless because the last line wins. The symptom of a stale key is "access token is not valid" |
 
 ## The files
@@ -49,7 +49,7 @@ Every row is a real incident or a property of a tool that was read. The full com
 |---|---|---|
 | A ledger that checks the post against itself | A draft checked against a draft proves nothing | Source order: tagged source, then the note, then docs.moi.technology. The docs had op-code numbers swapped in August 2026 |
 | A claim resting only on the note | Soften it, as the post did on 2026-09-11 | Give it a ledger verdict `scoped` or `argument`, or cut it |
-| The copy PR stalls | Merging the post opened PR #56 in 26 seconds. As of 2026-10-02 it is still open, and no evidence shows the post was announced through the pipeline | After the merge, follow the copy PR to the end (`moi-blog`) |
+| The copy PR stalls | Merging the post opened PR #56 in 26 seconds. It was later closed without merging (read 13 October 2026), and no evidence shows the post was announced through the pipeline | After the merge, follow the copy PR to the end (`moi-blog`) |
 | The seeded copy reaches Discord | The website's Prepare step seeds Discord and Telegram blocks with the post summary | Empty a block you do not mean to send |
 | Attribution lines | The commits and body of PR #53 carry an AI co-author line and footer, which the previous operator later banned (2026-10-01) | None on any commit or PR |
 | A Medium-first post | The first one published there becomes the canonical copy | Do not post a release on Medium first |
@@ -58,4 +58,4 @@ Every row is a real incident or a property of a tool that was read. The full com
 
 ## Not yet known
 - Whether Buffer shows a character count the way X will count it. Keep a margin and read the draft.
-- How X counts a character outside plain ASCII. Post 5 of v0.13.0 uses an arrow. ASK: Adithya whether that post displayed correctly.
+- How X counts a character outside plain ASCII. Post 5 of v0.13.0 uses an arrow. Whether it displayed correctly is not recorded (the previous DevRel's notes): read the draft in Buffer before publishing.

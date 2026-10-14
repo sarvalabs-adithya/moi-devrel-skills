@@ -13,9 +13,9 @@ Facts are as of 2026-10-02. **One release is on record**, moipod v0.13.0, so eve
 | 2026-09-10, 13:26 | PR #53 (release post) opened in `sarvalabs/MOI-Website` | Research |
 | 2026-09-11, 00:00 (as the pack gave it) | The network update as announced. Devnet was wiped and the registry `c684f926` is gone, but the minute is not confirmed. The moment is from the correction reply and `moi-devrel/references/devnet.md`. No written confirmation is on record, and on 2026-10-02 the explorer's oldest listed interaction was dated 2026-09-10 13:18 UTC, with the list stopping at 355 entries, so it may be capped rather than complete (`moi-devrel/claim-check/references/live-reads.md`). ASK: Gokul when devnet moved to v0.13.0 | `moi-devrel/references/devnet.md`, `moi-devrel/claim-check` |
 | 2026-09-11 | The Discord copy is written | Research |
-| 2026-09-11, 13:04 | PR #53 merges, about 13 hours after the announced upgrade. The copy PR #56 opens 26 seconds later. As of 2026-10-02 it is still open | Research |
+| 2026-09-11, 13:04 | PR #53 merges, about 13 hours after the announced upgrade. The copy PR #56 opens 26 seconds later. It was later closed without merging (read 13 October 2026) | Research |
 | 2026-09-15, 09-22, 09-23 | Launchpad moves to the new registry `2f3e9469` 4 days after the wipe and Explorer 11 days after. MCP pins it 12 days after, and the live MCP was still on the wiped registry on 2026-10-02 | `devnet.md` |
-Not settled: the commit adding `--thread-dir` is dated after the 12:45 Dubai time, so the order in which the thread was scheduled is unclear. ASK: Adithya.
+Not settled: the commit adding `--thread-dir` is dated after the 12:45 Dubai time, so the order in which the thread was scheduled is unclear and not recorded (the previous DevRel's notes).
 
 ## The order to follow next time
 No lead time and no standard sequence are on record. This order follows from what depends on what.
@@ -25,7 +25,7 @@ No lead time and no standard sequence are on record. This order follows from wha
 4. The pack goes out before the moment, as drafts or scheduled. It says "scheduled for". v0.13.0 went out about 15 hours before. Why 12:45 Dubai was chosen is not recorded. ASK: Rahul for the lead time he expects.
 5. The moment passes. Read the node: version, network ID, wire field name (`moi-devrel/references/devnet.md`, "Before you say live").
 6. Only now may any text say "live". The v0.13.0 Discord copy said "is live" and no node read for it is on record.
-7. The release post merges when its ledger is clean. Merging announces nothing. Step 9 of `moi-blog/SKILL.md` then announces the published post.
+7. The release post merges only once the upgrade has run and devnet reports the new version (`project-handover-docs/BLOG.md`), and its ledger is clean. Merging announces nothing. Step 9 of `moi-blog/SKILL.md` then announces the published post.
 8. If devnet was wiped, the products need their redo. See below.
 
 ## Write the moment
@@ -64,4 +64,4 @@ The date came from the correction reply and the later drafts, not from the note.
 ## Not yet known
 - The lead time Rahul expects, and whether a pre-release pack is standard. ASK: Rahul.
 - Who confirms the release moment with the protocol team, and who reads the node afterwards. ASK: Rahul.
-- Whether devnet was on v0.13.0 when the CC14 call ran. No read from that day is on record. ASK: Adithya whether he checked.
+- Whether devnet was on v0.13.0 when the CC14 call ran. No read from that day is on record. ASK: Gokul.

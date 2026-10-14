@@ -3,7 +3,7 @@
 Facts are as of 2026-10-02, from `sarvalabs/MOI-Website` on `main` (commit `5e91afa`), a local build of 2026-10-01 and read-only requests to the live site. This file covers what a post needs and what is already built. The search layer of every site (docs, robots, `llms.txt` generators, audits) is `moi-docs/geo`; the docs sites themselves are `moi-docs`. Back to `../SKILL.md`.
 
 ## Why a post exists
-The 4 August 2026 strategy call decided that everything the team does becomes text that search engines and AI systems can read, and that each dev talk and video comes with a blog. The blog link is the announcement: publish, then point to it. AI systems that scan LinkedIn see only the short post and follow the link to the detail. The shape agreed there: the big picture first, then the how-to, with backlinks "as much as possible" without loading the post up. The transcript is gitignored and on the previous operator's machine. ASK: Adithya for a copy.
+The 4 August 2026 strategy call decided that everything the team does becomes text that search engines and AI systems can read, and that each dev talk and video comes with a blog. The blog link is the announcement: publish, then point to it. AI systems that scan LinkedIn see only the short post and follow the link to the detail. The shape agreed there: the big picture first, then the how-to, with backlinks "as much as possible" without loading the post up. The transcript is not in the repo (not recorded: the previous DevRel's notes; ASK: Rahul).
 
 ## What is already built
 | Output | Where it comes from |
@@ -40,13 +40,13 @@ The old checked-in guide says every post also gets BlogPosting with `wordCount`,
 - A Cloudflare WAF or bot-fight setting can silently block AI crawlers. It did on `cocolang.dev` until 2026-09-09. Re-run the user-agent check after any Cloudflare, WAF or hosting change: `curl -sI -A "GPTBot/1.0" https://blog.moi.technology/`.
 
 ## Two hosts, two properties
-`blog.moi.technology` is a separate host from `moi.technology`. Search Console treats them as separate properties, so registering the apex gives no query data for the blog. `DEPENDENCIES.md` (the previous operator's file, on his machine only; ASK: Adithya for a copy) lists two properties, `moi.technology` and `blog.moi.technology`, with owner "confirm". Submit `https://blog.moi.technology/sitemap-index.xml` in the blog property. Requesting indexing for a new URL is the operator's yes. Bing was imported from Search Console on 2026-09-09. Whether the blog is in that import is not recorded. ASK: Rahul who owns the accounts.
+`blog.moi.technology` is a separate host from `moi.technology`. Search Console treats them as separate properties, so registering the apex gives no query data for the blog. `project-handover-docs/LIST-OF-DEPENDENCIES.md` (the 4 October 2026 snapshot) lists the properties. The Search Console property is under the shared company developer account (`project-handover-docs/BLOG.md`). Submit `https://blog.moi.technology/sitemap-index.xml` in the blog property. Requesting indexing for a new URL is the operator's yes. Bing was imported from Search Console on 2026-09-09. Whether the blog is in that import is not recorded. ASK: Rahul.
 
 ## Tag pages in the sitemap
 The sitemap has 26 URLs: the blog home page, 6 articles and 19 tag pages (read 2026-10-02). Only `agents`, `protocol` and `native-assets` are linked from the site, so 16 tag pages exist that no link reaches. That is thin content submitted for indexing at about 3 to 1 against articles. If Search Console reports "Crawled, currently not indexed" in volume, look here first. The fix is a filter on the sitemap integration, not deleting tags (the previous operator's advice).
 
 ## Measurement
-- Analytics: GA4 is a tag inside the Tag Manager container. The previous operator's account is that a Page Hostname condition on its trigger keeps previews out of the production property, so if preview traffic shows up, check that trigger, not the code. Tag Manager is not readable from the repo and this was not re-checked on 2026-10-02. ASK: Rahul who owns Tag Manager. `VITE_GA_ID` and `PUBLIC_GA_ID` are passed by the deploy and read by nothing.
+- Analytics: GA4 is a tag inside the Tag Manager container. The previous operator's account is that a Page Hostname condition on its trigger keeps previews out of the production property, so if preview traffic shows up, check that trigger, not the code. Tag Manager is not readable from the repo and this was not re-checked on 2026-10-02. The container is under the shared company developer account (`moi-devrel/references/keys-and-access.md`). `VITE_GA_ID` and `PUBLIC_GA_ID` are passed by the deploy and read by nothing.
 - UTM, one definition in `blog/src/lib/utm.js`:
 | `utm_source` | `utm_medium` |
 |---|---|
@@ -82,6 +82,6 @@ After the deploy: `python3 "$SKILLS/moi-blog/scripts/check-live.py" <slug>`.
 | A preview looks right | `BLOG_ORIGIN` is not set, so its listing cards link to production | You click a card and land on the live site or a 404 |
 
 ## Not yet known
-- Whether the blog has an IndexNow key file, and who submits it. The docs sites do. ASK: Adithya.
-- Who owns Search Console, Bing, Analytics and Tag Manager. ASK: Rahul.
+- Whether the blog has an IndexNow key file, and who submits it. The docs sites do. Not recorded (the previous DevRel's notes). ASK: Rahul.
+- Who owns Bing. Search Console, Analytics and Tag Manager are on the shared company developer account (`moi-devrel/references/keys-and-access.md`). ASK: Rahul for Bing.
 - Whether the Wikidata items for MOI and Sarva Labs exist. ASK: Sai Kiran.

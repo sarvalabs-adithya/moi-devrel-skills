@@ -9,8 +9,8 @@ Copy a file out, fill every `[FILL IN: ...]` marker, and run the lint named belo
 | `pr-body.md` | The body of the publish pull request. It ends with no AI footer, on purpose | Read it once |
 | `announce/social-copy.md` | The announcement copy file, `social/<slug>.md`, X and LinkedIn only | `python3 "$SKILLS/moi-blog/scripts/copy-lint.py" <file>` |
 | `announce/status.md` | The record of what was sent where. Keep it outside the repo | Read it once |
-| `announce/one-off-send.md` | A one-off email to an audience other than the weekly list | `bash "$SKILLS/moi-devrel/scripts/slop-lint.sh" <file>` |
-| `mailchimp/header.html`, `body.html`, `footer.html` | The three parts of the weekly RSS email (`references/newsletter.md`) | A test send, read on a phone |
+| `announce/one-off-send.md` | A one-off email to an audience other than the monthly list | `bash "$SKILLS/moi-devrel/scripts/slop-lint.sh" <file>` |
+| `mailchimp/header.html`, `body.html`, `footer.html` | The three parts of the monthly RSS email (`references/newsletter.md`) | A test send, read on a phone |
 
 The announcement pack's skeletons (the X thread, LinkedIn, Discord and `SOCIAL.md`) are in `release-pack/templates/`.
 
