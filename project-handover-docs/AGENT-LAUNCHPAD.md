@@ -154,7 +154,7 @@ The Launchpad is what new builders see first. DevRel presents it in the MOI Buil
 
 - A wallet with devnet **KMOI** (the network's native token, which pays fuel) and a Telegram account you can show on screen.
 - Pick the template in advance, and have one agent already created as the fallback if the live registration fails.
-- Check the stats page: "The registry is not answering" means registration will fail. Fix the registry id first (After a devnet reset, above).
+- Check the stats page: "The registry is not answering" means registration will fail. It can also be the RPC rate limit ("Too many requests", seen 14 October), so retry before assuming a stale id. If the id is stale, take the Agent Explorer's current id (After a devnet reset, above).
 - Run through the demo once the day before. Devnet changes.
 - Announce it like any Builders session (DEV-WEBINARS.md).
 
@@ -183,10 +183,6 @@ What the skill never does without a yes from DevRel: push, merge (a merge deploy
 
 - Move every secret into a shared vault. As of October 2026 the server's env file is the only readable copy.
 - The launch video folder in Drive is owned by adithya@moinetwork.io. Since 14 October it is open to anyone at moinetwork.io and Rahul is invited. If that account is ever closed, move ownership first, or the clips and edits go with it.
-- GROQ_API_KEY is still set in Actions but nothing uses it. Delete it, or leave it.
-- Done: the Telegram bot was transferred to Rahul Lenkala (@p2pbuddy) on 14 October, and the Supabase project on 8 October.
-- The live stats page sometimes says the registry is not answering. On 14 October that was the RPC rate limit ("Too many requests"), not a stale id: the Launchpad's registry id (0x200000002f3e9469...) is the current one, the same as the Agent Explorer's and the MCP server's. Treat the Explorer's id as the source of truth after any reset.
 - The repo's README and docs/HANDOFF.md still describe Vercel (checked 14 October 2026). Fixes for README, HANDOFF, DEPLOY.md and the two env examples were written on 1 October but never committed: they sit only in Adithya's local clone (branch local/sweep-oct1). Open a PR with them, or rewrite them from this doc.
 - Never pushed, and on Adithya's laptop only (untracked files in his local clone, checked 14 October): the labs folder (app/labs and its API routes) and the one-off chain scripts for clearing stuck **nonces** (a nonce is the counter that orders a sender's interactions, and a stuck one blocks the ones after it), counting installed agents and finding a blocked nonce. Unless they are saved before he leaves, treat them as gone.
 - Paid agents cannot be switched on through the pipeline: NEXT_PUBLIC_PAYMENTS_ENABLED has no build argument in the Dockerfile or the build workflow. Add one before the AgentMarket contract is redeployed.
-- PR #31 (the Launchpad docs hosted on the site at /docs, with the Docs link and llms.txt pointing at it) merged and deployed on 12 October; /docs is live. PR #10 (AgentMarket deploy budget) was closed on 13 October: the redeploy is blocked on the transfer error, not the budget, so whoever revives paid agents redeploys against the devnet of the day.
