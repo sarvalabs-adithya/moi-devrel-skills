@@ -1,6 +1,6 @@
 # Handover videos
 
-**Status: in progress.** Recorded: the Community Call skill video, the Launchpad video (12 October), the Dataroom product demo (13 October) and the MCP server demo (13 October). None on record: any video for the Points Program, and the skill videos for the Launchpad, Dataroom and MCP server. Decided on 13 October: no videos for the MOI Website, the Blog or Dev Webinars; their docs carry those processes. The website is not a product, and the blog and the Builders sessions are process work.
+**Status: in progress.** Recorded: the Community Call skill video, the Launchpad video (12 October), the Dataroom product demo (13 October) and the MCP server demo (13 October). Points Program: the webinar bounties walkthrough (14 October). None on record: the skill videos for the Launchpad, Dataroom and MCP server. Decided on 13 October: no videos for the MOI Website, the Blog or Dev Webinars; their docs carry those processes. The website is not a product, and the blog and the Builders sessions are process work.
 
 Two videos per product, each with its own link: a product demo (the workflow end to end, the tools and logins it needs) and a skill video (the Claude skill that runs the product, used on screen). A **Claude skill** is a folder of instructions Claude loads for a kind of task. Screen plus voice, 5 to 10 minutes, no editing. They live in the Google Drive folder https://drive.google.com/drive/folders/1AVuEBGUHnuXPKwqRoFNAcSUdxQg97dKY (owner adithya@moinetwork.io, Adithya's company Google account, which may close after he leaves: move the folder to a shared company Drive before 14 October), and each one is linked under the Status line of its product doc as "Video: <link>".
 
@@ -10,11 +10,11 @@ Two videos per product, each with its own link: a product demo (the workflow end
 | Agent Launchpad | AGENT-LAUNCHPAD.md | https://drive.google.com/file/d/1FruKR8k6Wp_rplSFzIE8pZf8OBwBUfSI/view (recorded 12 October) | None on record (moi-launchpad-ops) |
 | Dataroom | DATAROOM.md | https://drive.google.com/file/d/1FoOifehdhrH3hfrRJcbmim1WnRRBEXH5/view (recorded 13 October) | None on record (moi-web-products-ops) |
 | MCP server | MCP-SERVER.md | https://drive.google.com/file/d/1NGdNHOIDr7VfghWqs58ufskWbVxHyvQL/view (recorded 13 October) | None on record (moi-mcp-ops) |
-| Points Program | POINTS-PROGRAM.md | None on record | None on record (moi-web-products-ops) |
+| Points Program | POINTS-PROGRAM.md | https://drive.google.com/file/d/1MOs61CECZt6SRQhH9Zro0t2avq0-XPsy/view (webinar bounties walkthrough, recorded 14 October) | None on record (moi-web-products-ops) |
 
 Reference: the community call recordings, https://www.youtube.com/playlist?list=PL4-oiZj2acUPhBkDGm-8ue9jIVxh-NXvs. Watch one before recording, for the pace and the segments.
 
-The outlines below are for the product demos. The Points Program has no outline yet.
+The outlines below are for the product demos. The Points Program video covers the webinar bounty flow only; it has no outline here.
 
 ## Community Call (target 8 minutes)
 
@@ -59,7 +59,7 @@ Reference: the intro session deck in others/webinars/intro-session-deck/ in the 
 
 ## Open items
 
-- Record the Points Program demo, and write its outline (the admin page, an X like campaign, a webinar bounty, shipping, health).
+- Optional: a fuller Points Program demo (an X like campaign, shipping, health). The webinar bounty walkthrough is recorded (14 October).
 - Record the skill videos: Launchpad (moi-launchpad-ops), Dataroom (moi-web-products-ops), MCP server (moi-mcp-ops), Points (moi-web-products-ops).
 - Record a Community Call product demo if the new owner wants one beside the skill video.
 - Confirm what the Launchpad video (12 October) covers: it is listed as the product demo, and the Launchpad outline above also includes the skill's health check.

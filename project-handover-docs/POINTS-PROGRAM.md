@@ -2,6 +2,8 @@
 
 **Status: active.** Live at points.moi.technology with four tasks on: join X (verified), join Discord, join Telegram, create wallet. Inactive: the faucet task, the deploy-agent task, and session 8's dev challenge (deployed, switched off). Webinar bounties are live (PR #22, deployed 13 October), tested end to end with a test bounty on 14 October; no real webinar bounty yet.
 
+Video: webinar bounties walkthrough (create, open, submit, award, close) https://drive.google.com/file/d/1MOs61CECZt6SRQhH9Zro0t2avq0-XPsy/view (recorded 14 October 2026).
+
 MOI Community Points. Members sign in with Google, link their X, Discord and Telegram accounts and a MOI wallet, complete tasks and earn points, and see where they stand on a public leaderboard. Admins run X like campaigns and webinar bounties from an admin page. Harsh Gupta wrote the first version and Upendhar the CI/CD; DevRel runs it. DevOps (Upendhar) owns the box it runs on.
 
 ## How it works
