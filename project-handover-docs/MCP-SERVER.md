@@ -47,7 +47,7 @@ The data directory (MOI_DATA_DIR, /var/lib/moi-mcp on both VMs) holds the sign-i
 
 Creating a Launchpad agent through the connector ends with a one-time download link for setup-<name>.sh; the user runs it with bash from the folder it landed in (usually cd ~/Downloads). The reply says only "run it with bash"; printing those two lines in the reply is a small follow-up. The Launchpad tools reach production with voyage-api #313.
 
-Master holds 31 tools and production lists 13. Every build reports version 0.1.0, so the tool count and the behaviour are how you tell which build is live. PR #27 (a draft) adds another batch: the node's read methods as tools on the read gateway, history, deploy logic, configure account, faucet, and asset routines.
+Master holds 31 tools and production lists 13. Every build reports version 0.1.0, so the tool count and the behaviour are how you tell which build is live. PR #27 merged on 14 October and adds more tools; production still runs the 23 September sync until the next deploy.
 
 **Two repos: where the code lives and where it runs**
 
@@ -270,11 +270,10 @@ What the skill never does without DevRel's yes: push, open or comment on a PR or
 
 ## Open items
 
-- voyage-api PR #313 (the sync with the consent fix, the September registry id, and the Launchpad and dapp tools) is open without a review since 23 September. It needs a Voyage review, a merge and a deploy. Until then claude.ai Connect can stall on production and agent lookup fails.
-- Before that deploy the workflow must also pass MOI_READ_CALLER, and MOI_LAUNCHPAD_URL for the Launchpad tools, or agent lookup keeps failing.
-- Ask Gokul for the current registry id and confirm the September one on master is still right.
-- moi-mcp PR #27 (the code review fixes: dapp security, the MAS0 guard, the read layer, more writes, hardening) is a draft since 5 October; Gokul reviewed it, and the merge is planned for 14 October, with a preview from voyage-api PR #320. Finish it, get it reviewed, merge, then sync. The encryption-at-rest commit comes back as its own PR once the workflow can pass MOI_SESSION_KEY.
-- moi-mcp PR #4 (the code review itself, open since 11 September): close it once #27 lands. Dependabot PR #26 was closed on 12 October; its replacement #28 fails the build because it bumps majors (zod 4, TypeScript 7, vitest 5, @types/node 26) and zod 4 breaks the types in src/dapp, src/launchpad and src/wc. Do not merge it as is: split the majors out or ignore them in dependabot.yml.
+- Merged on 14 October 2026: moi-mcp PR #27 (the code review fixes: dapp security, the MAS0 guard, the read layer, more writes, MAS1, MAS2 and MASX creation, hardening; reviewed by Gokul) as 3ae48cc0, then the voyage-api sync PR #320 into feat/moi-mcp as 237725c6. Both were squash-merged with clean messages. The voyage-api moi-mcp/ folder now equals moi-mcp master (271 files). voyage-api #313 and moi-mcp #4 were closed as superseded. **Nothing is deployed yet**: production still runs the 23 September sync.
+- Next: run Deploy MOI MCP Gateway with deploy_target dev, check with the health script, then production (Voyage team or DevOps, Srikar). Until that deploy, claude.ai Connect can stall on production.
+- Before or with that deploy, the workflow must pass MOI_READ_CALLER (any account that exists on devnet). It passes none today, so agent lookup keeps answering "account not found" even after the deploy. The registry id in the code (0x200000002f3e9469...) is the current one, the same as the Agent Explorer and the Launchpad. MOI_LAUNCHPAD_URL defaults correctly; MOI_SESSION_KEY is not needed yet (the encryption-at-rest change comes back as its own PR once the workflow can pass it).
+- Dependabot PR #26 was closed on 12 October; its replacement #28 fails the build because it bumps majors (zod 4, TypeScript 7, vitest 5, @types/node 26) and zod 4 breaks the types in the dapp, Launchpad and WalletConnect code. Do not merge it as is: split the majors out or ignore them in dependabot.yml.
 - Decide the npm name and owner with Rahul, then publish in the order above.
 - Run the transfer and create-asset writes once on a phone and record it. The last recorded phone check is from 1 September.
 - UPSTREAM_READ_TOKEN is not set on sarvalabs/moi-mcp, so the upstream watch has never been able to read go-moi or cocolang. Create a fine-grained read-only token from an account that will stay (Rahul decides which) and set it. Issue #17 (js-moi-sdk v0.9.0-rc3) is still open; npm latest is still 0.9.0-rc2 on 13 October, so the pin matches npm.
