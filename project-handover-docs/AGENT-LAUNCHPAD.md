@@ -160,7 +160,7 @@ The Launchpad is what new builders see first. DevRel presents it in the MOI Buil
 
 **Recordings and video material**
 
-- The Launchpad launch video and its raw clips are in the Drive folder "Launchpad video" (owner adithya@moinetwork.io; open to anyone at moinetwork.io since 14 October, Rahul invited): clips 1 to 11, the edits Final video.mp4 and VIDEO.mp4 with and without the outro, and the Builder series and POD subfolders, made with the editor Krishna in August 2026. https://drive.google.com/drive/folders/1wlTotjRXeUpz9UNPp5T5qBBc-8QcZbwr
+- The Launchpad launch video and its raw clips are in the Drive folder "Launchpad video": https://drive.google.com/drive/folders/1wlTotjRXeUpz9UNPp5T5qBBc-8QcZbwr
 - Session recordings go to the YouTube playlist (COMMUNITY-CALL.md has the link).
 
 ## Claude skill
