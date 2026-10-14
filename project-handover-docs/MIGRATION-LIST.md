@@ -68,6 +68,8 @@ Groq: no company-owned Groq key exists. The key the Launchpad server uses is not
 
 ## Open items
 
+- The Moinkee, Agent dating and MOI Sprint repos and the Pinata move: steps in OTHER-PROJECTS.md.
+
 - Which organisation each repo transfer goes to (agent dating plugin, Moinkee NFT Minter, Contextual Compute website): waiting on Rahul.
 - Where the MOI Website is deployed. MOI-WEBSITE.md describes a VM; the MOI Website row above says Cloudflare Pages. Neither is verified; ask DevOps (Srikar).
 - Who holds the Luma, Riverside, Google Meet and YouTube accounts: ENV-VARS.md says Vardan; confirm.
