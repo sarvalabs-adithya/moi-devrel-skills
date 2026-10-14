@@ -2,16 +2,16 @@
 
 Start with the one command that tells you where to look: `bash "$SKILLS/moi-mcp-ops/scripts/mcp-health.sh"`. Match its first FAIL or WARN to a row, run the "check first" column (read-only), and only then change anything. A fix marked GATE needs the operator's explicit yes naming the action. Rows come from the repo's own troubleshooting table (`docs/handoff-infra.md`), PR bodies and live reads. Every "DevOps:" fix below is a GATE: Claude drafts the ask and the operator sends it. Facts are as of 2026-10-02 and 2026-10-03; every symptom here happened at least once. Back to `../SKILL.md`.
 
-Who can act on the VM (the processes, nginx, TLS, DNS, logs): DevOps. ASK: Upendhar. Who may run the deploy workflow: unknown, ASK: Srikar. Who decides anything else: ASK: Rahul. Which products DevRel owns is not settled. Claude never logs in to a VM.
+Who can act on the VM (the processes, nginx, TLS, DNS, logs): DevOps. The VMs are `voyagedev` (dev) and `prod-voyage` (production); Srikar runs them and the deploy workflow, ASK: Srikar, and Upendhar is the other DevOps contact. Who decides anything else: ASK: Rahul. Which products DevRel owns is not settled. Claude never logs in to a VM.
 
-MCP server: A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin.
+MCP server: `project-handover-docs/MCP-SERVER.md` records no security finding for this product. The 2026-10-02 research note said one was open; its content is not recorded (the previous DevRel's notes); ASK: Rahul before touching sign-in or other admin code.
 
 ## The site is down
 
 | # | Symptom | Check first (read) | Cause | Fix |
 |---|---|---|---|---|
 | 1 | Script: `health: unreachable` (name, TLS or timeout) | `curl -sI https://<host>/health`. Is it the right host? `mcp.moi.technology` does not exist; the live hosts end `.voyage.moi.technology` | DNS, certificate, nginx or the VM is down | VM, DNS, TLS and nginx are DevOps. Send one short message (Claude drafts, the operator sends, GATE): host, what you ran, the answer. ASK: Upendhar |
-| 2 | `health: HTTP 502` | The script line; DevOps reads the process status | The Node process is down, or nginx points at the wrong port | DevOps reads the write gateway's error log (ASK: Upendhar where it is). A fatal line about `WC_PROJECT_ID` means the id is missing or a placeholder |
+| 2 | `health: HTTP 502` | The script line; DevOps reads the pm2 status of `moi-mcp-write` (port 8788) and `moi-mcp-read` (port 8787) | The Node process is down, or nginx points at the wrong port | DevOps reads the write gateway's error log (ASK: Upendhar where it is). A fatal line about `WC_PROJECT_ID` means the id is missing or a placeholder |
 | 3 | `health: HTTP 503`, `ok` false | The error log names the variable | The shared config failed to load: a bad `MOI_NETWORK`, or `custom` without `MOI_RPC_URL` | Correct the variable in the workflow (PR, GATE), deploy (GATE) |
 | 4 | `health: redirect (HTTP 3xx)` | The `Location` host in the script line | A redirect sits in front of the gateway. It drops the `Authorization` header, so sign-in breaks silently | DevOps removes it. No redirect may precede either hostname, http to https included |
 | 5 | `health: HTTP 504` | The script line | nginx timed out waiting for the process | DevOps |
@@ -24,7 +24,7 @@ MCP server: A security finding is open on this product as of 2026-10-02. ASK: Ad
 |---|---|---|---|---|
 | 8 | Script: oauth issuer is `http://localhost...` | `curl -s https://<host>/.well-known/oauth-authorization-server` | `PUBLIC_URL` never reached the process | Set it in the workflow (PR, GATE), deploy (GATE) |
 | 9 | Consent completes, then the connector asks again | The issuer line; is the site plain http? | `PUBLIC_URL` differs from the host users reach, or http drops the Secure cookie | Exact https origin, TLS only, then a restart through a deploy (GATE) |
-| 10 | claude.ai Connect spins forever though the curl steps pass | Script WARN "protected-resource metadata" | claude.ai compares `resource` with the URL typed, `/mcp` included. Before PR #18 the server returned the bare origin and served only the root document. Its `/register` limit of 10 a minute also locked out everyone, who share one egress range | Fixed on master since 2026-09-23 (limit now 120 a minute). Production showed the old form on 2026-10-03 and dev the new one. Ship a build that contains #18: `ship-a-change.md`. Whether Connect really fails on production is untested. ASK: Adithya |
+| 10 | claude.ai Connect spins forever though the curl steps pass | Script WARN "protected-resource metadata" | claude.ai compares `resource` with the URL typed, `/mcp` included. Before PR #18 the server returned the bare origin and served only the root document. Its `/register` limit of 10 a minute also locked out everyone, who share one egress range | Fixed on master since 2026-09-23 (limit now 120 a minute). Production showed the old form on 2026-10-03 and dev the new one. Ship a build that contains #18: `ship-a-change.md`. Whether Connect really fails on production is untested: the Connect step of `connect-and-verify.md` proves it |
 | 11 | Everyone is locked out after a few Connect clicks | Same | The registration limit of 10 a minute (pre-#18) | Same |
 | 12 | A second person on a shared browser cannot start as themselves | Does the build have PR #20? | The consent page did not allow it | Fixed in #20; needs a sync |
 | 13 | Connector added with authentication None on the write host | The connector settings | Sign-in is impossible | Re-add with OAuth. None is only for the read host |
@@ -45,7 +45,7 @@ MCP server: A security finding is open on this product as of 2026-10-02. ASK: Ad
 | 23 | Tool calls fail during a long phone wait | nginx `proxy_read_timeout` | Below 300 s, so nginx cuts the held connection | DevOps: `proxy_read_timeout 300s; proxy_send_timeout 300s;` |
 | 24 | The service looks healthy but never answers a stream | nginx `proxy_buffering` | Buffering on: the stream is held back | DevOps: `proxy_buffering off` |
 | 25 | All users share one rate-limit bucket | nginx `X-Forwarded-For $remote_addr`; does nginx connect from the same machine? | A proxy on another address makes the limiter key on that address | DevOps |
-| 26 | Write gateway errored or looping after a deploy, log mentions `MOI_SESSION_KEY` | The write gateway's recent log, read by DevOps (ASK: Upendhar where) | Local branch only: `master` does not read this variable, so expect it only after the unmerged work is synced. The variable is missing, blank or too short, and the Voyage workflow does not pass it (inferred) | Pass it from the workflow (PR, GATE). Never put it in `ecosystem.config.cjs` |
+| 26 | Write gateway errored or looping after a deploy, log mentions `MOI_SESSION_KEY` | The write gateway's recent log, read by DevOps (ASK: Upendhar where) | Not read by `master` yet, so expect it only after the encryption-at-rest change is synced. The variable is missing, blank or too short, and the Voyage workflow does not pass it (inferred) | Pass it from the workflow (PR, GATE). Never put it in `ecosystem.config.cjs` |
 | 27 | After a crash: "had broadcast before exit; recording it confirmed" or "cannot be safely re-broadcast; marking orphaned" | Log lines | Journal reconciliation at boot | None. The user retries in chat |
 
 ## Deploys and automation

@@ -51,7 +51,7 @@ Check the SDK version before trusting a `KMOI_ASSET_ID` taken from an installed 
 | Line | Meaning | Then |
 |---|---|---|
 | `net.Version` differs from the baseline | A new build | Not a wipe by itself. Read the genesis line. Ask the protocol team whether state is kept (message 1) |
-| `net.NetworkID` WARN, error -32601 | The node has no such method (also on 2026-10-02 and 2026-10-03). The network ID cannot be read from the node | Do not publish a network ID. ASK: Gokul |
+| `net.NetworkID` WARN, error -32601 | The node has no such method (also on 2026-10-02, 2026-10-03 and again on 14 October). The network ID cannot be read from the node | Do not publish a network ID. ASK: Gokul |
 | Genesis hash differs, or the founding account is gone | The network was re-initialised since the baseline. Strong evidence, not proof: the rule comes from reading go-moi, and no reset has yet been watched with this check. A hash that is unchanged does not rule out a wipe | Treat as a wipe and send message 1 |
 | Genesis check WARN with an error | Often a wrong or retired id | Check the SDK version (above), then rerun |
 | Both paths hold the same genesis hash | `/devnet/` and `/babylon/` are consistent with one network (both held the same hash on 2026-10-03) | Still ASK: Gokul before saying they are one |
@@ -59,7 +59,7 @@ Check the SDK version before trusting a `KMOI_ASSET_ID` taken from an installed 
 | Registry exists, all 10 routines present | The contract is there. It does not show that writes execute | Only a registration receipt does |
 | Known hash not found | Wiped since it was made, or it was never on this network | Needs the genesis line to decide |
 | Launchpad stats or chain marketplace CHANGED | The Launchpad reads a registry or caller that is gone | `launchpad.md` |
-| MCP read gateway CHANGED | The hosted MCP points at a registry that is gone. It did so on 2026-10-03 with no new reset | `mcp.md` |
+| MCP read gateway CHANGED | The hosted MCP points at a registry that is gone. It did so on 2026-10-03 and again on 13 to 14 October with no new reset | `mcp.md` |
 | "no baseline, so this run cannot show a reset" WARN | No version, genesis hash, registry or known hash was given, so every PASS only says the node answers | Build the baseline (First baseline above), then rerun |
 | Explorer total (always WARN) | The index is not cleared by a reset, so the total cannot show one | `explorer.md` |
 
@@ -77,6 +77,6 @@ The decision is the operator's. Write it in the log with the UTC time and the li
 
 ## Not yet known
 - Where the protocol team announces a reset and a new registry id, and who the contact is besides Gokul. ASK: Rahul.
-- Whether the genesis hash changes on every reset. The only statement of it is in `PR-1-chain-id-edits.md` of the x402 review package, a file on the previous operator's machine that is not in git (ASK: Adithya for a copy), reasoned from go-moi source. ASK: Gokul. The reads of 2026-10-03 (15:30 and 16:35 UTC) gave a hash beginning 0x4529116966dd8c85 on both paths, the same prefix that file records for 14 September. If the rule holds, devnet was not re-initialised between those dates (inferred). <!-- slop-lint: ignore -->
+- Whether the genesis hash changes on every reset. The only statement of it is in `PR-1-chain-id-edits.md` of the x402 review package, a file on the previous operator's machine that is not in git, reasoned from go-moi source. ASK: Gokul. The reads of 2026-10-03 (15:30 and 16:35 UTC) gave a hash beginning 0x4529116966dd8c85 on both paths, the same prefix that file records for 14 September. If the rule holds, devnet was not re-initialised between those dates (inferred). <!-- slop-lint: ignore -->
 - Why `net.NetworkID` does not exist, and whether a version bump adds it. ASK: Gokul.
 - Whether any monitor watches the three hosts. None is recorded. ASK: Upendhar.

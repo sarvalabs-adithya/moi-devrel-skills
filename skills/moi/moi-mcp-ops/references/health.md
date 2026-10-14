@@ -14,7 +14,7 @@ Run it after every deploy, after any devnet reset signal, and when a user report
 | `tools/list` | 13 on the write gateway, 6 on the read gateway (2026-10-03) | A different count after a deploy is news, not a fault. State which build is live | `architecture.md` |
 | `ping` | server, version, network | FAIL: the process answers health but not a tool call | `troubleshoot.md` |
 | `moi_resolve_agent` | An agent or "not found" | WARN with "account not found": the stale registry id or `MOI_READ_CALLER` unset | `settings-and-secrets.md`, reset runbook |
-| `net.Version` | The same value on `/devnet/` and `/babylon/` (0.13.0) | FAIL both missing: every read tool fails; the line names the reason, such as a certificate that did not verify. A difference: ASK: Gokul | `moi-devrel/references/devnet.md` |
+| `net.Version` | The same value on `/devnet/` and `/babylon/` (0.13.0) | FAIL both missing: every read tool fails; the line names the reason, such as a certificate that did not verify (the certificate that expired on 2026-10-04 was renewed, valid 2026-10-05 to 2027-01-03). A difference: ASK: Gokul | `moi-devrel/references/devnet.md` |
 | `--github` issues and runs | No open `chain-canary` issue. Scheduled runs green and under 36 hours old | An open issue: triage it | `watch-and-canary.md` |
 
 ## Layer 2: by hand (what the script does)
@@ -42,6 +42,7 @@ On 2026-10-03 the text named a logic whose id began `0x20000000c684f926`, the re
 | `ping` says `readOnly` true on the write gateway | The ping tool reports true on both. Read the kind from `/health` |
 | Every build says version 0.1.0 | The version cannot identify a sync |
 | Canary and watch green | See "What each check cannot see" in `watch-and-canary.md` |
+| 2026-10-13: production 9 PASS, 4 WARN, 0 FAIL; dev 10 PASS, 2 WARN, 0 FAIL. `net.Version` 0.13.0; `net.NetworkID` still answers method-not-found (-32601) | The WARNs are the known ones (registry read, OAuth metadata form). Not a fault in the checks |
 
 ## Layer 3: CI side (read-only, needs `gh` access to the public repo)
 
@@ -52,11 +53,11 @@ On 2026-10-03 the text named a logic whose id began `0x20000000c684f926`, the re
 | Open watch issues | `gh issue list -R sarvalabs/moi-mcp --label upstream-release --state open` | None unattended. #17 was open on 2026-10-03 |
 
 ## Layer 4: on the VM (DevOps holds it; Claude never logs in)
-Each of these is a GATE: Claude drafts the ask, the operator sends it to DevOps, and DevOps reads and answers. Which VM hosts the MCP and who can log in is not in the evidence. ASK: Upendhar.
+Each of these is a GATE: Claude drafts the ask, the operator sends it to DevOps, and DevOps reads and answers. The VMs are `voyagedev` (dev) and `prod-voyage` (production); only DevOps logs in. ASK: Upendhar or Srikar.
 
 | Check | What DevOps reads on the VM (ASK: Upendhar how) | Healthy |
 |---|---|---|
-| Processes | The process list | The read gateway process and the write gateway process online, the write gateway as a single instance |
+| Processes | The pm2 process list | `moi-mcp-read` (port 8787) and `moi-mcp-write` (port 8788) online, the write gateway as a single instance |
 | Logs | The write gateway's last 100 log lines. The server logs to stderr with the prefix `[moi-mcp]`, so the error log matters most | No config errors. After a crash, "had broadcast before exit; recording it confirmed" and "cannot be safely re-broadcast; marking orphaned" are normal reconciliation: the user retries in chat |
 | nginx | Read the server block | `proxy_buffering off`, `proxy_read_timeout` and `proxy_send_timeout` 300s, `X-Forwarded-For $remote_addr`, no redirect in front (not even http to https for the MCP path), nginx connecting from the same machine, the gateway ports blocked from outside |
 | Logging itself | Does the process manager rotate logs | Unknown. ASK: Upendhar |

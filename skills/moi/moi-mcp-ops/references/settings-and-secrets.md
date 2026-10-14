@@ -1,6 +1,6 @@
 # Settings and secrets, by name
 
-Names only. This file never holds a value. Facts are as of 2026-10-02 (research: the Voyage workflow, `docs/handoff-infra.md`, `.env.example`) unless dated. Where each credential lives and who grants it: `moi-devrel/references/keys-and-access.md`. Back to `../SKILL.md`.
+Names only. This file never holds a value. Facts are as of 2026-10-02 (research: the Voyage workflow, `docs/handoff-infra.md`, `.env.example`) unless dated; the secret scope and the session keys were corrected on 2026-10-13 from `project-handover-docs/MCP-SERVER.md`. Where each credential lives and who grants it: `moi-devrel/references/keys-and-access.md`. Back to `../SKILL.md`.
 
 Rules. Never open an `.env` file and never paste a value into chat, a file or a commit. GitHub secrets cannot be read back. The Voyage deploy has no `.env` at all: it passes values inline when it starts the processes, so the only copy of a value is in GitHub or in the running process. If a value is pasted anyway, do not repeat it, say it is exposed, and name who can rotate it. Rotation labels used below: **free** (no side effect), **step** (a follow-up is needed), **never**.
 
@@ -8,7 +8,7 @@ Rules. Never open an `.env` file and never paste a value into chat, a file or a 
 
 | Name | Kind | Where it comes from | What it does, and what goes wrong |
 |---|---|---|---|
-| `WC_PROJECT_ID` | secret | voyage-api secrets `MCP_PROD_WC_PROJECT_ID` and `MCP_DEV_WC_PROJECT_ID` | The Reown (WalletConnect) project id, a public identifier of 32 hex characters. The write gateway refuses to start without a valid one. Wrong: pairing does nothing ("The WalletConnect relay refused the pairing"). Owner of the Reown project: unknown, ASK: Rahul. Effect of replacing it on live pairings: unknown, ASK: Adithya |
+| `WC_PROJECT_ID` | secret | voyage-api secrets `MCP_PROD_WC_PROJECT_ID` and `MCP_DEV_WC_PROJECT_ID` | The Reown (WalletConnect) project id, a public identifier of 32 hex characters. The write gateway refuses to start without a valid one. Wrong: pairing does nothing ("The WalletConnect relay refused the pairing"). Owner of the Reown project: not recorded, ASK: Rahul. Effect of replacing it on live pairings: not recorded (the previous DevRel's notes); ASK: Rahul |
 | `PUBLIC_URL` | plain, inline | The `pm2 start` line | Must equal the public host exactly. It is the OAuth issuer, and an `http://` value drops the cookie. Wrong: sign-in loops. Changing the host means every connector is added again (inferred) |
 | `MOI_NETWORK` | plain, inline | Same | `voyage` today. `custom` also needs `MOI_RPC_URL` or `/health` answers 503 |
 | `MOI_DATA_DIR` | plain, inline | Same | Where the write gateway keeps sign-ins, tokens, pairings and the journal. Losing it signs everyone out |
@@ -21,7 +21,7 @@ Rules. Never open an `.env` file and never paste a value into chat, a file or a 
 |---|---|---|---|
 | `MOI_READ_CALLER` | Required on devnet for registry reads | Any account that exists on the network, used as the caller of read-only logic simulation. Unset: registry tools fail with an error that names it | free. Must be re-chosen after a reset |
 | `MOI_AGENT_REGISTRY_LOGIC_ID` | After a reset, unless the code default is changed | Overrides the registry id; the default is `DEFAULT_REGISTRY_LOGIC_ID` in `src/moi/registry.ts` | The one value that changes on a reset |
-| `MOI_SESSION_KEY` | Local branch only: not read by `master`. Required on the write gateway once the unmerged work on the previous operator's machine is synced (ASK: Adithya for a copy) | A server-side key. Generate with `openssl rand -base64 32`, put it in the secret store and never print it | **step**: changing it signs users out of what uses it, and there is no previous-key setting |
+| `MOI_SESSION_KEY` | Not read by `master` yet. The encryption-at-rest change (split out of moi-mcp #27 into a later PR) makes it required at boot, so the workflow must pass it before that change is synced, or the write gateway crash-loops. voyage-api already holds `MCP_DEV_SESSION_KEY`, `MCP_PROD_SESSION_KEY` and `MCP_PREVIEW_SESSION_KEY` as repository secrets (created 2026-10-09); nothing passes them yet | A server-side key. Generate with `openssl rand -base64 32`, put it in the secret store and never print it | **step**: changing it signs users out of what uses it, and there is no previous-key setting |
 | `MOI_LAUNCHPAD_URL` | Launchpad tools | Must equal the Launchpad's own `NEXT_PUBLIC_APP_URL` or the tool refuses to sign | free |
 | `REDIS_URL` | Optional | Moves pairings to Redis. It carries a password. Unreachable at boot: the write gateway refuses to start. Not in `moi-devrel/references/keys-and-access.md`: ASK: Rahul to add it | step |
 | `HOSTED_TIMEOUT_MS` | Optional | Budget for one hosted tool call, default 240000. Above 300000 claude.ai abandons calls the server still serves | free |
@@ -31,10 +31,11 @@ Rules. Never open an `.env` file and never paste a value into chat, a file or a 
 
 | Repo | Name | Used by | Owner |
 |---|---|---|---|
-| `sarvalabs/moi-mcp` | `UPSTREAM_READ_TOKEN` | The upstream watch, for go-moi and cocolang | Unknown, expiry unknown. ASK: Adithya |
+| `sarvalabs/moi-mcp` | `UPSTREAM_READ_TOKEN` | The upstream watch, for go-moi and cocolang | Not set as of 2026-10-10. Rahul decides which account owns it (one that will stay) |
 | `sarvalabs/moi-mcp` | `NPM_TOKEN` | `publish.yml` on a `v*` tag. Unused so far | ASK: Rahul |
 | `sarvalabs/voyage-api` | `TELEPORT_PROXY`, `TELEPORT_JOIN_TOKEN`, `MCP_DEV_MACHINE` (dev); `TELEPORT_PROD_PROXY`, `TELEPORT_PROD_JOIN_TOKEN`, `MCP_PROD_MACHINE` (production) | The deploy workflow reaches the VM | DevOps, Upendhar |
-| `sarvalabs/voyage-api` | `MCP_DEV_WC_PROJECT_ID`, `MCP_PROD_WC_PROJECT_ID` | Source of `WC_PROJECT_ID` | Who may edit the `production` environment: ASK: Srikar |
+| `sarvalabs/voyage-api` | `MCP_DEV_WC_PROJECT_ID`, `MCP_PROD_WC_PROJECT_ID` | Source of `WC_PROJECT_ID` | Repo-level secrets (the `production` environment holds none). Who may edit them: ASK: Srikar |
+| `sarvalabs/voyage-api` | `MCP_DEV_SESSION_KEY`, `MCP_PROD_SESSION_KEY`, `MCP_PREVIEW_SESSION_KEY` | Created 2026-10-09 for `MOI_SESSION_KEY`; nothing passes them yet | Srikar |
 Test-only names: `MOI_E2E` (switches on the live canary, set to 1 in the nightly workflow) and `MOI_CANARY_ACCOUNT` (the canary's sender; **not passed** by the nightly workflow).
 
 ## Runbook: change a setting or a secret (Voyage-hosted)
@@ -43,7 +44,7 @@ Test-only names: `MOI_E2E` (switches on the live canary, set to 1 in the nightly
 |---|---|---|---|---|
 | 1 | Read what is passed today | Open the workflow in the GitHub UI, or `gh api -H "Accept: application/vnd.github.raw" "repos/sarvalabs/voyage-api/contents/.github/workflows/moi-mcp.deploy.yml?ref=feat/moi-mcp"` (private repo: needs access, ASK: Rahul). Names only matter; the research found no value in the file. Copy no host, address or login you see into a note | You know if the name is passed | read |
 | 2 | Decide the kind | A secret (a value nobody should see) or a plain value written inline in the workflow | One of the two | read |
-| 3a | A secret | The operator sets it, typing the value at a hidden prompt: `gh secret set <NAME> --env production -R sarvalabs/voyage-api`. The research names the `production` environment; the name of the dev one is not recorded, ASK: Srikar. Claude never sees the value. Who may edit it: ASK: Srikar | Set | GATE |
+| 3a | A secret | The operator sets it, typing the value at a hidden prompt: `gh secret set <NAME> -R sarvalabs/voyage-api`. The MCP secrets are repo-level, not environment-level (the `production` environment holds none); confirm with Srikar on first use. Claude never sees the value | Set | GATE |
 | 3b | A plain value | Edit the `pm2 start` environment in `moi-mcp.deploy.yml` on `feat/moi-mcp`: a PR into that branch, then merge. Merging deploys nothing | Merged | GATE |
 | 4 | Deploy dev, then production | `ship-a-change.md` parts C and D. Only variables the workflow passes reach the processes | Both runs green | GATE |
 | 5 | Verify | `bash "$SKILLS/moi-mcp-ops/scripts/mcp-health.sh"`: the OAuth issuer must equal `PUBLIC_URL`; if it says `http://localhost` the environment never reached the process. Then the behaviour the variable controls | The behaviour changed as intended | read |
@@ -62,6 +63,6 @@ The cross-product order is `moi-devnet-reset`. The server reads the registry id,
 | 7 | Close out | Grep the id across the three repos; update the stale comment in `.env.example` (it still names the wiped id's prefix as the default) | One id everywhere | local |
 
 ## Not yet known
-- Who owns the Reown project and `UPSTREAM_READ_TOKEN`. ASK: Rahul, Adithya.
-- Which Voyage environment holds `MOI_READ_CALLER` today, if any. ASK: Srikar.
-- Whether editing the voyage-api `production` environment needs an approval rule. ASK: Srikar.
+- Who owns the Reown project, and which account will own `UPSTREAM_READ_TOKEN`. ASK: Rahul.
+- Where `MOI_READ_CALLER` is set today, if anywhere (the workflow does not pass it). ASK: Srikar.
+- Whether creating a voyage-api repository secret needs more than repo admin. ASK: Srikar.

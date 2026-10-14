@@ -67,7 +67,7 @@ Numbers are the rows of the run table in `SKILL.md`. A GATE needs the operator's
 | MCP | `moi_resolve_agent` | | | |
 | MCP | `MOI_READ_CALLER` set, `/health` both hosts | | | |
 | MCP | deploy run (link), tools listed | | | |
-| Explorer | registry id in `config.ts` (and `vite.config.ts` on PR #5) | | | |
+| Explorer | registry id in `config.ts` (and `vite.config.ts`) | | | |
 | Explorer | server identity reads the registry | | | |
 | Explorer | `/registry/agents` total against the registry count | | | |
 

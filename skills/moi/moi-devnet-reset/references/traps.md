@@ -5,7 +5,7 @@ Facts are as of 2026-10-03. Every row is a real incident, written as a rule. Bac
 ## Reading the state
 | Rule | The incident |
 |---|---|
-| A green health answer proves the process, not the data | Explorer `/health` says `ok` while its index holds the pre-reset 49 agents. The MCP `/health` was `ok:true` on 2026-10-03 while registry reads failed. The Launchpad's default marketplace listing is a database index and kept showing `onchain:true` for a dead chain, so use `?source=chain` |
+| A green health answer proves the process, not the data | Explorer `/health` said `ok` while its index held the pre-reset 49 agents (until PR #5 merged on 2026-10-07). The MCP `/health` was `ok:true` on 2026-10-03 while registry reads failed. The Launchpad's default marketplace listing is a database index and kept showing `onchain:true` for a dead chain, so use `?source=chain` |
 | A read cannot see a frozen registry | `b97ce717` stopped executing writes on 2026-08-06 and kept serving reads. Registrations hung about 127 seconds and nobody saw it for four days. Only a registration receipt shows it |
 | `onchain:null` means unavailable, not "unlisted" | The market listing read returns null on 2026-10-02 and 2026-10-03 because the contract is probably gone |
 | `stale` on an idle Launchpad is normal | The chain refresh runs only when someone asks. Read twice, 20 to 60 seconds apart |
@@ -17,7 +17,7 @@ Facts are as of 2026-10-03. Every row is a real incident, written as a rule. Bac
 ## Ids and where they hide
 | Rule | The incident |
 |---|---|
-| Three repos pin the registry id separately, and the Explorer pins it in two places once its PR #5 merges (one on `main`) | After the 2026-09-11 wipe they moved 4, 11 and 12 days later. Run `id-grep.sh` over all of them every time |
+| Three repos pin the registry id separately, and the Explorer pins it in two places since its PR #5 merged on 2026-10-07 (the server config and the client build config) | After the 2026-09-11 wipe they moved 4, 11 and 12 days later. Run `id-grep.sh` over all of them every time |
 | The registry package embeds an id and reads the environment once, when it loads | `js-moi-agent-registry@0.3.0-rc1` embeds the wiped `c684f926`. An unset variable hands the package that dead address, and an empty one hands it an empty string, which is what the deploy writes when an Actions variable is unset. npm's "latest" is the latest publish, not the highest version, so a bumped package does not carry the current address |
 | Merging does not deploy the MCP | The live server is a copy in `voyage-api`. It was still on the wiped registry 22 days after the wipe (2026-10-03), although `moi-mcp` `master` held the new id from 2026-09-24: the copy had not been synced and deployed |
 | A deploy workflow passes only the names it lists | The MCP workflow passes neither the registry id nor the read caller. The Explorer workflow passes `MOI_MNEMONIC`, `MOI_AGENT_ID` and `MOI_INTELLIGENCE_LOGIC_ID` and not `MOI_AGENT_REGISTRY_LOGIC_ID`, `MOI_READ_CALLER_ADDRESS` or `MOI_WS_URL` |
@@ -56,4 +56,4 @@ Facts are as of 2026-10-03. Every row is a real incident, written as a rule. Bac
 
 ## Not yet known
 - Whether a reset can happen with no go-moi release before it, and whether it can happen on a day nobody is watching. ASK: Gokul.
-- Whether the Launchpad kill switch (`platform_state.killed`) can be reset. The Launchpad refuses every model call when platform spend crosses its daily cap. ASK: Adithya.
+- Whether the Launchpad kill switch (`platform_state.killed`) can be reset. The Launchpad refuses every model call when platform spend crosses its daily cap. Not recorded (the previous DevRel's notes); ASK: Rahul.

@@ -25,7 +25,7 @@
 # What it reads (every request is a GET or a JSON-RPC read; nothing is submitted, signed or funded):
 #          the node: net.Version and net.NetworkID on the devnet and babylon paths of the Voyage RPC host
 #          the genesis tesseract of a founding account (moi.Tesseract, height 0). Its hash is said to change when
-#          a network is re-initialised (a local, untracked file of the previous operator; ASK: Adithya for a copy).
+#          a network is re-initialised (a local, untracked file of the previous DevRel, not recorded elsewhere; ASK: Gokul).
 #          No reset has yet been watched to confirm it, so treat a change as strong evidence and read
 #          references/detect.md
 #          each --registry id: moi.AccountMetaInfo (exists?), moi.LogicManifest (the routines the Launchpad

@@ -13,7 +13,7 @@ A single WARN that was already there before the deploy is not a trigger. Compare
 ## What cannot be rolled back
 - Anything already broadcast to the chain: a transfer, an asset, a mint. It is permanent. The write journal (`journal.jsonl` in the data directory) records each write as proposed, signed, broadcast, confirmed, failed or orphaned; DevOps can read it.
 - OAuth consents and phone-signing calls in flight. Every deploy loses them, a rollback deploy included.
-- Pairings, if the bad release changed the stored pairing format. The repo's checklist says old session records are then dropped and the journal is kept, so users pair again after a rollback too. Before you roll back past a release that changed the data directory format: ASK: Adithya.
+- Pairings, if the bad release changed the stored pairing format. The repo's checklist says old session records are then dropped and the journal is kept, so users pair again after a rollback too. Before you roll back past a release that changed the data directory format: not recorded (the previous DevRel's notes); ASK: Rahul.
 - Never delete or move the data directory (`MOI_DATA_DIR`) as part of a rollback: it signs everyone out and un-pairs every wallet.
 
 ## Runbook: Voyage-hosted (production)
@@ -40,7 +40,7 @@ A single WARN that was already there before the deploy is not a trigger. Compare
 The data directory is untouched by these steps.
 
 ## Not yet known
-- Whether any earlier MCP deploy was rolled back, and how. ASK: Adithya.
+- Whether any earlier MCP deploy was rolled back, and how. The voyage-api run history (`ship-a-change.md` step 1) shows it. ASK: Srikar.
 - Whether voyage-api keeps previous builds on the VM, or builds only from the branch each time (the workflow builds each time, so a rollback means a rebuild). ASK: Srikar.
 - Whether DevOps snapshots the VM. ASK: Upendhar.
 - How long a deploy or a rollback takes. Not measured.

@@ -18,7 +18,7 @@ Dependabot (`.github/dependabot.yml`) is the third watcher: npm daily (up to 5 P
 ## What each check cannot see (read this before trusting a green run)
 - The canary tests the code at `master` against live devnet. It does not touch the hosted server, the registry, OAuth or a phone. The canary ran green on 2026-10-01 to 03, and `moi_resolve_agent` failed on every host when read on 2026-10-02 and 2026-10-03. Green canary does not mean the connector works.
 - The watch lists GitHub **releases**, not tags, and only the newest one per upstream. Two releases between runs file one issue. A repo that publishes tags without a Release is invisible to it.
-- As of 2026-10-03 the only `upstream-release` issue ever filed is #17 (js-moi-sdk v0.9.0-rc3, open since 2026-09-23). No go-moi or cocolang issue exists, although go-moi v0.13.0 was tagged on 2026-09-10 and `moi-devrel/references/devnet.md` lists that issue as the first sign of a reset. Either `UPSTREAM_READ_TOKEN` is unset or expired, or those repos publish no GitHub Releases. Which one is unknown: steps 3 to 5 of the first runbook below find out. ASK: Adithya (token), Gokul (releases).
+- As of 2026-10-03 the only `upstream-release` issue ever filed is #17 (js-moi-sdk v0.9.0-rc3, open since 2026-09-23). No go-moi or cocolang issue exists, although go-moi v0.13.0 was tagged on 2026-09-10 and `moi-devrel/references/devnet.md` lists that issue as the first sign of a reset. `UPSTREAM_READ_TOKEN` was not set on `sarvalabs/moi-mcp` as of 2026-10-10 (`project-handover-docs/MCP-SERVER.md`), so the watch has never been able to read those two private repos; Rahul decides which account owns the token. Whether those repos also publish no GitHub Releases is unknown: steps 3 to 5 of the first runbook below find out. ASK: Rahul (token), Gokul (releases).
 - No `chain-canary` issue has ever been opened. That is expected while the checks pass. It also means the issue path has not run in anger.
 - The canary's header comment says a receipt that would revert counts as a pass. The code beneath it asserts receipt status 0 for the three simulations. Trust the code.
 
@@ -31,7 +31,7 @@ Dependabot (`.github/dependabot.yml`) is the third watcher: npm daily (up to 5 P
 | 3 | Does the secret exist | `gh secret list -R sarvalabs/moi-mcp` lists names and dates only, and needs access to the repo's Actions secrets (a repo admin: ASK: Rahul). `UPSTREAM_READ_TOKEN` should appear. A value is never shown | Present or absent | read |
 | 4 | Can the private repos be seen | `gh release list -R sarvalabs/go-moi --limit 3` and the same for `cocolang` (needs read access to both: ASK: Rahul who grants it). Empty means the watch can never fire for that repo | You know whether Releases exist | read |
 | 5 | What does the watch say | Prefer the log of a recent scheduled run in the Actions tab. To run one: `gh workflow run upstream-watch.yml -R sarvalabs/moi-mcp -f dry_run=true`, then read the log. "skip go-moi: private repo and UPSTREAM_READ_TOKEN is not set" means the secret is missing; "would file: ..." means it works and nothing is filed | The sentence from the log | GATE (a manual workflow run) |
-| 6 | Report | One message to Adithya (token) and Gokul (Releases), drafted by Claude and sent by the operator | Sent | GATE |
+| 6 | Report | One message to Rahul (who owns the token) and Gokul (Releases), drafted by Claude and sent by the operator | Sent | GATE |
 
 ## Runbook: an `Upstream release` issue
 Read the issue body first: it names the release, whether this repo's pin differs (`js-moi-sdk` is pinned exactly, `0.9.0-rc2` on 2026-10-03), whether the version is on npm, and a "What to check" list.
@@ -70,7 +70,7 @@ A failing check, its likely cause, and the fix (check names are the test titles 
 | Any check, after a devnet reset | KMOI's creator account, which the canary uses as sender, no longer exists | Set `MOI_CANARY_ACCOUNT`. **The nightly workflow does not pass it**, so this needs a workflow edit or a new code default (a PR) |
 
 ## Not yet known
-- Who owns `UPSTREAM_READ_TOKEN`, when it expires, and whether it is set. ASK: Adithya.
+- Which account will own `UPSTREAM_READ_TOKEN` (not set as of 2026-10-10). Rahul decides.
 - Whether go-moi and cocolang publish GitHub Releases. ASK: Gokul.
 - Who is subscribed to `moi-mcp` issues. A 10-day-old issue (#17) is open with no comment on 2026-10-03.
-- Whether Dependabot PR #25 (opened 2026-10-01; CI failed on a Dependabot branch the same day) has been read by anyone.
+- Dependabot: #25 was closed 2026-10-05 and #26 on 2026-10-12. Its replacement #28 bumps majors (zod 4, TypeScript 7, vitest 5, @types/node 26) and fails the build, because zod 4 breaks the types in `src/dapp`, `src/launchpad` and `src/wc`. Do not merge it as is: split the majors out or ignore them in `dependabot.yml` (a PR: GATE).

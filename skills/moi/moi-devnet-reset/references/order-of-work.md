@@ -1,6 +1,6 @@
 # Order of work, and who does each step
 
-Facts are as of 2026-10-03. Step numbers are the rows of the run table in `../SKILL.md`. `ASK:` is defined in `moi-devrel/SKILL.md`. Back to `../SKILL.md`.
+Facts are as of 2026-10-03 (owners, Supabase and the Explorer PR corrected on 2026-10-13). Step numbers are the rows of the run table in `../SKILL.md`. `ASK:` is defined in `moi-devrel/SKILL.md`. Back to `../SKILL.md`.
 
 ## The order and why
 Two things set the pace. The protocol team must supply the new registry id (the blocking dependency: four days in September), and a wallet that exists on the new chain must fund the Launchpad's wallets (a wiped account cannot recreate itself). Everything else follows from those two.
@@ -14,7 +14,7 @@ Two things set the pace. The protocol team must supply the new registry id (the 
 | 6 Constants and SDK | the constants known (can start before the registry id: the SDK upgrade was done within a day of the wipe, on 2026-09-12) | All three repos must build with the same SDK pair, because `js-moi-agent-registry` pins its SDK peer exactly | Operator and Claude, locally |
 | 7 Wallets and funds | 4, 6 | New users cannot onboard until the Launchpad's registration wallets exist. A human with a wallet on the new chain funds a sponsor, and the faucet funds only accounts that exist | Sponsor: the operator or another person with a MOI Wallet. The three registration mnemonics: DevOps. Claude never handles a phrase |
 | 8 Launchpad | 5, 7 | Users are blocked here first ("nobody has been able to onboard for three days", 2026-09-14). It also holds the read-caller logic the other two can borrow, and the other two depend on its host: the MCP's Launchpad tools need `MOI_LAUNCHPAD_URL` equal to its `NEXT_PUBLIC_APP_URL`, and the Explorer verifies agents by their Launchpad card host | Operator (repo admin), DevOps for the VM |
-| 9 MCP | 5, 6 | Start its pull request early: the production copy lives in `sarvalabs/voyage-api` and needs another team's review (PR #313 had no review from 2026-09-23 to at least 2026-10-02). Deploy after the Launchpad | Operator, Voyage team, DevOps |
+| 9 MCP | 5, 6 | Start its pull request early: the production copy lives in `sarvalabs/voyage-api` and needs another team's review (PR #313 had no review from 2026-09-23 to at least 2026-10-13). Deploy after the Launchpad | Operator, Voyage team, DevOps |
 | 10 Explorer | 5, 6 | Last, because its sync writes the production database and should read the final registry | Operator, Gokul (app), Upendhar (CI/CD, database) |
 | 11 Drift check | 8 to 10 | The three repos pin the id separately and moved 4, 11 and 12 days after the September wipe | Claude |
 | 12 Content and demos | 11 | Ids are final, products work, and a demo needs the wallets of step 7 | Operator and Claude |
@@ -24,14 +24,14 @@ The order of steps 8 to 10 is a judgement from these dependencies. The September
 Do in parallel while waiting for step 4: steps 2, 3 and 6, the draft messages, and reading the new SDK release.
 
 ## Freeze: what would write to a dead chain
-No product is recorded as writing to the chain on its own: the writes are what users trigger (inferred from the code and workflows read). No maintenance switch is recorded for any product (ASK: Adithya for the Launchpad and the MCP, Upendhar for anything at the web server). So the freeze is mostly a list of things people must not do.
+No product is recorded as writing to the chain on its own: the writes are what users trigger (inferred from the code and workflows read). No maintenance switch is recorded for any product (ASK: Rahul for the Launchpad and the MCP, Upendhar for anything at the web server). So the freeze is mostly a list of things people must not do.
 | Do not | Why | How |
 |---|---|---|
 | Run a demo, `npm run setup:*`, `npm run demo`, a webinar rehearsal, an x402 live round trip or a test round | It spends funds on a state that may be replaced, and the result means nothing | Tell the operator. GATE to spend funds once step 5 is done |
 | Fund a sponsor or test wallet from the faucet, or recreate registration wallets | A replacement within days kills them (August) | Wait for step 4 to say the state is final |
 | Point a product at a registry that step 5 has not checked | Cost of a wrong deploy | Step 5 first |
 | Delete or edit Launchpad agent rows, or empty the Explorer `agents` table, to "fix" the lists | Owners re-register by themselves. The Launchpad's stranded check compares chain and database, so it clears itself | Leave rows alone |
-| Leave scheduled or published text that says "live" or quotes an id or a hash | It goes false at the reset | List Buffer posts, the weekly newsletter, Luma pages, call decks. The operator edits or deletes by hand in each service. Claude cannot, and `buffer.mjs` cannot delete |
+| Leave scheduled or published text that says "live" or quotes an id or a hash | It goes false at the reset | List Buffer posts, the monthly newsletter (it goes out on the 15th: `project-handover-docs/BLOG.md`), Luma pages, call decks. The operator edits or deletes by hand in each service. Claude cannot, and `buffer.mjs` cannot delete |
 | Tell users it is fixed | It is not until step 14 | Message 4 says what is wrong, not when it will be fixed |
 What continues and cannot be stopped from here: Launchpad activations fail with 503 `faucet_unavailable`, and the admin Telegram chat is alerted at most once an hour per process; phone approvals of MCP writes fail; the Explorer keeps indexing from its node address.
 
@@ -45,15 +45,15 @@ What to do once Rahul has answered, per product (this decides steps 8 to 10 of `
 | No answer yet | The same as "another team". Steps 8 to 10 wait, and 11 and 14 wait with them; steps 1 to 7 go on |
 | Product | Code and settings | VM, deploy, database | Not known |
 |---|---|---|---|
-| Agent Launchpad (`sarvalabs/moi-agent-launchpad`, `master`) | The previous operator wrote 301 of 338 commits and holds the Telegram bot and the model API key (his `DEPENDENCIES.md` of 2026-10-01, a file on his machine only: ASK: Adithya for a copy). Gokul publishes the registry id | DevOps (Upendhar): VM, DNS, Teleport, GHCR. DevOps holds the three registration mnemonics. The database is on a Supabase login whose owner is not recorded | Whether DevRel owns it. Who holds the mnemonics outside GitHub (ASK: Upendhar). Who may merge (ASK: Rahul). Whether a maintenance switch exists (ASK: Adithya) |
-| MCP server (`sarvalabs/moi-mcp`, production copy in `sarvalabs/voyage-api` branch `feat/moi-mcp`) | The previous operator wrote nearly all commits. The Voyage team owns `voyage-api` (Srikar opened PR #308) | The Voyage VM through Teleport (Upendhar, Srikar) | Who triggers the production deploy. Who may edit `voyage-api` production secrets. Whether DevRel owns it (ASK: Rahul) |
-| Agent Explorer (`sarvalabs/agent-explorer`, `main`) | Gokul owns the app and the registry logic. The previous operator wrote 10 of 62 commits (`DEPENDENCIES.md`, as above) | Upendhar: CI/CD, SSH deploy, the MySQL database | Whether `MOI_MNEMONIC` is set in production. The WalletConnect project owner. Whether DevRel owns it (ASK: Rahul) |
+| Agent Launchpad (`sarvalabs/moi-agent-launchpad`, `master`) | The previous operator wrote 301 of 338 commits and holds the Telegram bot and the model API key (`project-handover-docs/LIST-OF-DEPENDENCIES.md`, the 4 October snapshot, and `project-handover-docs/AGENT-LAUNCHPAD.md`). Gokul publishes the registry id | DevOps (Upendhar): VM, DNS, Teleport, GHCR. DevOps holds the three registration mnemonics. The database is a Supabase project in the company organisation since 2026-10-08 | Whether DevRel owns it. Who holds the mnemonics outside GitHub (ASK: Upendhar). Who may merge (ASK: Rahul). Whether a maintenance switch exists: none is recorded (ASK: Rahul) |
+| MCP server (`sarvalabs/moi-mcp`, production copy in `sarvalabs/voyage-api` branch `feat/moi-mcp`) | The previous operator wrote nearly all commits. The Voyage team owns `voyage-api` (Srikar opened PR #308) | The Voyage VMs (`voyagedev`, `prod-voyage`) through Teleport (Srikar runs them and the deploy workflow; Upendhar is the other DevOps contact) | Which people besides Srikar may trigger the production deploy (ASK: Srikar). The MCP secrets in `voyage-api` are repo-level, not environment-level. Whether DevRel owns it (ASK: Rahul) |
+| Agent Explorer (`sarvalabs/agent-explorer`, `main`) | Gokul owns the app and the registry logic. The previous operator wrote 10 of 62 commits (`project-handover-docs/LIST-OF-DEPENDENCIES.md`, as above) | Upendhar: CI/CD, SSH deploy, the MySQL database | Whether `MOI_MNEMONIC` is set in production. The WalletConnect project owner. Whether DevRel owns it (ASK: Rahul) |
 
-MCP server: A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin.
+MCP server: `project-handover-docs/MCP-SERVER.md` records no security finding. The 2026-10-02 research note said one was open; its content is not recorded (the previous DevRel's notes); ASK: Rahul before touching sign-in or other admin code.
 
-Agent Explorer: A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin.
+Agent Explorer: a security finding is open, recorded in `project-handover-docs/LIST-OF-DEPENDENCIES.md` (Agent Explorer, ToDo 1). Read it and ask Gokul before touching the server's admin.
 
-Who can act on a VM: Upendhar (Teleport, VMs, nginx, TLS, DNS, the deploy scripts). Srikar was the VM and CI/CD owner as of August 2026 and whether he still is, is not known. ASK: Upendhar. Do not ask either of them for a secret value; secrets live in GitHub (`moi-devrel/references/people-and-teams.md`).
+Who can act on a VM: DevOps. Srikar runs the website server, the Voyage VMs and the MCP deploys; Upendhar runs the Points box, CI/CD and GHCR, and the Launchpad and Explorer deploys (Teleport, nginx, TLS, DNS). Do not ask either of them for a secret value; secrets live in GitHub (`moi-devrel/references/people-and-teams.md`).
 
 ## What only a human can do
 | Task | Why |
@@ -67,5 +67,5 @@ Who can act on a VM: Upendhar (Teleport, VMs, nginx, TLS, DNS, the deploy script
 ## Not yet known
 - Whether DevRel owns any of the three products. ASK: Rahul.
 - Who holds the registration mnemonics, and the approved way to hand them to whoever runs the script. ASK: Upendhar, then Rahul.
-- Who triggers the production MCP deploy. ASK: Rahul, Adithya.
+- Which people besides Srikar may trigger the production MCP deploy. ASK: Srikar.
 - Whether another order of steps 8 to 10 is wanted. ASK: Gokul.

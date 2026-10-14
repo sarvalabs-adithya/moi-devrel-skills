@@ -21,11 +21,11 @@ Nothing is published. This file lists what is open, who decides, and the checks 
 | 1 | Which name: `@moi-protocol/mcp-server` or `@sarvalabs/mcp-server`? | Whoever owns the npm org owns the release, and claiming the wrong scope is awkward to undo. The repo calls this a decision, not a technical step | Rahul |
 | 2 | Who owns the npm organisation and account, and who creates `NPM_TOKEN` | The workflow cannot publish without it. Nobody is recorded as holding either | Rahul |
 | 3 | Ship a shared `WC_PROJECT_ID`, or make every user bring one | Today each user needs a free Reown project, an extra step on every local install | Rahul |
-| 4 | Has the phone-approved write path passed once (transfer and create-asset, `connect-and-verify.md` rows 13 to 15)? | The repo's plan says not to publish a write path no human has approved. Its record stops at 2026-09-01 | Adithya |
+| 4 | Has the phone-approved write path passed once (transfer and create-asset, `connect-and-verify.md` rows 13 to 15)? | The repo's plan says not to publish a write path no human has approved. The last recorded phone check is from 2026-09-01 (`project-handover-docs/MCP-SERVER.md`) | Rahul, once the operator has run rows 13 to 15 and recorded them |
 | 5 | Which pitch: "MOI needs an MCP endpoint" (then the hosted Go idea leads and this server is a reference) or "an agent touches MOI without holding keys" (then this server is the product) | It decides which package is promoted and what the announcement says. Rahul's objection that there is no big use case is unresolved in the repo's plan | Rahul |
-| 6 | Does the production copy in voyage-api become an install of the published package once it exists | `DEPENDENCIES.md` section 18 raises it as an option (a local file: ASK: Adithya for a copy) | Rahul, Srikar |
+| 6 | Does the production copy in voyage-api become an install of the published package once it exists | `project-handover-docs/MCP-SERVER.md` lists it as an open decision, with who syncs the copy and who runs the deploy | Rahul, Srikar |
 | 7 | Directory listings (Smithery, Glama, PulseMCP, mcp.so, Cursor, then Anthropic's connector directory last): who submits, from which account | Drafts exist in `docs/launch/` on `master`. The plan says one first impression per directory, so not before a demo exists | Rahul |
-| 8 | Is the Go server `moi-mcp-go` a release train of its own | The plan says separate repo and lifecycle. It has no remote and exists only on the previous operator's machine | Adithya |
+| 8 | Is the Go server `moi-mcp-go` a release train of its own | The plan says separate repo and lifecycle. It has no remote and exists only on the previous operator's machine (not recorded, the previous DevRel's notes) | Rahul |
 
 ## What DevRel does now
 - Run the read-only checks above and report any change: the name appearing on npm under someone else's account is the case to catch.

@@ -63,7 +63,7 @@ Every write is two calls: a preview, then a confirm token that is bound to you, 
 | 19 | Switch the wallet to another network, then write | `network_mismatch`, and reads still work | Operator |
 | 20 | `moi_disconnect_wallet`, then write | `wallet_disconnected` | Operator |
 | 21 | `moi_create_asset` with the default fund on a thin balance | Refused locally with the storage-fund hint, nothing reaches the phone | GATE |
-Status of this table in the repo's testing plan on 2026-09-01: pair, reject and the local refusal were verified; the transfer and create-asset approvals, the timeout, the network switch and the disconnect were not. Whether any has been run since is unknown. ASK: Adithya. Do not call a write path release-ready until rows 13 to 15 pass once on a phone (`docs/testing-plan.md`, `docs/publishing.md`).
+Status of this table in the repo's testing plan on 2026-09-01: pair, reject and the local refusal were verified; the transfer and create-asset approvals, the timeout, the network switch and the disconnect were not. The last recorded phone check is from 2026-09-01 (`project-handover-docs/MCP-SERVER.md`); run rows 13 to 15 once and record the result. Do not call a write path release-ready until rows 13 to 15 pass once on a phone (`docs/testing-plan.md`, `docs/publishing.md`).
 
 ## Part G: after the next sync (not live on 2026-10-03)
 Launchpad tools (`moi_launchpad_*`) and dapp tools (`moi_dapp_*`) are in master and not on production. After a sync that brings them: `MOI_LAUNCHPAD_URL` must equal the Launchpad's `NEXT_PUBLIC_APP_URL` or the tool refuses to sign ("Not signing: the sign-in message from <origin>..."). `moi_launchpad_sign_in` is, in voyage-api PR #313's words, the one step not yet verified live: whether the phone's message signature is the envelope the Launchpad expects. Product checks of the Launchpad itself belong to `moi-launchpad-ops`.
@@ -82,6 +82,6 @@ Ready to hand to users: yes or no, because <one reason>
 Nothing persists on the server except the pairing and the write journal, so this note is the record. It names an account and transaction hashes, so keep it out of any public repository: if it sits inside a working copy, add `connector-check-*.md` to that copy's `.git/info/exclude` (a local ignore file that is never pushed).
 
 ## Not yet known
-- Whether any phone check of the write path has passed since 2026-09-01. ASK: Adithya.
+- Whether any phone check of the write path has passed since 2026-09-01: none is recorded. Rows 13 to 15 are the check.
 - Which tools the hosted server lists after the next sync.
 - After a reset, whether MCP users need more than re-activating their account. ASK: Gokul.

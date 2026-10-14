@@ -1,17 +1,17 @@
 # Traps: ways this product fails with no error
 
-Each row is a rule and the real thing behind it. Dates are when it was seen. The top rows are repeated in `../SKILL.md`. Facts are as of 2026-10-02 (research) and 2026-10-03 (live reads). Back to `../SKILL.md`.
+Each row is a rule and the real thing behind it. Dates are when it was seen. The top rows are repeated in `../SKILL.md`. Facts are as of 2026-10-02 (research) and 2026-10-03 (live reads); the sync method and the VM facts were corrected on 2026-10-13 from `project-handover-docs/MCP-SERVER.md`. Back to `../SKILL.md`.
 
 ## The deploy path
 
 | Rule | Evidence |
 |---|---|
 | Merging in `sarvalabs/moi-mcp` deploys nothing. Production is a copy in `sarvalabs/voyage-api` (branch `feat/moi-mcp`, folder `moi-mcp/`) that a person deploys by hand | The research (2026-10-02) found the live server to be the 2026-09-23 sync; it showed the same surface on 2026-10-03, with master at 2026-09-24 (`architecture.md`) |
-| Open the sync PR against `feat/moi-mcp`, not `develop` | PRs #310 to #313; `DEPENDENCIES.md` section 18 (a local file on the previous operator's machine, not in git; ASK: Adithya for a copy) |
-| How the folder is copied is written nowhere | No script or doc. ASK: Adithya |
-| The Voyage workflow passes a fixed list of variables and has no `.env`. It does not read `ecosystem.config.cjs` | It passes `WC_PROJECT_ID`, `PUBLIC_URL`, `MOI_NETWORK`, `MOI_DATA_DIR`, `HOSTED_PORT`, `LOG_LEVEL`, `NODE_ENV` and, for the read gateway, `MOI_RPC_URL`. `MOI_SESSION_KEY`, `MOI_READ_CALLER`, `MOI_AGENT_REGISTRY_LOGIC_ID` and `MOI_LAUNCHPAD_URL` are not passed |
+| Open the sync PR against `feat/moi-mcp`, not `develop` | PRs #310 to #313; `project-handover-docs/MCP-SERVER.md` |
+| The `moi-mcp/` folder is a git subtree, updated with `git subtree pull --prefix=moi-mcp moi-mcp-upstream master` (steps: `ship-a-change.md` Part B) | The Voyage team's gateway runbook, shared 2026-10-13. Before that the method was written nowhere |
+| The Voyage workflow passes a fixed list of variables and has no `.env`. It does not read `ecosystem.config.cjs` | It passes `WC_PROJECT_ID`, `PUBLIC_URL`, `MOI_NETWORK`, `MOI_DATA_DIR`, `HOSTED_PORT`, `LOG_LEVEL`, `NODE_ENV` and, for the read gateway, `MOI_RPC_URL`. `MOI_SESSION_KEY`, `MOI_READ_CALLER`, `MOI_AGENT_REGISTRY_LOGIC_ID` and `MOI_LAUNCHPAD_URL` are not passed. voyage-api holds `MCP_DEV_SESSION_KEY`, `MCP_PROD_SESSION_KEY` and `MCP_PREVIEW_SESSION_KEY` (created 2026-10-09); nothing passes them yet |
 | A sync that makes another variable mandatory crash-loops the write gateway until the workflow passes it | Inferred from `docs/handoff-infra.md` plus the workflow |
-| Every Voyage deploy is `pm2 delete` then `pm2 start`: a short outage, and consents and signing calls in flight are lost | The workflow file (research) |
+| Every Voyage deploy is `pm2 delete` then `pm2 start`: a short outage, and consents and signing calls in flight are lost. It touches only `moi-mcp-read` and `moi-mcp-write` | The workflow file (research); `project-handover-docs/MCP-SERVER.md` |
 | On the self-hosted guide, restart the write gateway, never reload, and keep one instance. Two copies fight over the WalletConnect relay identity and a code issued by one is unknown to the other | `ecosystem.config.cjs`, `docs/handoff-infra.md` |
 | Never deploy an unmerged branch to the box | `docs/handoff-infra.md` |
 | Opening a PR in voyage-api deploys a preview on the dev VM | `moi-mcp.preview.yml` runs on every PR |
@@ -73,7 +73,7 @@ Trust the workflow file first, then the code, then prose.
 |---|---|
 | `npx -y @moi-protocol/mcp-server` fails. Nothing is published and the name is undecided | npm read 2026-10-03 |
 | A pushed tag matching `v*` publishes to npm | `publish.yml` |
-| Unpushed work exists only on the previous operator's machine (ASK: Adithya for a copy), and file paths differ there (a restructure moves the registry module). Read GitHub's `master`, not that clone's working branch | 19 commits ahead on 2026-10-03, and still growing |
+| Unpushed work exists only on the previous operator's machine (not recorded, the previous DevRel's notes; ASK: Rahul), and file paths differ there (a restructure moves the registry module). Read GitHub's `master`, not that clone's working branch | 19 commits ahead on 2026-10-03, and still growing |
 | Do not push, open a PR, comment on or close an issue without an explicit yes: each notifies maintainers of a public repo | `moi-devrel/references/consent-and-identity.md` |
 | GitHub secrets cannot be read back and no vault exists | `moi-devrel/references/keys-and-access.md` |
 | Never claim a fix works without a live check and a receipt | `moi-devrel/references/devnet.md`, "Silent failures on devnet" |
