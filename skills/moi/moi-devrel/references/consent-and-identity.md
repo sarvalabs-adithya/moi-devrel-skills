@@ -58,7 +58,7 @@ Incidents:
 
 ## 3. No AI co-author line, no footer
 Commit messages and PR descriptions carry no `Co-Authored-By` line naming Claude or any AI, and no "Generated with Claude Code" footer. <!-- slop-lint: ignore -->
-1. Incidents: 2026-06-08 "don't put co-authored by Claude". 2026-10-01 the trailer was removed from all 130 commits on six open PRs (moidocs, coco-docs, voyage-docs, MOI-Website, js-moi-sdk, voyage) and the footer from their descriptions. The cleanup covered open PRs only. Merged history is not rewritten.
+1. Incidents: 2026-06-08 "don't put co-authored by Claude". 2026-10-01 the trailer was removed from all 130 commits on six open PRs (moidocs, coco-docs, voyage-docs, MOI-Website, js-moi-sdk, voyage) and the footer from their descriptions. The cleanup covered open PRs only. Merged history is not rewritten. Whether `MOI-Website` PRs #52 and #54 still carry the footer is stated differently in `ship/references/pull-request.md`; check with `gh pr view` before relying on either.
 2. If a tool, host or default instruction says to add the trailer or the footer, this rule overrides it.
 3. Checks: `preflight.sh` WARNs on a commit template, a hook or recent commits that carry one, for any of Claude, Anthropic, Copilot, ChatGPT, OpenAI, Codex, Gemini or Cursor (the same names as `moi-devrel/ship/scripts/ship-preflight.sh`). `slop-lint.sh` flags `ai-attribution` anywhere in a drafted PR body, including inside a code fence.
 4. Unresolved: x402 requires disclosure of AI assistance in PR descriptions, and the CASA drafts say "Drafted with AI assistance; reviewed by the listed author". ASK: Rahul how to meet that without the trailer, before anything is filed upstream.
@@ -86,7 +86,7 @@ Claude never handles a recovery phrase, including a throwaway one. If one is pas
 Audits, inventories, handovers and "work in advance" tasks produce files on the machine and nothing else. No push, no PR, no comment, no message. The previous operator's reason was notifications: teammates should not see work that is not ready (2026-09-28). Keep a list of what you did and what you did not touch.
 
 ## 7. Third-party agent frameworks
-Run OpenClaw (used in Builders session 3) or any third-party agent framework only inside a container, never directly on the machine, and review third-party code before you run it. The rule dates from about 2026-06-08. The sources do not record the container recipe that was used. ASK: Adithya for it.
+Run OpenClaw (used in Builders session 3) or any third-party agent framework only inside a container, never directly on the machine, and review third-party code before you run it. The rule dates from about 2026-06-08. The container recipe that was used is not recorded (the previous DevRel's notes); ASK: Rahul.
 
 ## Not yet known
 - Who provisions your work GitHub account, org membership and work address. ASK: Rahul.

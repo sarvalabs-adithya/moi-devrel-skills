@@ -4,7 +4,7 @@ Facts are as of 2026-10-03. The research notes hold no record of an audience's r
 
 ## How to answer
 1. A yes or no question gets "Yes." or "No." first, then the limit that keeps it true, then the source if asked. At depth 1 that is about 35 words (`levels.md`).
-2. Claim only what the screen or the source shows. "Never claim more than the screen shows" is the rule of the session 8 run sheet (local only, ASK: Adithya).
+2. Claim only what the screen or the source shows. "Never claim more than the screen shows" is the rule of the session 8 run sheet (local to the previous DevRel's machine; not recorded; ASK: Rahul).
 3. Do not be walked into a claim. Three claims that questions invited: spend caps (not enforced, `misconceptions.md` M11), calling the session 7 demo x402, and "since 11 September" (a read proves now, not since).
 4. A feature found only in a release note or the source tip is "planned" until the wire shows it (`moi-devrel/references/devnet.md`).
 5. When the answer needs private source, say what the wire shows ("Observed on the wire: ...") or say "I will check". Never cite a private path.
@@ -66,5 +66,5 @@ Facts are as of 2026-10-03. The research notes hold no record of an audience's r
 After any session, call or review, write each real question word for word, who asked it, the answer given, the owner of any follow-up and the date. The January 2026 KRA document asks for Q&A and follow-ups within 48 hours (`moi-webinar/community-call/references/after-the-call.md`, step 10); whether that target still applies is not known. ASK: Rahul. A question that came from a real audience can become a row in this file once the asker's name and any private path are removed. The log names people and may name private source, so it stays out of git: keep it in the self-ignoring `explain-<slug>/` folder from step 10 of `../GUIDE.md` (a `.gitignore` holding one line, `*`), and never in a tracked file of a public repository.
 
 ## Not yet known
-- What attendees asked. No log is in the library. ASK: Adithya for any chat or Discord record.
+- What attendees asked. No log is in the library. ASK: Vardan for any call, chat or Discord record.
 - Whether the prepared answers in sections C and D were ever asked live.

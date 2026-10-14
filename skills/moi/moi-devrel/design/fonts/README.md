@@ -12,7 +12,7 @@ No licence note sits beside the font file: the previous operator's `fonts/README
 
 What the file says about itself (read with fontTools on 2026-10-03): copyright 2020 The Poppins Project Authors, designed by the Indian Type Foundry, and "licensed under the SIL Open Font License, Version 1.1" with the licence text at `https://scripts.sil.org/OFL`. The licence text itself is not in this folder. The Open Font License text (read at openfontlicense.org on 2026-10-03) lets a copy carry its copyright notice and licence as a text file, as a header, or in the font's own metadata fields, and this file carries both in its metadata. A separate text file beside it would be clearer.
 
-ASK: Rahul whether the brand has any licence for Poppins beyond that line, and whether the licence text should be added here. ASK: Adithya which download this file was.
+ASK: Rahul whether the brand has any licence for Poppins beyond that line, and whether the licence text should be added here. Which download this file was is not recorded (the previous DevRel's notes).
 
 ## How the weights load
 `../colors_and_type.css` loads Regular from this folder and Medium, SemiBold and Bold from Google Fonts. That needs a network. On a page with no network, or a machine with a blocked Google Fonts, 500, 600 and 700 fall back to a synthesised Regular.

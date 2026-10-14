@@ -1,4 +1,4 @@
-# MOI design
+# moi-devrel/design: the MOI visual brand
 
 Branch of `moi-devrel`. `$SKILLS`, the operator, `ASK:`, the house rules and the gates are in `moi-devrel/SKILL.md`; this guide adds what is specific.
 
@@ -25,7 +25,7 @@ Say "dark" or "light" for the ground, never for the colour of the logo.
 | 5 | Words | `references/voice.md`. Replace every `[bracket]`: `brand-check.py` fails a page that still has one. A figure needs a source and a date | `slop-lint.sh` is clean and `moi-devrel/claim-check` passed any claim |
 | 6 | Build | Static HTML or SVG. Edit the starter in place. Name the path | A file on disk |
 | 7 | Check | `python3 "$SKILLS/moi-devrel/design/scripts/brand-check.py" brand-<slug>/index.html`, then `bash "$SKILLS/moi-devrel/scripts/slop-lint.sh" brand-<slug>/index.html`, then `bash "$SKILLS/moi-devrel/scripts/secret-scan.sh" brand-<slug>` | 0 FAIL, 0 lint errors, each WARN read |
-| 8 | Look | Open the page at its final size and at phone width. In the browser console run `document.fonts.ready.then(() => console.log([...new Set([...document.fonts].filter(f => f.status === "loaded").map(f => f.weight))].sort().join(",")))`. Do not use `document.fonts.check`: it says true when a weight is missing. Check no logo is black or lost on its ground | Every weight the page uses (700 headings, 600 subheads, 500 body) is in the printed list, and the operator has seen the real output |
+| 8 | Look | Open the page at its final size and at phone width. In the browser console (Chrome: View, Developer, JavaScript Console; on macOS Cmd+Option+J) run `document.fonts.ready.then(() => console.log([...new Set([...document.fonts].filter(f => f.status === "loaded").map(f => f.weight))].sort().join(",")))`. Do not use `document.fonts.check`: it says true when a weight is missing. Check no logo is black or lost on its ground | Every weight the page uses (700 headings, 600 subheads, 500 body) is in the printed list, and the operator has seen the real output |
 | 9 | Export | A PNG: `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --allow-file-access-from-files --virtual-time-budget=8000 --window-size=1200,630 --screenshot=brand-<slug>/card.png "file://$PWD/brand-<slug>/card.html"`. Linux: `google-chrome` or `chromium` | `file brand-<slug>/card.png` says 1200 x 630 and the headline looks like the Poppins Bold in `$SKILLS/moi-devrel/design/preview/type-display.html` |
 | 10 | Ship (GATE) | Only on a yes that names the action: add to a repo, upload to Drive, Canva or Figma, post, send, hand to `moi-blog`, or draft the message that sends it (`moi-devrel/templates/messages.md`). The folder ignores itself, so copy the one finished file to where it belongs; do not delete the `.gitignore` to commit the whole folder | The destination has been opened after the action |
 | 11 | Hand back | The format at the end | The operator has read it |
@@ -71,7 +71,7 @@ The gates in `moi-devrel/SKILL.md` apply. These are specific to this branch, and
 - Image generation is a paid API: the operator names it, with the count and model stated first.
 
 ## Keys and access
-None needed to build or check. Names only: the brand book PDF, the "Logo Files" link on its page A1 and the Figma file `MOI Protocol.fig` are not in this library (ASK: Adithya for the copies, then ASK: Rahul who owns them). Shipping uses accounts listed in `moi-devrel/references/keys-and-access.md` (Buffer, Mailchimp, Drive, Canva). That file has no Figma entry; which Figma account holds the file is unknown (ASK: Adithya). Google Fonts needs none.
+None needed to build or check. Names only: the brand book PDF (`MOI Brand Guidelines.pdf`) and the logo pack (`MOI Logos.zip`) are in the handover repo under `others/legacy-skills/moi-design/uploads/`, not in this skill. The "Logo Files" link on the book's page A1 and the Figma file `MOI Protocol.fig` are in neither; which Figma account holds the file is not recorded (the previous DevRel's notes), and Rahul is the brand's owner to ask (ASK: Rahul). Shipping uses accounts listed in `moi-devrel/references/keys-and-access.md` (Buffer, Mailchimp, Drive, Canva, and its Figma row). Google Fonts needs none.
 
 ## Hand-back
 ```

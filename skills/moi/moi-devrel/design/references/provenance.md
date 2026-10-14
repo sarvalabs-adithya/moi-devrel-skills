@@ -1,6 +1,6 @@
 # Provenance: where this branch came from and what was changed
 
-Facts are as of 2026-10-03. This branch is the previous operator's own design skill folder (under his `.claude/skills/`, last modified 2026-05-28, local to his machine), brought into this library and restructured. The old folder is untouched. Back to `../GUIDE.md`.
+Facts are as of 2026-10-03. This branch is a restructured copy of a skill folder on the previous operator's machine (last modified 2026-05-28). The old skill is kept for reference in the handover repo, under `others/legacy-skills/moi-design/`, together with the brand book PDF and the logo pack in its `uploads/` folder. Back to `../GUIDE.md`.
 
 ## What was copied and what was not
 | Part | Old size | In this branch | Note |
@@ -11,7 +11,7 @@ Facts are as of 2026-10-03. This branch is the previous operator's own design sk
 | `preview/` | 54,959 bytes, 37 files | yes, edited | `../preview/README.md` lists the edits |
 | `ui_kits/marketing/` | 36,476 bytes, 4 files | yes, edited | Copy replaced with placeholders (`../ui_kits/marketing/README.md`) |
 | `SKILL.md`, `README.md` | 2,743 and 15,064 bytes | rewritten into `../GUIDE.md` and `references/` | The old frontmatter key `user-invocable` is dropped; the standard has `name` and `description` only |
-| `uploads/` | 9.3 MB, 26 files | no | Brand book PDF, logo zip, a screenshot of the book's font page, 23 background files |
+| `uploads/` | 9.3 MB, 26 files | no | Brand book PDF, logo zip, a screenshot of the book's font page, 23 background files. The PDF and the zip are in the handover repo, `others/legacy-skills/moi-design/uploads/` |
 | `MOI Design System/` | 21.4 MB, 121 files | no | Byte-identical duplicate |
 Total in this branch, counted at the end of the 2026-10-03 review: 112 files, about 10.3 MB, of which `assets/` is 9.9 MB (9,944,826 bytes).
 
@@ -38,5 +38,5 @@ Total in this branch, counted at the end of the 2026-10-03 review: 112 files, ab
 12. **Sources not in the folder's reach.** The README cited the PDF and the Figma file `MOI Protocol.fig` as sources. Neither is in this library.
 
 ## Not yet known
-- Whether the Figma file is current and who can open it. ASK: Adithya.
-- Whether the previous operator's copy was ever shared with another team, so that the same faults live elsewhere. ASK: Adithya.
+- Whether the Figma file is current and who can open it: not recorded (the previous DevRel's notes); ASK: Rahul.
+- Whether the previous operator's copy was ever shared with another team, so that the same faults live elsewhere: not recorded (the previous DevRel's notes); ASK: Rahul.

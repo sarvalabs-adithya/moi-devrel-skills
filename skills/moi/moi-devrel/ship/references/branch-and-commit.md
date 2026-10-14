@@ -21,7 +21,7 @@ git switch --no-track -c <prefix>/<name> origin/<base>
 - Branch from `origin/<base>`, never from a stale local `main`. `--no-track` leaves the new branch with no upstream, so nothing can push it to the base by accident. Tested 2026-10-03: without it, git sets `origin/<base>` as the upstream.
 - Prefixes seen in `sarvalabs/MOI-Website`: `blog/`, `content/`, `chore/`, `ci/`, `fix/`, `feature/`, `favicon/`. Other names in use: `geo-fixes` (the five docs repos), `audit/01-...` to `audit/13-...` and `feat/...` (Points), `moi-mcp/sync-master` (voyage-api), one branch per session in `MOI-Webinars`. Use a prefix that says the kind of change.
 - Never work on a branch that deploys on push: `main` (Website, Dataroom, Explorer, the docs repos), `master` (Launchpad), `develop` (Voyage), `feature/ci-cd` (Points), `feature/moi-agent-launchpad-cicd`. `ship-preflight.sh` FAILs on them.
-- Do not touch another branch's work. Several branches in the previous operator's clones hold unpushed work that exists only there (`repo-map.md`). Leave them alone and ASK: Adithya for a copy.
+- Do not touch another branch's work. Several branches in the previous operator's clones may hold unpushed work that exists only there (`repo-map.md`). Leave them alone; which ones is not recorded (the previous DevRel's notes), so ASK: Rahul.
 
 ## 4. What goes into a commit
 1. Name the files: `git add <path> <path>`. Do not use `git add -A` or `git commit -a`. Untracked env files and call transcripts sit in working copies, and on 2026-06-08 a call transcript was committed and had to be scrubbed from history.
@@ -29,7 +29,7 @@ git switch --no-track -c <prefix>/<name> origin/<base>
 3. Never commit: an env file (`.env`, `.env.local`, `prod.env`; a `.env.example` is fine), a recovery phrase or key, a transcript, a recording, a private note, build output. `ship-preflight.sh` checks the names and runs `secret-scan.sh` over what you committed. That scan is a backstop.
 4. Keep generated files out of docs commits: the Docusaurus sites generate `llms.txt`, `llms-full.txt` and the sitemap at build, and `js-moi-sdk` keeps its own in `docs/source/_extra/`. In `MOI-Website`, `public/blog/` and `public/covers/` are generated and gitignored.
 5. A claim ledger, a review package, a test log with account names and any file that names private source paths or internal people stays out of git in a public repository. Hide the folder without changing the repo: `mkdir -p <folder> && printf '*\n' > <folder>/.gitignore` (the `*` hides the folder and the file itself), or add `<folder>/` to `.git/info/exclude`. Both tested 2026-10-03: `git add -A` then stages nothing from it.
-6. Repos that are public as of 2026-10-02: `MOI-Website`, `moi-dataroom0`, `moi-mcp`, `js-moi-sdk`, `MOI-Webinars`, `awesome-moi`, `moi-sprint`. Their commit messages, branch names and PR text are public.
+6. Repos that are public as of 2026-10-02: `MOI-Website`, `moi-dataroom0`, `moi-mcp`, `js-moi-sdk`, `MOI-Webinars`, `awesome-moi`, `moi-sprint` (scratched 13 October 2026, still public). Their commit messages, branch names and PR text are public.
 7. Launchpad only: if you changed `lib/templates/` or `agent-runtime/`, run `npm run build:runtime` and commit the regenerated `public/runtime.cjs`.
 
 ## 5. The message

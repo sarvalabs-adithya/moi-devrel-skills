@@ -1,6 +1,6 @@
 # Rewriting pushed history
 
-Facts are as of 2026-10-03. A rewrite changes commit ids that others may have fetched. It is rare, it is never a tidy-up, and it needs an explicit yes that names the branches. The sequences below were run on a scratch repository with a local bare repository as its remote on 2026-10-03 (git 2.50.1, record in `../evals/evals.md`). The previous operator's own commands for the 2026-10-01 cleanup are not recorded; these are tested ones that give the same result. ASK: Adithya if you need his. Back to `../GUIDE.md`.
+Facts are as of 2026-10-03. A rewrite changes commit ids that others may have fetched. It is rare, it is never a tidy-up, and it needs an explicit yes that names the branches. The sequences below were run on a scratch repository with a local bare repository as its remote on 2026-10-03 (git 2.50.1, record in `../evals/evals.md`). The previous operator's own commands for the 2026-10-01 cleanup are not recorded; these are tested ones that give the same result. Back to `../GUIDE.md`.
 
 ## 1. When a rewrite is justified
 | Reason | Scope | Evidence |
@@ -15,7 +15,7 @@ The ask is one the operator makes. If the operator only notices the problem, nam
 - The tree is unchanged and every commit from the first changed one on gets a new id. Author, committer and dates are kept (tested).
 - It needs a force push. Everybody watching the PR sees one, the PR's workflows run again (`MOI-Website` previews rebuild, `js-moi-sdk` tests run), and review comments pinned to the old commits may show as outdated. Whether it dismisses approvals depends on a repository setting nobody has recorded. ASK: Rahul. Those last two are general GitHub behaviour that was not tested here: read the PR timeline after the push and tell the operator what you see.
 - Treat everything already pushed as seen. Others may have fetched it, and old commits may stay reachable by their ids. A rewrite fixes the branch, not the exposure.
-- It does not touch the PR body. A footer in the description is removed by editing the body (a gate). Open PRs #52 and #54 of `MOI-Website` still carried the footer in the body, and one trailer on their single commit each, when read on 2026-10-03. Neither was among the six cleaned on 2026-10-01.
+- It does not touch the PR body. A footer in the description is removed by editing the body (a gate). Open PRs #52 and #54 of `MOI-Website` still carried the footer in the body, and one trailer on their single commit each, when read on 2026-10-03. Neither was among the six cleaned on 2026-10-01. Their state may have changed since: check with `gh pr view` before relying on this.
 
 ## 3. Preconditions (stop if any fails)
 1. The operator's yes names the branches and the change, and says "open PRs only" if that is the scope. Each PR is open (`gh pr view <N> --repo <org>/<repo> --json state`, read-only).
@@ -71,6 +71,6 @@ FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --index-filter 'git rm --ca
 To undo before the push: `git reset --hard $B`. After the push, undoing it is another force push of the backup, with its own yes.
 
 ## Not yet known
-- The previous operator's exact commands and whether he rewrote bodies with `gh`. ASK: Adithya.
+- The previous operator's exact commands and whether he rewrote bodies with `gh`: not recorded (the previous DevRel's notes). The tested sequences above replace them.
 - Whether any repo dismisses approvals on a push. ASK: Rahul.
 - How to meet an upstream AI-disclosure rule once the footer is banned. ASK: Rahul.

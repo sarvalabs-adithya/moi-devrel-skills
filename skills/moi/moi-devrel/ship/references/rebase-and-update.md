@@ -1,6 +1,6 @@
 # Rebase and keep a pull request current
 
-Facts are as of 2026-10-03. The sequence below was run on a scratch repository with a local bare repository as its remote on 2026-10-03; the results are in `../evals/evals.md`. It is the practice the previous operator recorded, spelled out: a backup branch before any rebase, proof that only the base changed, and a push pinned to the remote commit last seen. The exact commands he used are not recorded. ASK: Adithya if you need them. Back to `../GUIDE.md`.
+Facts are as of 2026-10-03. The sequence below was run on a scratch repository with a local bare repository as its remote on 2026-10-03; the results are in `../evals/evals.md`. It is the practice the previous operator recorded, spelled out: a backup branch before any rebase, proof that only the base changed, and a push pinned to the remote commit last seen. The exact commands he used are not recorded (the previous DevRel's notes); the tested sequence replaces them. Back to `../GUIDE.md`.
 
 ## 1. When to rebase, and when not
 A rebase takes your branch's commits and replays them on top of the current tip of the base, so the branch looks as if you had started from it today. Every replayed commit gets a new id.
@@ -57,6 +57,6 @@ rm -rf "$TMPO"
 Updating several PRs is a staged push with a pause between them: `stacked-and-batched.md`, section 4.
 
 ## Not yet known
-- The exact commands of the 2026-09-30 and 2026-10-01 rebases. ASK: Adithya.
+- The exact commands of the 2026-09-30 and 2026-10-01 rebases: not recorded (the previous DevRel's notes); the tested sequence above replaces them.
 - Whether a force-push dismisses approvals or re-runs required checks on any repo (branch protection is not recorded). ASK: Rahul.
-- Why the previous operator updated one PR every four minutes: the notes say "possibly a notification or build burst" (inferred). ASK: Adithya.
+- Why the previous operator updated one PR every four minutes: the notes say "possibly a notification or build burst" (inferred); not recorded beyond that.

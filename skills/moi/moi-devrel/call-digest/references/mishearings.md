@@ -1,6 +1,6 @@
 # Mishearings: what auto-notes get wrong, to check every digest against
 
-Facts are as of 2026-10-03. Sources: Gemini notes of Builders sessions II and III, Forge calls and the August 2026 marketing standups (read 2026-10-02), pasted Otter and Zoom transcripts, the Otter file of 2026-08-04 (read 2026-10-03; local to the previous operator, ASK: Adithya for a copy), the call transcript of 2026-09-14, and `moi-devrel/SKILL.md` fact 4. Otter and Gemini both misspell Sarva Labs and both mis-hear product names. `scripts/transcript-prep.py` holds the same rows in its `MISHEARINGS` table, under the id in the first column. When you change a row here, change it there too. A hit is a prompt to check, never a correction: "Moy" can be a surname and "KOI" a fish. Back to `../GUIDE.md`.
+Facts are as of 2026-10-03. Sources: Gemini notes of Builders sessions II and III, Forge calls and the August 2026 marketing standups (read 2026-10-02), pasted Otter and Zoom transcripts, the Otter file of 2026-08-04 (read 2026-10-03; local to the previous operator and not available after the handover), the call transcript of 2026-09-14, and `moi-devrel/SKILL.md` fact 4. Otter and Gemini both misspell Sarva Labs and both mis-hear product names. `scripts/transcript-prep.py` holds the same rows in its `MISHEARINGS` table, under the id in the first column. When you change a row here, change it there too. A hit is a prompt to check, never a correction: "Moy" can be a surname and "KOI" a fish. Back to `../GUIDE.md`.
 
 How to use it:
 1. Run the script and read the "Known mishearings" part of its report. Then read the transcript for the same shapes the script cannot know.
@@ -17,7 +17,7 @@ How to use it:
 | x402 | "X42", "X 002" | x402, the payment protocol (the same file also writes "X402") | The Otter file of 2026-08-04, lines 245 and 296 of the original | Context: a payment protocol or the agentic payments demo |
 | my-forge | "My Forge" | MOI Forge, the campus programme | Gemini notes of Forge calls | Context |
 | open-claw | "Open Claw" | OpenClaw, one word, the third-party agent framework of Builders session 3 | Gemini notes, read 2026-10-02. The research lists it as mangled and does not give the intended form; one word is the spelling this library uses | Context |
-| hermes | "Hermes" | Not recorded. The research lists it among mangled names without the intended word. The session 3 roadmap lists Hermes among agent frameworks | Gemini notes, read 2026-10-02 | ASK: Adithya what was meant |
+| hermes | "Hermes" | Not recorded. The research lists it among mangled names without the intended word. The session 3 roadmap lists Hermes among agent frameworks | Gemini notes, read 2026-10-02 | not recorded (the previous DevRel's notes); ASK: Rahul what was meant |
 | voyage | "Voyage" | Voyage is the explorer and tooling site, never the network | Pasted Otter or Zoom transcripts, listed as mis-transcribed. The wrong form was not recorded | Ask what the speaker meant |
 | iome | "IOME" | IOME is the earlier wallet and login, replaced by MOI Wallet in late August 2026 | The same pasted transcripts | Ask whether MOI Wallet was meant |
 | kl-or-pr, lms | "KL or PR", "LMS" | Not recorded | Gemini standup notes, August 2026, listed as imprecise names | ASK: Sai Kiran what was meant |
@@ -40,7 +40,7 @@ These are not mishearings. A speaker said the old form. The digest quotes it as 
 Auto-notes get numbers wrong, and so do speakers. Never copy a figure from notes without checking it.
 | Figure | What is on record | What to do |
 |---|---|---|
-| Bounty or challenge amounts | At Builders III the challenges were heard as "500k and 1M token"; the research says the amounts are as Gemini heard them and must be verified before reuse | Ask the presenter. The previous operator owned the bounty amounts: ASK: Adithya |
+| Bounty or challenge amounts | At Builders III the challenges were heard as "500k and 1M token"; the research says the amounts are as Gemini heard them and must be verified before reuse | Ask the presenter. The bounty amounts are set by Rahul and the session host: ASK: Rahul |
 | The faucet amount | 20K KMOI in the Forge guide (13 January), 100K on the 30 January call and on 24 September | Read it live. Do not write one without checking |
 | Units | 1 KMOI is 1,000,000,000 anu. As of v0.13.0 the lowest fuel price is 50 anu and storage costs 1,000,000 anu per byte (`glossary.md`) | A spoken "fifty" or "a million" with no unit is an open question. Convert with the SDK, never by hand |
 | Versions | Keep the exact tag and any `-rc` suffix. Devnet `net.Version` read 0.13.0 on 2026-10-02 | `moi-devrel/references/devnet.md` before you write "live" |
@@ -66,11 +66,10 @@ Check every name against `moi-devrel/references/people-and-teams.md`. A first na
 | Rahul, Ram, Rishal | Different people whose names share a first letter. No mix-up is on record. Confirm who before you assign a decision |
 | Prateek, Piyush, Prakhar | Different people: Prateek gave the product update (Proofly), Piyush is in marketing, Prakhar is on the Voyage team. No mix-up is on record |
 | Krishna | The video editor, a match the research calls inferred |
-| Adi, Adithya | The previous operator. The notes use "Adi". Where one speaker addresses another in the 2026-08-04 Otter file, the name appears as "Ali", "Ari", "Avi" and "Adith" (read 2026-10-03; the match to Adi is inferred from context). Any name Otter or Gemini gives that is not on the roster is a question, not a match |
 | Bertan | Heard in the Builders III notes as the colleague who watched chat. The spelling is unverified |
 | Robert Špendl | The surname may lose its diacritic in notes |
 
 ## Not yet known
-- The wrong forms of "Voyage" and "IOME" in the Otter transcript, and the intended words behind "Hermes", "KL or PR" and "LMS". ASK: Adithya.
+- The wrong forms of "Voyage" and "IOME" in the Otter transcript, and the intended words behind "Hermes", "KL or PR" and "LMS". not recorded (the previous DevRel's notes); ASK: Rahul.
 - Whether Otter and Gemini make different kinds of error beyond Sarva Labs. Nobody compared them.
 - Which spelling of the host's name is right. ASK: Vardan.

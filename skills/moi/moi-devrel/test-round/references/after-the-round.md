@@ -43,7 +43,7 @@ Rules:
 3. Verify on the real chain before the pull request is opened, and say in it what was and was not verified.
 4. Shipping is a gate. A merge to the Launchpad's `master` deploys it. Merging to `sarvalabs/moi-mcp` deploys nothing: production changes through a sync pull request and a manual workflow (`mcp-pass.md`). A database migration on the Launchpad is run by hand in the SQL editor and is a gate.
 5. Retest on the live host, after the deploy, as a new row with `retest_of` and the id suffix `-r1`. Recreate or re-download the thing under test first when the plan says to. Change one thing per retest.
-6. Run `python3 "$SKILLS/moi-devrel/test-round/scripts/test-log-check.py" test-round-<slug>/test-log.csv`. A fail with a fix and no passing retest shows in its WARN list.
+6. Run `python3 "$SKILLS/moi-devrel/test-round/scripts/test-log-check.py" "test-round-$SLUG/test-log.csv"`. A fail with a fix and no passing retest shows in its WARN list.
 
 ## 5. Close the loop (all drafts)
 - **Messages.** Draft from `moi-devrel/templates/messages.md` (the shapes are in `moi-devrel/references/house-style.md`, section 4); the operator sends. To DevOps: short, human and specific; the problem, then the solution, then exactly what they do; no boilerplate labels such as "Owner:"; never a request for a secret value, and never paste one back. To the protocol team about a chain-side finding: a plain question with context, carrying the case id, the full hash, the node version and the UTC time. To Rahul: the weekly update lists completed work only, and to-dos are labelled as to-dos.

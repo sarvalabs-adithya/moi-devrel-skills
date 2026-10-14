@@ -20,13 +20,13 @@ Facts are as of 2026-10-03 unless dated. Sources: the PR bodies and corrections 
 A commit message, a branch name, a PR title and a PR body are all public in a public repo (list in `branch-and-commit.md`, section 4).
 | Never | Why, with the date |
 |---|---|
-| A co-author line or footer naming Claude or any AI, anywhere in the body, code fences included | 2026-06-08 "don't put co-authored by Claude". 2026-10-01 the lines were removed from 130 commits and six PR bodies. PR #53 of `MOI-Website` (merged 2026-09-11, 24 of 24 commits) and its open PRs #52 and #54 still carry the footer in the body and the trailer on their commits (read 2026-10-03). Leave them unless the operator asks (`rewrite-history.md`) |
+| A co-author line or footer naming Claude or any AI, anywhere in the body, code fences included | 2026-06-08 "don't put co-authored by Claude". 2026-10-01 the lines were removed from 130 commits and six PR bodies. PR #53 of `MOI-Website` (merged 2026-09-11, 24 of 24 commits) and its open PRs #52 and #54 still carry the footer in the body and the trailer on their commits (read 2026-10-03). Leave them unless the operator asks (`rewrite-history.md`). Their state may have changed since that read: check with `gh pr view` before relying on it |
 | A cancelled plan, an unmerged feature, or how a thing was fixed | 2026-08-31 Luma text and a blog still referred to the cancelled session 8 plan and had to be cleaned. Public content "never mentions cancelled or internal plans" |
 | Application content in a protocol docs PR | Rahul's change request on `moidocs` PR #124: no Launchpad docs in the protocol docs (2026-09-22: do not mention the Launchpad in the docs PRs) |
 | A private repository's file path or line, or a citation of private source | The protocol repos are private. Private source informs the check and never appears in public text (`moi-devrel/claim-check`). Cite wire-visible behaviour, `js-moi-sdk`, docs, the explorer |
 | Names of people or reviewers in the title or body | Ask for review in GitHub's reviewers field, not in prose. The `moi-blog` template carries an "Internal review done" checkbox with no name; the September PR #53 precedent named the reviewer, and public text does not |
 | A secret, a recovery phrase, a personal handle or address, a transcript | `consent-and-identity.md`, sections 2 and 4 |
-| The weakness behind a security finding | Where `repo-map.md` marks a product, say only: "A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin." Nothing about the weakness goes in any title, body, commit or comment |
+| The weakness behind a security finding | Where `repo-map.md` marks a product, say only: "A security finding is open on this product as of 2026-10-02. Read the product's doc in `project-handover-docs/` before touching its admin." Nothing about the weakness goes in any title, body, commit or comment |
 | A claim you did not check | Every public claim is checked against source first (`moi-devrel/claim-check`). Quote a release note verbatim |
 | Em dashes, "not this, not that" constructions, vague attribution | House rule 6, enforced by `slop-lint.sh` <!-- slop-lint:ignore --> |
 | A hosting provider MOI left, written as where something deploys | `repo-map.md`, "How things deploy" |
@@ -53,7 +53,7 @@ Who must approve and who may merge each repo is not recorded. ASK: Rahul. After 
 ```
 gh pr create --repo <org>/<repo> --base <base> --head <branch> --title "<title>" --body-file "$WORK/pr-body.md"
 ```
-The operator may open it in the browser instead. `--draft` fits a PR that cannot merge yet (Points draft PR #15 is one). From a fork, the head is `<fork owner>:<branch>`. Then read it back, read-only: `gh pr view <N> --repo <org>/<repo>`. Check base, head, title, files changed and that your account is the author. Write the PR number and URL in the hand-back.
+The operator may open it in the browser instead. `--draft` fits a PR that cannot merge yet (Points draft PR #24 is one). From a fork, the head is `<fork owner>:<branch>`. Then read it back, read-only: `gh pr view <N> --repo <org>/<repo>`. Check base, head, title, files changed and that your account is the author. Write the PR number and URL in the hand-back.
 - `MOI-Website` posts a preview comment on the PR (`previews.md`), rewritten on every push. Read the preview before asking for review.
 - Cloudflare Pages comments a build on docs PRs and on `MOI-Website` PRs (seen on #53).
 

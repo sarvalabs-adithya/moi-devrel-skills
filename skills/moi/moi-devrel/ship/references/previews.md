@@ -17,7 +17,7 @@ Where there is none, the local run is the preview (section 3), and the PR body s
 2. Open both links on a desktop and on a phone. Click every link, and open every image. The operator reads the whole change once.
 3. For a post, open `https://pr-<N>-blog.preview.moi.technology/article/<slug>/`. Do not run `check-live.py` against a preview: its canonical check fails by design, because the site hardcodes the production host.
 4. Do not judge the listing from the apex preview. Its `/blog` cards link to production (`BLOG_ORIGIN` is set nowhere in the workflows), so a new slug 404s there. The card text still shows the frontmatter.
-5. A production-only behaviour cannot be seen here: the community calendar reads an API on the dev host, and the chatbot is hidden. Do not call the change verified on the strength of a preview.
+5. A production-only behaviour cannot be seen here: the preview serves built files only, with no Express server, and the chatbot is hidden. The Luma block (PR #60, 13 October 2026) shows only once `lumaUrl` in `content/community-calls.json` is set. Do not call the change verified on the strength of a preview.
 
 ## 3. Reading a local preview
 1. Install the repo's dependencies if they are missing (a download: a yes first, `templates/gate-asks.md`). Start the repo's own dev server on a free port and write the URL down. Known ports: Website `npm run dev` 5173 (it runs the blog index first), its Express server `npm run dev:server` 3001, blog `npm run dev --prefix blog` 4321, Dataroom and Points 3000. The Express server needs a `.env` the operator edits; Claude never opens it.

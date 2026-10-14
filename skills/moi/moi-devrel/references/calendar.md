@@ -5,13 +5,13 @@ Facts are as of 2026-10-02. "Observed" means a file, log or sheet shows it. "Inf
 ## At a glance
 | Rhythm | Cadence | Status |
 |---|---|---|
-| Community call "The Campfire Chat" | Monthly. Call 13 on Thu 2026-08-27, call 14 on Fri 2026-09-25 (inferred; ASK: Adithya for history, or Vardan for the sheet) | Observed monthly. Weekday disputed, see below |
+| Community call "The Campfire Chat" | Monthly. Call 13 on Thu 2026-08-27, call 14 on Fri 2026-09-25 (inferred; ASK: Vardan for the sheet). CC15: last week of October 2026, date not set (Vardan) | Observed monthly. Weekday disputed, see below |
 | X and Telegram AMA | Monthly, with a weekly slot plan | Observed in Drive sheets and a standup decision |
 | MOI Builders webinar | Intended weekly on Fridays, about monthly in practice | Observed |
 | Engineering releases | Every 1 to 3 weeks | Observed 14 Aug, 18 Aug, 25 Aug, 10 Sep |
 | Release blog "MOI <Month> 2026 Release" | Monthly | Two posts, monthly inferred (ASK: Rahul) |
 | Devnet reset | No schedule | `devnet.md` |
-| Mailchimp RSS blast | Weekly, only if a new post exists, Monday | Weekday inferred (ASK: Sai Kiran), see Weekly comms |
+| Mailchimp RSS newsletter | Monthly, on the 15th, with every post published since the last one | `project-handover-docs/BLOG.md`, see Weekly and daily comms |
 | Update to Rahul | Ad hoc, completed work only | Seen 24 Aug and 10 Sep |
 | Marketing standup | About 3 to 5 weekdays a week until 31 Jul, then unclear | Observed |
 | AI-visibility numbers | Monthly, same 47 queries | Stated on the call 14 deck |
@@ -22,11 +22,11 @@ Weekday sources disagree:
 |---|---|
 | Notes from the 2026-08-24 planning call | Rehearsal Wednesday, live Thursday |
 | Call 13 | Thu 2026-08-27 (observed) |
-| Call 14 | Announcement text pasted 2026-09-24 says "happening tomorrow", so Fri 2026-09-25 (inferred; ASK: Adithya for history, or Vardan for the sheet) |
-| Drive sheet "Community Call + AMA Calender 2026" | Expected dates are Fridays, third or fourth of the month: 23 Jan, 20 Feb, 20 Mar, 17 Apr, 22 May, 19 Jun, 24 Jul, 21 Aug, 18 Sep, 23 Oct, 20 Nov, 18 Dec, each with a reserve day a week later |
+| Call 14 | Announcement text pasted 2026-09-24 says "happening tomorrow", so Fri 2026-09-25 (inferred; ASK: Vardan for the sheet) |
+| Drive sheet "Community Call + AMA Calender 2026" | Old expectations from early 2026, not a plan for CC15: Fridays, third or fourth of the month: 23 Jan, 20 Feb, 20 Mar, 17 Apr, 22 May, 19 Jun, 24 Jul, 21 Aug, 18 Sep, 23 Oct, 20 Nov, 18 Dec, each with a reserve day a week later |
 | Past calls | Call 7 Sat 2026-02-28 at 19:50 IST. Call 8 Fri 2026-03-20. So the sheet drifts |
-| Website homepage fallback and SQL seed | 14:00 UTC in the code fallback; 18:00 UTC from 2026-05-16 (a Saturday) in the seed file |
-Start time is not recorded. Call 13 began about 16:15 IST (inferred). Next date by the sheet: Fri 2026-10-23, reserve Fri 2026-10-30. The sheet has topic, guest and speaker blank for 11 of 12 months, so a reserved date is not a confirmed event. ASK: Rahul or Vardan for the date, time and platform of call 15.
+| Old website homepage fallback and SQL seed (the homepage calendar became a Luma block on 13 October 2026, PR #60) | 14:00 UTC in the code fallback; 18:00 UTC from 2026-05-16 (a Saturday) in the seed file |
+Start time is not recorded. Call 13 began about 16:15 IST (inferred). CC15 is expected in the last week of October 2026 and the date is not set (Vardan, `project-handover-docs/COMMUNITY-CALL.md`). The sheet's old expectation was Fri 2026-10-23, reserve Fri 2026-10-30. The sheet has topic, guest and speaker blank for 11 of 12 months, so a reserved date is not a confirmed event. ASK: Vardan for the date, time and platform of call 15.
 
 | When | What | Evidence |
 |---|---|---|
@@ -52,8 +52,8 @@ Call 14 has no evidence of a recording, description, recap or follow-up. Skill: 
 | III Agents on MOI | Thu 2026-06-18, about 18:22 IST, about 50 minutes | Gemini notes |
 | IV Swaps | Form created 2026-07-03, session date not recorded | Drive |
 | VII Agentic Payments | Fri 2026-08-07 | Drive form dated that day, 6 Aug standup |
-| VIII (8-policies) | Fri 2026-09-04, 4:00 pm IST = 10:30 UTC, 60 minutes | `session-8-policies/LUMA.md`, which is gitignored and local to the previous operator's machine (ASK: Adithya for a copy) |
-| IX x402 | Planned. Status unknown. ASK: Adithya | |
+| VIII (8-policies) | Fri 2026-09-04, 4:00 pm IST = 10:30 UTC, 60 minutes | `session-8-policies/LUMA.md`, which is gitignored and was local to the previous operator's machine (not recorded elsewhere; the previous DevRel's notes) |
+| IX x402 | Planned. Status not recorded (the previous DevRel's notes); ASK: Rahul | |
 Roman numerals appear in Drive form names and Luma titles; the repo uses session numbers. The Luma title for session 8 once said VII, so confirm the numeral before publishing.
 Per-session pattern (sessions 7 and 8-policies): a call with a lead sets the topic, then a spike on devnet, then the demo is built and verified, about 4 days from topic to live. The Luma page, Meet link and social copy are made the day the topic locks. The proof-of-completion Google Form is created 0 to 4 days before. Buffer posts go out on announcement day, daily Tuesday to Thursday, then T-5h, T-1h and T-30m ("we're live in 30"). Game day checklist runs T-1 day, T-60, T-30, T-10. After: blog within 48 hours (a target; not shown met for session 8), recording to the editor (the session 7 edit took about a month), submissions verified on chain.
 
@@ -66,7 +66,7 @@ Per-session pattern (sessions 7 and 8-policies): a call with a lead sets the top
 - Early warning of a reset: the daily upstream watch files "Upstream release: go-moi <tag>" in `sarvalabs/moi-mcp`. v0.13.0 came on 09-10 and the wipe was announced for 09-11 (a gap of about a day, inferred; not confirmed to the minute, `devnet.md`; ASK: Gokul).
 
 ## Weekly and daily comms
-- Mailchimp: the weekly RSS blast was set up 2026-08-24 to send only if a new post exists. Monday is inferred from the previous operator's own mentions of a Monday blast. Repo statements conflict (weekly or per post). One-off blast to validators 2026-08-28 to 31. ASK: Sai Kiran whether the September post went out.
+- Mailchimp: the RSS newsletter goes out monthly, on the 15th, with every post published since the last one (`project-handover-docs/BLOG.md`; Vardan holds the login). A post that is live at least three hours before the send is included. Earlier notes say weekly or per post (a weekly blast was set up 2026-08-24); BLOG.md is right. One-off blast to validators 2026-08-28 to 31. ASK: Vardan whether the September post went out.
 - Calls with Rahul: transcripts exist for 19 dates across every weekday, only four on a Monday. No fixed weekly day is shown.
 - Marketing standup: about 35 recordings from 2026-05-05 to 07-31, about 19:56 to 20:03 IST, about 23 minutes. After 07-31 only Gemini notes exist (Thu 08-06 at 22:00 IST, Fri 08-07 at 18:30 IST). Governance call: Tue 04-14 at 20:29 IST and Mon 07-27 at 21:59 IST; the 08-07 standup calls it a Monday call.
 - Metrics: the Metrics tab of the MOI Socials sheet is filled weekly through the week of 2026-09-28. The weekly metrics in MOI Programs are mostly blank after week 9.
@@ -78,9 +78,9 @@ Per-session pattern (sessions 7 and 8-policies): a call with a lead sets the top
 | Chain canary | Nightly 02:43 UTC | Issue "Chain canary failing" there |
 | Dependabot | npm daily (max 5 PRs, SDK packages grouped), Actions weekly | PRs in `moi-mcp` |
 | Launchpad cleanup | 60 s after start, then every 6 hours, inside the app | Log line `[cleanup]` |
-| Explorer reconcile | Every 4 hours, only once PR #5 is merged. Today `npm run sync` by hand | `GET /admin/sync` |
+| Explorer reconcile | Every 4 hours since PR #5 merged (2026-10-07); whether production runs it was not re-read, so check. Before that `npm run sync` by hand | `GET /admin/sync` |
 | Website PR previews | Deleted after 7 days or on PR close | Preview comment |
-A GitHub Actions outage or billing block on 2026-08-28 to 08-30 blocked workflows for three days, so scheduled content such as the Monday blast may silently not have run. Open the run itself to confirm it happened. Whether anything calls the Points nightly job on its box is unknown.
+A GitHub Actions outage or billing block on 2026-08-28 to 08-30 blocked workflows for three days, so scheduled content such as the newsletter may silently not have run. Open the run itself to confirm it happened. Whether anything calls the Points nightly job on its box is unknown.
 
 ## Time zones
 The audience is announced in IST, the protocol runs in UTC, and operators differ. Write the date, 24-hour UTC and IST, plus the operator's zone, using `bash "$SKILLS/moi-devrel/scripts/time-table.sh" "2026-09-11 00:00" UTC` (time, then zone). The zone is `UTC` or an area/city name such as `America/New_York`. Never write `EST` or `PST`: the script rejects them, because EST is UTC-5 all year and a US Eastern summer time would come out an hour wrong. Example: 4:00 pm IST is 10:30 UTC. A Buffer `--at` value must end in `Z`, or the machine's local zone is used. Read the printed UTC string before confirming. A scheduled Buffer post publishes with nobody reviewing it. Use a draft unless an exact time matters.
@@ -89,4 +89,4 @@ The audience is announced in IST, the protocol runs in UTC, and operators differ
 - The real community call weekday, time, platform and host, and whether each call is recorded and posted. ASK: Rahul.
 - Whether the Wednesday rehearsal still happens, and whether a run-of-show is still required.
 - Whether a release pack is standard, and who confirms the release moment with the protocol team.
-- Whether the weekly Mailchimp blast is live. Session 9 status. Who runs the governance call now.
+- Session 9 status. Who runs the governance call now.

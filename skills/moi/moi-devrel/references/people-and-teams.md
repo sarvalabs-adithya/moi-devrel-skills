@@ -7,8 +7,8 @@ Facts are as of 2026-10-02. Roles are only what the evidence shows. "ASK:" has o
 |---|---|---|---|
 | Rahul (Lenkala) | Sets direction and reviews decks, blog posts and docs scope. Internal gate for anything filed upstream (agreed 2026-09-09). Decides the MCP npm package name. Title not stated. ASK: confirm title and what he formally approves | Review of any public piece, narrative and scope calls, the written format for release announcements, who owns an account | Discord `@rahullenkala`. Calls on Meet. GitHub handles `moi-rahul` and `sarvalabs-rahul` appear in CODEOWNERS (same person, inferred; ASK: Rahul which he uses) |
 | Gokul | Protocol and Voyage side (inferred). Publishes the registry logic id after a reset, owns the Agent Explorer app and registry, owns Voyage docs content, sits on the SDK team, reviews code (the x402 package "goes through Gokul's review"). ASK: title | Chain and protocol questions, the network ID RPC, reset facts, review of SDK, Voyage and docs PRs | Channel unknown. ASK |
-| Upendhar | DevOps (`DEPENDENCIES.md` section 0.2, the previous operator's local file; ASK: Adithya for a copy). Holds Teleport, VMs, nginx, TLS, DNS, `GHCR_PAT`, the deploy scripts. Wrote the Points and Explorer CI/CD | Anything on a VM: deploys, nginx, DNS, running a migration in a container, a firewall allow-list, Teleport tokens | Discord and direct messages were used. The channel is not fixed. ASK |
-| Srikar (also spelled Sreekar) | VM and CI/CD owner as of August 2026. Wrote the Dataroom deploy workflow and website issue #3, fixed the blog deploy cache. `DEPENDENCIES.md` lists him as author of earlier workflows. ASK: Rahul whether he still owns the VM | The blog host and deploy history, papers nginx fix, Dataroom and the website chatbot server | ASK |
+| Upendhar | DevOps (`project-handover-docs/LIST-OF-DEPENDENCIES.md`, 4 October snapshot, and the product docs). Holds Teleport, the Points box and CI/CD, GHCR (`GHCR_PAT`), nginx, TLS, DNS. Wrote the Points and Explorer CI/CD | Anything on a VM: deploys, nginx, DNS, running a migration in a container, a firewall allow-list, Teleport tokens | Discord and direct messages were used. The channel is not fixed. ASK |
+| Srikar (also spelled Sreekar) | DevOps: owns the website server (`MOI-WEBSITE.md`), the Voyage VMs and the MCP deploys (`MCP-SERVER.md`) as of 13 October 2026. Wrote the Dataroom deploy workflow and website issue #3, fixed the blog deploy cache. `LIST-OF-DEPENDENCIES.md` lists him as author of earlier workflows. Is setting up a company Pinata account (`ENV-VARS.md`) | The website server, the blog host and deploy history, papers nginx fix, Dataroom and the website chatbot server, Voyage VMs, MCP deploys | ASK: Rahul |
 | Vinay (M S) | Posts engineering release logs in Discord. On the SDK and Voyage teams | Release logs and versions, review of js-moi-sdk and Voyage PRs | Discord |
 | Prakhar | Voyage team | Voyage app questions | ASK |
 | Harsh Gupta | Wrote most of the Points app | Points internals | ASK |
@@ -23,7 +23,7 @@ Facts are as of 2026-10-02. Roles are only what the evidence shows. "ASK:" has o
 | Prateek, Rishal | Prateek gave the product update (Proofly) at CC13 and was dropped from CC14. Rishal's research segment was deferred | Their segments, if they return | ASK |
 | Ram | Reviewer who rejected the first session 8 design. Role not stated. ASK | Direction on webinar topics | ASK |
 | The call host | Opens, closes and moderates the community call, may ask a planted question. Drive scripts name "Ruta" (also "Rutha"); the research note says the name is unknown. ASK | The host's question list and clip plan | Slack |
-| Adithya Ganesh | Previous DevRel operator, Sarva Labs. Git identity `sarvalabs-adithya`. Wrote the handover files (local to his machine, not in git: ASK: Adithya for a copy). Ran almost all of the work in this library | Folders that exist only on his machine, accounts he holds (the Points Supabase login, the Launchpad bot and keys), the history behind any decision. Questions on the docs standard go to him in `#dev-chat` | `#dev-chat` (unverified). Only the Forge README places `#dev-chat` on Discord; the docs standard does not name the platform. ASK: Adithya |
+| Adithya Ganesh | Previous DevRel operator, Sarva Labs, until 14 October 2026. Git identity `sarvalabs-adithya`. Wrote the handover docs (`project-handover-docs/` in the handover repo). Ran almost all of the work in this library | After 14 October 2026 nothing: use the handover docs, and where they are silent ASK: Rahul. The accounts still under him are listed in `MIGRATION-LIST.md` (the Launchpad Telegram bot, the Pinata account, two orphan Vercel projects). Questions on the docs standard went to him in `#dev-chat` | `#dev-chat` (unverified). Only the Forge README places `#dev-chat` on Discord; the docs standard does not name the platform. ASK: Rahul |
 | The video editor | External, works from a personal account. "Krishna" is named in a standup (match inferred). ASK: contact and brief format | Edits of Builders recordings and launch videos | ASK |
 | Scribble | Outside agency or partner: the article wave and the monthly AI-visibility report | The monthly report, query list | ASK who holds the login |
 
@@ -41,7 +41,7 @@ GitHub org admins on `sarvalabs/moi-project` (2026-09-15): gokul, chandra, git, 
 ## Who to ask for what
 | Need | Ask |
 |---|---|
-| Anything on a VM, DNS, TLS, deploy script, Teleport, GHCR | Upendhar |
+| Anything on a VM, DNS, TLS, deploy script, Teleport, GHCR | Upendhar (Points box, CI/CD, GHCR); Srikar (website server, Voyage VMs, MCP deploys) |
 | Chain facts after a reset, the registry id, the network ID RPC | Gokul |
 | New SDK, go-moi or Voyage release versions | Vinay, or the Discord release log |
 | Approval of a public piece or an upstream filing | Rahul |
@@ -49,18 +49,18 @@ GitHub org admins on `sarvalabs/moi-project` (2026-09-15): gokul, chandra, git, 
 | Call dates and guests | Vardan, then confirm with Rahul |
 | Create or change an Actions secret | An org admin of that repo, and the operator's yes first (`consent-and-identity.md` section 1) |
 | Who owns a vendor account | Unknown for most. Rahul, then `keys-and-access.md` |
-| History of the previous operator's work | Adithya |
+| History of the previous operator's work | The handover docs in `project-handover-docs/`. Where they are silent: not recorded (the previous DevRel's notes); ASK: Rahul |
 
 ## How people are reached
 - Discord: the release log, DevOps asks, community. Slack: marketing inputs for the call. Google Meet: calls, with Gemini or Otter notes. GitHub: review requests. One env file was once sent over Teams.
 - Past DevOps messages worked as short, human, specific notes: the problem, the solution, the exact action for them, how to verify. One task per message. No labels such as "Owner:". No em dashes. Do not ask DevOps for a secret value; secrets live in GitHub.
-- Do not reopen settled items. The Launchpad platform wallet variable (`MOI_PLATFORM_MNEMONIC`) was cleared with DevOps by 2026-08-03. ASK: Adithya what else was settled before you write to DevOps.
+- Do not reopen settled items. The Launchpad platform wallet variable (`MOI_PLATFORM_MNEMONIC`) was cleared with DevOps by 2026-08-03. Read `message-traps.md` trap 2 and `house-style.md` section 4 ("Never raise") before you write to DevOps; for anything else that may be settled, ASK: Rahul.
 - Weekly updates to Rahul list completed work only. To-dos are labelled as to-dos.
 - Send nothing without the operator's yes (`consent-and-identity.md`).
 
 ## Not yet known
 - Titles and reporting lines for Rahul, Gokul, Upendhar, Srikar. ASK: Rahul.
-- Which of Upendhar or Srikar owns the VM today. ASK: Rahul.
+- Which of Upendhar or Srikar owns the Dataroom and Launchpad servers (Srikar: website server, Voyage VMs, MCP deploys; Upendhar: Points box, CI/CD, GHCR). ASK: Rahul.
 - The channel the protocol team uses to announce a reset and a new registry id, and who the named contact is besides Gokul.
 - How a protocol release note reaches DevRel (Discord, Slack or email) and who writes it.
 - Who currently hosts and moderates the community call.

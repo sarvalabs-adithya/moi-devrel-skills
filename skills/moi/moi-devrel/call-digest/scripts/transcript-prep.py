@@ -799,7 +799,7 @@ def report(path, size, raw_lines, res, limit):
             ". Text above the transcript is an auto summary: a lead, not evidence.")
 
     out()
-    out("Speakers (%d label(s)). A label that is a number is not a name: ask the operator who was on the call (if they were not on it, ASK: Adithya)." % len(res["labels"]))
+    out("Speakers (%d label(s)). A label that is a number is not a name: ask the operator who was on the call (if they were not on it, ASK: Rahul)." % len(res["labels"]))
     total_chars = sum(v["chars"] for v in res["labels"].values()) + res["chars_unlabelled"]
     if res["labels"]:
         ordered = sorted(res["labels"].items(), key=lambda kv: kv[1]["first"])
@@ -841,8 +841,8 @@ def report(path, size, raw_lines, res, limit):
     else:
         out("  nothing secret-shaped was masked")
     if res["mentions"]:
-        out("  NOTE a recovery phrase or seed is mentioned at lines %s. Read the 25 lines after each in the ORIGINAL for a "
-            "wallet setup on a shared screen." % ranges(res["mentions"]))
+        out("  NOTE a recovery phrase or seed is mentioned at lines %s. Claude reads only the clean copy: ask the operator to "
+            "read the 25 lines after each in the ORIGINAL for a wallet setup on a shared screen." % ranges(res["mentions"]))
     if res["credential_mentions"]:
         out("  NOTE a password, key or token is mentioned at lines %s with no value masked. Read them." % ranges(res["credential_mentions"]))
     out("  A clean result is not proof. A phrase spelled letter by letter or shown only on a screen is not caught.")

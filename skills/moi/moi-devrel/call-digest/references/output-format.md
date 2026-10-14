@@ -36,7 +36,7 @@ Skip the full digest. Reply with: the source document in one line, then a number
 Gemini notes of a standup carry Summary, Decisions and Next steps already. Do not re-summarise them. Check each of its items against the transcript, then write sections 2, 3 and 5 only, and mark each item `in the notes and in the transcript` or `auto summary only`. Gemini assigns next steps by name, so each owner is a guess until you find the words.
 
 ## Worked example
-Built from the recorded outcome of the 2026-09-14 call that reviewed the first CAIP namespace draft (a note kept on the previous operator's machine, not on GitHub: ASK: Adithya for a copy; the wording rules it produced are in `moi-devrel/references/terminology.md`). The transcript was not read for this example, so there are no line numbers, timecodes or quotes, and the speaker is named only as the notes name him: "the founder". Real digests carry all three. In the example "you" is the previous operator, who owned the follow-up.
+Built from the recorded outcome of the 2026-09-14 call that reviewed the first CAIP namespace draft (a note kept on the previous operator's machine, not on GitHub and not available after the handover; the wording rules it produced are in `moi-devrel/references/terminology.md`). The transcript was not read for this example, so there are no line numbers, timecodes or quotes, and the speaker is named only as the notes name him: "the founder". Real digests carry all three. In the example "you" is the previous operator, who owned the follow-up.
 ```
 # Call digest: review of the CAIP namespace draft, 2026-09-14
 Source: a call transcript; the tool is not recorded. Example only: no line numbers.

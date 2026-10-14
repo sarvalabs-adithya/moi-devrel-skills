@@ -60,6 +60,6 @@ The explanation is done when the operator can do the three things in `levels.md`
 4. After any correction, search every copy of the explainer and of anything built from it (README, script, deck notes). The false custodian claim survived in six files because the correction reached the blog and not the other copies (`traps.md`, rule 4).
 
 ## Not yet known
-- Where earlier explainers and learning plans were kept, or whether any survived. ASK: Adithya.
+- Where earlier explainers and learning plans were kept, or whether any survived. not recorded (the previous DevRel's notes); ASK: Rahul.
 - How long a teaching session takes. The request log holds no durations.
 - Whether the previous operator's index-first learning plans exist as files.

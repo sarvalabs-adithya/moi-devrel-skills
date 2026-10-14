@@ -62,7 +62,7 @@ In `test-round-<slug>/`, at the root of the working copy of the product's repo, 
 
 ## The checker
 ```
-python3 "$SKILLS/moi-devrel/test-round/scripts/test-log-check.py" test-round-<slug>/test-log.csv
+python3 "$SKILLS/moi-devrel/test-round/scripts/test-log-check.py" "test-round-$SLUG/test-log.csv"
 ```
 Prints counts by kind and outcome, then seven lists and a WARN list. It prints case ids and titles, masked, and no other cell. It makes no network call, writes nothing and refuses an env-named file.
 

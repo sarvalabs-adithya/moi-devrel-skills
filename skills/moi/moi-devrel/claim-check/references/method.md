@@ -93,6 +93,6 @@ Older reports use other words. Map them when reading or porting a table.
 | SECTION CUT, CUT | `cut` |
 
 ## Not yet known
-- Where the final ledgers of earlier posts were saved. Only counts survive in PR bodies and commit messages (August: 88 agents, 553 claims, six errors held; September: 152 claims, three corrections). ASK: Adithya.
+- Where the final ledgers of earlier posts were saved. Only counts survive in PR bodies and commit messages (August: 88 agents, 553 claims, six errors held; September: 152 claims, three corrections). Not recorded (the previous DevRel's notes); ASK: Rahul.
 - How long a check takes. No durations were recorded.
 - Who on the protocol team confirms "live" before each community call. ASK: Rahul. Whether a given version is live is a question for Gokul.

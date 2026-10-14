@@ -7,7 +7,7 @@ description: "Start here for MOI developer relations (DevRel): house rules, repo
 
 ## What this covers
 The main skill, and the one every other skill leans on. Its own job is to orient a newcomer and hold what every job needs: the house rules, the standing work loop, the repo map with product health checks, people, calendar, keys and accounts (names only), devnet facts, wording rules, teammate messages and the shared scripts. DevRel makes what Sarva Labs and the protocol team ship usable and visible: the monthly community call, Builders webinars, release posts, blog and social, four docs sites, decks, standards work (x402, CASA) and six products the previous operator built or ran (Agent Launchpad, Agent Explorer, MCP server, website, Dataroom, Points Program). Which of them DevRel now owns is not settled. ASK: Rahul. A human operator approves every step that leaves the machine; Claude researches, builds, verifies and explains.
-Seven branches live inside this skill, each its own guide (`<branch>/GUIDE.md`):
+Six branches live inside this skill, each its own guide (`<branch>/GUIDE.md`):
 - `moi-devrel/ship`: how any change gets out, from work identity to a checked live page.
 - `moi-devrel/design`: the visual brand: colour and type tokens, logos, the mascot Pip, page and card starters, a brand checker.
 - `moi-devrel/claim-check`: a ledger that checks each claim in text that leaves the team against source.
@@ -15,12 +15,12 @@ Seven branches live inside this skill, each its own guide (`<branch>/GUIDE.md`):
 - `moi-devrel/call-digest`: a call transcript into decisions, owed work with owner and date, and open questions.
 - `moi-devrel/test-round`: a planned, recorded test pass on a product, with a log someone else can trust.
 `ship` (how any change gets out) and `design` (the brand) are the underlying instructions for every skill in the library, and the other skills do not repeat them. `claim-check` runs before anything public: posts, decks, scripts, social copy, docs pages, filings.
-Not covered here: Builders sessions, the monthly call and decks (`moi-webinar`, `moi-webinar/community-call`, `moi-webinar/deck`); the blog and release posts (`moi-blog`, `moi-blog/release-pack`); docs sites and search visibility (`moi-docs`, `moi-docs/geo`); the Launchpad and the Explorer (`moi-launchpad-ops`, `moi-launchpad-ops/explorer`); the MCP server (`moi-mcp-ops`); a devnet reset (`moi-devnet-reset`); outside standards (`moi-standards-submission`); Sprint, Forge and awesome-moi (`moi-education-programs`).
+Not covered here: Builders sessions, the monthly call and decks (`moi-webinar`, `moi-webinar/community-call`, `moi-webinar/deck`); the blog and release posts (`moi-blog`, `moi-blog/release-pack`); docs sites and search visibility (`moi-docs`, `moi-docs/geo`); the Launchpad and the Explorer (`moi-launchpad-ops`, `moi-launchpad-ops/explorer`); the MCP server (`moi-mcp-ops`); a devnet reset (`moi-devnet-reset`); outside standards (`moi-standards-submission`); Forge and awesome-moi (`moi-education-programs`; MOI Sprint was scratched on 13 October 2026).
 
 ## Before you start
 Conventions every `moi-*` skill and branch uses. They point here for them.
-- **`$SKILLS`** is the folder that holds the `moi-*` skill folders. Set it once (`SKILLS=<that folder>`) and quote it, because a path can hold spaces. Run every command from the working copy of the repo you are working in, never from inside a skill folder. Session folders (`community-call-<N>`, `session-<N>`) sit at the root of a working copy of `moi-foundation/MOI-Webinars`. Whether they get committed, and on which branch, is a policy nobody has written down (ASK: Rahul). Until it is settled, scaffolds keep internal files out of git, and nothing is staged beyond what the operator names or pushed without their yes: a push to that repo publishes.
-- **The operator** is the human working with Claude now. **The previous operator** is Adithya Ganesh. Lines about the past say "the previous operator". Questions about history go to ASK: Adithya. Questions about roles, ownership or policy go to ASK: Rahul, or the named person the evidence supports. Never send the operator a question that a new person cannot answer.
+- **`$SKILLS`** is the `skills/moi` folder of the handover repo `sarvalabs/moi-devrel-skills`: clone it, then `export SKILLS=<clone>/skills/moi` (the repo README has the install steps). Quote it, because a path can hold spaces. Run every command from the working copy of the repo you are working in, never from inside a skill folder. Session folders (`community-call-<N>`, `session-<N>`) sit at the root of a working copy of `moi-foundation/MOI-Webinars`; the decks for calls 2 to 14 are in `community-call-<N>/deck/` there (PR #2, merged 13 October 2026). Whether they get committed, and on which branch, is a policy nobody has written down (ASK: Rahul). Until it is settled, scaffolds keep internal files out of git, and nothing is staged beyond what the operator names or pushed without their yes: a push to that repo publishes.
+- **The operator** is the human working with Claude now. **The previous operator** is Adithya Ganesh, who hands over on 14 October 2026. Lines about the past say "the previous operator". A question about history that no handover doc answers is marked "not recorded (the previous DevRel's notes); ASK: Rahul". Questions about roles, ownership or policy go to ASK: Rahul, or the named person the evidence supports. Never send the operator a question that a new person cannot answer.
 - **`ASK: <person>`** means the evidence does not settle this. Put the question to that person through the operator: draft it, the operator sends, and you never message that person yourself. Do not guess meanwhile.
 - Every fact in `references/` is true "as of" the date beside it. Re-check anything that moves: versions, ids, open PRs, owners.
 
@@ -86,7 +86,7 @@ Branches (asked to do X, read the guide inside this skill):
 | A call transcript or auto notes: decisions, action items, "what did Rahul say", "what do I owe" | `call-digest/GUIDE.md` |
 | A test round, test plan, QA pass, regression pass, test log | `test-round/GUIDE.md` |
 
-Other skills (as of 2026-10-04), each read from its own `SKILL.md`:
+Other skills (as of 2026-10-13), each read from its own `SKILL.md`:
 | Asked to | Skill |
 |---|---|
 | Run one Builders session; the monthly Campfire Chat; build, check or export a deck | `moi-webinar`, with `moi-webinar/community-call` and `moi-webinar/deck` |
@@ -94,14 +94,14 @@ Other skills (as of 2026-10-04), each read from its own `SKILL.md`:
 | Docs pages on the four sites; search and AI visibility (robots, llms.txt, structured data) | `moi-docs`, with `moi-docs/geo` |
 | The Agent Launchpad; the Agent Explorer | `moi-launchpad-ops`, with `moi-launchpad-ops/explorer` |
 | The MCP server | `moi-mcp-ops` |
-| The website with its chatbot and calendar, the Dataroom, the Points Program: "moi.technology is down", a paper, a points task, a migration | `moi-web-products-ops` |
+| The website (its chatbot stays hidden; a Luma block replaced the calendar on 13 October 2026), the Dataroom, the Points Program with its webinar bounties: "moi.technology is down", a paper, a points task, a bounty, a migration | `moi-web-products-ops` |
 | After a devnet reset or wipe, before the product's own skill | `moi-devnet-reset` |
 | Take MOI into x402 or the CASA registry | `moi-standards-submission` |
-| MOI Sprint, Forge, awesome-moi, bounties (works alongside `moi-webinar`) | `moi-education-programs` |
+| Forge, awesome-moi, university and cohort programmes (works alongside `moi-webinar`). MOI Sprint is scratched (13 October 2026) | `moi-education-programs` |
 | Anything else, such as an AMA or game night, podcast or KOL outreach, Galxe, the monthly hackathon, developer support in Discord or GitHub, js-moi-sdk release notes and npm publishing, event logistics, a video editor handoff, taking down the old Vercel copy of the website | No skill exists. Say so. Give the nearest reference (`references/orientation.md` programmes table, `references/calendar.md`, `references/repo-map.md`), apply the house rules, and ASK: Rahul who owns it |
 
 ## Facts that fail silently
-1. **Merge is deploy.** As of 2026-10-02 Website, Dataroom and Explorer deploy on merge to `main`, Launchpad on merge to `master`, Points from `feature/ci-cd` (draft PR #15 would move that to `main`). None runs tests on a PR. A green run is not a live change: deleted blog posts survived deploys and the homepage calendar hides a dead API. Open the live URL. `moidocs`, `voyage-docs` and `coco-docs` publish on merge to `main` (Cloudflare Pages). The js-moi-sdk docs pipeline and the wallet docs are unknown (ASK: Gokul, Rahul). `moi-mcp` is the exception: merging deploys nothing.
+1. **Merge is deploy.** As of 2026-10-13 Website, Dataroom and Explorer deploy on merge to `main`, Launchpad on merge to `master`, Points from `feature/ci-cd` (draft PR #24 would move that to `main`; it replaced the closed #15). None runs tests on a PR. A green run is not a live change: deleted blog posts survived deploys. Open the live URL. `moidocs`, `voyage-docs` and `coco-docs` publish on merge to `main` (Cloudflare Pages). The js-moi-sdk docs pipeline and the wallet docs are unknown (ASK: Gokul, Rahul). `moi-mcp` is the exception: merging deploys nothing.
 2. **Devnet is not the source tip, and it gets reset.** Check the wire (`net.Version`, `fee_payer` versus `payer`) before writing "live". A reset wipes accounts, assets, contracts and registry ids, and three repos pin the registry id separately. See `references/devnet.md`.
 3. **Time notation.** A midnight release time was misread as noon and two scheduled posts were wrong. A US Eastern time written "EST" is an hour out in summer. Write the date, 24-hour UTC and IST, give the zone as area/city (`America/New_York`, never `EST`), run `time-table.sh` and echo the converted time before anything is scheduled.
 4. **Auto-notes mishear.** Gemini notes write "Moy" for MOI, "KOI" for KMOI and "Server Labs" for Sarva Labs, and also get numbers and amounts wrong. Otter and Gemini both misspell Sarva Labs, and both mis-hear product names. Check every name and figure taken from a transcript.

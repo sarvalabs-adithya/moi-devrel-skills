@@ -23,7 +23,7 @@ Facts are as of 2026-10-03. Each row is a rule and the incident behind it. A row
 | 12 | Cite the timecode as well as the line | A re-export of the same notes changes the line numbers. Rule of this branch |
 | 13 | Search for a reversal before you call something decided | A point settled at minute 5 can change at minute 40. Rule of this branch |
 | 14 | The script's lists are a checklist. "None found" is not "no figures" | The number rules miss "a couple of", "double" and a figure spoken in words the table does not hold. Read the transcript too |
-| 15 | The clean copy hides every hex string of 24 or more characters and every letter-and-digit token of 24 or more, including a harmless asset id or hash | If the call named one you need, read it from the original and check it on the explorer, which can lag by minutes (`moi-devrel/references/devnet.md`) |
+| 15 | The clean copy hides every hex string of 24 or more characters and every letter-and-digit token of 24 or more, including a harmless asset id or hash | If the call named one you need, ask the operator to read it from the original and check it on the explorer, which can lag by minutes (`moi-devrel/references/devnet.md`) |
 
 ## Meaning
 | # | Rule | The incident |
@@ -47,5 +47,5 @@ Facts are as of 2026-10-03. Each row is a rule and the incident behind it. A row
 | 28 | A spoken amount with no unit is an open question | 1 KMOI is 1,000,000,000 anu, the fuel floor is 50 anu and storage is 1,000,000 anu per byte (as of v0.13.0, `glossary.md`) |
 
 ## Not yet known
-- Whether other incidents of recovery words or keys in call notes exist beyond 2026-09-24. ASK: Adithya.
-- The dates of the requests marked "date not recorded" or "dates not recorded" above. ASK: Adithya.
+- Whether other incidents of recovery words or keys in call notes exist beyond 2026-09-24. not recorded (the previous DevRel's notes); ASK: Rahul.
+- The dates of the requests marked "date not recorded" or "dates not recorded" above. not recorded (the previous DevRel's notes); ASK: Rahul.

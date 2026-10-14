@@ -51,8 +51,8 @@ The old README standardised on Lucide at 1.5px stroke, 20 to 24px, in MOI Main o
 | The website and blog nav | They must match between `moi.technology` and `blog.moi.technology` (2026-08-18) |
 | Blog pages | Light theme only: "No dark mode, no gradients, no glassmorphism, no cards", single column, hairline rules, MOI Black only for code surfaces (`CONTENT.md` "Styling"). The decoration above does not apply there |
 | Docs sites | `moi-docs`; `moi-docs/references/page-standard.md` carries the docs style guide's rules |
-| Points emails | The web-products research note says the private Points repo (`sarvalabs/moi-project`) has a design brief `.impeccable.md` (bold, technical, optimistic; violet, lavender, deep violet, porcelain; light first). Its branch was not checked. ASK: Adithya |
+| Points emails | The web-products research note says the private Points repo (`sarvalabs/moi-project`) has a design brief `.impeccable.md` (bold, technical, optimistic; violet, lavender, deep violet, porcelain; light first). Its branch was not checked: read the file in the repo before designing a Points email. |
 
 ## Not yet known
-- Whether the Figma file (`MOI Protocol.fig`) is the live source and who can open it. ASK: Adithya, then Rahul.
+- Whether the Figma file (`MOI Protocol.fig`) is the live source and who can open it: not recorded (the previous DevRel's notes); ASK: Rahul.
 - Whether any of the house choices above have been reviewed by Rahul.

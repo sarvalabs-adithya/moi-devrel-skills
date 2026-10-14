@@ -52,4 +52,4 @@ Messages and comments on a CASA or x402 pull request are public. `moi-standards-
 - Merge rights and required approvals per repo. ASK: Rahul.
 - The form of Rahul's clearance on the standards package and what else he approves formally. ASK: Rahul.
 - Whether Gokul has reviewed moidocs #124, and how fast reviewers answer. ASK: Gokul.
-- The standard behind the 2026-09-10 announcement dispute. ASK: Adithya.
+- The standard behind the 2026-09-10 announcement dispute: not recorded (the previous DevRel's notes); ASK: Rahul.

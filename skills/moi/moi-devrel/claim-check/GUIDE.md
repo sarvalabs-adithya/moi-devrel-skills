@@ -1,4 +1,4 @@
-# MOI claim check
+# moi-devrel/claim-check: MOI claim check
 
 Branch of `moi-devrel`. `$SKILLS`, the operator, `ASK:`, the house rules and the gates are in `moi-devrel/SKILL.md`; this guide adds what is specific.
 
@@ -7,7 +7,7 @@ Every sentence that states something checkable in text that leaves the team: pos
 Not covered: writing the text (`moi-blog`, `moi-webinar`), building decks (`moi-webinar/deck`), house wording (`moi-devrel/references/house-style.md`). Docs pages are written and reviewed with `moi-docs`, which calls this branch on the changed pages; `moi-docs/references/page-standard.md` carries the docs rules. The numbers ledger of `moi-webinar/community-call` is a narrower sibling that checks the figures printed on slides. Keep both for a call and do not merge them (`references/method.md`, section 4).
 
 ## Before you start
-Run every command from the working copy of the repo you are working in, with the path quoted. `<slug>` is a short lowercase name for the text, for example `september-release`. The **tag** is the commit a release was cut from (`v0.13.0`). The **tip** is the newest commit on `develop`, which can differ from any release.
+Run every command from the working copy of the repo you are working in, with the path quoted. Set `SLUG` once in the shell to a short lowercase name for the text, for example `SLUG=september-release`; every command below quotes it. The **tag** is the commit a release was cut from (`v0.13.0`). The **tip** is the newest commit on `develop`, which can differ from any release.
 - [ ] The final text, in every place it appears: post, deck and its `NOTES` (the presenter-notes array in the deck's HTML), `SCRIPT.md`, social copy, YouTube description. The operator provides. Ask: "Which files carry this text, and is this the final wording?" A rewrite after the check reopens it.
 - [ ] For a release: the protocol team's note as sent, saved unedited as `claim-check-<slug>/RELEASE-NOTE.md`. ASK: Gokul where this version's note is.
 - [ ] Read access to the protocol source (go-moi, go-pisa and cocolang are private as of 2026-10-02). ASK: Rahul who can grant it. Without it, a protocol behaviour claim that goes beyond the release note's own words cannot be `verified`: leave it `unverified` and say so (`references/sources-of-truth.md`).
@@ -20,14 +20,14 @@ For one sentence ("is this true?"), answer yes or no first, then the source and 
 
 | # | Step | What to do, and the command | Done when |
 |---|---|---|---|
-| 1 | Collect the text | `mkdir -p claim-check-<slug> && printf '*\n' > claim-check-<slug>/.gitignore` (the `*` hides the folder, itself included, from `git add`). Gather the final text of every place the claims appear. For a release, save the note unedited in `claim-check-<slug>/RELEASE-NOTE.md`. List the files | Every file is named, and the operator confirmed the wording is final |
-| 2 | Extract | `python3 "$SKILLS/moi-devrel/claim-check/scripts/extract-claims.py" --all <file> [more files] > claim-check-<slug>/claims-candidates.csv && cp -n claim-check-<slug>/claims-candidates.csv claim-check-<slug>/ledger.csv`. Pass paths relative to the working copy so `where` stays short. `--all` lists plain statements the default run skips. `cp -n` never overwrites a ledger you have filled in. Never run step 2 twice: later changes go through step 8 | Candidates exist. The raw file stays untouched |
+| 1 | Collect the text | `mkdir -p "claim-check-$SLUG" && printf '*\n' > "claim-check-$SLUG/.gitignore"` (the `*` hides the folder, itself included, from `git add`). Gather the final text of every place the claims appear. For a release, save the note unedited in `claim-check-<slug>/RELEASE-NOTE.md`. List the files | Every file is named, and the operator confirmed the wording is final |
+| 2 | Extract | `python3 "$SKILLS/moi-devrel/claim-check/scripts/extract-claims.py" --all <file> [more files] > "claim-check-$SLUG/claims-candidates.csv" && cp -n "claim-check-$SLUG/claims-candidates.csv" "claim-check-$SLUG/ledger.csv"`. Pass paths relative to the working copy so `where` stays short. `--all` lists plain statements the default run skips. `cp -n` never overwrites a ledger you have filled in. Never run step 2 twice: later changes go through step 8 | Candidates exist. The raw file stays untouched |
 | 3 | Classify | Read every row of `ledger.csv`. Delete a row only if its sentence states nothing checkable: step 8 knows about dropped rows because `claims-candidates.csv` stays as extracted. Split a sentence that needs two checks. Fix `type` with `references/claim-types.md`. Read the text once yourself against the rows | Every kept row is one claim with a type. The count of dropped rows is noted |
 | 4 | Pick the authority | For each type choose the source that settles it: `references/sources-of-truth.md`. A "live" claim needs a read of the node | Each row has a named source to try, or an ASK |
 | 5 | Check | `references/method.md`. Search for a counterexample to a universal. Read the tag, not the tip. Recompute arithmetic. Run read-only devnet reads from `references/live-reads.md`. Never submit an interaction | Each row has evidence or a reason it has none |
 | 6 | Give a verdict | Fill `source`, `verdict`, `checked_by`, `as_of` (YYYY-MM-DD), `note` in the ledger. Quote a release note verbatim in the text and cite its section here | No row has a verdict without its fields |
 | 7 | Change the text | For each claim that was wrong or too wide: show the operator the exact sentence before and after, and wait for a yes. `scoped`: write the limit into the sentence. `argument`: label it. `cut`: remove it, then search for what it leaves behind. Search every other copy of the text. A copy in a shared system (Drive, Luma, a Buffer draft, a YouTube description) is the operator's to edit: hand over the corrected sentence | The text on disk matches the ledger. The operator approved each edit |
-| 8 | Re-run | `python3 "$SKILLS/moi-devrel/claim-check/scripts/extract-claims.py" --all --against claim-check-<slug>/ledger.csv --dropped claim-check-<slug>/claims-candidates.csv <files>` lists sentences the ledger does not cover and cut sentences still in the text. Add rows (`references/method.md`, "Re-run"), check them, repeat. Then `python3 "$SKILLS/moi-devrel/claim-check/scripts/ledger-status.py" claim-check-<slug>/ledger.csv` | `--against` exits 0 and `ledger-status.py` exits 0 |
+| 8 | Re-run | `python3 "$SKILLS/moi-devrel/claim-check/scripts/extract-claims.py" --all --against "claim-check-$SLUG/ledger.csv" --dropped "claim-check-$SLUG/claims-candidates.csv" <files>` lists sentences the ledger does not cover and cut sentences still in the text. Add rows (`references/method.md`, "Re-run"), check them, repeat. Then `python3 "$SKILLS/moi-devrel/claim-check/scripts/ledger-status.py" "claim-check-$SLUG/ledger.csv"` | `--against` exits 0 and `ledger-status.py` exits 0 |
 | 9 | Hand back | The format at the end of this file | The operator has read it |
 
 Interface that `moi-blog` (posts, and `moi-blog/release-pack`), `moi-webinar` (with `moi-webinar/community-call` and `moi-webinar/deck`) and `moi-docs` call, kept exactly:
@@ -44,7 +44,7 @@ Interface that `moi-blog` (posts, and `moi-blog/release-pack`), `moi-webinar` (w
 | What each kind of claim needs, and what makes it unverifiable | `references/claim-types.md` |
 | What was caught wrong before, with dates | `references/caught-claims.md` |
 | A second independent pass, sub-agents, cost | `references/independent-check.md` |
-| A finished ledger to learn from | `examples/README.md` |
+| A partly checked ledger (57 of 196 rows resolved) to learn the shape from | `examples/README.md` |
 | Testing a change to this branch | `evals/evals.md` |
 
 ## Facts that fail silently

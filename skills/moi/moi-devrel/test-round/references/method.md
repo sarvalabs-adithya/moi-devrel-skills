@@ -26,7 +26,7 @@ Write down the target (the live host, never an old one), the version under test,
 
 ## 2. Preflight, read-only
 Nothing here costs devnet funds. Log each as a case of kind `read` with id `P1`, `P2` and so on.
-1. Node build: `net.Version` (command in `real-chain.md`). Record it. A product tested on an older node than the release notes describe gives results about the older node (`moi-devrel/references/devnet.md`, "The build-lag trap"). If `curl` exits 60 the certificate has expired (as of 2026-10-04): log `P1` as blocked with the exit code and the UTC time (`real-chain.md`).
+1. Node build: `net.Version` (command in `real-chain.md`). Record it. A product tested on an older node than the release notes describe gives results about the older node (`moi-devrel/references/devnet.md`, "The build-lag trap"). The devnet certificate expired on 2026-10-04 and was renewed (valid 5 October 2026 to 3 January 2027). If `curl` exits 60 the certificate has expired again: log `P1` as blocked with the exit code and the UTC time (`real-chain.md`).
 2. Reset signs: the product's own status endpoint, the registry read, "account not found" anywhere (`moi-devrel/references/devnet.md`, "Signs of a reset"). If the chain was wiped, stop and run `moi-devnet-reset` first.
 3. Product health: the GET checks in `moi-devrel/references/repo-map.md` ("Read-only health checks"). Read the data, not only the status code, and call a stats endpoint twice 20 to 60 seconds apart.
 4. The tester's side: wallet extension or phone installed and unlocked, the active account is the one you sign in as, balances recorded before the first chain case.
@@ -54,7 +54,7 @@ Say each of these to the operator as plain lines. Keep the case id in every mess
 | 5 | Chain case: read the hash back, then fill `receipt_status`, `node_version`, `run_at_utc` | `real-chain.md` |
 | 6 | Pass or fail against the plan's `must`, and nothing else. If the result is something the plan did not foresee, log what happened and add a case | Do not move the goalposts after the fact |
 
-Run `python3 "$SKILLS/moi-devrel/test-round/scripts/test-log-check.py" test-round-<slug>/test-log.csv` after every ten rows or so. Exit 2 means a row broke the CSV (an unquoted comma shifts the columns).
+Run `python3 "$SKILLS/moi-devrel/test-round/scripts/test-log-check.py" "test-round-$SLUG/test-log.csv"` after every ten rows or so. Exit 2 means a row broke the CSV (an unquoted comma shifts the columns).
 
 Pace: one thing at a time. When the operator narrows a request, do exactly that. During the Launchpad rounds (July to August 2026) a request to drop one step from the instructions and explain only the config step meant exactly that.
 
@@ -77,16 +77,16 @@ No pass is recorded for these. Start from their health checks and build a plan w
 | Product | Where its checks live | Note |
 |---|---|---|
 | Agent Explorer | `moi-devrel/references/repo-map.md` health checks; compare `/registry/agents` total with the chain | `/health` says ok while the index is stale (49 agents on 2026-10-02). `moi-launchpad-ops/explorer` |
-| Website and blog | `moi-devrel/references/repo-map.md` health checks | A 200 proves little: the site answers 200 for any address. `moi-web-products-ops` |
-| Dataroom | `moi-devrel/references/repo-map.md` health checks | `moi-web-products-ops` |
-| Points Program | `moi-devrel/references/repo-map.md` health checks | `moi-web-products-ops` |
+| Website and blog | `moi-devrel/references/repo-map.md` health checks | A 200 proves little: the site answers 200 for any address. The Luma block (PR #60, 13 Oct 2026) stays hidden until `lumaUrl` is set in `content/community-calls.json`: test it hidden, then shown. `moi-web-products-ops` |
+| Dataroom | `moi-devrel/references/repo-map.md` health checks | PR #7 merged 13 Oct 2026 (README, env template, migration for the adopters and document_leads tables and the require_email column). `moi-web-products-ops` |
+| Points Program | `moi-devrel/references/repo-map.md` health checks | The webinar bounty form (PR #22, live 13 Oct 2026): test create, submit, grade and reject, as an admin from `ADMIN_EMAILS` (hand-graded; fields are interaction hash, link, number, text). Review batch PR #23: X likes capped at 20, social audit job removed, point clawbacks removed. `moi-web-products-ops` |
 | A webinar demo | `moi-webinar/references/demo-standard.md` | Preflight, spike, adversarial suite with a control |
 
 A test case never touches a product's admin. Read the product's row in `moi-devrel/references/repo-map.md` first. Four of the products above carry a marker:
-- Agent Explorer: A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin.
-- Website: A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin.
-- Dataroom: A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin.
-- Points: A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin.
+- Agent Explorer: A security finding is open on this product as of 2026-10-02. See the Open items of project-handover-docs/LIST-OF-DEPENDENCIES.md (section 10, Agent Explorer) before touching its admin; ASK: Rahul if unclear.
+- Website: A security finding is open on this product as of 2026-10-02. See the Open items of project-handover-docs/MOI-WEBSITE.md before touching its admin; ASK: Rahul if unclear.
+- Dataroom: A security finding is open on this product as of 2026-10-02. See the Open items of project-handover-docs/DATAROOM.md before touching its admin; ASK: Rahul if unclear.
+- Points: A security finding is open on this product as of 2026-10-02. See the Open items of project-handover-docs/POINTS-PROGRAM.md before touching its admin; ASK: Rahul if unclear.
 
 ## Not yet known
 - Who owns test rounds and signs off a release now. ASK: Rahul.

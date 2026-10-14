@@ -2,7 +2,7 @@
 
 Facts are as of 2026-10-03. `ASK:` is defined in `moi-devrel/SKILL.md`. Source: `docs/E2E-TESTING.md`, `docs/QA-LEDGER.md`, `docs/TEST-REPORT.md`, `docs/POST-CUTOVER-CHECKLIST.md`, `docs/UI-INVENTORY.md` and `scripts/verify-purchase.mjs` in `sarvalabs/moi-agent-launchpad`. That repo is private. All six are on `master` on GitHub as of the last fetch of the previous operator's clone, whose `origin/master` tip is dated 2026-09-15 (read with git on 2026-10-03, not fetched, so later commits are possible). ASK: Rahul for read access. The cases below are copied, so the files are not needed to run the pass, except the verifier script in L11. Back to `../GUIDE.md`.
 
-Target: `https://launchpad.moi.technology`. The original plan's header names the old host; do not use it. The product's owner for questions: ASK: Adithya (history), Gokul (registry id), Upendhar (anything on the VM). Which of these DevRel owns now: ASK: Rahul.
+Target: `https://launchpad.moi.technology`. The original plan's header names the old host; do not use it. The product's owner for questions: `project-handover-docs/AGENT-LAUNCHPAD.md` (history), Gokul (registry id), Upendhar (anything on the VM). Which of these DevRel owns now: ASK: Rahul.
 
 ## How to read the ids and the gates
 - `L<n>.<m>`: L1 to L9 follow sections 1 to 9 of the original `E2E-TESTING.md`; L10 the Telegram batteries (sections 10, 11 and 14); L11 the payments audit (section 12); L12 the platform sweep and L13 the listing and settings controls (section 13, phases 5 and 3). `m` is this list's own running number: several original steps are merged into one line, so it does not match the original step numbers. A probe in L10 is `L10.<template>.<position>`.
@@ -11,20 +11,21 @@ Target: `https://launchpad.moi.technology`. The original plan's header names the
 - Wallet, phone, Telegram and browser steps are the operator's. Claude reads, asks and logs. pm2 is the process manager that keeps a downloaded agent running on the operator's own machine.
 
 ## What changed since the list was written (30 July to 4 August 2026)
+- Docs are live at launchpad.moi.technology/docs (PR #31, deployed 12 Oct 2026). PR #32 (7 Oct) and PR #33 (13 Oct) added phone QR sign-in, which also works when the extension is installed: see L1.3, L1.8 and L1.9.
 - The Test run button was removed (2026-08-02). Chat on Telegram replaces it.
-- The shared free AI tier was retired (2026-08-02). Install now asks for the tester's own free Groq key, once. Section 8 of the original (the `n/40` daily counter and a migration warning in the server logs) is left out: the counter may be obsolete, and the log check is VM work. ASK: Adithya whether the counter still exists; ASK: Upendhar for the logs.
+- The shared free AI tier was retired (2026-08-02). Install now asks for the tester's own free Groq key, once. Section 8 of the original (the `n/40` daily counter and a migration warning in the server logs) is left out: the counter may be obsolete, and the log check is VM work. whether the counter still exists is not recorded (the previous DevRel's notes); ASK: Rahul; ASK: Upendhar for the logs.
 - A settings edit reaches a running agent within about 30 seconds with no re-download. Agents created before 2026-08-02 store no time zone: recreate them, do not re-download.
 - Price history: `E2E-TESTING.md` section 11 expects "I don't keep price history", section 14 expects a real dated price. Use section 14.
-- The wallet activation grant default is 10 KMOI in the code since PR #30 (September 2026). The README and env examples still say 100000 KMOI, and L1.4 was recorded against 100,000. Expect the code value and ASK: Adithya.
+- The wallet activation grant default is 10 KMOI in the code since PR #30 (September 2026). The README and env examples still say 100000 KMOI, and L1.4 was recorded against 100,000. Expect the code value; the README fix is an open item in `project-handover-docs/AGENT-LAUNCHPAD.md`.
 - The Launchpad has 10 templates (read from `lib/templates/index.ts` on `master`): `weather_brief`, `daily_digest`, `price_watch`, `fx_rate`, `alarm_reminder`, `standup`, `expense_logger`, `job_search`, `grant_scout`, `application_tracker`.
-- After the 2026-09-11 wipe the registry moved on 2026-09-15 and earlier agents show "need registering again". Whether the AgentMarket contract was redeployed is not known (ASK: Adithya, Gokul), so section L11 stays `blocked` until it is.
+- After the 2026-09-11 wipe the registry moved on 2026-09-15 and earlier agents show "need registering again". Whether the AgentMarket contract was redeployed is not known (ASK: Gokul; the redeploy is blocked on a transfer error, `project-handover-docs/AGENT-LAUNCHPAD.md`, Open items), so section L11 stays `blocked` until it is.
 
 ## P. Preflight (10 minutes, reads)
 | id | kind | ask or do | must |
 |---|---|---|---|
 | P1 | read | `GET /api/stats` twice, 20 to 60 seconds apart | The second answer has `chainStatus` `ok` and `chainError` null. A first call after idle can say `stale`. `chainAsOf` is the age of `registered` (ms since 1970) |
 | P2 | read | `GET /api/marketplace?source=chain` | 200 with `"source":"chain"`. 502 `chain_unreachable` means the registry read fails. The default listing (no `source`) falls back to a database index and its `source` field says `db`: do not count it |
-| P3 | read | `GET /api/marketplace/<public agent address>/listing`, address from P2 | `onchain` is an object. `null` means the read failed, not "unlisted" (the route's own comment). Expected fail for now: it answered `null` on 2026-10-02 and 2026-10-03 (17:37 UTC), consistent with the market contract not being redeployed (inferred; ASK: Adithya, Gokul) |
+| P3 | read | `GET /api/marketplace/<public agent address>/listing`, address from P2 | `onchain` is an object. `null` means the read failed, not "unlisted" (the route's own comment). Expected fail for now: it answered `null` on 2026-10-02 and 2026-10-03 (17:37 UTC), consistent with the market contract not being redeployed (inferred; ASK: Gokul) |
 | P4 | read | `net.Version` (`real-chain.md`) | Recorded |
 | P5 | read | Wallets A and B exist, funded for the test price plus about 2k fuel each. A creator cannot buy their own agent. A faucet request is a write: the operator makes it | Balances recorded from the chain (`moi_get_account`, `real-chain.md`) |
 | P6 | app | The wallet's active account is the account you are signed in as | Switching accounts means signing out and in again |
@@ -38,11 +39,13 @@ On 2026-10-03 the first stats call answered `registered` 20 with `chainStatus` `
 |---|---|---|---|
 | L1.1 | app | Open the site in a browser without the extension | "You need a MOI Wallet" screen |
 | L1.2 | app | Click Install MOI Wallet extension | The real extension listing, not a generic store page |
-| L1.3 | app | Open on mobile | "Connect on desktop" screen |
+| L1.3 | app | Open on mobile | "Connect on desktop" screen. Expectation probably outdated by PR #33: check on a phone before the round and write the new expectation into the plan |
 | L1.4 | app | Fresh wallet F (the operator creates it): Connect, follow the one-time setup, then it signs in by itself | Auto-routed to setup with no dead end; extension shows the grant. Read the account from the chain: a "Wallet is ready" message alone is not evidence |
 | L1.5 | app | Sign in with wallet A | Message signature, no fuel, lands on the dashboard |
 | L1.6 | app | Lock the extension, sign in again | The error names the cause (locked), not "returned no signature" |
 | L1.7 | app | Sign out, sign back in | Session restored, agents listed |
+| L1.8 | app | Phone QR sign-in, extension not installed on the desktop: open the site on the desktop, scan the QR with the phone's MOI Wallet | The desktop signs in after the phone approves and lands on the dashboard, with no dead end. Expectation taken from PR #33: read its description before the round and record the observed result |
+| L1.9 | app | The same QR sign-in with the MOI Wallet extension installed on the desktop | QR sign-in still works with the extension present (PR #33). Record whether the desktop offers both ways |
 | L2.1 | app | Create, pick a template | Name pre-filled with an available suggestion |
 | L2.2 | app | Dice button several times; type a taken name; type a fresh one | Never repeats at once; "taken" and "available" inline |
 | L2.5 | chain | Leave it private, deploy | Wallet asks to sign the registration; agent active; the card address written on chain names the live host (permanent per agent) |
@@ -142,6 +145,6 @@ Order of one sitting, with times: P (10), the new-user journey L1.4 to L2.9 (20)
 - Never recorded: the sign-off tables, and the post-cutover checks of reboot, certificate renewal and memory after 24 hours (VM work: ASK: Upendhar).
 
 ## Not yet known
-- Whether the AgentMarket contract was redeployed after 2026-09-11, and its id. ASK: Adithya, Gokul.
-- Whether the `n/40` daily counter and the shared tier's message still exist. ASK: Adithya.
-- The original's old-runtime check (an agent installed before the shared tier was retired should show "add your own free Groq key" and not hang) is not in this list, because it needs such an agent and none is recorded. ASK: Adithya.
+- Whether the AgentMarket contract was redeployed after 2026-09-11, and its id. ASK: Gokul.
+- Whether the `n/40` daily counter and the shared tier's message still exist. not recorded (the previous DevRel's notes); ASK: Rahul.
+- The original's old-runtime check (an agent installed before the shared tier was retired should show "add your own free Groq key" and not hang) is not in this list, because it needs such an agent and none is recorded. not recorded (the previous DevRel's notes); ASK: Rahul.

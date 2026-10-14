@@ -9,12 +9,14 @@ Set `SKILLS` and run `bash "$SKILLS/moi-devrel/scripts/preflight.sh"` first, fro
 |---|---|---|---|
 | git | everything | `git --version` | FAIL. Install it, then set your work identity (`consent-and-identity.md`). |
 | gh | PRs, login, and `gh secret set` (which needs a yes, `consent-and-identity.md` section 1) | `gh --version`, then read the login line from `preflight.sh`. Never paste `gh auth status` output. | FAIL. Install GitHub CLI, then log in yourself with `gh auth login`. |
-| node | `scripts/buffer.mjs` in `moi-foundation/MOI-Webinars` (on branch `claude/agent-payments-simple`, not on `main` as of 2026-10-02; its `--thread-dir` option is in a commit that is not pushed, ASK: Adithya for a copy; v24 was used), docs site builds, `node --check` on a deck's script | `node --version` | FAIL. moidocs and voyage-docs need 16.14 or newer, coco-docs 18 or newer. |
+| node | `scripts/buffer.mjs` in `moi-foundation/MOI-Webinars` (on branch `claude/agent-payments-simple`, not on `main` as of 2026-10-02; its `--thread-dir` option was in a commit that was not pushed as of 2026-10-03: not recorded (the previous DevRel's notes); ASK: Rahul; v24 was used), docs site builds, `node --check` on a deck's script | `node --version` | FAIL. moidocs and voyage-docs need 16.14 or newer, coco-docs 18 or newer. |
 | python3 | `slop-lint.sh`, `time-table.sh`, `secret-scan.sh` and `check-message.py` in this skill (`preflight.sh` checks that it exists), `make html` for the js-moi-sdk docs | `python3 --version` and `python3 -c "import zoneinfo"` | FAIL. 3.9 or newer for `time-table.sh`. |
-| Google Chrome | headless PDF export of a deck, no login needed | `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --version` | WARN. Only deck export needs it. |
+| Google Chrome | headless PDF export of a deck and PNG export of a design card (`moi-devrel/design`, step 9), no login needed | `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --version` | WARN. Only deck and card export need it. |
 | poppler | `pdfinfo`, `pdftotext`, `pdftoppm` to check a PDF's page count, text and a rendered contact sheet | `pdfinfo -v` | WARN. Only PDF checks need it. |
 | curl | live reads such as the `net.Version` call, crawler checks | `curl --version` | ships with macOS |
 | docker | third-party agent frameworks (`consent-and-identity.md` section 7) | `docker --version` | install only when that work comes |
+| pnpm | the Points Program (`sarvalabs/moi-project`): install and `pnpm run ci` | `pnpm --version` | install only when that work comes (a download: a yes first) |
+| make | the js-moi-sdk docs: `make html` and `make llms` in `docs/` | `make --version` | install only when that work comes (on macOS it comes with the Xcode command line tools; a download: a yes first) |
 | pandoc | optional: Word copies of markdown for the internal review gate, markdown stays the source | `pandoc --version` | optional |
 
 ## 2. Scripts in this skill
@@ -40,10 +42,10 @@ Run them with `bash` (`python3` for the `.py` one), from the working copy of the
 | Stopping servers | Killing by name can stop another session's server. Several sessions share one machine, and one was editing `moi-mcp` while the research ran. | Note the PID or port when you start a server and stop only that. Never use `pkill`, `killall` or a `kill` built from `ps` and `grep`. If a port is busy, use a new port and tell the operator the URL. This is a library rule, not a recorded incident. | 2026-10-02 |
 | Shared stash | `git stash` is shared by every worktree of a repository. | Use a temporary WIP commit instead. If you must stash, use `git stash push -u -m "<unique tag>"` and restore with `git stash apply <sha>`. | git behaviour |
 | Remote or cloud sessions cannot push | Pushes returned 403, and the work came back as `.bundle` files moved by hand. | Package the work as a bundle or write a handoff prompt. | 2026-08, day not recorded |
-| GitHub Actions outage or billing block | Scheduled jobs such as the Monday Mailchimp RSS blast may silently not run. The previous operator retried "try now" seven times. | Check the run list, do not assume. Retry about every four hours, not every ten minutes. | 2026-08-28 to 2026-08-30 |
+| GitHub Actions outage or billing block | Scheduled jobs such as the Mailchimp RSS newsletter may silently not run. The previous operator retried "try now" seven times. | Check the run list, do not assume. Retry about every four hours, not every ten minutes. | 2026-08-28 to 2026-08-30 |
 | Discord and long text | A long message became a `message.txt` attachment. | Split it into numbered parts or put it in a document. | 2026-09 |
-| Time zones | The audience is announced in IST and the protocol runs on UTC. A run time was once displayed in the wrong zone (01:15 for a 9:15 US Eastern run, written "EST"). | Ask for the operator's zone once, give it as area/city (`America/New_York`, never `EST`), then print every time with `time-table.sh` before scheduling. | about August 2026, day not recorded (inferred from position in the request log; ASK: Adithya) |
-| Files that exist on one machine | `community-call-14/` and `intro-session/` in MOI-Webinars are untracked and exist only on the previous operator's machine, and a lost laptop loses both. | ASK: Adithya for a copy, and back it up before you rely on it. | 2026-10-01 |
+| Time zones | The audience is announced in IST and the protocol runs on UTC. A run time was once displayed in the wrong zone (01:15 for a 9:15 US Eastern run, written "EST"). | Ask for the operator's zone once, give it as area/city (`America/New_York`, never `EST`), then print every time with `time-table.sh` before scheduling. | about August 2026, day not recorded (inferred from position in the request log; not recorded elsewhere) |
+| Files that exist on one machine | Until 13 October 2026 `community-call-14/` and `intro-session/` in MOI-Webinars were untracked and lived on one machine. The decks for calls 2 to 14 are now in `community-call-N/deck/` (PR #2) and the intro-session deck is in the handover repo. | Before you rely on a file, check that it is in git or the handover repo, and back it up. A lost laptop loses the rest. | 2026-10-13 |
 
 ## 4. Safe habits
 1. Scratch work goes in a directory from `mktemp -d`. Delete it when you finish.
@@ -53,5 +55,5 @@ Run them with `bash` (`python3` for the `.py` one), from the working copy of the
 
 ## Not yet known
 - The operator's operating system. Chrome's path, the Downloads block and the zsh default are macOS facts. Ask the operator which system they use at the start.
-- Which Node version the webinar demo repos need: `engines` says 20 or newer, yet the live scripts run `.ts` directly. ASK: Adithya.
+- Which Node version the webinar demo repos need: `engines` says 20 or newer, yet the live scripts run `.ts` directly. Not recorded (the previous DevRel's notes); ASK: Rahul.
 - Whether the sarvalabs org requires signed commits outside the x402 upstream repo. ASK: Rahul.

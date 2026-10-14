@@ -1,6 +1,6 @@
 # Live reads: is it live on devnet
 
-Facts are as of 2026-10-02. Every result below was read on 2026-10-02 between 20:43 and 21:08 UTC and read again from 21:24 to 21:30 UTC with the same answers, from a laptop, with plain `curl` and no account. The commands come from `moi-devrel/references/devnet.md` ("Before you say live"), with the parts that did not work as that file expected corrected here. Back to `../GUIDE.md`.
+Facts are as of 2026-10-04: the results below were recorded on 2 to 4 October 2026, so re-read them on the day you rely on them. Every result marked 2026-10-02 was read between 20:43 and 21:08 UTC and read again from 21:24 to 21:30 UTC with the same answers, from a laptop, with plain `curl` and no account. The commands come from `moi-devrel/references/devnet.md` ("Before you say live"), with the parts that did not work as that file expected corrected here. Back to `../GUIDE.md`.
 
 ## Rules
 - Read methods only. Never call `moi.SendInteractions` or anything that submits, funds, deploys or creates an account. Never ask the faucet for funds: that writes. Spending devnet funds needs the operator's yes (`../GUIDE.md`, Gates).
@@ -8,15 +8,15 @@ Facts are as of 2026-10-02. Every result below was read on 2026-10-02 between 20
 - Say "devnet", not "Voyage devnet". Write the UTC time of every read in the ledger `source` cell (`date -u +"%Y-%m-%d %H:%M UTC"` right after the read). <!-- slop-lint: ignore -->
 - Run the checks again on the day of the post or the call. A devnet reset changes every answer, and the one reset on record after a release followed it by about a day (`devnet.md`).
 - Set once: `RPC=https://dev.voyage-rpc.moi.technology/devnet/` and `BAB=https://dev.voyage-rpc.moi.technology/babylon/`.
-- If `curl` exits 60, the certificate of that host has expired (read 2026-10-04 18:01 UTC; `moi-devrel/references/devnet.md`). Checks 1 to 4 and 7 cannot run. Put that in the ledger `source` cell and leave the row `unverified`; do not call devnet live or down, and do not turn certificate checking off.
+- If `curl` exits 60, the certificate of that host has expired. It did on 2026-10-04 (read 18:01 UTC) and was renewed (valid 5 October 2026 to 3 January 2027; `moi-devrel/references/devnet.md`), so expect it again after 3 January 2027 unless it is renewed first. Checks 1 to 4 and 7 cannot run. Put that in the ledger `source` cell and leave the row `unverified`; do not call devnet live or down, and do not turn certificate checking off.
 
 ## The checks
-Result column: what came back on 2026-10-02.
+Result column: what came back on 2026-10-02 (recorded 2 to 4 Oct 2026; re-run on the day).
 | # | Question | Command | Result |
 |---|---|---|---|
 | 1 | Which build does devnet run? | `curl -sS -m 20 -X POST "$RPC" -H 'content-type: application/json' -d '{"jsonrpc":"2.0","id":1,"method":"net.Version","params":[]}'` | `{"jsonrpc":"2.0","id":1,"result":"0.13.0"}` at 21:24 UTC |
 | 2 | Does the babylon path agree? | the same with `"$BAB"` | `"0.13.0"` at 21:24 UTC |
-| 3 | What is the network ID? | the same with `"method":"net.NetworkID"` | Error `-32601`, "the method net.NetworkID does not exist/is not available" at 21:24 UTC, and the same again on 2026-10-03 at 18:45 UTC. The docs page `docs.moi.technology/docs/build/json-rpc` documents the method (an integer: 111 Local, 112 Devnet, 113 Babylon; read 2026-10-03) |
+| 3 | What is the network ID? | the same with `"method":"net.NetworkID"` | Error `-32601`, "the method net.NetworkID does not exist/is not available" at 21:24 UTC, and the same again on 2026-10-03 at 18:45 UTC and in the handover check of 14 October 2026. The docs page `docs.moi.technology/docs/build/json-rpc` documents the method (an integer: 111 Local, 112 Devnet, 113 Babylon; read 2026-10-03) |
 | 4 | Which field names does an interaction carry? | `HASH=$(curl -sS -m 20 https://api-voyage.moi.technology/api/interaction \| python3 -c 'import json,sys; print(json.load(sys.stdin)["data"][0]["hash"])')` then `curl -sS -m 20 -X POST "$RPC" -H 'content-type: application/json' -d "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"moi.InteractionByHash\",\"params\":[{\"hash\":\"$HASH\"}]}" \| python3 -c 'import json,sys; print(sorted(json.load(sys.stdin)["result"].keys()))'` | `['fee_payer', 'fuel_limit', 'fuel_price', 'funds', 'hash', 'ix_index', 'ix_operations', 'ix_participants', 'participants_state', 'sender', 'signatures', 'ts_hash']`. The newest listed interaction was created 2026-10-01 13:29:44 UTC. No `payer` key. Same keys on the babylon path |
 | 4b | Does an object in `params` work? | check 4 with `"params":{"hash":"$HASH"}` | `-32602 "Invalid Params"` |
 | 5 | Is the fuel floor visible? | `curl -sS -m 20 https://api-voyage.moi.technology/api/interaction \| python3 -c 'import json,sys,collections; d=json.load(sys.stdin)["data"]; print(len(d), collections.Counter(str(r["fuel_price"]) for r in d).most_common(3))'` | `355 [('0x32', 354), ('0x64', 1)]`: 354 of 355 listed interactions carry fuel price 0x32 (50), one carries 0x64 (100), none is below 50 |

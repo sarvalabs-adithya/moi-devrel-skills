@@ -1,7 +1,7 @@
 # Worked examples: explanations that held up, and what made them work
 
 Facts are as of 2026-10-03. "Held up" means the previous operator or the founder kept the explanation after review, or it was delivered live. The research notes hold no audience reaction to any of them: they record no attendee questions for a Builders session or a community call as of 2026-10-02. Each entry gives the source, the shape in short, what made it work, and what to re-check before you reuse it. Definitions are not repeated here: they live in `moi-devrel/references/glossary.md` and `terminology.md`.
-Cleaning: quotations are shortened, em dashes became commas or colons, typos are fixed, no reviewer name appears, and no key, address or hash is copied. Files marked branch are on `claude/agent-payments-simple` of `moi-foundation/MOI-Webinars`, not on `main`. Files marked local exist only on the previous operator's machine (ASK: Adithya for a copy). "The operator" and `ASK:` are defined in `moi-devrel/SKILL.md`. Back to `../GUIDE.md`.
+Cleaning: quotations are shortened, em dashes became commas or colons, typos are fixed, no reviewer name appears, and no key, address or hash is copied. Files marked branch are on `claude/agent-payments-simple` of `moi-foundation/MOI-Webinars`, not on `main`. Files marked local exist only on the previous operator's machine (not recorded; ASK: Rahul). "The operator" and `ASK:` are defined in `moi-devrel/SKILL.md`. Back to `../GUIDE.md`.
 
 ## W1. KMOI, then anu, in two sentences (2026-09-11)
 - **Source:** the cleaned September release post, section "Why price in anu?" (`moi-blog/examples/moi-september-2026-release.md`), and `terminology.md` B.
@@ -34,10 +34,10 @@ Cleaning: quotations are shortened, em dashes became commas or colons, typos are
 - **Re-check:** "irrevocable" and "only the beneficiary can pull" are the README's words. The 2026-08-07 audit found Lockup and Release semantics are node-side and could not be verified from the SDK, and no later check is on record. The docs Assets page describes Lockup more loosely: the amount stays owned but cannot be transferred until released (read 2026-10-03). Treat the README's two phrases as "I will check" (ASK: Gokul). The same README says release called with nothing locked "succeeds" and moves zero funds.
 
 ## W6. The teaching guide: ideas in order, one aha, honest boundaries (session 6)
-- **Source:** `TEACHING-GUIDE.md` in `sarvalabs-adithya/moi-agent-budget` (private, the previous operator's account; ASK: Adithya for access), and the session 6 README (`main`).
+- **Source:** `TEACHING-GUIDE.md` in the previous DevRel's fork (sarvalabs-adithya/moi-agent-budget) (private; ASK: Rahul for access), and the session 6 README (`main`).
 - **Shape:** what you are teaching in one sentence; four ideas in the order to teach them; the live demo mapped step by step to the ideas; one aha said aloud ("Same question, same math, different answer, and the only thing in between was one transaction. The identity was never stored anywhere. It's computed."); honest boundaries for Q&A; gotchas; a pre-flight list.
 - **What made it work:** every demo step maps to an idea, and the boundaries are written down before anyone asks. The guide's own boundaries said sub-accounts share the primary's key and the chain does not enforce what an agent may do. That is the reason `session-8-policies/NOTES.md` (branch) gives for ending the first session 8 design after a reviewer's objection. Carry a teaching guide's boundaries into the next design.
-- **Re-check:** the guide compares a sub-account to "an account you open at one specific bank", with the primary account as "you". That is a plain picture for the chat, not wording for public text. Sub-accounts have no glossary row, though the docs Interactions page describes AccountInherit as creating an application-specific sub-account of a primary account (read 2026-10-03). The contract in the demo was wiped by the devnet resets since July. Session 6 has no record of having been held (`moi-webinar/SKILL.md`, ASK: Adithya), so this is a model of structure and not evidence of delivery.
+- **Re-check:** the guide compares a sub-account to "an account you open at one specific bank", with the primary account as "you". That is a plain picture for the chat, not wording for public text. Sub-accounts have no glossary row, though the docs Interactions page describes AccountInherit as creating an application-specific sub-account of a primary account (read 2026-10-03). The contract in the demo was wiped by the devnet resets since July. Session 6 has no record of having been held (`moi-webinar/SKILL.md`; ASK: Vardan), so this is a model of structure and not evidence of delivery.
 
 ## W7. A standard explained for a reviewer: example first, then before and after (2026-08-27 to 08-31)
 - **Source:** `x402-compat/x402.md`, sections 1, 3 (first part) and 4 (branch).
@@ -52,5 +52,5 @@ Cleaning: quotations are shortened, em dashes became commas or colons, typos are
 - **Re-check:** the open edge in that file (a brand-new participant's first action). ASK: Gokul.
 
 ## Not yet known
-- Which of these an audience followed. No attendee questions or feedback are on record. ASK: Adithya whether any exist outside the repos.
-- Whether the explainers the previous operator asked for ("do the explainer doc") were kept anywhere he reads again. ASK: Adithya.
+- Which of these an audience followed. No attendee questions or feedback are on record. ASK: Vardan whether any exist in the call or Discord records.
+- Whether the explainers the previous operator asked for ("do the explainer doc") were kept anywhere he reads again. not recorded (the previous DevRel's notes); ASK: Rahul.

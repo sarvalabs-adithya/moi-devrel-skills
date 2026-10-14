@@ -50,4 +50,4 @@ Correct it at once and plainly, in the same channel: what you said, what is true
 ## Not yet known
 - Whether Rahul wants a regular update, its day, a fixed format and a channel. ASK: Rahul.
 - Where long updates should live. A Google document was chosen once.
-- Whether the 2026-08-24 update still exists. ASK: Adithya.
+- Whether the 2026-08-24 update still exists: not recorded (the previous DevRel's notes); ASK: Rahul, who received it.

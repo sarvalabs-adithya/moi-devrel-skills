@@ -53,4 +53,4 @@ Source: docs Access Control page, "Why Writes Need Authorization", "Ground Rules
 
 ## Not yet known
 - How long a depth 2 explanation takes to give in a real session. The only timing on record is the CC14 word count at an assumed pace.
-- Whether a depth 3 written explainer was ever made for an upstream review other than the review package. ASK: Adithya.
+- Whether a depth 3 written explainer was ever made for an upstream review other than the review package. not recorded (the previous DevRel's notes); ASK: Rahul.

@@ -52,6 +52,6 @@ The CSS ramp is the previous operator's reading of the Figma file: 33 steps from
 The book is silent. The website's `CONTENT.md` says the only exception to Poppins is code, "where a system monospace stack is used because code needs character alignment". The blog stylesheet does the same (`moi-blog/references/assets.md`), and the deck template calls code "the one non-Poppins surface, because code is content". The previous operator's CSS says code is Poppins Medium with tabular numbers. Three live surfaces against one file. For sample code on a branded page use a system monospace stack, and say so in the hand-back. ASK: Rahul to settle it.
 
 ## Not yet known
-- Whether the sizes in the CSS ramp match the Figma file; the Figma file is not in this library. ASK: Adithya.
+- Whether the sizes in the CSS ramp match the Figma file; the Figma file is not in this library and is not recorded (the previous DevRel's notes); ASK: Rahul.
 - Whether italic is banned or only unused. ASK: Rahul.
 - Where to get the three weights as files, and under what licence (`../fonts/README.md`). ASK: Rahul.

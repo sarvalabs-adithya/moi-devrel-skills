@@ -27,11 +27,11 @@ Facts are as of 2026-10-03. The record runs to 2026-10-02. "Observed" means a Dr
   - 2026-08-31, 09:47 (zone not recorded), "Refining Agent Demo and Access Policies", 7 minutes. It set the topic of Builders session 8 on access policies.
   - 2026-09-14, review of the CAIP namespace draft: the founder's wording corrections of that day, which live in `moi-devrel/references/terminology.md` (`output-format.md` has the worked example). <!-- slop-lint: ignore -->
   - 2026-09-17, docs call: no application docs (the Agent Launchpad) in protocol docs, application docs belong with the app, and the style guide is written for humans and explains how `llms.txt` is generated.
-- Who decides: Rahul sets direction and reviews public pieces (`moi-devrel/references/people-and-teams.md`). The research calls the 2026-09-14 speaker "the founder" and does not say whether that is Rahul. ASK: Adithya.
+- Who decides: Rahul sets direction and reviews public pieces (`moi-devrel/references/people-and-teams.md`). The research calls the 2026-09-14 speaker "the founder" and does not say whether that is Rahul. ASK: Rahul.
 - The file contains the previous operator's own spoken status updates. They are commitments of the operator of that day.
 - Watch for: the company written "Serval Labs"; "Voyage" and "IOME" mis-transcribed; Speaker numbers instead of names; a request that is not a decision (`method.md` section 2); a review mixed up with the transcript. <!-- slop-lint: ignore -->
 - Unknown: whether these calls are scheduled formally, who else attends, and where the weekly "here are my updates" message sits. ASK: Rahul.
-- The transcripts named above (2026-08-04, 08-24, 08-31, 09-14, 09-17) exist only on the previous operator's machine, in an ignored folder or in chat logs, not on GitHub (the 2026-08-04 file sits in `otter-transcript/`, which the public repo's ignore file lists; checked 2026-10-03). ASK: Adithya for a copy of any you need.
+- The transcripts named above (2026-08-04, 08-24, 08-31, 09-14, 09-17) exist only on the previous operator's machine, in an ignored folder or in chat logs, not on GitHub (the 2026-08-04 file sits in `otter-transcript/`, which the public repo's ignore file lists; checked 2026-10-03). They are not available after the handover; ASK: Rahul if one is needed.
 
 ## Marketing standup and governance call
 - Decisions observed on 2026-08-06 and 08-07: Wednesday AMA, Thursday AI or developer session (the previous operator's slot, with the host coordinating), Friday game night. AMAs overran into game night, so schedule the next AMA on a Wednesday or Thursday. Post video AMA clips only on YouTube. Keep a general email approach until segments exist. The next community call follows an all-hands call, roughly two weeks later (a plan, not a booked date).
@@ -58,6 +58,6 @@ Facts are as of 2026-10-03. The record runs to 2026-10-02. "Observed" means a Dr
 ## Not yet known
 - A fixed schedule, agenda or attendee list for any call above. ASK: Rahul.
 - Whether Rahul's calls and the "here are my updates" message are scheduled formally. ASK: Rahul.
-- Whether a reviewer's verdict dated "the 27th" in the session 8 notes came from a separate call, or from the one on 2026-08-31. ASK: Adithya.
+- Whether a reviewer's verdict dated "the 27th" in the session 8 notes came from a separate call, or from the one on 2026-08-31. not recorded (the previous DevRel's notes); ASK: Rahul.
 - Who hosts and moderates the community call now. ASK: Vardan.
-- Whether the Chat text file of a Meet is kept with the notes, and what it usually holds. ASK: Adithya.
+- Whether the Chat text file of a Meet is kept with the notes, and what it usually holds. ASK: Vardan (Meet owner for the community call) or Rahul.

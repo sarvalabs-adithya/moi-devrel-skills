@@ -6,7 +6,7 @@ Facts are as of 2026-10-02 (the date of the evidence) unless dated. Each trap pr
 | # | Trap | The incident | Do this |
 |---|---|---|---|
 | 1 | Claiming work that was not done | 2026-09-10: a draft status line said the organisation descriptions on Crunchbase, LinkedIn and GitHub were standardised. "We didn't do this." It was removed | List only what you can point to. Everything else is a to-do (`status-updates.md`) |
-| 2 | Reopening a settled item | 2026-08-03: the Launchpad platform wallet variable was cleared with DevOps, and the previous operator asked that it never be raised again | ASK: Adithya what was settled before you write to DevOps |
+| 2 | Reopening a settled item | 2026-08-03: the Launchpad platform wallet variable was cleared with DevOps, and the previous operator asked that it never be raised again | Read `house-style.md` section 4 ("Never raise") before you write to DevOps; for anything else that may be settled, ASK: Rahul |
 | 3 | Naming a cause you have not confirmed | 2026-08-11: an assistant kept naming an upcoming network upgrade as the cause of stuck interactions and was told to ignore it (inferred from the reply) | Write what you observed, with the command and the UTC time |
 | 4 | A stale fact | The 2026-09-09 review set said 50 namespaces and an unfinished PR 3. By 2026-10-02 it was 49 and finished. A registry id in a message is wrong after the next reset | Re-read the fact the day you send. Date it in the message |
 | 5 | Counts that disagree | 2026-08-21: a report said 27 errors, held 26 in its table and 25 in its list | Recount after every edit, before the operator reads |
@@ -31,7 +31,7 @@ Facts are as of 2026-10-02 (the date of the evidence) unless dated. Each trap pr
 | 16 | A secret in a message, or asked for | 2026-08-31: a Buffer key pasted in chat was revoked. An env file once went over Teams. A DevOps reply quoting a GHCR permission error asked for a personal access token (product and date not recorded) | Name the variable and where it lives. Tell the operator how to get a value. Never paste one |
 | 17 | A paste-ready reply when the previous operator asked how | The previous operator wrote "don't give me a paste-ready reply, tell me how to get it" about a DevOps request for a key, and two prompts later "give me a message" when he wanted a draft. The dates are not recorded (inferred early August 2026) | Read the verb. "How do I get" is an explanation. "Give me a message" is a draft |
 | 18 | A public channel treated as private | 2026-08-31: Luma text and a blog still carried the cancelled session 8 plan. Public copy has no internal history, reviewer names or private repo paths | Ask who can read the channel. If outsiders can, apply `house-style.md` section 2 |
-| 19 | A security weakness described, or mentioned, in a draft | Not onboarding material | Tell the operator only the one sentence in `house-style.md` section 4 (DevOps, "Never raise"). The draft leaves it out. ASK: Adithya for the handover note |
+| 19 | A security weakness described, or mentioned, in a draft | Not onboarding material | Tell the operator only the one sentence in `house-style.md` section 4 (DevOps, "Never raise"). The draft leaves it out. The product's doc in `project-handover-docs/` is the note |
 | 20 | A key hidden in a hash | A 64 digit hex value is an interaction hash or a private key, and they look the same | Copy hashes from the explorer. Use `--hashes-ok` only for those. Never copy a value out of a wallet or a file that may hold a key |
 
 ## Process

@@ -1,6 +1,6 @@
 # Evals for moi-devrel/explain
 
-Eight prompts with the behaviour expected, then the record of the checks run on this skill. Run the prompts against a fresh Claude with only this library, and read each response against "Expect". Facts are as of 2026-10-03. A file named without a folder is in `moi-devrel/references/` (`terminology.md`) or `moi-devrel/claim-check/references/` (`caught-claims.md`). This skill has no script, so there are no script tests; the checks run on its text, and the review that followed the first build, are recorded at the end.
+Eight prompts with the behaviour expected, then the record of the checks run on this skill. Run the prompts against a fresh Claude with only this library, and read each response against "Expect". Facts are as of 2026-10-03; dated expected values (build, errors, timestamps) were recorded 2 to 4 October 2026, so re-run them on the day. A file named without a folder is in `moi-devrel/references/` (`terminology.md`) or `moi-devrel/claim-check/references/` (`caught-claims.md`). This skill has no script, so there are no script tests; the checks run on its text, and the review that followed the first build, are recorded at the end.
 
 ## Prompts
 

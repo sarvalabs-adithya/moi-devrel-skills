@@ -25,7 +25,7 @@ A tweak a reviewer asks for on a PR that is already open is not a batch: it goes
 6. Every merge to a deploy branch deploys. A stack of thirteen is thirteen deploys, so decide with the operator whether to merge one at a time (section 5).
 
 ## 4. Updating many PRs: a staged push with a pause
-The previous operator's instruction on 2026-10-01 for the six docs PRs: commit and push `moidocs` first, then every four minutes update the next one. The reason is not recorded; the notes say it may be to avoid a burst of notifications or builds (inferred). ASK: Adithya if it matters.
+The previous operator's instruction on 2026-10-01 for the six docs PRs: commit and push `moidocs` first, then every four minutes update the next one. The reason is not recorded; the notes say it may be to avoid a burst of notifications or builds (inferred). It does not change the method.
 1. List the PRs in the order to push: the one other PRs depend on first. `moidocs` #124 goes before `MOI-Website` #57 because the site links to a file that #124 creates (as of 2026-10-01).
 2. Ask once for the whole sequence, naming the PRs, the order and the pause (`templates/gate-asks.md`). One yes covers a short sequence the ask spelled out. It does not cover a PR added later.
 3. For each PR: the proof of the change that is being pushed (`rebase-proof.sh` SAME or the rewrite proof), then the pinned push, then read back its head commit and its checks.
@@ -37,7 +37,7 @@ Retries have their own pace: when Actions stopped on 2026-08-28 to 2026-08-30 th
 ## 5. Merging a stack
 1. One PR at a time, in order, each on a yes that names the number (or one yes that names every number, the order and the check after each, as in section 4). Explain each PR first in plain words: what it changes, why, what could break. On 2026-09-15 the previous operator had PRs explained and questioned ("is that standard practice") one by one, and #4 and #5 were each merged on a yes that named the number; #6 to #14 were then merged in order on one request that named the sequence and asked for a check after each.
 2. Check the preconditions that PR has. On 2026-09-15 #3 added migrations and they were applied right after it merged and before #5. Do not copy that order for a Points migration today: at the `feature/ci-cd` tip a build that finds the schema behind refuses to start, so DevOps applies the migration before the merge (`moi-web-products-ops/references/points-settings-and-database.md`). Before #5 the migration count, the `BETTER_AUTH_URL` setting and the deploy of #4 were checked. A database write is its own gate.
-3. After each merge: wait for the deploy, run the live check for that repo (`merge-and-deploy.md`), and only then ask about the next. On 2026-09-15 a local script, `merge_stack.py`, merged #6 to #14 in order, waited for each deploy and ran 64 live checks, all passing. It is on the previous operator's machine only. ASK: Adithya for a copy. Done by hand it is the same steps.
+3. After each merge: wait for the deploy, run the live check for that repo (`merge-and-deploy.md`), and only then ask about the next. On 2026-09-15 a local script, `merge_stack.py`, merged #6 to #14 in order, waited for each deploy and ran 64 live checks, all passing. It was on the previous operator's machine only and is not recorded elsewhere (the previous DevRel's notes). Done by hand it is the same steps.
 4. After the PR below merges, the next PR's base must change to the deploy branch. If the merge was a squash, the PR above no longer has its parent on the base: rebase it with `--onto`.
 ```
 git fetch origin                                      # a yes, once
@@ -47,9 +47,9 @@ git rebase --onto origin/<base> $OLDTIP <layer>
 bash "$SKILLS/moi-devrel/ship/scripts/rebase-proof.sh" backup/<layer>-before-rebase-<date> <layer> origin/<base>
 ```
 Tested 2026-10-03: after a two-commit bottom branch was squash-merged, a plain `git rebase origin/<base>` stopped on an add/add conflict, and `--onto` replayed only the layer's own commit and `rebase-proof.sh` printed SAME. Then push (pinned lease, a gate) and change the PR's base: `gh pr edit <N> --repo <org>/<repo> --base <base>` (a gate).
-5. A PR that stays a draft because its base is not ready (#15) is not merged with the others.
+5. A PR that stays a draft because its base is not ready (#15 on 2026-09-15; closed on 13 October 2026 and replaced by draft #24) is not merged with the others.
 
 ## Not yet known
 - Whether the operator or the Voyage team merges `voyage-api` sync PRs. ASK: Rahul.
-- Where `merge_stack.py` and its 64 live checks are kept. ASK: Adithya.
+- Where `merge_stack.py` and its 64 live checks are kept: not recorded (the previous DevRel's notes); the by-hand steps above replace it.
 - Whether any repo limits the size of a PR or the number of open PRs. None is recorded.

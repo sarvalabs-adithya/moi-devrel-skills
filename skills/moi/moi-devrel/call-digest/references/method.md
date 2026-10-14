@@ -1,6 +1,6 @@
 # Method: from a transcript to decisions, owed work and open questions
 
-Facts are as of 2026-10-03. The rules in this file are this branch's method. The incident behind each is in `traps.md` or in the row it names. "The operator" is the human working with Claude now. Adithya Ganesh is the previous operator. `ASK: <person>` is defined in `moi-devrel/SKILL.md`. Back to `../GUIDE.md`.
+Facts are as of 2026-10-03. The rules in this file are this branch's method. The incident behind each is in `traps.md` or in the row it names. "The operator" is the human working with Claude now. The previous operator is the DevRel who held this role until 14 October 2026. `ASK: <person>` is defined in `moi-devrel/SKILL.md`. Back to `../GUIDE.md`.
 
 ## 1. Read all of it first
 1. Work from the clean copy (`transcript.clean.txt`), never from the original. The line numbers are the same in both.
@@ -37,10 +37,10 @@ A decision about how MOI is described (participant-centric, network ID, who buil
 ## 4. When the speaker is not labelled
 Labels come in three kinds: a name, a number ("Speaker 3"), or nothing. A number is not a person. Do this in order:
 1. Read the Speakers part of the report: which labels exist, how many turns, and what share of the talk. An Otter file may carry its own shares in the header ("Speaker 1 (62%)"). A share is a hint, not an identity.
-2. Ask the operator who was on the call, and which label is theirs. Their own turns are the fastest anchor. Ask for a role or a first line for the others: "Who opens at 0:21?" If the operator was not on the call, they cannot answer: ASK: Adithya (or Rahul, if he was on it) and leave the label unmapped until then.
-3. Look for evidence in the text: a person addressed by name who answers next, an introduction, "I'll do the DevRel updates" said by the one who presents. Write the evidence beside the mapping and label it inferred. Example: in the 2026-08-04 Otter file the research took Speaker 3 to be the previous operator and Speaker 2 the person who directs (inferred to be Rahul). Both were inferences. That file exists only on the previous operator's machine, in an ignored folder, not on GitHub (checked 2026-10-03). ASK: Adithya for a copy.
+2. Ask the operator who was on the call, and which label is theirs. Their own turns are the fastest anchor. Ask for a role or a first line for the others: "Who opens at 0:21?" If the operator was not on the call, they cannot answer: ASK: Rahul (or whoever ran the call) and leave the label unmapped until then.
+3. Look for evidence in the text: a person addressed by name who answers next, an introduction, "I'll do the DevRel updates" said by the one who presents. Write the evidence beside the mapping and label it inferred. Example: in the 2026-08-04 Otter file the research took Speaker 3 to be the previous operator and Speaker 2 the person who directs (inferred to be Rahul). Both were inferences. That file exists only on the previous operator's machine, in an ignored folder, not on GitHub and not available after the handover (checked 2026-10-03).
 4. Keep the original label in every quote, as in section 3.
-5. For a decision, task or figure from a speaker you cannot map: owner "unlabelled speaker", status proposed, and an open question "who said this" with the operator as the one to ask (ASK: Adithya if the operator was not on the call). Never fill in a name from style, or from who usually decides.
+5. For a decision, task or figure from a speaker you cannot map: owner "unlabelled speaker", status proposed, and an open question "who said this" with the operator as the one to ask (ASK: Rahul or whoever ran the call, if the operator was not on the call). Never fill in a name from style, or from who usually decides.
 6. If the file has no labels at all (the report says so), every "I" is unattributed. List the work as "owner not stated" and ask the operator to read the lines and name the speaker. On 2026-08-24 the speaker of "do protocol updates" had no label. `moi-webinar/community-call` records that speaker as unlabelled and takes the slide owner from other requests (inferred there).
 7. Names that repeat or look alike: the roster holds Harsh Gupta and Harsh Rastogi, plus a Harsh tied to Galxe who may be Rastogi, and Rahul, Ram and Rishal share a first letter, so a transcript can swap them (no mix-up is on record). Ask which one before assigning anything. `mishearings.md` section E.
 
@@ -70,7 +70,7 @@ List, with who could answer each:
 - an "I'll check" with no result;
 - a name, product or amount that the check could not settle;
 - a task the call implied and nobody took.
-For a person or role the library does not settle, write `ASK: <person>` using `moi-devrel/references/people-and-teams.md`. For history, `ASK: Adithya`. Never send the operator a question a new person cannot answer.
+For a person or role the library does not settle, write `ASK: <person>` using `moi-devrel/references/people-and-teams.md`. For history, `ASK: Rahul`. Never send the operator a question a new person cannot answer.
 
 ## 8. Names and figures: the check mark
 Everything taken from auto-notes starts as "check" in the digest. Take it off only when its source is named.

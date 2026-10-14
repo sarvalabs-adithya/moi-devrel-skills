@@ -21,7 +21,7 @@ Facts are as of 2026-10-02. The `type` column of the ledger holds one or more of
 - "Live on devnet" needs check 1 of `live-reads.md` (the version) and, for a feature, a field it needs (check 4). Status words are claims too: `shipped`, `available`, `stable`, `latest`, `supported`.
 - A release candidate is not shipped. A CC13 slide said `js-moi-agent-registry v0.3.0-rc1` shipped, and it was a candidate pinned to an exact SDK peer (2026-08-27). Keep the `-rc` suffix and add no sentence explaining it. <!-- slop-lint: ignore -->
 - A feature found only in the `develop` tip is "planned" until a live read shows it. On 2026-09-10 devnet answered `payer` while the tip had `fee_payer`.
-- Community calls: no devnet read from the day of CC14 is on record. CC14 was apparently Friday 25 September (inferred; ASK: Adithya for history, or Vardan for the sheet). The instruction of 2026-09-25 fixed the wording "went live on devnet"; it was not a check.
+- Community calls: no devnet read from the day of CC14 is on record. CC14 was apparently Friday 25 September (inferred; ASK: Vardan, who keeps the call sheet). The instruction of 2026-09-25 fixed the wording "went live on devnet"; it was not a check.
 
 ## promise
 - A statement about the future, or about who will appear, is a claim about someone else's plans. The CC13 description named guests that the CC14 deck did not have. A promise for the next call goes in only when the owner has confirmed it.

@@ -1,4 +1,4 @@
-# MOI ship: from working copy to production
+# moi-devrel/ship: from working copy to production
 
 Branch of `moi-devrel`. `$SKILLS`, the operator, `ASK:`, the house rules and the gates are in `moi-devrel/SKILL.md`; this guide adds what is specific.
 
@@ -60,7 +60,7 @@ Full list with dates: `references/traps.md`.
 | Review tweaks go on one batch branch and one PR | 2026-09-15: five tweak PRs opened, the operator asked for one batch |
 | Update the PR body when the facts change | 2026-10-02: three of five docs PR bodies were stale |
 | A push to a public repo publishes | `MOI-Webinars`, `MOI-Website`, `moi-dataroom0`, `moi-mcp`, `js-moi-sdk` are public. Commit messages and PR text are public |
-| `moi-devrel/references/repo-map.md` marks a product with an open security finding | Say only: "A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin." Nothing more in a PR, commit or comment |
+| `moi-devrel/references/repo-map.md` marks a product with an open security finding | Say only: "A security finding is open on this product as of 2026-10-02. Read the product's doc in `project-handover-docs/` before touching its admin." Nothing more in a PR, commit or comment |
 
 ## Gates
 Every gate in `moi-devrel/SKILL.md` applies. These are the ones shipping meets most. Building, linting, local commits once asked, and read-only checks are free.

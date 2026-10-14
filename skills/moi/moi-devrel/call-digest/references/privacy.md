@@ -31,7 +31,7 @@ c. Personal details.
 "The notes list attendees by personal email and phone. The clean copy hides them and the digest names no one by contact detail. Do not forward the original."
 
 d. A security finding.
-If the product the call named is one that `moi-devrel/references/repo-map.md` marks, write exactly this in the digest, with the product's name before it: "A security finding is open on this product as of 2026-10-02. ASK: Adithya for the handover note before touching its admin." For any other product, write no sentence: give only the line range and tell the operator in the conversation to ASK: Rahul who receives security reports. The only other thing the digest may hold is the line range of the clean copy where the talk sits. Nothing else about it goes in the digest, the chat or a message. If the operator asks what was said, point to those lines and let them read them; do not summarise them.
+If the product the call named is one that `moi-devrel/references/repo-map.md` marks, write exactly this in the digest, with the product's name before it: "A security finding is open on this product as of 2026-10-02. See the Open items of its doc in project-handover-docs/ before touching its admin; ASK: Rahul if unclear." For any other product, write no sentence: give only the line range and tell the operator in the conversation to ASK: Rahul who receives security reports. The only other thing the digest may hold is the line range of the clean copy where the talk sits. Nothing else about it goes in the digest, the chat or a message. If the operator asks what was said, point to those lines and let them read them; do not summarise them.
 
 e. Something you cannot tell.
 "I could not tell whether the screen share showed a wallet setup. Please check lines 300 to 340 of the original yourself."
@@ -58,11 +58,11 @@ It masks these shapes:
 
 The report prints a word of 12 or more characters that holds a digit as a placeholder, and any word of 20 or more characters as another, so a short unknown token is not echoed there.
 
-It misses: a key or phrase spelled out letter by letter, a phrase said with common words between the recovery words, a value shown only on the shared screen (the transcript cannot see a screen), a secret in a recording, and any shape it does not know. A clean report is not proof. When the call included a wallet setup, a login or an `.env` on screen, read that stretch of the original yourself or ask the operator to.
+It misses: a key or phrase spelled out letter by letter, a phrase said with common words between the recovery words, a value shown only on the shared screen (the transcript cannot see a screen), a secret in a recording, and any shape it does not know. A clean report is not proof. When the call included a wallet setup, a login or an `.env` on screen, ask the operator to read that stretch of the original: Claude reads only the clean copy and never opens the original.
 
 The phrase rules assume the 2048-word BIP-39 English list that the MOI Wallet uses: words of 3 to 8 letters. A real phrase holds only those words, so a run that contains another common English word is treated as prose. If you add a word to `STOPWORDS` in `scripts/transcript-prep.py`, check it against that list first; "that", "this" and "right" are on it.
 
 ## Not yet known
 - Who owns the recordings and notes in the shared Google accounts, and who may delete them. ASK: Rahul.
-- Whether the recording of the 2026-09-24 walkthrough and its notes were removed. The research records only that the notes held the words. ASK: Adithya.
+- Whether the recording of the 2026-09-24 walkthrough and its notes were removed. The research records only that the notes held the words. not recorded (the previous DevRel's notes); ASK: Rahul.
 - Whether Otter or Zoom keep transcripts on their servers after export, and who can see them. ASK: Rahul who holds those accounts.
