@@ -1,6 +1,6 @@
 # Connect a client and prove each class of tool
 
-Run this after every production deploy and when onboarding a new user. Reads come first and cost nothing. Anything that signs or spends is a GATE and is done by the operator's own wallet on the operator's phone. Facts are as of 2026-10-02 (research) and 2026-10-03 (live reads). A recorded, repeatable pass with a plan and a log is the branch `moi-devrel/test-round`; its case list for this connector is `moi-devrel/test-round/references/mcp-pass.md`. Back to `../SKILL.md`.
+Run this after every production deploy and when onboarding a new user. Reads come first and cost nothing. Anything that signs or spends is a GATE and is done by the operator's own wallet on the operator's phone. Facts are as of 2026-10-02 (research) and 2026-10-03 (live reads). A recorded, repeatable pass with a plan and a log uses the case list in `test-pass.md`. Back to `../SKILL.md`.
 
 **Column "Who".** `Claude` runs a read-only command. `Operator` means the operator does it in their own claude.ai and wallet; Claude explains and checks the result. These steps write only the operator's own connector, sign-in and pairing records, and Claude does not drive them. `GATE` needs the operator's explicit yes naming the action, and then the operator does the wallet step. Claude never handles a recovery phrase, including a throwaway one (`moi-devrel/references/consent-and-identity.md`, section 5). If one is pasted, do not repeat it, say it is exposed, and carry on with the wallet extension or phone app.
 

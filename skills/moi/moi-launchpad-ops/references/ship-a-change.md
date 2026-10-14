@@ -44,13 +44,13 @@ A manual run of "MOI Agent Launchpad CI/CD" (`gh workflow run ci-cd.yml -R sarva
 | Any | Health script exits 0 or WARN you can explain |
 | Runtime bundle | `/api/runtime/version` shows a new value. The operator downloads a setup script for a test agent they own (a download: GATE) and prints only its web addresses with `grep -Eo 'https?://[A-Za-z0-9.:-]+' <the downloaded file> \| sort -u`: the Launchpad host must be the production host, not localhost and not the old vercel.app host. The file holds that agent's private key, so Claude does not open it, and the operator deletes it after the check |
 | Registry or chain read | `chain-listing` PASS twice, 30 seconds apart. A single read is a sample (see `health.md`) |
-| Wallet activation | A fresh wallet, with the operator at the keyboard (it spends registration-wallet funds on devnet: GATE): the page says ready, the receipt status is 0, and the wallet shows a balance. For the full pass use `moi-devrel/test-round` (case list: `moi-devrel/test-round/references/launchpad-pass.md`) with `docs/E2E-TESTING.md` sections 1 and 13 |
+| Wallet activation | A fresh wallet, with the operator at the keyboard (it spends registration-wallet funds on devnet: GATE): the page says ready, the receipt status is 0, and the wallet shows a balance. For the full pass use the case list in `test-pass.md` with `docs/E2E-TESTING.md` sections 1 and 13 |
 | Telegram | The operator runs `getWebhookInfo` (`health.md`): no new `last_error_message` |
 | Something users see | Open the page in a private window with no console errors |
 No endpoint reports the running commit. To see which image runs, ask DevOps which image tag the web container runs (ASK: Upendhar), or check a behaviour you changed.
 
 ## When a full test pass is needed
-For a change to registration, activation, relay, templates or payments, run a structured pass: the method is `moi-devrel/test-round`, the recorded case list is `moi-devrel/test-round/references/launchpad-pass.md`, and the source document is `docs/E2E-TESTING.md` (private repo, on `master`). The rules to keep:
+For a change to registration, activation, relay, templates or payments, run a structured pass: the case list is `test-pass.md`, and the source document is `docs/E2E-TESTING.md` (private repo, on `master`). The rules to keep:
 - Real devnet interactions only. Say plainly in the write-up when something is simulated. Spending devnet funds is a GATE.
 - Two separate funded wallets: a creator cannot buy their own agent. The extension unlocked, a Telegram account, a free Groq key, and the commit id written down (`git rev-parse --short master`).
 - Download the runtime again after a template change. Testing without it tests the old code.

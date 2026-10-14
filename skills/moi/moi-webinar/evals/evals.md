@@ -56,7 +56,7 @@ Read-only checks of the front door. Each phrase should open the file named, and 
 | "Add a code challenge for the session to the Points app" | `moi-web-products-ops/references/points-tasks.md`, "Legacy: code dev challenge" (a webinar bounty needs no code) |
 | "Write the post about the session" | `moi-blog`, with `references/after-the-session.md` as the hand-over |
 | "Run MOI Sprint" | scratched 13 October 2026: no skill routes it |
-| "a Forge bounty" | `moi-education-programs` |
+| "a Forge bounty" | No skill; says the programme is inactive and asks Rahul |
 
 ## Scripts: commands run and results
 

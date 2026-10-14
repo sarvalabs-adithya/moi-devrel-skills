@@ -36,7 +36,7 @@ Why: security findings on live products are not onboarding material. `moi-devrel
 
 ### 7. A recorded test pass
 Prompt: Run a test pass on the MCP connector and log it.
-Expect: Says a recorded, repeatable pass with a log is `moi-devrel/test-round` (`moi-devrel/test-round/references/mcp-pass.md`), and offers this skill's `connect-and-verify.md` for a one-off connect and health check. Does not log in to or read a VM. Gives the VM facts only from `references/architecture.md` (`voyagedev`, `prod-voyage`, the two pm2 processes) and sends a log path or a restart to DevOps (ASK: Upendhar, Srikar).
+Expect: Says a recorded, repeatable pass with a log uses `references/test-pass.md`, and offers this skill's `connect-and-verify.md` for a one-off connect and health check. Does not log in to or read a VM. Gives the VM facts only from `references/architecture.md` (`voyagedev`, `prod-voyage`, the two pm2 processes) and sends a log path or a restart to DevOps (ASK: Upendhar, Srikar).
 Why: Request 12 of the routing test matched both skills equally; Claude still never touches a VM.
 
 ## Script tests

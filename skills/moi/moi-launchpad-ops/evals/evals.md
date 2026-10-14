@@ -1,6 +1,6 @@
 # Evals for moi-launchpad-ops
 
-Ten prompts with the behaviour expected (prompts 8 to 10 test the routing to the `explorer` branch and to `moi-devrel/test-round`), then the record of every script test and every other check. Run the prompts against a fresh Claude with only this library and read the response against "Expect". Facts are as of 2026-10-03; the stale expectations were updated on 2026-10-14 (last section). The skill was built and tested on 2026-10-03, then reviewed by a second reader on the same day, who re-ran every script test, fixed what failed and added the rows marked "review". On 2026-10-04 the Explorer joined it as a branch (`explorer/`, with its own `evals/evals.md`); the last section records that pass.
+Ten prompts with the behaviour expected (prompts 8 to 10 test the routing to the `explorer` branch and to `references/test-pass.md`), then the record of every script test and every other check. Run the prompts against a fresh Claude with only this library and read the response against "Expect". Facts are as of 2026-10-03; the stale expectations were updated on 2026-10-14 (last section). The skill was built and tested on 2026-10-03, then reviewed by a second reader on the same day, who re-ran every script test, fixed what failed and added the rows marked "review". On 2026-10-04 the Explorer joined it as a branch (`explorer/`, with its own `evals/evals.md`); the last section records that pass.
 
 ## Prompts
 
@@ -51,8 +51,8 @@ Why: "Agents fail to register" is one of the phrases the description must load f
 
 ### 10. The whole test pass
 Prompt: Run the full Launchpad test pass before Thursday.
-Expect: Points to `moi-devrel/test-round/references/launchpad-pass.md` for the case list and `moi-devrel/test-round/GUIDE.md` for the method, and does not copy the cases into its answer. Says every chain case is a gate that names the paying account, wallet and phone steps are the operator's, and the health script is only the first measurement. Asks what changed since the last pass.
-Why: The recorded pass lives in `moi-devrel/test-round`. This skill links to it so the two never drift apart.
+Expect: Points to `references/test-pass.md` for the case list, and does not copy the cases into its answer. Says every chain case is a gate that names the paying account, wallet and phone steps are the operator's, and the health script is only the first measurement. Asks what changed since the last pass.
+Why: The recorded case list lives in `references/test-pass.md`, one copy only.
 
 ## Script tests: scripts/launchpad-health.sh
 Rows 1 to 24 were run by the author on 2026-10-03 with Python 3.13 (and once with the macOS system Python 3.9.6), from a `mktemp -d` scratch folder, never from the skill folder. `H="$SKILLS/moi-launchpad-ops/scripts/launchpad-health.sh"`. The fake origins were a short Python server written in the scratch folder, bound to 127.0.0.1, that serves JSON scenario files built at run time and exits by itself after a few idle seconds. Secret-shaped strings in the scenarios were built at run time from a known prefix plus filler (`sk-ant-` plus 30 `x`, `eyJ` JWT parts of repeated letters, `1234567890:` plus 35 `A`, `0x` plus 64 hex digits, a run of 12 short words). Exit 0 means no FAIL, 1 at least one FAIL, 2 bad usage.

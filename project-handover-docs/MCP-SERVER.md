@@ -251,7 +251,7 @@ The chain canary failing:
 
 ## Claude skill
 
-The **moi-mcp-ops** skill covers running the server: health, shipping, connecting, triaging the automatic checks, settings, rollback and the publishing questions. After a devnet reset, start with **moi-devnet-reset** for the order across products. A recorded test pass with a plan and a log is the **test-round** branch of moi-devrel, whose case list for this connector is mcp-pass.md.
+The **moi-mcp-ops** skill covers running the server: health, shipping, connecting, triaging the automatic checks, settings, rollback and the publishing questions. After a devnet reset, start with **moi-devnet-reset** for the order across products. A recorded test pass uses the case list in moi-mcp-ops/references/test-pass.md.
 
 | When | What to tell Claude | What the skill does |
 |---|---|---|
@@ -264,7 +264,7 @@ The **moi-mcp-ops** skill covers running the server: health, shipping, connectin
 | A user reports a fault | "A user says the connector will not connect." | Finds the row above and drafts the reply. |
 | A bad deploy | "Roll back the MCP." | Gives the revert and redeploy steps. |
 | Publishing | "Can we publish the package?" | Lists what is still open and who decides each point. |
-| A test pass | "Run the MCP test round." | The test-round branch: a plan, the cases, a log. |
+| A test pass | "Run the MCP test pass." | Walks the case list in test-pass.md and keeps a log. |
 
 What the skill never does without DevRel's yes: push, open or comment on a PR or issue (the repo is public), merge, run the deploy workflow, change a secret, push a tag, or send a message. It never logs in to the VM, never calls a wallet or write tool itself, and never handles a recovery phrase.
 

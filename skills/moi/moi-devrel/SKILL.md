@@ -1,21 +1,18 @@
 ---
 name: moi-devrel
-description: "Start here for MOI developer relations (DevRel): house rules, repo map, people, devnet facts. Use when new to MOI DevRel, or for \"where does X live\", \"who owns X\", \"who do I ask\", \"which skill do I use\", \"is devnet live\", \"what time is that in IST\", \"lint this text\", \"scan for secrets\", or a message to DevOps, Rahul, a reviewer or the protocol team (\"status update\"). Branches: ship (\"commit\", \"push\", \"open a PR\", \"rebase\", \"merge\", \"is it live\", \"remove the co-author\"); design (\"brand colours\", \"logo\", \"social card\", \"make a graphic\", \"Pip\"); claim-check (\"fact check\", \"is this true\", \"are you sure\"); explain (\"explain X\", \"teach me\"); call-digest (\"call transcript\", \"meeting notes\", \"what did we decide on the call\", \"what do I owe\", \"action items\"); test-round (\"test pass\", \"test round\", \"regression pass\"). Other topics have their own skills (webinar and decks, blog, docs, Launchpad, MCP, the website and Dataroom and Points, devnet reset, standards, education), all listed inside."
+description: "Start here for MOI developer relations (DevRel): house rules, repo map, people, devnet facts. Use when new to MOI DevRel, or for \"where does X live\", \"who owns X\", \"who do I ask\", \"which skill do I use\", \"is devnet live\", \"what time is that in IST\", \"lint this text\", \"scan for secrets\", or a message to DevOps, Rahul, a reviewer or the protocol team (\"status update\"). Branches: ship (\"commit\", \"push\", \"open a PR\", \"rebase\", \"merge\", \"is it live\", \"remove the co-author\"); design (\"brand colours\", \"logo\", \"social card\", \"make a graphic\", \"Pip\"); claim-check (\"fact check\", \"is this true\", \"are you sure\"). Other topics have their own skills (webinar and decks, blog, docs, Launchpad, MCP, the website and Dataroom and Points, devnet reset), all listed inside."
 ---
 
 # MOI DevRel: start here
 
 ## What this covers
 The main skill, and the one every other skill leans on. Its own job is to orient a newcomer and hold what every job needs: the house rules, the standing work loop, the repo map with product health checks, people, calendar, keys and accounts (names only), devnet facts, wording rules, teammate messages and the shared scripts. DevRel makes what Sarva Labs and the protocol team ship usable and visible: the monthly community call, Builders webinars, release posts, blog and social, four docs sites, decks, standards work (x402, CASA) and six products the previous operator built or ran (Agent Launchpad, Agent Explorer, MCP server, website, Dataroom, Points Program). Which of them DevRel now owns is not settled. ASK: Rahul. A human operator approves every step that leaves the machine; Claude researches, builds, verifies and explains.
-Six branches live inside this skill, each its own guide (`<branch>/GUIDE.md`):
+Three branches live inside this skill, each its own guide (`<branch>/GUIDE.md`):
 - `moi-devrel/ship`: how any change gets out, from work identity to a checked live page.
 - `moi-devrel/design`: the visual brand: colour and type tokens, logos, the mascot Pip, page and card starters, a brand checker.
 - `moi-devrel/claim-check`: a ledger that checks each claim in text that leaves the team against source.
-- `moi-devrel/explain`: teaches a MOI concept top down until the operator can say it and defend it.
-- `moi-devrel/call-digest`: a call transcript into decisions, owed work with owner and date, and open questions.
-- `moi-devrel/test-round`: a planned, recorded test pass on a product, with a log someone else can trust.
 `ship` (how any change gets out) and `design` (the brand) are the underlying instructions for every skill in the library, and the other skills do not repeat them. `claim-check` runs before anything public: posts, decks, scripts, social copy, docs pages, filings.
-Not covered here: Builders sessions, the monthly call and decks (`moi-webinar`, `moi-webinar/community-call`, `moi-webinar/deck`); the blog and release posts (`moi-blog`, `moi-blog/release-pack`); docs sites and search visibility (`moi-docs`, `moi-docs/geo`); the Launchpad and the Explorer (`moi-launchpad-ops`, `moi-launchpad-ops/explorer`); the MCP server (`moi-mcp-ops`); a devnet reset (`moi-devnet-reset`); outside standards (`moi-standards-submission`); Forge and awesome-moi (`moi-education-programs`; MOI Sprint was scratched on 13 October 2026).
+Not covered here: Builders sessions, the monthly call and decks (`moi-webinar`, `moi-webinar/community-call`, `moi-webinar/deck`); the blog and release posts (`moi-blog`, `moi-blog/release-pack`); docs sites and search visibility (`moi-docs`, `moi-docs/geo`); the Launchpad and the Explorer (`moi-launchpad-ops`, `moi-launchpad-ops/explorer`); the MCP server (`moi-mcp-ops`); a devnet reset (`moi-devnet-reset`). Outside standards (x402, CASA) and the education programmes (Forge, awesome-moi) have no skill: nothing is active (14 October 2026).
 
 ## Before you start
 Conventions every `moi-*` skill and branch uses. They point here for them.
@@ -44,7 +41,7 @@ Seven house rules apply at every step, in every skill and branch.
 | # | Step | What to do | Where or command | Done when |
 |---|---|---|---|---|
 | 1 | Goal | Restate the goal in one line. For anything new, propose a short plan: steps, outputs, what only a human can do. | the conversation | The operator says yes to the plan. |
-| 2 | Teach | If the operator does not yet own the mechanism, explain top down: end use, mechanism, one example with named actors, plain words, each term defined on first use. | `moi-devrel/explain`, `references/glossary.md` | The operator restates it ("so ... right?") and you answer yes or no first. |
+| 2 | Teach | If the operator does not yet own the mechanism, explain top down: end use, mechanism, one example with named actors, plain words, each term defined on first use. | `references/glossary.md` | The operator restates it ("so ... right?") and you answer yes or no first. |
 | 3 | Build | Work locally. Do not push, post or deploy. | a file on disk | A draft exists and you state its exact path. |
 | 4 | Show | Show it running or rendered, and name the path or URL that is fresh. | local server on a new port, preview link, opened file | The operator has seen the real output. |
 | 5 | Review | Number the items. Change exactly the item or sentence the operator points at and nothing around it. | `references/house-style.md` section 1 | Every numbered item is answered. |
@@ -54,7 +51,7 @@ Seven house rules apply at every step, in every skill and branch.
 | 9 | Ship | Only on an explicit yes that names the action. After a manual step by the human, re-read state before continuing. | `moi-devrel/ship`; Gates below | The live URL or file has been checked after the run. |
 | 10 | Close | Hand back in the format at the end of this file. | Hand-back | Remaining work and a ready verdict are stated. |
 
-Where a branch takes over: step 2 is `moi-devrel/explain`; step 3 is `moi-devrel/design` for anything visual and `moi-web-products-ops` for a change to the website, Dataroom or Points; step 4 can be a recorded pass, `moi-devrel/test-round`; step 6 is `moi-devrel/claim-check`; step 9 is `moi-devrel/ship`. A call transcript enters at step 1 through `moi-devrel/call-digest`. A message to a teammate is drafted at step 3 (`references/house-style.md` section 4) and sent by the operator.
+Where a branch takes over: step 3 is `moi-devrel/design` for anything visual and `moi-web-products-ops` for a change to the website, Dataroom or Points: step 6 is `moi-devrel/claim-check`; step 9 is `moi-devrel/ship`. A message to a teammate is drafted at step 3 (`references/house-style.md` section 4) and sent by the operator.
 
 ## Which file to read
 This skill's own files:
@@ -82,9 +79,6 @@ Branches (asked to do X, read the guide inside this skill):
 | Commit, push, open or update a pull request, rebase, merge, a preview link, "is it live", switch `gh`, remove an AI co-author line, stack or batch PRs | `ship/GUIDE.md` |
 | Colours, fonts, the MOI logo, a social card or share image, a branded page or mock, Pip, "is this on brand" | `design/GUIDE.md` |
 | "Fact check", "is this true", "verify this post", a claim ledger, "is it live on devnet" | `claim-check/GUIDE.md` |
-| "Explain X", "teach me X", "so ... right?", "what will they ask", "make me an explainer" | `explain/GUIDE.md` |
-| A call transcript or auto notes: decisions, action items, "what did Rahul say", "what do I owe" | `call-digest/GUIDE.md` |
-| A test round, test plan, QA pass, regression pass, test log | `test-round/GUIDE.md` |
 
 Other skills (as of 2026-10-13), each read from its own `SKILL.md`:
 | Asked to | Skill |
@@ -96,8 +90,6 @@ Other skills (as of 2026-10-13), each read from its own `SKILL.md`:
 | The MCP server | `moi-mcp-ops` |
 | The website (its chatbot stays hidden; a Luma block replaced the calendar on 13 October 2026), the Dataroom, the Points Program with its webinar bounties: "moi.technology is down", a paper, a points task, a bounty, a migration | `moi-web-products-ops` |
 | After a devnet reset or wipe, before the product's own skill | `moi-devnet-reset` |
-| Take MOI into x402 or the CASA registry | `moi-standards-submission` |
-| Forge, awesome-moi, university and cohort programmes (works alongside `moi-webinar`). MOI Sprint is scratched (13 October 2026) | `moi-education-programs` |
 | Anything else, such as an AMA or game night, podcast or KOL outreach, Galxe, the monthly hackathon, developer support in Discord or GitHub, js-moi-sdk release notes and npm publishing, event logistics, a video editor handoff, taking down the old Vercel copy of the website | No skill exists. Say so. Give the nearest reference (`references/orientation.md` programmes table, `references/calendar.md`, `references/repo-map.md`), apply the house rules, and ASK: Rahul who owns it |
 
 ## Facts that fail silently

@@ -23,7 +23,7 @@ Batching: on 2026-09-15, while the previous operator walked through the moi-proj
 Gates: requesting a review on a PR notifies a teammate, and sharing a Drive document leaves the machine. Both need the operator's yes. On audit, inventory and handover work no PR, comment or review request is made (2026-09-28).
 
 ## Replying to a change request
-1. Read the comment itself on the PR. Copy it exactly. If it was given on a call, quote the speaker and do not summarise (the `moi-devrel/call-digest` rule). Mark names and figures from a transcript "check" (`../SKILL.md`, "Facts that fail silently" 4).
+1. Read the comment itself on the PR. Copy it exactly. If it was given on a call, quote the speaker and do not summarise. Mark names and figures from a transcript "check" (`../SKILL.md`, "Facts that fail silently" 4).
 2. Decide each item: do it, do it differently, or disagree (section below). Do not decide for the reviewer which items matter.
 3. Make the change on the working set. Verify it: build, links, and `moi-devrel/claim-check` if a fact moved. Search every other copy of the text for the same family of mistake. A claim proved false on 2026-08-07 survived in five more files and in the speaker notes of the presented deck.
 4. Check the PR description still matches the branch before you ask again. Three PR bodies were stale on 2026-10-02.
@@ -46,7 +46,7 @@ The format the previous operator used for a colleague's pull request (moidocs #1
 Address the text and its evidence, not the author. The author of #120 is Abhinav Agarwalla.
 
 ## Upstream reviewers
-Messages and comments on a CASA or x402 pull request are public. `moi-standards-submission` owns them and the AI-disclosure question is open (ASK: Rahul). Who answers upstream comments is not recorded. ASK: Rahul.
+Messages and comments on a CASA or x402 pull request are public. No skill covers them since 14 October 2026, and the AI-disclosure question is open (ASK: Rahul). Who answers upstream comments is not recorded. ASK: Rahul.
 
 ## Not yet known
 - Merge rights and required approvals per repo. ASK: Rahul.

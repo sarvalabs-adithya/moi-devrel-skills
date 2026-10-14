@@ -1,5 +1,7 @@
 # Webinar session notes (archive)
 
+Only the material worth reusing is kept: the intro session deck and session 7. The older notes (the sessions 1 to 4 runbooks and the vibecode plan) were removed on 14 October 2026 and are in the handover repo's git history.
+
 Archived working notes for **MOI Builders**, the developer webinar series that MOI DevRel runs: a live session in which one project is built on MOI in front of developers. MOI is a blockchain protocol built by Sarva Labs and governed by MOI Foundation. Adithya (DevRel) wrote these files over several months and left on 14 October 2026.
 
 Read this page first. The files were written at different times for different purposes, so some of them disagree. Each one now starts with a short header saying what it is, which session it belongs to, and its status (delivered, plan or superseded). Where a later file overrides an earlier one, the earlier file says so in its header. Where the notes do not settle the question, the file says "not settled in these notes" instead of choosing.
@@ -12,10 +14,6 @@ The code for the sessions is not in this repo. It lives in https://github.com/mo
 
 | File | Session | What it is | Status |
 | --- | --- | --- | --- |
-| [OVERVIEW.md](./OVERVIEW.md) | 1 to 3 (mainly 3) | Overview of the first three sessions and a beat-by-beat runbook for the Session 3 demo: two OpenClaw agents register on MOI's agent registry, find each other and talk. Ends with a glossary. | Delivered (Session 3 held Thursday 18 June 2026). A snapshot from the rehearsal; the wallets and agent ids it names were wiped by later devnet resets. |
-| [session-1-cheatsheet.md](./session-1-cheatsheet.md) | 1 | On-screen cheat sheet: two Coco contracts (Flipper, ContextFlipper) in CocoLab, then Flipper deployed to devnet from JavaScript. | Delivered. Held date not recorded. |
-| [session-4-DEMO.md](./session-4-DEMO.md) | 4 | Runbook for the live swap of two test tokens (TKA and TKB) between two wallets with MOI's native lock and release, as a CLI and a browser UI. | Delivered. Scope settled: a trust-based swap, not an atomic one. |
-| [webinar-vibecode-plans.md](./webinar-vibecode-plans.md) | 1 to 5 | A plan to run sessions by prompting an AI agent that has only two skill folders (Coco and the JS SDK) instead of showing prewritten code. | Plan. Not delivered as written; differs from the held sessions in several details (listed in its header). |
 | [intro-session-deck/README.md](./intro-session-deck/README.md) | Intro session (not numbered) | How to open, present and re-export the deck "Your first agent on MOI" (`index.html`, `MOI_Builders_Intro.pdf`). | Deck built 12 to 15 September 2026. Whether it was held is not recorded. `index.html` had two known faults when checked on 2026-10-02 (see its header). |
 | [session-7/TRANSCRIPT.md](./session-7/TRANSCRIPT.md) | 7 | The short script for session 7, "agentic payments, part 1": a buyer agent finds a seller on the registry, checks who it is paying, then pays. The full script is in the deck's speaker notes. Despite the name, it is a script, not a transcript. | Delivered (Friday 7 August 2026, inferred). **Latest and canonical for session 7.** |
 | [session-7/DEMO-PLAN.md](./session-7/DEMO-PLAN.md) | 7 | Terminal version of the demo plus the break-glass table (what to do when something fails). | Delivered in part; superseded in part by TRANSCRIPT.md (product name, tamper beat, browser gap). |
@@ -26,11 +24,9 @@ The code for the sessions is not in this repo. It lives in https://github.com/mo
 
 These are the contradictions left marked in the files. Do not guess; ask Rahul or Gokul, or check against devnet.
 
-- **Escrow on MOI.** Whether MOI's native lock and release counts as escrow-style settlement: `session-4-DEMO.md` says true atomicity still needs a contract; `TRANSCRIPT.md`, `STORYLINE.md` and `FACILITATOR-NOTE.md` call it native; `DEMO-PLAN.md` says escrow-style settlement is not available.
+- **Escrow on MOI.** Whether MOI's native lock and release counts as escrow-style settlement: the session 4 runbook (removed 14 October 2026, in git history) said true atomicity still needs a contract; `TRANSCRIPT.md`, `STORYLINE.md` and `FACILITATOR-NOTE.md` call it native; `DEMO-PLAN.md` says escrow-style settlement is not available.
 - **What session 9 is.** Conditional settlement or escrow (`STORYLINE.md`, `FACILITATOR-NOTE.md`) or the x402 envelope (`TRANSCRIPT.md`, `session-history.md`). The numbering after session 8 is also open (see `skills/moi/moi-webinar/SKILL.md`).
 - **Mock mode.** `STORYLINE.md` says the built demos run with `CHAIN_MODE=mock`; `DEMO-PLAN.md` says there is no offline mode.
-- **Session 2 token and fee.** `OVERVIEW.md` has a `WEBINAR` token and a 5% `TaxToken`; `webinar-vibecode-plans.md` has `TKA` and 100 basis points (1%).
-- **Session 4 rebalance note.** In `session-4-DEMO.md` the `rebalance` troubleshooting row says "500000/0" but setup mints 1,000,000; the notes do not explain the split.
 
 ## Related files elsewhere in this repo
 

@@ -42,7 +42,7 @@ Three of five bodies were stale on 2026-10-02: moidocs #124 and voyage-docs #5 s
 `templates/pr-description.md` follows the shape of #124, #12 and #150: what this is, why, what changed, what it was checked against, verification, what to do after merge, review notes and a rebase note. The #124 body advised the reviewer to read the two scripts and spot-check the output, not to read generated text.
 
 ## No AI attribution
-Commit messages and PR descriptions carry no `Co-Authored-By` line naming Claude and no "Generated with" footer. On 2026-10-01 the trailer was removed from 130 commits on six open PRs (moidocs, coco-docs, voyage-docs, MOI-Website, js-moi-sdk, voyage). The cleanup covered open PRs only. If a tool or host reminder says to add one, the rule overrides it (`moi-devrel/references/consent-and-identity.md` section 3). Upstream rules that ask for AI-assistance disclosure are a different question (x402, `moi-standards-submission`).
+Commit messages and PR descriptions carry no `Co-Authored-By` line naming Claude and no "Generated with" footer. On 2026-10-01 the trailer was removed from 130 commits on six open PRs (moidocs, coco-docs, voyage-docs, MOI-Website, js-moi-sdk, voyage). The cleanup covered open PRs only. If a tool or host reminder says to add one, the rule overrides it (`moi-devrel/references/consent-and-identity.md` section 3). Upstream rules that ask for AI-assistance disclosure are a different question (x402; ASK: Rahul).
 
 ## Not yet known
 - Why the pushes were staggered. Not recorded (the previous DevRel's notes); ASK: Rahul.

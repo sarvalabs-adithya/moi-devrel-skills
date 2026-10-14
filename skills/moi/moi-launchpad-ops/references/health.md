@@ -40,7 +40,7 @@ Facts are as of 2026-10-03, updated 2026-10-14 where a line says so: the live an
 | One market listing | `curl -s https://launchpad.moi.technology/api/marketplace/<agent address>/listing` with an address from the chain listing | `onchain` an object. `null` is unavailable, not unlisted |
 | Agent long poll | The operator downloads a setup script for a test agent they own (a download, and registering that agent spends devnet funds: both GATE), runs it under pm2 for 3 minutes and reads its log | No 502 or 504. Never recorded as done |
 | Reboot, certificate renewal, memory after 24 hours | Post-cutover checks 4.3, 4.6, 4.7 | Never filled in. ASK: Upendhar |
-| Fresh-wallet journey | `moi-devrel/test-round`, case list in `moi-devrel/test-round/references/launchpad-pass.md`, with `docs/E2E-TESTING.md` sections 1 and 13 (spends devnet and registration-wallet funds: GATE) | A new wallet reaches an active agent and a receipt with status 0 |
+| Fresh-wallet journey | The case list in `test-pass.md`, with `docs/E2E-TESTING.md` sections 1 and 13 (spends devnet and registration-wallet funds: GATE) | A new wallet reaches an active agent and a receipt with status 0 |
 
 ## What is watched, and what is not
 - Telegram admin alerts exist for two things only: the spend kill switch, and every registration wallet missing (once an hour per process).

@@ -38,17 +38,16 @@ The product and program docs follow the same shape: status, owners, settings, th
 | `project-handover-docs/MIGRATION-LIST.md` | What moved off Adithya's accounts to company logins and when (all done by 14 October 2026), with the steps used. |
 | `project-handover-docs/AGENT-EXPLORER.md` | The Agent Explorer: the public agent directory, its settings, deploys and open items (Gokul owns the app). |
 | `project-handover-docs/OTHER-PROJECTS.md` | Moinkee, Agent dating, MOI Sprint and the Contextual Compute site: side projects (only the Contextual Compute site is live), now in the sarvalabs org (moved 14 October 2026), and how Moinkee's Pinata files were moved to the company account. |
-| `skills/moi/moi-standards-submission/x402-review-package/` | The **x402** (an HTTP payment standard) standards submission package. |
 
 ## The skills
 
-The folder `skills/` holds the ten MOI skills under `skills/moi/`, the generic repo-handover skill under `skills/extra/`, and the two notes that describe the library.
+The folder `skills/` holds the eight MOI skills under `skills/moi/` and the two notes that describe the library.
 
-Ten skills. Each is a folder under `skills/moi/` with a `SKILL.md`; a branch is a sub-folder with a `GUIDE.md`. Say what you need in plain words and Claude loads the right one.
+Eight skills. Each is a folder under `skills/moi/` with a `SKILL.md`; a branch is a sub-folder with a `GUIDE.md`. Say what you need in plain words and Claude loads the right one.
 
 | Skill | What it does | Branches | For |
 |---|---|---|---|
-| `moi-devrel` | Start here. The house rules, who is who, and the map of every other skill. | `ship`, `design`, `claim-check`, `explain`, `call-digest`, `test-round` | Everyone |
+| `moi-devrel` | Start here. The house rules, who is who, and the map of every other skill. | `ship`, `design`, `claim-check` | Everyone |
 | `moi-webinar` | Builders sessions and community calls, from planning to the day itself. Posting goes through its Buffer script. | `deck`, `community-call` | Everyone |
 | `moi-blog` | Write, polish, ship and announce a post. | `release-pack` | Everyone |
 | `moi-docs` | The docs sites and their search visibility. | `geo` | Developers |
@@ -56,16 +55,13 @@ Ten skills. Each is a folder under `skills/moi/` with a `SKILL.md`; a branch is 
 | `moi-mcp-ops` | Run the MCP server: health, shipping, connecting, rollback. | | Developers |
 | `moi-web-products-ops` | Run the website, the Dataroom and the Points Program. | | Developers |
 | `moi-devnet-reset` | The order of work across every product after a devnet reset. | | Developers |
-| `moi-standards-submission` | File a standards submission, such as a **CAIP** (a Chain Agnostic Improvement Proposal) or the x402 scheme. | | Developers |
-| `moi-education-programs` | Run an education program with a university or a cohort. | | Everyone |
 
 ## Also here
 
 - `skills/ARCHITECTURE.md`: how the library is shaped and how it was checked.
 - `skills/SKILL-STANDARD.md`: the bar every skill meets. Read it before changing one.
 - `project-handover-docs/attachments/`: files the docs point at: the Moinkee Pinata inventory and scripts (OTHER-PROJECTS.md) and the js-moi-sdk skill test kit (AGENT-SKILLS.md).
-- The research notes the skills were built from, the old blog, deck and design skills, and the 4 October dependency list were removed on 14 October 2026; they are in this repo's git history.
-- `skills/extra/repo-handover/`: a generic skill for turning any repo into a handover skill like these.
+- Removed on 14 October 2026, and kept in this repo's git history: the research notes the skills were built from, the old blog, deck and design skills, the 4 October dependency list, the skills moi-standards-submission (with the x402 review package) and moi-education-programs, the moi-devrel branches explain, call-digest and test-round, and the generic repo-handover skill. To bring one back: `git log --diff-filter=D --name-only` finds the commit, then `git checkout <commit>^ -- <path>`.
 
 ## Install
 

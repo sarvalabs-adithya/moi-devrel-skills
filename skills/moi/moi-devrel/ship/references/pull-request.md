@@ -58,7 +58,7 @@ The operator may open it in the browser instead. `--draft` fits a PR that cannot
 - Cloudflare Pages comments a build on docs PRs and on `MOI-Website` PRs (seen on #53).
 
 ## 6. Upstream PRs (x402, CASA)
-They follow `moi-standards-submission`; `moi-standards-submission/references/umbrella.md`, "Filing mechanics", holds the fork, identity, signing and push steps, so this file adds none. The filing order is fixed: namespace, then spec, then mechanism. Nothing is filed until Rahul has reviewed (agreed 2026-09-09). The upstream repos ask for an AI-assistance disclosure in the PR description, while house rule 4 bans the "generated with" footer. Do not file until Rahul says how to word the disclosure. ASK: Rahul.
+Their filing steps were in the moi-standards-submission skill, removed on 14 October 2026 (in the handover repo's git history). The filing order is fixed: namespace, then spec, then mechanism. Nothing is filed until Rahul has reviewed (agreed 2026-09-09). The upstream repos ask for an AI-assistance disclosure in the PR description, while house rule 4 bans the "generated with" footer. Do not file until Rahul says how to word the disclosure. ASK: Rahul.
 
 ## Not yet known
 - Whether any repo has a PR template, required labels, or a required reviewer. None is recorded. ASK: Rahul.

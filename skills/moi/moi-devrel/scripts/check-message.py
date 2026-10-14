@@ -189,7 +189,7 @@ PLACEHOLDER = re.compile(
     r"<(?![^<>\n]*(?:@|://))[A-Za-z][^<>\n]{0,60}>|\{\{[^{}\n]{1,60}\}\}|\[\[[^\[\]\n]{1,60}\]\]|"
     r"\[[A-Z][A-Z0-9 _/-]{2,30}\]|\b(?:TBD|TODO|FIXME|XXX)\b|\b[A-Z][A-Z0-9]{2,}_(?:URL|DATE|NAME|HERE)\b|_{4,}")
 EM_DASH = re.compile(chr(0x2014))
-MARKERS = re.compile(r"\bASK:|\bGATE\b|\$SKILLS|\bmoi-(?:devrel|webinar|blog|docs|launchpad-ops|mcp-ops|devnet-reset|standards-submission|education-programs)\b")
+MARKERS = re.compile(r"\bASK:|\bGATE\b|\$SKILLS|\bmoi-(?:devrel|webinar|blog|docs|launchpad-ops|mcp-ops|devnet-reset|web-products-ops)\b")
 OPERATOR_WORD = re.compile(r"\bthe operator\b|\bClaude\b", re.I)
 LABEL_ERR = re.compile(r"^\s*[-*]?\s*\**(?:owner|assignee)\**\s*:", re.I)
 LABEL_WARN = re.compile(

@@ -17,16 +17,16 @@ Ranked by how often each job came up in the previous operator's request history 
 
 | # | Job | Skill or branch (the routing tables are in `../SKILL.md`) |
 |---|---|---|
-| 1 | Explain a mechanism before building or presenting | `moi-devrel/explain` (`glossary.md`) |
+| 1 | Explain a mechanism before building or presenting | `moi-devrel` (`glossary.md`) |
 | 2 | Ship: commit, PR, rebase, merge, deploy, preview | `moi-devrel/ship` |
 | 3 | Status and what is left | `moi-devrel` (the hand-back format in `../SKILL.md`; a status to Rahul is `house-style.md` section 4) |
 | 4 | Keys, env vars, where a value goes | `moi-devrel` (`keys-and-access.md`, `keys-by-product.md`) |
 | 5 | Blog and long-form writing, publishing | `moi-blog` |
 | 6 | Verify claims, "are you sure" | `moi-devrel/claim-check` |
 | 7 | Decks, scripts, webinar run-of-show | `moi-webinar`, `moi-webinar/deck`, `moi-webinar/community-call` |
-| 8 | x402, CASA and CAIP-2 submissions | `moi-standards-submission` |
-| 9 | Test plans and rounds, then fixes | `moi-devrel/test-round` |
-| 10 | Messages to and about people | `moi-devrel` (`house-style.md` section 4, `../templates/messages.md`); `moi-devrel/call-digest` for a call transcript |
+| 8 | x402, CASA and CAIP-2 submissions | No skill: nothing is filed and nothing is active (14 October 2026). ASK: Rahul |
+| 9 | Test plans and rounds, then fixes | `moi-launchpad-ops/references/test-pass.md`, `moi-mcp-ops/references/test-pass.md` |
+| 10 | Messages to and about people | `moi-devrel` (`house-style.md` section 4, `../templates/messages.md`) |
 | 11 | Social posts through Buffer | `moi-blog`, `moi-blog/release-pack`, `moi-webinar` |
 | 12 | GEO, SEO and the docs standard | `moi-docs`, `moi-docs/geo` |
 | 13 | Git identity and authorship fixes | `moi-devrel/ship` (`consent-and-identity.md` section 2) |
@@ -35,7 +35,7 @@ Ranked by how often each job came up in the previous operator's request history 
 | 16 | Handover and skill packaging | `moi-devrel` (this library, `../SKILL.md`) |
 | 17 | Product stats lookups | `moi-launchpad-ops`, `moi-launchpad-ops/explorer`, `moi-mcp-ops`, `moi-web-products-ops` |
 
-The library has ten skills and eleven branches as of 2026-10-04, and `../SKILL.md` routes to every one of them. Six branches live inside `moi-devrel`. Recurring jobs the log does not rank have a home too: a devnet reset (`moi-devnet-reset`), a protocol release (`moi-blog/release-pack`), brand and visuals (`moi-devrel/design`), the monthly call (`moi-webinar/community-call`) and the education programmes (`moi-education-programs`).
+The library has eight skills and eight branches as of 2026-10-14, and `../SKILL.md` routes to every one of them. Three branches live inside `moi-devrel`. Recurring jobs the log does not rank have a home too: a devnet reset (`moi-devnet-reset`), a protocol release (`moi-blog/release-pack`), brand and visuals (`moi-devrel/design`) and the monthly call (`moi-webinar/community-call`).
 
 Reading it: most of the work is explaining, approving and shipping. The recurring outputs are blogs, decks, scripts and posts. The recurring risks are unverified claims, wrong git identity, spend and pushing too early.
 
@@ -47,17 +47,17 @@ Reading it: most of the work is explaining, approving and shipping. The recurrin
 | MOI Forge, Basic | Sai Kiran | campus roadshow and logistics |
 | MOI DevX monthly hackathon | Adithya | challenge track (MOI Sprint, its other track, was scratched 13 October 2026) |
 | Tech Spotlight, podcast, Galxe, KOL outreach | Rahul, Vardan, Harsh, Vardan and Louis | owned by others in the sheet; context only |
-The owners are the sheet's, as of early 2026, and Adithya hands over on 14 October 2026. Which programmes are still active, and who takes each, is not known. ASK: Rahul. The skill for them is `moi-education-programs`.
+The owners are the sheet's, as of early 2026, and Adithya hands over on 14 October 2026. Which programmes are still active, and who takes each, is not known. ASK: Rahul. No skill covers them (removed 14 October 2026, in the handover repo's git history).
 
 ## What the DevRel operator inherits
-Observed state, with the pointers: six products with live URLs and open PRs (`repo-map.md`), a call and AMA rhythm (`calendar.md`), accounts whose owners are mostly unconfirmed (`keys-and-access.md`), and a devnet that was wiped on 2026-08-15 and again around 2026-09-11, the second wipe announced for 00:00 UTC on 11 September and not confirmed to the minute (`devnet.md`). Decks for calls 2 to 14 are in `moi-foundation/MOI-Webinars` under `community-call-N/deck/` (PR #2, merged 13 October 2026), and the intro-session deck is in the handover repo (`skills/moi/moi-webinar/past-sessions/intro-session-deck/`). Other work may still exist only on the previous operator's machine, as read on 2026-10-03: 6 local commits unpushed (one of them, 27efaa3 with 11 files, holds part of `protocol-release-0.13.0/`, and 3 more files of it are untracked; the other 5 are x402 and `buffer.mjs` work), edits to the x402 review package (a copy is in the handover repo, `skills/moi/moi-standards-submission/x402-review-package/`), and unpushed MCP work. Whether any of it has been pushed since is not recorded (the previous DevRel's notes); check `git log` and `gh` on each repo, then ASK: Rahul. Before you touch a product's admin, read that product's row in `repo-map.md`.
+Observed state, with the pointers: six products with live URLs and open PRs (`repo-map.md`), a call and AMA rhythm (`calendar.md`), accounts whose owners are mostly unconfirmed (`keys-and-access.md`), and a devnet that was wiped on 2026-08-15 and again around 2026-09-11, the second wipe announced for 00:00 UTC on 11 September and not confirmed to the minute (`devnet.md`). Decks for calls 2 to 14 are in `moi-foundation/MOI-Webinars` under `community-call-N/deck/` (PR #2, merged 13 October 2026), and the intro-session deck is in the handover repo (`skills/moi/moi-webinar/past-sessions/intro-session-deck/`). Other work may still exist only on the previous operator's machine, as read on 2026-10-03: 6 local commits unpushed (one of them, 27efaa3 with 11 files, holds part of `protocol-release-0.13.0/`, and 3 more files of it are untracked; the other 5 are x402 and `buffer.mjs` work), edits to the x402 review package (a copy was in the handover repo until 14 October 2026; it is in that repo's git history), and unpushed MCP work. Whether any of it has been pushed since is not recorded (the previous DevRel's notes); check `git log` and `gh` on each repo, then ASK: Rahul. Before you touch a product's admin, read that product's row in `repo-map.md`.
 
 ## First week (proposed; built from the observed jobs)
 | Day | Do | Done when |
 |---|---|---|
 | 1 | Read `SKILL.md`, `house-style.md`, `consent-and-identity.md`, `terminology.md`. Install tools (`environment.md`). Set `PREFLIGHT_WORK_DOMAINS` and `PREFLIGHT_EXPECT_GH_LOGIN`, then run `bash "$SKILLS/moi-devrel/scripts/preflight.sh"` from inside a repo (`$SKILLS` is defined in `../SKILL.md`). Ask the access owner for the names in `keys-and-access.md`. | Preflight passes and the access list is requested. |
 | 2 | Open every live URL in `repo-map.md`. Run the read-only health checks for the website, Dataroom, Points and `launchpad.moi.technology/api/stats`. Compare with the "as of" list. | You can say where each product deploys from and who to ask. |
-| 3 | Read `glossary.md` and the docs pages named in `terminology.md`. Read the latest release post at blog.moi.technology. The operator writes five sentences about MOI in their own words and Claude marks each one against the glossary (`moi-devrel/explain`). | Every sentence is marked right or fixed. |
+| 3 | Read `glossary.md` and the docs pages named in `terminology.md`. Read the latest release post at blog.moi.technology. The operator writes five sentences about MOI in their own words and Claude marks each one against the glossary (`glossary.md`). | Every sentence is marked right or fixed. |
 | 4 | Read `calendar.md`. Find the next community call date in the Drive sheet "Community Call + AMA Calender 2026" and confirm it with Rahul or marketing. Read the `session-8-policies/` pack to see what a webinar pack holds (it is on branch `claude/agent-payments-simple` of `moi-foundation/MOI-Webinars`, not `main`, and its gitignored files were local to the previous operator and are not recorded elsewhere (the previous DevRel's notes); ASK: Vardan for the Luma page text). | You know the next three dated events and who runs each. |
 | 5 | One supervised task, local only: claim-check one published post against source, or check the links in `moi-foundation/awesome-moi` (last checked in January). Hand back in the standard format. | A hand-back exists. No PR is opened without a yes. |
 

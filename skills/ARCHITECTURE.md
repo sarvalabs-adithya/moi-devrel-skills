@@ -6,16 +6,13 @@ This is the private repo `sarvalabs/moi-devrel-skills`, mirrored to the previous
 
 ## Shape
 
-Ten skills. Everything else is a branch: a sub-tool that lives inside the skill that uses it most, with its own `GUIDE.md`, references, scripts and examples.
+Eight skills. Everything else is a branch: a sub-tool that lives inside the skill that uses it most, with its own `GUIDE.md`, references, scripts and examples.
 
 ```
 moi-devrel                 THE MAIN ONE. Start here: house rules, who and where, the map of skills.
 │   ship                   how any change gets out: identity, commit, pull request, rebase, merge
 │   design                 the visual brand: colours, type, logos, mascot
 │   claim-check            every public claim against source, before it goes out
-│   explain                teach a MOI concept until the person can defend it
-│   call-digest            a meeting transcript into decisions and owed work
-│   test-round             a structured test pass on a product
 │
 moi-webinar                one MOI Builders session, topic to write-up
 │   deck                   build, check and export any deck
@@ -33,14 +30,12 @@ moi-launchpad-ops          run the Agent Launchpad
 moi-mcp-ops                run the MCP server
 moi-web-products-ops       run the website (the Luma community calls block, the hidden chatbot), the Dataroom and the Points Program
 moi-devnet-reset           what to redo in every product after a reset
-moi-standards-submission   taking MOI into an external standard
-moi-education-programs     Forge, awesome-moi, bounties (MOI Sprint scratched 13 October 2026); works alongside moi-webinar
 ```
 
 ## Why this shape
 
 - **One main skill.** `moi-devrel` holds what every job needs: the rules, the people, the repo map, the keys by name, and the tools every job uses (ship, design, claim-check). It points to every other skill.
-- **Few doors, many rooms.** A newcomer picks from ten skills, not twenty-one. The skill's `SKILL.md` routes to the branch.
+- **Few doors, many rooms.** A newcomer picks from eight skills, not twenty-one. The skill's `SKILL.md` routes to the branch.
 - **A branch sits where it is used.** The deck and the community call sit with the webinar because all three are live sessions built the same way. The release pack sits with the blog because it ends in a post.
 - **By job, not by repo.** A newcomer asks "how do I run the community call", not "what is in MOI-Webinars".
 - **The devnet reset stays a skill of its own.** It is the one recurring event that touches every product at once, and it happened five times between 6 August and 11 September 2026.

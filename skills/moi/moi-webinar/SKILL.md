@@ -1,6 +1,6 @@
 ---
 name: moi-webinar
-description: "Run a MOI Builders session (a live developer webinar where the presenter runs a devnet demo) from topic to bounty, build or check any MOI deck, or run the monthly community call. Use for \"Builders session\", \"webinar\", \"dev talk\", \"Luma event page\", \"registration page\", \"game day\", \"run of show\", \"RUNBOOK\", \"GAMEDAY\", \"demo plan\", \"rehearsal recording\", \"intro session\", and the \"webinar bounty\" on the Points site. Deck branch: \"make the deck\", \"check the deck\", \"export the PDF\", \"presenter notes\", \"SCRIPT.md\", \"slide numbers\", \"read-aloud script\", slides from a Slack dump or report. Community call branch: \"campfire chat\", \"community call\", \"call agenda\", \"monthly call deck\", \"line-up\", \"speakers for the call\", \"host question\", \"YouTube description for the call\", pruning a call deck. The write-up post is moi-blog, the Forge bounties are moi-education-programs, and checking a claim is moi-devrel/claim-check."
+description: "Run a MOI Builders session (a live developer webinar where the presenter runs a devnet demo) from topic to bounty, build or check any MOI deck, or run the monthly community call. Use for \"Builders session\", \"webinar\", \"dev talk\", \"Luma event page\", \"registration page\", \"game day\", \"run of show\", \"RUNBOOK\", \"GAMEDAY\", \"demo plan\", \"rehearsal recording\", \"intro session\", and the \"webinar bounty\" on the Points site. Deck branch: \"make the deck\", \"check the deck\", \"export the PDF\", \"presenter notes\", \"SCRIPT.md\", \"slide numbers\", \"read-aloud script\", slides from a Slack dump or report. Community call branch: \"campfire chat\", \"community call\", \"call agenda\", \"monthly call deck\", \"line-up\", \"speakers for the call\", \"host question\", \"YouTube description for the call\", pruning a call deck. The write-up post is moi-blog, and checking a claim is moi-devrel/claim-check."
 ---
 
 # MOI webinar
@@ -12,7 +12,7 @@ Two branches live inside this skill and are read as their own guides:
 - `deck`: any MOI deck, for a session, the monthly call or anything else. One HTML file, the presenter window, the read-aloud script, the checker and the PDF.
 - `community-call`: the monthly public call, The Campfire Chat. Line-up, numbers ledger, release slides, the host's planted question, the day and the recording description.
 
-Not covered: commits, pull requests, rebases and merges (`moi-devrel/ship`); writing, publishing and announcing the write-up post and the newsletter (`moi-blog`, which takes a session folder as its source), a protocol release pack (`moi-blog/release-pack`), checking claims in general (`moi-devrel/claim-check`), the Forge bounties and awesome-moi (`moi-education-programs`; MOI Sprint was scratched on 13 October 2026), the Points Program as a product (`moi-web-products-ops`), the Agent Launchpad as a product (`moi-launchpad-ops`).
+Not covered: commits, pull requests, rebases and merges (`moi-devrel/ship`); writing, publishing and announcing the write-up post and the newsletter (`moi-blog`, which takes a session folder as its source), a protocol release pack (`moi-blog/release-pack`), checking claims in general (`moi-devrel/claim-check`), the Points Program as a product (`moi-web-products-ops`), the Agent Launchpad as a product (`moi-launchpad-ops`).
 
 ## Before you start
 Get the working copy first: `gh repo clone moi-foundation/MOI-Webinars`, then `cd MOI-Webinars`. The schedule, owners and posting rules are in `project-handover-docs/DEV-WEBINARS.md` (the handover repo): read it with this file.
@@ -80,7 +80,7 @@ The branches, with paths relative to this folder:
 | The write-up post, its announcement and the newsletter | `moi-blog`; what the session folder hands over is `references/after-the-session.md` |
 | The webinar bounty (the Google proof form is superseded, 13 October 2026) | `references/after-the-session.md`, "The webinar bounty" |
 | The Points site side of a session's bounty | `moi-web-products-ops/references/points-tasks.md` ("Run: a webinar bounty"; a code dev challenge is the legacy way), `points-settings-and-database.md` for `ADMIN_EMAILS` and the `MOI_RPC_URL` variable, `points-health.md` to check it, all in the same folder |
-| The programmes that feed and follow sessions (Forge, awesome-moi, other bounties; MOI Sprint scratched 13 October 2026) | `moi-education-programs`; `moi-education-programs/references/bounties.md` covers the four kinds of bounty and verifying submissions |
+| The programmes that feed and follow sessions (Forge, awesome-moi, other bounties; MOI Sprint scratched 13 October 2026) | No skill since 14 October 2026; nothing is active. The webinar bounty is in `references/after-the-session.md`. ASK: Rahul |
 | Claims in the script, event page and posts | `moi-devrel/claim-check` (step 5) |
 | The brand: slides, event page art, share images | `moi-devrel/design` |
 

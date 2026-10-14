@@ -107,7 +107,7 @@ The escrow behaviour a stock facilitator provides, hold funds, release on delive
 failure, is exactly what MOI's native `lockup` / `release` gives us, and session 4 already proved
 those work on devnet with real funds.
 
-*Caution:* `../session-4-DEMO.md` says the session 4 lock-and-release swap was trust-based, not atomic, and that atomic settlement would still need an escrow contract. TRANSCRIPT.md calls escrow-style pay-on-delivery native to MOI and "on the roadmap beyond these sessions"; DEMO-PLAN.md says escrow-style settlement is not available. Whether lock and release alone is escrow is not settled in these notes.
+*Caution:* the session 4 runbook (removed from the handover repo on 14 October 2026) said the session 4 lock-and-release swap was trust-based, not atomic, and that atomic settlement would still need an escrow contract. TRANSCRIPT.md calls escrow-style pay-on-delivery native to MOI and "on the roadmap beyond these sessions"; DEMO-PLAN.md says escrow-style settlement is not available. Whether lock and release alone is escrow is not settled in these notes.
 
 So the arc is:
 

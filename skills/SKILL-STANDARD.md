@@ -20,7 +20,7 @@ skills/moi/<skill-name>/
   evals/evals.md    test prompts with the behaviour expected
 ```
 
-Only `SKILL.md` is required. Add the others when they earn their place. MOI skills sit under `skills/moi/<skill>/`; helpers that are not about MOI sit under `skills/extra/` (today: `repo-handover`).
+Only `SKILL.md` is required. Add the others when they earn their place. MOI skills sit under `skills/moi/<skill>/`.
 
 ## Branches
 
@@ -41,12 +41,12 @@ skills/moi/<skill>/<branch>/
 
 | Skill | Branches |
 |---|---|
-| `moi-devrel` (the main one; it points to every other skill) | `ship`, `design`, `claim-check`, `explain`, `call-digest`, `test-round` |
+| `moi-devrel` (the main one; it points to every other skill) | `ship`, `design`, `claim-check` |
 | `moi-webinar` | `deck`, `community-call` |
 | `moi-blog` | `release-pack` |
 | `moi-docs` | `geo` |
 | `moi-launchpad-ops` | `explorer` |
-| `moi-mcp-ops`, `moi-web-products-ops`, `moi-devnet-reset`, `moi-standards-submission`, `moi-education-programs` | none |
+| `moi-mcp-ops`, `moi-web-products-ops`, `moi-devnet-reset` | none |
 
 ## SKILL.md anatomy, in this order
 

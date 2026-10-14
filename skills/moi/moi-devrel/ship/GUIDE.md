@@ -4,7 +4,7 @@ Branch of `moi-devrel`. `$SKILLS`, the operator, `ASK:`, the house rules and the
 
 ## What this covers
 The path every change takes, whichever skill produced it: identity, branch, commit, local proof, push, pull request, reviews, rebase, merge, and the check that it is live. At MOI a merge to a deploy branch is the release, and almost nothing tests a PR, so the proof you run before the push is the only gate. Facts are as of 2026-10-03.
-Not covered: writing the change (`moi-blog` for posts and `moi-blog/release-pack` for release packs, with their own PR flow; `moi-docs` for docs pages; `moi-webinar`), what a product does after a merge (`moi-web-products-ops`, `moi-launchpad-ops`, `moi-launchpad-ops/explorer`, `moi-mcp-ops`), a devnet reset (`moi-devnet-reset`), the message to a reviewer (`moi-devrel/references/house-style.md`, section 4) and filing upstream (`moi-standards-submission`).
+Not covered: writing the change (`moi-blog` for posts and `moi-blog/release-pack` for release packs, with their own PR flow; `moi-docs` for docs pages; `moi-webinar`), what a product does after a merge (`moi-web-products-ops`, `moi-launchpad-ops`, `moi-launchpad-ops/explorer`, `moi-mcp-ops`), a devnet reset (`moi-devnet-reset`), the message to a reviewer (`moi-devrel/references/house-style.md`, section 4).
 
 ## Before you start
 Run every command from the working copy of the repo you are shipping from, with paths quoted. Set `WORK` once to a folder outside that clone (`WORK="$HOME/moi-ship-work"; mkdir -p "$WORK"`) for the PR body and notes, so drafts never land in a public repo. Repo, deploy and people facts: `moi-devrel/references/repo-map.md` and `moi-devrel/references/people-and-teams.md`.

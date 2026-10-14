@@ -20,7 +20,7 @@ Set `SKILLS` and run `bash "$SKILLS/moi-devrel/scripts/preflight.sh"` first, fro
 | pandoc | optional: Word copies of markdown for the internal review gate, markdown stays the source | `pandoc --version` | optional |
 
 ## 2. Scripts in this skill
-Run them with `bash` (`python3` for the `.py` one), from the working copy of the repo you are in, writing the path in full with `$SKILLS` (the folder that holds the `moi-*` skills). All use Python 3 standard library or plain shell, work in bash 3.2 and zsh, and print no secret. The scripts of the branches (`ship`, `claim-check`, `call-digest`, `test-round`) sit in their own `scripts/` folders and are named in each `GUIDE.md`.
+Run them with `bash` (`python3` for the `.py` one), from the working copy of the repo you are in, writing the path in full with `$SKILLS` (the folder that holds the `moi-*` skills). All use Python 3 standard library or plain shell, work in bash 3.2 and zsh, and print no secret. The scripts of the branches (`ship`, `claim-check`) sit in their own `scripts/` folders and are named in each `GUIDE.md`.
 
 | Script | Use | Exit codes |
 |---|---|---|
