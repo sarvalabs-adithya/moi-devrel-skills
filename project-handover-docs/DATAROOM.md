@@ -96,15 +96,14 @@ Production values are GitHub Actions secrets on sarvalabs/moi-dataroom0. GitHub 
 
 - Open the home page and one document.
 - Check that a wrong admin key is refused: `curl -s -X POST https://dataroom.moi.technology/api/admin/unlock -H 'content-type: application/json' -d '{"key":"x"}'` should answer 403 with "Invalid key".
-- In the admin page, every document should say completed.
-- The chat is off, so there is nothing to ask it. Check that a new upload still gets indexed.
+- If the chatbot is enabled: every document should say completed in the admin page, and a new upload should get indexed. While the chat is off, indexing does not matter.
 
 **Adding a document**
 
 - Use a PDF or Word file under 50 MB. PowerPoint uploads but cannot be read, so convert decks to PDF first.
 - In the admin page, click Add Document. Choose the category first (changing it later wipes the title and description), then fill in the title, the description, the file or an https link (such as a Zenodo record), whether it can be downloaded, whether it needs an email, and a home slot if it should be a tile.
 - Upload. The file goes straight to the storage bucket, then the row is created.
-- Indexing starts by itself and the status moves from pending to processing to completed. Wait for completed. If it stays on processing or ends in failed, press Re-index on that row, one document at a time, and check the status again.
+- Indexing only matters if the chatbot is enabled (it is off today); the document is live for visitors either way. Indexing starts by itself and the status moves from pending to processing to completed. If the chatbot is on, wait for completed. If it stays on processing or ends in failed, press Re-index on that row, one document at a time, and check the status again.
 - If the document has a tile, check the home page afterwards, on a phone too.
 - You can upload at most 10 files a minute.
 
