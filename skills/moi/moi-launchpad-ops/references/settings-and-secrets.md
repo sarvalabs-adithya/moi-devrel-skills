@@ -95,6 +95,6 @@ The filter matters: the raw answer can include the IP address of the server, whi
 
 ## Not yet known
 - Who can edit secrets today (the admin list), and whether any value exists outside GitHub and the VM file. ASK: Rahul, Upendhar.
-- Which logins are company-owned: Supabase is (company organisation, 8 October 2026); the Reown projects sit under sarvalabsdeveloper@gmail.com; BotFather is not yet (transfer pending); no company Groq key exists. Anything else: ASK: Rahul.
+- Which logins are company-owned: Supabase is (company organisation, 8 October 2026); the Reown projects sit under sarvalabsdeveloper@gmail.com; the BotFather bot is on Rahul Lenkala's Telegram account (2026-10-14); no company Groq key exists. Anything else: ASK: Rahul.
 - Whether `TELEGRAM_WEBHOOK_SECRET` is set in Actions today (`gh secret list` shows names only). If it is not, the webhook secret derives from `SESSION_SECRET`.
 - How the kill switch row is reset by hand. The code keys it by UTC day, so it ends at midnight UTC; a manual reset is not on record, and raising `GLOBAL_DAILY_SPEND_CAP_CENTS` does not lift a flag already set for the day (`lib/guardrails.ts` checks `killed` first). Not recorded (the previous DevRel's notes); ASK: Rahul.

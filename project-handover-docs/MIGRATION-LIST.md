@@ -1,6 +1,6 @@
 # What to migrate off Adithya's accounts
 
-**Status: in progress.** Both Supabase projects moved on 8 October and the agent dating plugin no longer depends on a VPS. On 14 October four repos moved to the sarvalabs organisation, the orphan Vercel projects were deleted and the Moinkee files were pinned in the company Pinata account. Still to move: the Telegram bot (the transfer to Rahul Lenkala was refused by Telegram on 14 October; Adithya retries once Telegram allows).
+**Status: done for DevRel.** Both Supabase projects moved on 8 October and the agent dating plugin no longer depends on a VPS. On 14 October four repos moved to the sarvalabs organisation, the orphan Vercel projects were deleted and the Moinkee files were pinned in the company Pinata account. The Launchpad Telegram bot was transferred to Rahul Lenkala the same day.
 
 Marketing: Owner not on record: settle who holds the login, and Open items. Developers: every section.
 
@@ -11,7 +11,7 @@ As of the end of 14 October 2026, this lists what sat under Adithya's own accoun
 | Product | What | Where it sits | Move to |
 |---|---|---|---|
 | Agent Launchpad | Supabase project (all app state) | Done: transferred to the company Supabase organisation on 8 October | Check the plan has backups on |
-| Agent Launchpad | Telegram bot @moinetworkbot and the alert chat | Adithya's Telegram, via **BotFather** (Telegram's own bot for creating and managing bots). Still there: the transfer was started on 14 October and Telegram refused it (its 7-day rule on Adithya's two-step verification); he retries once Telegram allows | Rahul Lenkala's Telegram account |
+| Agent Launchpad | Telegram bot @moinetworkbot and the alert chat | Was on Adithya's Telegram, via **BotFather** (Telegram's own bot for creating and managing bots). Done: transferred on 14 October 2026 | Rahul Lenkala's Telegram account (@p2pbuddy) |
 | Agent dating plugin | The repo | Done: moved to sarvalabs/agent-dating on 14 October 2026 (it was sarvalabs-adithya/agent-dating) | sarvalabs org |
 | Agent dating plugin | The relay VPS | Adithya's, being cancelled | Done in sarvalabs-adithya/agent-dating PR #1 (merged): no baked-in relay address, the installer asks for DATING_RELAY_URL, the deploy workflow and VPS scripts removed, the three VPS secrets deleted, a "Pick it up" guide in the README |
 | Moinkee NFT Minter | The repo | Done: moved to sarvalabs/moinkee-nft-minter on 14 October 2026 (it was sarvalabs-adithya/moinkee-nft-minter) | sarvalabs org. The handover PR is merged: it is PR #2 (the README, the env template, the April recovery routes behind a secret); PR #1 was replaced to remove Claude authorship |
@@ -39,7 +39,7 @@ Not part of this: the Points Program project is on the points@moinetwork.io acco
 Adithya created the Launchpad bot @moinetworkbot from his Telegram account in BotFather. Ownership moves inside BotFather, and the token and the chat id stay the same, so nothing in the app changes.
 
 1. The receiving account (DevOps, or a company Telegram account) opens the bot and sends it a message, so Telegram knows it. It must not have the bot blocked.
-2. Adithya's account needs two-step verification switched on for at least 7 days before the transfer, with the password unchanged. The Telegram session the transfer is made from has to be at least 24 hours old. On 14 October the transfer to Rahul Lenkala was started and Telegram refused it under the 7-day rule; Adithya retries once Telegram allows, and until then the bot is still on his Telegram account.
+2. Adithya's account needs two-step verification switched on for at least 7 days before the transfer, with the password unchanged. The Telegram session the transfer is made from has to be at least 24 hours old. On 14 October Telegram first refused the transfer under the 7-day rule; a later try the same day went through, and the bot is now on Rahul Lenkala's Telegram account (@p2pbuddy).
 3. In BotFather: /mybots, the bot, Transfer Ownership, choose the recipient, confirm. It cannot be undone.
 4. The bot keeps running: the token in the GitHub secret stays valid and the **webhook** (the address Telegram posts the bot's new messages to) stays set. The new owner can later regenerate the token in BotFather. If they do, update TELEGRAM_BOT_TOKEN in the Launchpad's Actions secrets and run the webhook setup again, or messages stop arriving.
 5. The alert chat: add the new owner's account to it. The chat id in ADMIN_ALERT_TELEGRAM_CHAT_ID does not change.
@@ -74,5 +74,5 @@ Groq: no company-owned Groq key exists. The key the Launchpad server uses is not
 - Who holds the Luma, Riverside, Google Meet and YouTube accounts: ENV-VARS.md says Vardan; confirm.
 - Done 14 October 2026: moi-website.vercel.app, moinkee-nft-minter.vercel.app, moisprint.vercel.app and sarva-dataroom.vercel.app were all deleted (404).
 - Whose account holds the Launchpad's Groq key, and who holds the Agent Explorer accounts: not recorded.
-- Telegram bot @moinetworkbot: still on Adithya's Telegram account; Telegram refused the transfer to Rahul Lenkala on 14 October (7-day rule), so Adithya retries once Telegram allows.
+- Telegram bot @moinetworkbot: done, transferred to Rahul Lenkala (@p2pbuddy) on 14 October.
 - Agent Explorer deploys are broken: its GH_TOKEN Actions secret (set 31 July) is refused by GHCR, so the 7 October and 14 October deploys failed at "Login to GHCR". PR #6 (deprecated agents hidden, never auto-verified) is merged (aa9488c6) but not live: the live site is a build from 8 October, deployed by hand, and 70 deprecated agents still show as verified until the deploy runs. Upendhar has been asked to replace GH_TOKEN with a token that has write:packages and re-run the deploy.
