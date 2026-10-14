@@ -98,12 +98,12 @@ The example file with comments is moi-data-room/.env.local.example (added by PR 
 
 **Re-enabling the chat**
 
-The chat was hidden on 21 August 2026 by the commit "chore: hide chat assistant widget for now" (b5ace3a), which removed the widget from the page. The widget component and the chat route are still deployed. To bring it back:
+The chat was hidden on 21 August 2026 by the commit "chore: hide chat assistant widget for now" (a5544a8), which removed the widget from the page. The widget component and the chat route are still deployed. To bring it back:
 
 1. Settle the Anthropic key. ANTHROPIC_API_KEY is in the repo's Actions secrets. No company-owned Anthropic key exists as of October 2026, so this is not a company key: create a company Anthropic account with billing, make a key, replace the secret, and check in the console that the key is live. OPENAI_API_KEY, which embeds the question and the documents, is in the same position: replace it with a company key too. Which account holds the current keys is an open question (Open items).
 2. Make sure every document says completed in the admin page. As of October 2026 six are not: one failed (likely no text in the file) and five are stuck at processing, the whitepaper among them. Re-index them one at a time from the admin page, and re-read the status after each click, because the button swallows errors. The chat answers only from the index, so an unindexed whitepaper means the chat cannot answer the most basic questions.
 3. Update the model. The chat route (moi-data-room/src/app/api/chat/route.ts) pins claude-sonnet-4-20250514, which is old. Move it to a current model id and run one question locally.
-4. Put the widget back: revert commit b5ace3a on a branch.
+4. Put the widget back: revert commit a5544a8 on a branch.
 5. Set the limits if the defaults do not suit (30 questions per address per hour, 500,000 tokens a day, 8,000 input and 2,048 output tokens): the four CLAUDE_ names as Actions variables plus a line for each in deploy.yml, because the deploy passes none of them as of October 2026.
 6. Open the PR, merge (deploys).
 7. Test on the live site: one question the whitepaper answers, one it cannot. The first should cite documents, the second should refuse cleanly. Watch the "Chatbot Questions" figure in the admin page, and the usage in the Anthropic console the next day.
