@@ -1,6 +1,6 @@
 # Other projects: Moinkee, Agent dating, MOI Sprint, Contextual Compute website
 
-**Status: three inactive, one live.** Four small projects DevRel built. Moinkee, Agent dating and MOI Sprint are inactive; none is hosted any more (the Moinkee and Sprint Vercel projects were deleted on 14 October 2026). Each repo moves from Adithya's GitHub account to the sarvalabs organisation on 14 October 2026. The one thing with ongoing value is the Pinata account behind Moinkee: see "Moving Pinata" below.
+**Status: three inactive, one live.** Four small projects DevRel built. Moinkee, Agent dating and MOI Sprint are inactive; none is hosted any more (the Moinkee and Sprint Vercel projects were deleted on 14 October 2026). The repos moved from Adithya's GitHub account to the sarvalabs organisation on 14 October 2026 (tSwapper, the Sprint's challenge scaffolds, stays on his account). The one thing with ongoing value is the Pinata account behind Moinkee: see "Moving Pinata" below.
 
 Marketing: How it works. Developers: everything.
 
@@ -12,7 +12,7 @@ None of the three needs anything to keep running. Each repo's README has a "Pick
 |---|---|---|---|
 | **Moinkee World Tour mementos** | A site where visitors mint a memento NFT on devnet: a photo from a Moinkee event, pinned to IPFS through Pinata and minted from the site's wallet | Not hosted: the Vercel project was deleted on 14 October 2026 | sarvalabs/moinkee-nft-minter |
 | **Agent dating** | An OpenClaw plugin: two AI agents register on the MOI agent registry, find each other and chat through a small relay, shown live | Not hosted. The public relay was retired with its server; anyone runs their own relay (README, Pick it up) | sarvalabs/agent-dating |
-| **MOI Sprint** | A self-paced challenge track ("learn MOI by building"): two Coco challenges (Soulbound Badge, Simple Swap) and a guide site. Scratched from the handover on 13 October | Not hosted: the Vercel project was deleted on 14 October 2026 | sarvalabs/moisprint (guide site) and sarvalabs/tSwapper (challenge scaffolds; branch `solution` holds the answers) |
+| **MOI Sprint** | A self-paced challenge track ("learn MOI by building"): two Coco challenges (Soulbound Badge, Simple Swap) and a guide site. Scratched from the handover on 13 October | Not hosted: the Vercel project was deleted on 14 October 2026 | sarvalabs/moisprint (guide site); the challenge scaffolds stay at sarvalabs-adithya/tSwapper (branch `solution` holds the answers) |
 
 | **Contextual Compute Foundation website** | A one-page site: thesis, six papers (CC0 to CC5), a join form that posts each email to a webhook | **Live** at www.contextualcompute.org (Vercel; the apex redirects to www) | sarvalabs/contextual-compute-foundation-website |
 
@@ -82,7 +82,7 @@ None. The moi-devnet-reset skill lists Moinkee as one row of what a reset breaks
 
 ## Open items
 
-- Transfer the five repos to sarvalabs (14 October).
+- Done 14 October 2026: moinkee-nft-minter, agent-dating, moisprint and contextual-compute-foundation-website moved to sarvalabs. tSwapper was left on Adithya's account by choice.
 - Two public repos contain a committed 12-word devnet recovery phrase: moinkee-nft-minter `scripts/getTdu.mjs` and tSwapper `Swap/src/lib/logic.js` (`POOL_OWNER_MNEMONIC`). Treat both wallets as public: never fund them. Removing the lines does not remove them from history.
 - MOI Sprint: the guide repo's README is the unedited Next.js template, and tSwapper's `solution` branch holds the challenge answers in public. A challenge prototype (`Sprint/Challenge 1/moisprint-challenge-mas0`) existed only on Adithya's laptop and is not in any repo.
 - Contextual Compute site: confirm where `SUBSCRIBE_WEBHOOK_URL` sends sign-ups (if unset, every sign-up is thrown away). The CC3 paper shows as locked on the page but its PDF is still served at /docs/CC3.pdf. The README is the unedited Next.js template. Who holds the Vercel and Namecheap logins is not recorded (ASK: Rahul).

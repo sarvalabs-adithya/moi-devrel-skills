@@ -70,7 +70,7 @@ Groq: no company-owned Groq key exists. The key the Launchpad server uses is not
 
 - The Moinkee, Agent dating and MOI Sprint repos and the Pinata move: steps in OTHER-PROJECTS.md.
 
-- The repo transfers go to the sarvalabs organisation (decided 14 October 2026): agent-dating, moinkee-nft-minter, moisprint, tSwapper, contextual-compute-foundation-website. Steps in OTHER-PROJECTS.md.
+- Done 14 October 2026: agent-dating, moinkee-nft-minter, moisprint and contextual-compute-foundation-website moved to the sarvalabs organisation (tSwapper stays on Adithya's account).
 - Where the MOI Website is deployed. MOI-WEBSITE.md describes a VM; the MOI Website row above says Cloudflare Pages. Neither is verified; ask DevOps (Srikar).
 - Who holds the Luma, Riverside, Google Meet and YouTube accounts: ENV-VARS.md says Vardan; confirm.
 - moi-website.vercel.app, moinkee-nft-minter.vercel.app and moisprint.vercel.app were deleted on 14 October 2026 (404). sarva-dataroom.vercel.app still answered 200 after that: its Vercel project is in a team nobody has found; find and delete it.
