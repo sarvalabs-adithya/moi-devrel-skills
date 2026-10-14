@@ -10,7 +10,7 @@ FILL-IN One paragraph that says what the thing is. On the first mention of the l
 
 ## FILL-IN a section heading
 
-FILL-IN Body text. Link to other pages by site-root address with a trailing slash. After PR #12 that is /book/language/state/; on main it is /docs/book/language/state/ (the lint says which form the checkout wants).
+FILL-IN Body text. Link to other pages by site-root address with a trailing slash. Since PR #12 merged (2026-10-05) that is /book/language/state/; in an older clone it is /docs/book/language/state/ (the lint says which form the checkout wants).
 
 ```coco
 FILL-IN a sample that compiles with the Coco version in docs/releases

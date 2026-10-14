@@ -47,7 +47,7 @@ Facts are as of 2026-10-03. Each row is something that happened or was observed,
 | `/.well-known/api-catalog` exists | It has no extension and goes out as `application/octet-stream` unless `_headers` forces `application/linkset+json` | Check the content type |
 | `_headers` is in the repo | Only Cloudflare Pages reads it. The website is served by nginx on a VM, which ignores it; its two links are declared in `index.html` instead | A header on the VM needs an nginx line. ASK: Upendhar |
 | The skills index names a zip | A release changes the zip, the index, the skill page and the book pages, and nothing links them | `discovery-files.md` |
-| A docs section was removed | The Launchpad's `llms.txt` still named its page on 2026-10-03 and it 404s | Search every clone and the `sarvalabs` organisation for the removed path |
+| A docs section was removed | The Launchpad's `llms.txt` named its page on 2026-10-03 and it 404ed; it now points at `launchpad.moi.technology/docs` | Search every clone and the `sarvalabs` organisation for the removed path |
 | An `agentInstructions` line | An agent trusts it over its own memory | Keep it true |
 
 ## Process and reporting
@@ -56,11 +56,11 @@ Facts are as of 2026-10-03. Each row is something that happened or was observed,
 | Add the CI gate or the weekly cron back | Both were removed on purpose on 2026-09-09 (commits d0b6a19 and 77059a7, "per maintainer preference"; the commits do not name the maintainer) | Do not add them without asking. ASK: Rahul whether the preference still stands |
 | The pull request body | Three of five were stale on 2026-10-02 | Re-read the body against the branch before review |
 | A status message listing planned work | On 2026-09-10 a line claimed organisation descriptions were standardised. They were not, and it was removed | Done work and to-dos in separate parts |
-| A score of 9 | It is the auditor's rubric on a branch, while the live sites still showed the before state | State the rubric, and whether it describes live or a branch |
-| Merge #57 before #124 | The website links to a file that does not exist until #124 is live | Merge #124 first |
+| A score of 9 | It is the auditor's rubric on a branch, while the live sites still showed the before state on 2026-10-03 (four of the five have merged since) | State the rubric, and whether it describes live or a branch |
+| Merge #57 before #124 | The website links to a file that did not exist until #124 was live. #57 merged on 2026-10-05 and #124 on 2026-10-13, so the pair is moot | For any similar pair, merge the page that creates the file first |
 | IndexNow was "submitted" | Nothing submits automatically, and the 200 answer means only "received" | The operator submits; record the date |
 | A visibility figure in a post | Most are unconfirmed (`measure.md`) | Do not quote them in posts |
 
 ## Not yet known
-- Whether any of the previous operator's local backup branches carries work that is not on a pull request. ASK: Adithya.
+- Whether any of the previous operator's local backup branches carries work that is not on a pull request. Not recorded (the previous DevRel's notes); ASK: Rahul.
 - Whether Docusaurus 2.1 on moidocs fails on a broken heading anchor. The config says `warn` for `.md` links only. ASK: Gokul.

@@ -1,9 +1,9 @@
-# MOI GEO: the search and AI-visibility layer
+# MOI GEO: the search and AI-visibility layer (a branch of `moi-docs`)
 
 Branch of `moi-docs`. `$SKILLS`, the operator, `ASK:`, the house rules and the gates are in `moi-docs/SKILL.md` and `moi-devrel/SKILL.md`; this guide adds what is specific.
 
 ## What this covers
-The files, tags and headers that let a search engine or an AI assistant find a MOI page, read it without JavaScript and cite it: `robots.txt` and its content signals, `llms.txt`, markdown copies of pages, structured data (JSON-LD), the sitemap, response headers, the `.well-known` catalogs and meta links. As of 2026-10-03 this layer for the docs sites, the Voyage app (the network explorer at `voyage.moi.technology`) and the website sits on open pull request branches. The live sites still show the earlier state (`references/the-layer.md`).
+The files, tags and headers that let a search engine or an AI assistant find a MOI page, read it without JavaScript and cite it: `robots.txt` and its content signals, `llms.txt`, markdown copies of pages, structured data (JSON-LD), the sitemap, response headers, the `.well-known` catalogs and meta links. As of 2026-10-13 this layer is merged for moidocs (#124, 2026-10-13), voyage-docs (#5) and coco-docs (#12) (both 2026-10-05) and the website (#57, 2026-10-05); js-moi-sdk (#150) and the Voyage app (the network explorer at `voyage.moi.technology`, voyage #447) are still open. Most live-site readings in this branch date from 2026-10-03, before the merges, so run the live check again (`references/the-layer.md`).
 Terms: SEO is ranking in search engines. GEO is being found and cited by AI answer engines such as ChatGPT, Perplexity and Gemini. AEO is being chosen as the short answer. A soft 200 is a 200 answer that carries an HTML page for a file that does not exist. A stub is a placeholder page marked `noindex`.
 Not covered: writing, reviewing or fact-checking a docs page, and one page's own frontmatter, `noindex` mark or schema call (`moi-docs`); a blog post's own search rules (`moi-blog/references/geo.md`); commits, pull requests and previews (`moi-devrel/ship`); checking a claim in text (`moi-devrel/claim-check`); the visibility slide itself (`moi-webinar/community-call`, `moi-webinar/deck`); house rules, people and keys (`moi-devrel`).
 
@@ -56,7 +56,7 @@ A step marked GATE needs the operator's explicit yes first (see Gates). A questi
 | A `noindex` stub still appears in `llms.txt` and has a markdown copy | `networks` on the `sarvalabs/moidocs` PR #124 preview (2026-10-03) |
 | Set `trailingSlash` in the site config and `llms.config.json` together | Previews redirect the slash-less address (308) while the canonical has none (2026-10-03) |
 | Never hand-edit a generated file: on the Docusaurus sites `llms.txt`, `llms-full.txt`, the `.md` copies and the sitemap. The next build overwrites them. Hand-kept files are listed in `references/the-layer.md` | coco-docs deletes every `.md` under `static/` on each build |
-| Lists drift: catalogs, skill zips, sibling-site lists, estate `llms.txt` | The Launchpad `llms.txt` still named a removed docs path, a 404 (2026-10-03) |
+| Lists drift: catalogs, skill zips, sibling-site lists, estate `llms.txt` | The Launchpad `llms.txt` named a removed docs path, a 404 (2026-10-03); it now points at `launchpad.moi.technology/docs` |
 | Report only what was done. Planned work goes in a labelled to-do part | A status draft claimed organisation profiles were matched; they were not (2026-09-10) |
 | A visibility figure is quoted with its date and source, or not at all | The 47 queries, five engines and 221 of 226 coverage went onto the Community Call 14 (CC14) deck unconfirmed (2026-09-24) |
 | Do not add the CI gate or the weekly cron back without asking (ASK: Rahul) | Removed on purpose on 2026-09-09 (commits d0b6a19, 77059a7) |
@@ -78,7 +78,7 @@ Names only. Building and checking the layer needs no secret: the docs sites buil
 - Google Search Console and Bing Webmaster Tools logins. ASK: Rahul.
 - The IndexNow key: its file name only. It is public by design; do not print it or write it anywhere.
 - The Scribble report and dashboard login. ASK: Sai Kiran.
-- A model provider key for the optional query suite: the operator types it at the terminal, never into chat or a file. Claude never handles a recovery phrase.
+- A model provider key for the optional query suite: the operator types it at the terminal, never into chat or a file. No company-owned OpenAI, Groq or Anthropic key exists (2026-10-13), so the suite has no key until Rahul approves one. ASK: Rahul. Claude never handles a recovery phrase.
 
 ## Hand-back
 ```

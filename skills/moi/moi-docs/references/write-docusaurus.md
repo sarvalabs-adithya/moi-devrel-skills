@@ -3,9 +3,9 @@
 For docs.moi.technology (`sarvalabs/moidocs`), voyage-docs.moi.technology (`sarvalabs/voyage-docs`) and cocolang.dev (`sarvalabs/coco-docs`). Facts are as of 2026-10-03. The rules a page must meet are in `page-standard.md`; the sites are in `sites.md`. `$SKILLS`, "the operator" and `ASK:` are defined in `moi-devrel/SKILL.md`. For the Sphinx site use `write-sphinx.md`. Back to `../SKILL.md`.
 
 ## Before the first command
-1. Know which of two states you are in. The style guide, the schema components, the section cards, the `image` field, the llms scripts and (on coco-docs) the move of the Book from `/docs/book/` to `/book/` exist only on the open PR branches as of the last fetch (`sites.md`). On `main`, `npm run build` is a plain `docusaurus build`, and `HowToSchema` and `FaqSchema` do not exist, so a tutorial written from the template would fail to build there (the import cannot resolve; not run). On moidocs `main` the image `/img/moi-card-build.png` does not exist either, so leave `image` out there. On coco-docs `main` link to `/docs/book/...`, not `/book/...`. Read PR state first (`gh pr view <N> --repo sarvalabs/<repo> --json state,mergedAt`); if the PR has not merged, write for `main` and add the rest when it does, or base your branch on the PR branch with the operator's agreement. The lint reads the checkout it is in and says which form it wants (`link-route-prefix`, `image-card-missing`, `schema-component-missing`).
+1. Know which of two states your clone is in. The style guide, the schema components, the section cards, the `image` field, the llms scripts and (on coco-docs) the move of the Book from `/docs/book/` to `/book/` came in with the sweep PRs: moidocs #124 (merged 2026-10-13), voyage-docs #5 and coco-docs #12 (both merged 2026-10-05; `sites.md`). A clone fetched before those dates still has a plain `docusaurus build`, no `HowToSchema` or `FaqSchema` (a tutorial written from the template would fail to build there: the import cannot resolve; not run), no `/img/moi-card-build.png` (leave `image` out) and the Book at `/docs/book/...`. So fetch `main` first (GATE) and read the PR state if in doubt (`gh pr view <N> --repo sarvalabs/<repo> --json state,mergedAt`). The lint reads the checkout it is in and says which form it wants (`link-route-prefix`, `image-card-missing`, `schema-component-missing`).
 2. The three repos are private. Access comes from an org admin. ASK: Rahul.
-3. No secrets are needed to build any docs site (`DEPENDENCIES.md` section 13, local to the previous operator's machine; ASK: Adithya for a copy). If a step asks for a key, stop.
+3. No secrets are needed to build any docs site (not recorded in the handover docs; `project-handover-docs/LIST-OF-DEPENDENCIES.md` lists no docs site). If a step asks for a key, stop.
 
 ## The steps
 GATE marks a step that needs the operator's explicit yes first (`moi-devrel/references/consent-and-identity.md`).
@@ -16,8 +16,8 @@ GATE marks a step that needs the operator's explicit yes first (`moi-devrel/refe
 | 3 | Install | GATE: `npm install` (downloads the dependencies from the npm registry). Node `>=16.14` for moidocs and voyage-docs, `>=18` for coco-docs | `npm run start` serves the site (voyage-docs binds port 6420, coco-docs is on http://localhost:3000). Stop only the server you started, by its port or PID, never by name |
 | 4 | Find the neighbour | Open a page in the same folder and copy its conventions for the title and the H1 | You know whether this folder writes `# Title` |
 | 5 | File and position | File name in lower-case words with hyphens (`account-tutorial.md`). List positions as in `page-standard.md` section 1. A new folder needs `_category_.json` (`templates/category.json`) | The page sits where you want it in the sidebar |
-| 6 | Copy a template | `cp "$SKILLS/moi-docs/templates/page-moidocs-concept.md" docs/learn/fundamentals/<name>.md`, or the tutorial, FAQ, stub, voyage-docs or coco-docs template | A file with every blank marked `FILL-IN` | <!-- slop-lint:ignore -->
-| 7 | Write | Opening paragraph first (rule R1). Names per the table. Headings per R2 to R4. Every technical statement has a source and a ref you can name | No `FILL-IN` left | <!-- slop-lint:ignore -->
+| 6 | Copy a template | `cp "$SKILLS/moi-docs/templates/page-moidocs-concept.md" docs/learn/fundamentals/<name>.md`, or the tutorial, FAQ, stub, voyage-docs or coco-docs template | A file with every blank marked `FILL-IN` <!-- slop-lint:ignore --> |
+| 7 | Write | Opening paragraph first (rule R1). Names per the table. Headings per R2 to R4. Every technical statement has a source and a ref you can name | No `FILL-IN` left <!-- slop-lint:ignore --> |
 | 8 | Components | Only those in the table below. For a tutorial or FAQ on moidocs, copy the import and the call from the template and change only the data | The page builds |
 | 9 | Lint | `python3 "$SKILLS/moi-docs/scripts/docs-page-lint.py" docs/learn/fundamentals/<name>.md` (a new file counts as all added). For an existing page add `--added-lines-since origin/main` | 0 errors; every warning read and answered |
 | 10 | Build | `npm run build`. Read the output (below). Look in `build/` for the page | Exit 0 and no `generate-llms:` warning |
@@ -32,7 +32,7 @@ GATE marks a step that needs the operator's explicit yes first (`moi-devrel/refe
 Counts are pages that use them on the PR branches, read 2026-10-03.
 | Site | Allowed | Notes |
 |---|---|---|
-| moidocs | `Tabs` and `TabItem` (`import Tabs from '@theme/Tabs'`, 13 pages); admonitions `:::note`, `:::info`, `:::tip`, `:::caution`, `:::warning`; `HowToSchema` (6 tutorials) and `FaqSchema` (1 page), PR branch only; `Whitepapers` (1 page, the paper cards) | One page (`interactions.md`) puts an HTML paragraph with an `id` attribute where it needs an anchor that no heading gives |
+| moidocs | `Tabs` and `TabItem` (`import Tabs from '@theme/Tabs'`, 13 pages); admonitions `:::note`, `:::info`, `:::tip`, `:::caution`, `:::warning`; `HowToSchema` (6 tutorials) and `FaqSchema` (1 page), which arrived with #124; `Whitepapers` (1 page, the paper cards) | One page (`interactions.md`) puts an HTML paragraph with an `id` attribute where it needs an anchor that no heading gives |
 | voyage-docs | `Tabs` and `TabItem` (1 page) | No schema components |
 | coco-docs | `InstallGuide`, `VSCodeExtension` (from `@site/src/components/InstallSteps`), `DownloadGrid` (from `@site/src/components/DownloadButton`, releases page) | Admonitions such as `:::tip` are used on Book pages |
 A new component also needs a line in the llms generator, or raw JSX leaks into `llms-full.txt` (265 lines did, fixed in commit `f639f41`): add its name to `DROPPED_COMPONENTS` in `scripts/generate-llms.mjs` (moidocs, voyage-docs) or to the `components` map in coco-docs. Change one repo's script and copy it to the other if they must stay identical (`diff` them). A new component is a code change: ask the maintainers first (Gokul for moidocs and voyage-docs, Robert Špendl for coco-docs).
@@ -45,7 +45,7 @@ A new component also needs a line in the llms generator, or raw JSX leaks into `
 - The SDK examples live in the tutorials as JavaScript. Take constants from the SDK, never from a literal (`moi-devrel/references/devnet.md`).
 
 ## What the build tells you
-`npm run build` on a PR branch runs the generator, `docusaurus build`, then the injector. Read these lines:
+`npm run build` on a current `main` (an older clone runs a plain `docusaurus build`) runs the generator, `docusaurus build`, then the injector. Read these lines:
 - `generated static/llms.txt (N lines)` and `emitted per-route .md files`: N should grow by one line per page.
 - `inject-schema: TechArticle + BreadcrumbList injected into N pages`: N equals the page count.
 - `generate-llms: ... still has a JSX component`: a component the generator does not know. Fix it before the PR.
@@ -54,7 +54,7 @@ A new component also needs a line in the llms generator, or raw JSX leaks into `
 Verifying the sitemap, canonical, JSON-LD, robots and `.well-known` is the `geo` branch's job (`geo/GUIDE.md`).
 
 ## Moving, renaming and deleting
-Moving or renaming a page changes its address and gives old links a 404 unless a redirect exists. coco-docs keeps redirects in `static/_redirects` (PR branch only). moidocs and voyage-docs have no redirect file. Before moving a page, ask whoever manages the hosting how redirects are set up (the guide's instruction). The owner of the Pages projects is not on record: ASK: Rahul. After a rename, `grep -rn "<old-path>" .` and search the `sarvalabs` GitHub org, because other MOI sites link in.
+Moving or renaming a page changes its address and gives old links a 404 unless a redirect exists. coco-docs keeps redirects in `static/_redirects` (arrived with #12). moidocs and voyage-docs have no redirect file. Before moving a page, ask whoever manages the hosting how redirects are set up (the guide's instruction). The owner of the Pages projects is not on record: ASK: Rahul. After a rename, `grep -rn "<old-path>" .` and search the `sarvalabs` GitHub org, because other MOI sites link in.
 
 ## Images
 Put the file in `static/img/` (moidocs, coco-docs) and write `![alt text](/img/<file>)`. Alt text names things by the naming table. Do not paste a screenshot that shows a key, a recovery phrase or a personal address. `static/guardian-tutorial/` and `static/monitor-guardian/` hold the Guardian screenshots on moidocs.

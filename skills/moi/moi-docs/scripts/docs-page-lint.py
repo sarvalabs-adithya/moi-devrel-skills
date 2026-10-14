@@ -57,8 +57,8 @@ DESC_MIN, DESC_MAX, TITLE_MAX = 130, 170, 60
 SKIP_DIRS = {"node_modules", "static", ".git", ".docusaurus"}
 PAGE_EXT = {".md", ".mdx", ".rst"}
 
-# rule id -> (level, where it comes from, what it means). The source labels: guide = DOCS-STYLE-GUIDE.md (only on
-# PR #124 of sarvalabs/moidocs as of 2026-10-03), house = moi-devrel house rules, build = the build fails or the
+# rule id -> (level, where it comes from, what it means). The source labels: guide = DOCS-STYLE-GUIDE.md (on main of
+# sarvalabs/moidocs since PR #124 merged on 2026-10-13), house = moi-devrel house rules, build = the build fails or the
 # metadata is dropped silently, derived = this library's reading, not stated in the guide.
 RULES = {
     "fm-missing": ("ERROR", "guide step 1", "the page has no frontmatter block"),
@@ -80,7 +80,7 @@ RULES = {
     "sidebar-position-value": ("WARN", "derived", "sidebar_position is not a number"),
     "image-wrong": ("ERROR", "guide step 1", "moidocs: image missing or not the card for this section (a warning on a stub)"),
     "image-extra": ("WARN", "guide table", "voyage-docs and coco-docs leave image out"),
-    "image-card-missing": ("WARN", "observed", "moidocs: the section cards (static/img/moi-card-*.png) are not in this checkout, they are on PR #124 only; leave image out until it merges"),
+    "image-card-missing": ("WARN", "observed", "moidocs: the section cards (static/img/moi-card-*.png) are not in this checkout (they arrived with PR #124, merged 2026-10-13, so fetch main); leave image out in a checkout without them"),
     "stub-unmarked": ("ERROR", "guide step 5", "a short page says it is coming soon but is not marked noindex or unlisted"),
     "stub-text": ("WARN", "guide step 5", "a longer page says coming soon or under development; if a whole section is a placeholder, the page is a stub"),
     "stub-marked-finished": ("WARN", "guide step 5", "the page is marked as a stub but has real content; remove the mark if it is finished"),
@@ -94,7 +94,7 @@ RULES = {
     "opening-throat": ("WARN", "guide step 2", "the opening paragraph talks about the page before it says what the thing is"),
     "opening-short": ("WARN", "derived", "the opening paragraph is under 6 words"),
     "schema-no-import": ("ERROR", "build", "HowToSchema or FaqSchema is used but not imported"),
-    "schema-component-missing": ("ERROR", "build", "HowToSchema or FaqSchema is imported but src/components has no such file in this checkout (PR #124 only), so the import cannot resolve"),
+    "schema-component-missing": ("ERROR", "build", "HowToSchema or FaqSchema is imported but src/components has no such file in this checkout (it arrived with PR #124, merged 2026-10-13, so fetch main), so the import cannot resolve"),
     "schema-blank-line": ("ERROR", "guide step 6", "a blank line inside a HowToSchema or FaqSchema call"),
     "schema-wrong-site": ("ERROR", "guide step 6", "HowToSchema and FaqSchema exist on moidocs only"),
     "schema-both": ("WARN", "derived", "both a HowToSchema and a FaqSchema on one page"),
@@ -113,7 +113,7 @@ RULES = {
     "link-form": ("WARN", "guide table", "coco-docs page addresses end with a slash"),
     "link-http": ("WARN", "derived", "http link"),
     "link-private-repo": ("WARN", "house rule 2", "link to a private MOI repo; readers cannot open it"),
-    "link-route-prefix": ("WARN", "observed", "coco-docs: the Book is served under /docs/book/ on main and under /book/ after PR #12; this link uses the other form (read from docusaurus.config.js)"),
+    "link-route-prefix": ("WARN", "observed", "coco-docs: the Book is served under /docs/book/ before PR #12 (merged 2026-10-05) and under /book/ since; this link uses the other form (read from docusaurus.config.js)"),
     "link-anchor-missing": ("WARN", "derived", "in-page link to an anchor no heading produces (the slug is approximate)"),
     "image-alt": ("WARN", "guide step 4", "image without alt text"),
     "placeholder": ("ERROR", "guide, Drive standard", "placeholder text must not ship"),
@@ -312,7 +312,7 @@ _FACTS = {}
 def repo_facts(path):
     """Read-only look at the repo around a page, so a rule can tell `main` from the PR branch that adds the search layer.
     Returns None when no docusaurus.config.js sits above the page (then every rule applies as written).
-    coco_routes is "root" when the config sets routeBasePath '/' (PR #12) and "docs" when it does not (main)."""
+    coco_routes is "root" when the config sets routeBasePath '/' (since PR #12 merged, 2026-10-05) and "docs" when it does not (an older checkout)."""
     try:
         here = path.resolve().parent
     except OSError:
@@ -508,7 +508,7 @@ def check_target(f, ln, target, site, facts=None):
             last = path.rstrip("/").rsplit("/", 1)[-1]
             mode = (facts or {}).get("coco_routes")
             if mode == "docs" and (path == "/book" or path.startswith("/book/")):
-                f.add(ln, "WARN", "link-route-prefix", "this checkout serves the Book under /docs/book/ (routeBasePath '/' is on PR #12 only), so a /book/ link has no route and the build stops (inferred, not built): %s" % mask(t)[:70])
+                f.add(ln, "WARN", "link-route-prefix", "this checkout serves the Book under /docs/book/ (routeBasePath '/' came with PR #12; fetch main), so a /book/ link has no route and the build stops (inferred, not built): %s" % mask(t)[:70])
             elif mode == "root" and (path == "/docs/book" or path.startswith("/docs/book/")):
                 f.add(ln, "WARN", "link-route-prefix", "this checkout serves the Book at /book/ (routeBasePath '/'); /docs/book/ only works through a redirect: %s" % mask(t)[:70])
             elif mode != "docs" and path != "/" and not path.endswith("/") and "." not in last:
@@ -593,7 +593,7 @@ def lint_markdown(text, path, site, f, opts):
                 if facts is not None and not facts["cards"]:
                     if img is not None:
                         f.add(img["line"], "WARN", "image-card-missing",
-                              "this checkout has no section cards in static/img (they are on PR #124 only), so the image does not exist yet; leave image out until it merges")
+                              "this checkout has no section cards in static/img (they arrived with PR #124, merged 2026-10-13, so fetch main), so the image does not exist here; leave image out in this checkout")
                 elif img is None or img["value"].strip() != want:
                     f.add(img["line"] if img else 0, "WARN" if marked_noindex else "ERROR", "image-wrong",
                           "moidocs pages under docs/%s/ carry image: %s" % (section, want))
@@ -737,7 +737,7 @@ def lint_markdown(text, path, site, f, opts):
         elif sname not in imported:
             f.add(first, "ERROR", "schema-no-import", "%s is used but not imported: import %s from '@site/src/components/%s';" % (sname, sname, sname))
         elif facts is not None and not facts["schema"].get(sname, True):
-            f.add(first, "ERROR", "schema-component-missing", "this checkout has no src/components/%s (it is on PR #124 only), so the import cannot resolve and the build fails. Write the page without it until the PR merges" % sname)
+            f.add(first, "ERROR", "schema-component-missing", "this checkout has no src/components/%s (it arrived with PR #124, merged 2026-10-13, so fetch main), so the import cannot resolve and the build fails. Fetch main, or write the page without it" % sname)
         end = first
         while end <= len(lines) and "/>" not in lines[end - 1]:
             end += 1

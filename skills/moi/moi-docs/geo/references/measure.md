@@ -47,7 +47,7 @@ Rules: quote a figure only with its date and source. Do not quote any of them in
 `examples/ai-visibility-queries.yaml` is the previous operator's suite of 25 questions in four groups: direct questions about MOI, problem-space questions, disambiguation checks and competitive framing.
 - It sends each question to a model API and tests the answer text. Nothing in it enables web search (inferred from the file), so it measures what a model says, which is not what a live answer engine cites. It cannot replace the Scribble figures.
 - Its first assertion looks for the letters "MOI" in any case, which also matches inside other words. Tighten it before you trust a pass rate.
-- It needs a provider key, typed by the operator at the terminal and never pasted into chat or a file. Paid calls are spend: state the number of questions and providers first (`moi-devrel/SKILL.md`, Gates). The free Groq model queued and timed out on 2026-09-09.
+- It needs a provider key, typed by the operator at the terminal and never pasted into chat or a file. No company-owned OpenAI, Groq or Anthropic key exists (2026-10-13), so there is no key to type until Rahul approves one. ASK: Rahul. Paid calls are spend: state the number of questions and providers first (`moi-devrel/SKILL.md`, Gates). The free Groq model queued and timed out on 2026-09-09.
 - Run it with `npx promptfoo eval -c <file>`. That downloads a package: GATE. It was never run to completion, so there is no baseline.
 
 ## What to say about it

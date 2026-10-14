@@ -9,7 +9,7 @@ The method of the recorded case, moidocs PR #120, and how to run it with this li
 - **How**: the previous operator built a "verified fact pack" of 52 facts already checked, had Haiku sub-agents (at his request, for cost) verify each claim in each changed file against source, then ran a refutation pass that tried to prove each finding wrong.
 - **Result**: findings per file: storage cost 6, JSON-RPC 7, access policy 5, submit interaction 4, access control 3 (25 in all). The headline said "27 errors", the table said 8 breaking plus 18 minor (26), the numbered list had 25. The assistant flagged the mismatch and the counts were reconciled before anything went to the author.
 - **Delivery**: a "simple md file", no artifact, nothing posted (the operator posts). The comment format was "Issue N: what the issue is, why it is an issue, where the issue is, suggested fix". The 8 breaking issues went first, the rest after review.
-- **Not recorded**: where the report was saved, and whether the method was applied to the neighbouring PRs #123 and #126. ASK: Adithya for the report.
+- **Not recorded**: where the report was saved, and whether the method was applied to the neighbouring PRs #123 and #126. Not recorded (the previous DevRel's notes); ASK: Rahul.
 
 ## The steps
 GATE marks a step that needs the operator's yes.
@@ -41,5 +41,5 @@ GATE marks a step that needs the operator's yes.
 The pages of #120 are on `main` of moidocs: the access policy and storage cost tutorials and concept pages, `submit-ixn.md`, `json-rpc.md` and `access-control.md`. #126 added `net.NetworkID` to the JSON-RPC page on 2026-10-01. Nobody has recorded a re-check against v0.13.0. A good first supervised task is to check the `net.NetworkID` section: on 2026-10-03 the page documents the method with network IDs 111, 112 and 113, and the live devnet answered error -32601, "the method net.NetworkID does not exist/is not available" (`moi-devrel/references/devnet.md` reports the same on 2026-10-02). The source may know it while the running build does not. ASK: Gokul which is right.
 
 ## Not yet known
-- The report of 2026-08-21 and whether the findings reached the author. ASK: Adithya.
+- The report of 2026-08-21 and whether the findings reached the author. Not recorded (the previous DevRel's notes); ASK: Rahul.
 - Who adjudicates when source and page disagree and the protocol team has not answered. Gokul is the protocol contact (inferred). ASK: Rahul.

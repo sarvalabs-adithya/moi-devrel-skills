@@ -17,7 +17,7 @@ Why: A `Content-Signal` outside a group attached to nothing until 2026-10-01, an
 ### 3. Is the layer working on cocolang.dev?
 Prompt: "Is the GEO stuff working on cocolang.dev?"
 Expect: Runs `geo-check.sh` on `https://cocolang.dev` and on the preview `https://geo-fixes.cocodocs.pages.dev`, and reports both honestly. Live today: `robots.txt` is Cloudflare's comment block with no group (WARN), `llms.txt` 404, the sitemap names the mirror host and lists sample pages. Preview: passes. Says the work is on pull request #12 and is not live. Does not call a `200 text/plain` robots file proof of a policy.
-Why: A 200 proves little. The layer is on branches, not merged (`references/the-layer.md`).
+Why: A 200 proves little. On 2026-10-03 the layer was on branches, not merged; it has merged since for four of the five properties (`references/the-layer.md`).
 
 ### 4. Update the visibility slide
 Prompt: "Visibility is 21 percent this month. Put it on the CC15 slide, up from 17.3."
@@ -30,7 +30,7 @@ Expect: Makes a self-hiding `geo-audit-<date>/` folder first and checks it with 
 Why: Audit work is local (`moi-devrel/references/consent-and-identity.md`, section 6). A status draft once claimed unfinished work (2026-09-10).
 
 ### 6. A Coco release
-Prompt: "Coco 0.9.3 is out. Update the docs site."
+Prompt: "The next Coco release is out (say its version, X.Y.Z). Update the docs site."
 Expect: Lists the couplings: the releases page and its download grid in coco-docs, the version strings in book pages (found with `grep`), the `download` address in both skills indexes, the three mentions in `coco-skill.md`, and the zip on the CDN. Says Robert Špendl confirms the release, that DevOps is the likely publisher of the zip (inferred; ASK: Upendhar), and that the old 0.8.2 zip is kept on purpose. Does not hand-edit `llms.txt`. Runs `geo-check.sh --follow` after the change to find dead links. Opening the pull request is a GATE.
 Why: Nothing ties these files together (`references/discovery-files.md`; commit bcbcbf8 did the moidocs half for 0.9.2).
 
@@ -54,7 +54,7 @@ Every command is `bash "$SKILLS/moi-docs/geo/scripts/geo-check.sh" <arguments>`.
 | `https://voyage.moi.technology` | Exit 1: 5 FAIL; robots and sitemap name `voyage.ai` |
 | `https://moi.technology` | Exit 1: 5 FAIL; `llms.txt` is a soft 200, seven robots groups without a signal |
 | `https://blog.moi.technology` | Exit 0: 12 PASS, 8 WARN |
-| `https://launchpad.moi.technology` | Exit 1: 1 FAIL (sitemap answers 500), WARN: `llms.txt` links to another host |
+| `https://launchpad.moi.technology` | Exit 1: 1 FAIL (sitemap answers 500), WARN: `llms.txt` links to another host (2026-10-03; the live `llms.txt` now points at `launchpad.moi.technology/docs`, so re-run before you compare) |
 | `https://docs.moi.technology --expect-host wiki.moi.technology` | Exit 1: the sitemap host check passes, as it should for a forced expectation |
 | `<preview> --page /docs/guard/guardian-faq` | Exit 0: that page is the sample |
 | `<preview> --follow` | Exit 0: 9 catalog and skills links answered 200 |
@@ -98,7 +98,7 @@ Run after the whole-library test (a consistency critic, three new-hire simulatio
 
 | Check | Command | Result |
 |---|---|---|
-| Description length and routing | count the characters of the description in `moi-docs/SKILL.md` (this branch has none of its own) | 953, under the 1024 limit; it carries the geo words and names moi-blog for a post's own rules |
+| Description length and routing | count the characters of the description in `moi-docs/SKILL.md` (this branch has none of its own) | 953 on 2026-10-04 and 1,015 after the review fixes of that day (the current figure), under the 1024 limit; it carries the geo words and names moi-blog for a post's own rules |
 | House lint | `bash "$SKILLS/moi-devrel/scripts/slop-lint.sh" --errors-only` over every text file of the skill | 0 error(s), 0 warning(s) in 15 file(s) |
 | Secret scan | `bash "$SKILLS/moi-devrel/scripts/secret-scan.sh" "$SKILLS/moi-docs/geo"` | 0 finding(s) in 16 file(s) scanned. |
 | Dash, home path, leftovers | `grep -rIl` for the em dash character and for the home-folder prefix; `find` for `__pycache__` | none found |

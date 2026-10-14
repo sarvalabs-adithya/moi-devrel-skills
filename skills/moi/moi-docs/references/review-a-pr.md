@@ -55,9 +55,9 @@ One finding, four parts, in the previous operator's format of 2026-08-21: "Issue
 - A review reports checks that were done. A planned check is labelled as one.
 
 ## Verdicts
-- Request changes while any breaking item stands. The Drive standard says not to approve a PR that fails any item of its reviewer checklist (secondhand: the Drive document was not read, ASK: Adithya for a copy).
+- Request changes while any breaking item stands. The Drive standard says not to approve a PR that fails any item of its reviewer checklist (secondhand: the Drive document was not read; it is in the previous DevRel's Drive and must be moved to a shared Drive, ASK: Rahul).
 - Approve only after the lint shows no error on added lines, the preview was opened, and the facts are checked or the gaps are named in the comment.
-- After the author fixes, re-read the fix commit against the numbered issues. Draft the reply for the operator to post and the request for re-review. On 2026-10-02 Rahul's change request on #124 was met by commit `75f608b` and nobody had answered him.
+- After the author fixes, re-read the fix commit against the numbered issues. Draft the reply for the operator to post and the request for re-review. On 2026-10-02 Rahul's change request on #124 was met by commit `75f608b` and nobody had answered him. #124 merged on 2026-10-13.
 
 ## What reviewers have asked before
 | Date | Who | Asked | Result |
@@ -70,5 +70,5 @@ One finding, four parts, in the previous operator's format of 2026-08-21: "Issue
 Give the operator the path of the draft, the counts (breaking, minor, questions), the verdict you recommend and why, what you did not check, and "Ready to post: yes or no". Do not post.
 
 ## Not yet known
-- Whether Gokul has reviewed #124 (requested, no review recorded on 2026-10-02) and who must approve each repo. ASK: Rahul.
+- Whether Gokul reviewed #124 before it merged on 2026-10-13 (requested, no review recorded on 2026-10-02), and who must approve each repo. ASK: Rahul.
 - Whether a posted comment may name private source on a private repo. ASK: Rahul.

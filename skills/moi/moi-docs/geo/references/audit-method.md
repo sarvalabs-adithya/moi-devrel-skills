@@ -1,6 +1,6 @@
 # Audit a property: the September 2026 sweep method
 
-Facts are as of 2026-10-03. The method is the one the previous operator used from 2026-09-02 to 2026-09-09 on the properties in the score table below (the record says six properties; scores for five are on file; ASK: Adithya for the sixth), written down from the session record and re-run in part on 2026-10-03. The scores it produced are the auditor's own rubric, not an external measurement. Page-level frontmatter and naming checks belong to the parent skill (`moi-docs`). Back to `../GUIDE.md`.
+Facts are as of 2026-10-03. The method is the one the previous operator used from 2026-09-02 to 2026-09-09 on the properties in the score table below (the record says six properties; scores for five are on file; the sixth is not recorded (the previous DevRel's notes), ASK: Rahul), written down from the session record and re-run in part on 2026-10-03. The scores it produced are the auditor's own rubric, not an external measurement. Page-level frontmatter and naming checks belong to the parent skill (`moi-docs`). Back to `../GUIDE.md`.
 
 ## Rules for an audit
 1. Local and read-only. No push, no pull request, no comment, no message. A finding that notifies someone is the operator's to send (`moi-devrel/references/consent-and-identity.md`, section 6).
@@ -10,16 +10,16 @@ Facts are as of 2026-10-03. The method is the one the previous operator used fro
 5. Spend: no sub-agents and no paid tool unless the operator names it, with the count stated first. The September sweep used sub-agents because the previous operator asked for them.
 
 ## Where the rules and the past reports live
-- `DOCS-STYLE-GUIDE.md`, at the root of the private `sarvalabs/moidocs`. It is only on branch `geo-fixes` (open PR #124) and is not on `main`. ASK: Rahul for access.
-- Two Google Docs in the previous operator's Drive: "MOI Documentation Standard" (two versions; v2, the longer one made about 40 minutes after v1, is canonical, inferred) and "MOI SEOGEOAEO Sweep Status" (per-change rationale, scores and status per property, dated 10 Sep 2026). Neither was opened in full while this branch was written. ASK: Adithya for access, and Rahul which Standard version is canonical.
-- The standard says questions on it go to the previous operator in `#dev-chat`. The standard does not name the platform of that channel. ASK: Adithya.
+- `DOCS-STYLE-GUIDE.md`, at the root of the private `sarvalabs/moidocs`. It has been on `main` since PR #124 merged (2026-10-13); fetch before you read it. ASK: Rahul for access.
+- Two Google Docs in the previous operator's Drive: "MOI Documentation Standard" (two versions; v2, the longer one made about 40 minutes after v1, is canonical, inferred) and "MOI SEOGEOAEO Sweep Status" (per-change rationale, scores and status per property, dated 10 Sep 2026). Neither was opened in full while this branch was written. They are in the previous DevRel's Drive and must be moved to a shared Drive (ASK: Rahul), who also says which Standard version is canonical.
+- The standard says questions on it go to the previous operator in `#dev-chat`. The standard does not name the platform of that channel. Not recorded (the previous DevRel's notes); ASK: Rahul.
 
 ## The run
 | # | Step | How | Done when |
 |---|---|---|---|
 | 1 | Scope | List the properties from `the-layer.md`. Add `docs.wallet.moi.technology` only if the operator asks; it was deferred on 2026-09-02 and its repo is unknown | A table of hosts, each with its repo and the state of its pull request |
 | 2 | Baseline | For each host: `bash "$SKILLS/moi-docs/geo/scripts/geo-check.sh" https://<host> > geo-audit-<date>/<host>.txt`. Add the preview of any open pull request. This is the "before" | One file per host, plus the totals line of each |
-| 3 | Crawl without JavaScript | GATE: a bulk download, so state the host and the page count first. Fetch the raw HTML of every sitemap page with `curl` into the audit folder: that is what GPTBot, ClaudeBot and PerplexityBot see. `geo-check.sh` does not do this. It checks one sample page in full and compares `dateModified` across up to ten pages (`--pages 10`). For the per-page table Claude writes a throwaway read-only script in a folder made with `mktemp -d` (the 2026-09 scripts were not found on disk; ASK: Adithya for copies) | A table with one row per page |
+| 3 | Crawl without JavaScript | GATE: a bulk download, so state the host and the page count first. Fetch the raw HTML of every sitemap page with `curl` into the audit folder: that is what GPTBot, ClaudeBot and PerplexityBot see. `geo-check.sh` does not do this. It checks one sample page in full and compares `dateModified` across up to ten pages (`--pages 10`). For the per-page table Claude writes a throwaway read-only script in a folder made with `mktemp -d` (the 2026-09 scripts were not found on disk; not recorded (the previous DevRel's notes), ASK: Rahul) | A table with one row per page |
 | 4 | Extract per page | Title length and uniqueness, description, canonical, `og:` and `twitter:` tags, robots meta, hreflang, H1 count and order, word count, internal links, JSON-LD types, and the GEO signals below | No page without a row |
 | 5 | Site-level checks | Crawler access by user-agent name, including a WAF block; `llms.txt` and the `.md` copies; sitemap against the navigation; canonical and redirect sanity; the `Organization` `@id` and `sameAs` on every property | Each check has a result |
 | 6 | Optional tools | GATE for each: it is a download or a run that Claude names and the operator approves. linkinator (dead links), a Playwright render with and without JavaScript, Vale, markdownlint, a JSON-LD validator, Pa11y, Lighthouse | The operator chose which; results saved |
@@ -41,7 +41,7 @@ GEO signals in step 4: a definition in the first paragraph that stands alone; qu
   In the files read, Level 1, the API catalog, Link headers and the Skills Index exist, and no file for the rest was found. Whether the checklist still reads this way is unknown.
 
 ## What the September sweep found and scored
-Scores are SEO, GEO and AEO out of 10, reported to Rahul on 2026-09-10 and describing the fixed branches. The "after" scores for docs.moi.technology and moi.technology were recorded as "so far". On 2026-10-03 the live sites still show the before state (`the-layer.md`).
+Scores are SEO, GEO and AEO out of 10, reported to Rahul on 2026-09-10 and describing the fixed branches. The "after" scores for docs.moi.technology and moi.technology were recorded as "so far". On 2026-10-03 the live sites still showed the before state (`the-layer.md`); since then #5, #12 and #57 (2026-10-05) and #124 (2026-10-13) merged, so four of the five properties now serve the fixed state and js-moi-sdk (#150, open) does not. Re-run the baseline before you quote a score as current.
 | Property | Before | After |
 |---|---|---|
 | docs.moi.technology | 3 / 4 / 3 | 8.5 / 9 / 8.5 |
@@ -49,7 +49,7 @@ Scores are SEO, GEO and AEO out of 10, reported to Rahul on 2026-09-10 and descr
 | cocolang.dev | 3 / 2 / 3 | 9 / 9.5 / 9 |
 | js-moi-sdk.docs.moi.technology | 3 / 4 / 3 | 9 / 9 / 9 |
 | moi.technology | 5 / 4 / 3 | 7 / 6 / 5 |
-The 2 on cocolang.dev was Cloudflare answering 403 to AI crawlers. The stated gap to 10 was external authority: mentions and third-party listings. Other results from 2026-09-09: linkinator found one dead link, the guardian genesis file in `docs/guard/setup-guardian.md` (still 404 on 2026-10-03); the docs sites were 99 to 116 percent visible without JavaScript and the website's home page 15 percent (the way the percentage was computed is unknown, so do not quote it); Vale found 0 violations in 104 files; 135 of 135 JSON-LD blocks validated; Lighthouse SEO was 100, 100 and 92 on three properties. PR #57 renders the marketing routes to HTML for the website's low figure; the header of its `scripts/ssg.mjs` says crawlers now receive the page content.
+The 2 on cocolang.dev was Cloudflare answering 403 to AI crawlers. The stated gap to 10 was external authority: mentions and third-party listings. Other results from 2026-09-09: linkinator found one dead link, the guardian genesis file in `docs/guard/setup-guardian.md` (still 404 on 2026-10-03); the docs sites were 99 to 116 percent visible without JavaScript and the website's home page 15 percent (the way the percentage was computed is unknown, so do not quote it); Vale found 0 violations in 104 files; 135 of 135 JSON-LD blocks validated; Lighthouse SEO was 100, 100 and 92 on three properties. PR #57 (merged 2026-10-05) renders the marketing routes to HTML for the website's low figure; the header of its `scripts/ssg.mjs` says crawlers now receive the page content.
 Coverage finding: of 216 campaign pieces, none linked to `docs.moi.technology`, and 54 percent were about the Agent Launchpad. Rahul's answer on 2026-09-17: application docs do not belong in protocol docs, so Launchpad questions are answered by the Launchpad's own docs and the use-case pages on moi.technology. Backlinks are fine.
 
 ## Report shape
@@ -59,6 +59,6 @@ Use `templates/audit-report.md`. The sections of the 2026-09-10 status message, 
 Nobody scheduled a repeat. The weekly live check was removed on purpose (commit 77059a7: "no scheduled monitoring - live-site issues get handled as they surface", per maintainer preference; the maintainer is not named). Run it on request, after a major change to hosting, Cloudflare or a generator, and after each release that changes a version-coupled file (`discovery-files.md`). One batch pull request per round, not one per fix (`moi-devrel/ship`).
 
 ## Not yet known
-- Where the scored reports of September are saved. ASK: Adithya.
+- Where the scored reports of September are saved. Not recorded (the previous DevRel's notes); ASK: Rahul.
 - Whether the audit will be repeated on a schedule. ASK: Rahul.
 - Whether a Wikidata item exists for MOI and for Sarva Labs, and their identifiers. ASK: Sai Kiran.
