@@ -42,11 +42,10 @@ The data directory (MOI_DATA_DIR, /var/lib/moi-mcp on both VMs) holds the sign-i
 | Wallet | moi_connect_wallet, moi_wallet_status, moi_disconnect_wallet | A pairing tap | Yes |
 | Writes, preview then confirm | moi_transfer, moi_create_asset, moi_mint, moi_call_logic (invoke), moi_create_account | Yes | Yes. Assets: **MAS0** (MOI's standard for ordinary fungible tokens), MAS1, MAS2 and MASX (added by PR #27) |
 | Agent registry writes | moi_register_agent, moi_set_agent_status, moi_transfer_agent | Yes | Yes |
-
-**Transfers to other people, through claude.ai.** Adithya reported (14 October 2026) that a newer Claude policy stops claude.ai from sending assets to someone else's address: a transfer or mint to your own account still goes through, a send to another address is refused by Claude. The refusal comes from Claude, not from this server, whose code still allows any recipient. The policy text was not saved; find it before relying on this, and test a 1 KMOI send to another address to see where it stands.
-
 | Launchpad | moi_launchpad_templates, _sign_in, _status, _create_agent, _register_agent, _telegram_link, _setup_script, _sign_out | Sign-in is a message to sign; register is a write | Yes |
 | Dapp | moi_dapp_sign_in, _api, _call, _sessions, _sign_out | Sign-in is a message to sign | Yes |
+
+**Transfers to other people, through claude.ai.** Adithya reported (14 October 2026) that a newer Claude policy stops claude.ai from sending assets to someone else's address: a transfer or mint to your own account still goes through, a send to another address is refused by Claude. The refusal comes from Claude, not from this server, whose code still allows any recipient. The policy text was not saved; find it before relying on this, and test a 1 KMOI send to another address to see where it stands.
 
 Creating a Launchpad agent through the connector ends with a one-time download link for setup-<name>.sh; the user runs it with bash from the folder it landed in (usually cd ~/Downloads). The reply says only "run it with bash"; printing those two lines in the reply is a small follow-up. The Launchpad tools reached production on 14 October with the voyage-api sync #320.
 
