@@ -181,7 +181,6 @@ What the skill never does without a yes from DevRel: push, merge (a merge deploy
 
 ## Open items
 
-- Move every secret into a shared vault. As of October 2026 the server's env file is the only readable copy.
 - The launch video folder in Drive is owned by adithya@moinetwork.io. Since 14 October it is open to anyone at moinetwork.io and Rahul is invited. If that account is ever closed, move ownership first, or the clips and edits go with it.
 - The repo's README and docs/HANDOFF.md still describe Vercel (checked 14 October 2026). Fixes for README, HANDOFF, DEPLOY.md and the two env examples were written on 1 October but never committed: they sit only in Adithya's local clone (branch local/sweep-oct1). Open a PR with them, or rewrite them from this doc.
 - Never pushed, and on Adithya's laptop only (untracked files in his local clone, checked 14 October): the labs folder (app/labs and its API routes) and the one-off chain scripts for clearing stuck **nonces** (a nonce is the counter that orders a sender's interactions, and a stuck one blocks the ones after it), counting installed agents and finding a blocked nonce. Unless they are saved before he leaves, treat them as gone.
