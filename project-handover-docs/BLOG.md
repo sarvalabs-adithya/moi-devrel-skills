@@ -267,6 +267,7 @@ What the skills never do without a yes from DevRel: push, merge (a merge deploys
 
 ## Open items
 
+- Whether the RSS campaign is running or paused is not certain: Adithya thought it might have been paused in October 2026, though the 15 September send went out. Check its status in Mailchimp (Vardan) and resume it with Start RSS if paused. No post has been published since 11 September, so the 15 October send has nothing new either way.
 - The newsletter's send hour is not recorded anywhere in this doc, and the three-hour cutoff for a post depends on it. Read it from the RSS campaign's schedule in Mailchimp (Vardan has the login) and write it here.
 - The Discord and Telegram announcement values (DISCORD_WEBHOOK_URL, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID) are not set as of October 2026, so the "Distribute a post" workflow skips both channels. Decide with marketing whether to set them or leave those channels to a person.
 - No post on main sets a cover image, so shares carry no picture. Decide with marketing whether to add covers.

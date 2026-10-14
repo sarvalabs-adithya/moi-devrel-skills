@@ -278,5 +278,5 @@ What the skill never does without DevRel's yes: push, open or comment on a PR or
 - Run the transfer and create-asset writes once on a phone and record it. The last recorded phone check is from 1 September.
 - UPSTREAM_READ_TOKEN is not set on sarvalabs/moi-mcp, so the upstream watch has never been able to read go-moi or cocolang. Create a fine-grained read-only token from an account that will stay (Rahul decides which) and set it. Issue #17 (js-moi-sdk v0.9.0-rc3) is still open; npm latest is still 0.9.0-rc2 on 13 October, so the pin matches npm.
 - Agree who syncs the copy into voyage-api and who runs the deploy from now on, or replace the copy with an install of the published package once it exists.
-- Fix the repo docs: handoff-infra.md names the wrong repo, mcp.moi.technology is used as an example host and does not exist, and the README says 13 tools while its table lists 28.
+- Fix docs/handoff-infra.md in moi-mcp: it clones github.com/sarvalabs-adithya/moi-mcp instead of sarvalabs/moi-mcp, and uses mcp.moi.technology, which does not exist, nine times (checked 14 October 2026). The README's tool counts were fixed by #27.
 - Settle who is notified of moi-mcp issues. Issue #17 sat for two weeks with no comment.

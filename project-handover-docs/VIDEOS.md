@@ -1,6 +1,6 @@
 # Handover videos
 
-**Status: in progress.** Recorded: the Community Call skill video, the Launchpad video (12 October), the Dataroom product demo (13 October) and the MCP server demo (13 October). Points Program: the webinar bounties walkthrough (14 October). None on record: the skill videos for the Launchpad, Dataroom and MCP server.
+**Status: done for the handover.** Recorded: the Community Call skill video (9 October), the Launchpad demo (12 October), the Dataroom and MCP server demos (13 October), the Points webinar bounties walkthrough and the Blog newsletter video (14 October). Not recorded: skill videos for the Launchpad, Dataroom, MCP server and Points. Each skill's SKILL.md explains it instead.
 
 Marketing: the table of videos and the Reference line below it. Developers: the three outlines (Community Call, Agent Launchpad, Dataroom) and Open items.
 
@@ -64,6 +64,6 @@ Reference: the intro session deck in skills/moi/moi-webinar/past-sessions/intro-
 ## Open items
 
 - Optional: a fuller Points Program demo (an X like campaign, shipping, health). The webinar bounty walkthrough is recorded (14 October).
-- Record the skill videos: Launchpad (moi-launchpad-ops), Dataroom (moi-web-products-ops), MCP server (moi-mcp-ops), Points (moi-web-products-ops).
-- Record a Community Call product demo if the new owner wants one beside the skill video.
-- Confirm what the Launchpad video (12 October) covers. It is listed as the product demo, and the Launchpad outline above also includes the skill's health check.
+- Optional, for the next owner: skill videos for the Launchpad (moi-launchpad-ops), Dataroom and Points (moi-web-products-ops) and MCP server (moi-mcp-ops).
+- Optional: a Community Call product demo beside the skill video.
+- Move ownership of the Drive folder off adithya@moinetwork.io before that account is closed (MIGRATION-LIST.md).

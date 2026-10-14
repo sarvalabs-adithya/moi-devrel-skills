@@ -4,7 +4,7 @@
 
 Marketing: How it works. Developers: everything.
 
-None of the three needs anything to keep running. Each repo's README has a "Pick it up" section for whoever restarts it.
+None of the three inactive ones needs anything to keep running. Each repo's README has a "Pick it up" section for whoever restarts it.
 
 ## How it works
 
@@ -13,7 +13,6 @@ None of the three needs anything to keep running. Each repo's README has a "Pick
 | **Moinkee World Tour mementos** | A site where visitors mint a memento NFT on devnet: a photo from a Moinkee event, pinned to IPFS through Pinata and minted from the site's wallet | Not hosted: the Vercel project was deleted on 14 October 2026 | sarvalabs/moinkee-nft-minter |
 | **Agent dating** | An OpenClaw plugin: two AI agents register on the MOI agent registry, find each other and chat through a small relay, shown live | Not hosted. The public relay was retired with its server; anyone runs their own relay (README, Pick it up) | sarvalabs/agent-dating |
 | **MOI Sprint** | A self-paced challenge track ("learn MOI by building"): two Coco challenges (Soulbound Badge, Simple Swap) and a guide site. Scratched from the handover on 13 October | Not hosted: the Vercel project was deleted on 14 October 2026 | sarvalabs/moisprint (guide site); the challenge scaffolds stay at sarvalabs-adithya/tSwapper (branch `solution` holds the answers) |
-
 | **Contextual Compute Foundation website** | A one-page site: thesis, six papers (CC0 to CC5), a join form that posts each email to a webhook | **Live** at www.contextualcompute.org (Vercel, on the sarvalabsdeveloper@gmail.com account; the apex redirects to www) | sarvalabs/contextual-compute-foundation-website |
 
 The Sprint's chapter text is already in moi-foundation/moi-sprint.
@@ -43,7 +42,7 @@ Names only. Moinkee: `ADMIN_MNEMONIC`, `NEXT_PUBLIC_ASSET_ID`, `PINATA_JWT`, `NE
 gh api repos/sarvalabs-adithya/moinkee-nft-minter/transfer -f new_owner=sarvalabs
 ```
 
-The same was done for `agent-dating`, `moisprint` and `contextual-compute-foundation-website`. `tSwapper` was not moved and stays at sarvalabs-adithya/tSwapper. The Contextual Compute site keeps serving after its move; check that its Vercel project still deploys from the moved repo. GitHub redirects the old addresses. No hosting is attached any more, so nothing else needs reconnecting.
+The same was done for `agent-dating`, `moisprint` and `contextual-compute-foundation-website`. `tSwapper` was not moved and stays at sarvalabs-adithya/tSwapper. GitHub redirects the old addresses. The Contextual Compute site kept serving, and its Vercel project now deploys from the sarvalabs repo. The other three have no hosting, so nothing else needed reconnecting.
 
 ### Moving Pinata
 
@@ -53,26 +52,15 @@ Why it matters: every Moinkee image and token metadata file lives on IPFS, and P
 
 The list of every pinned file (CID, name, size, date) is in this repo at `project-handover-docs/attachments/moinkee/pinata_pins.json` (71 rows), with `recovered.json` and `snapshot.json` (token owners and metadata, used by the recovery flow).
 
-**The company account already exists**: sarvalabsdeveloper@gmail.com (the shared company developer login) has a Pinata account. Adithya's account (login adithya@sarva.ai, free plan, one workspace, members need a paid plan) is the source. The 71 CIDs are one folder holding the memento images (13.6 MB) and 70 small metadata files. The script `project-handover-docs/attachments/moinkee/repin-to-pinata.py` does Option B against the company account: `--dry-run` lists the CIDs, a plain run asks for the company JWT at a hidden prompt, pins the folder first and waits until all 71 are pinned, and `--check` confirms. It writes a log and never prints the key.
+How to repeat it (for example to move the files again):
 
-Option A, simplest: hand the existing Pinata account to a company login (change its email to a company address in Pinata's account settings, if the plan allows). Pins, keys and everything else stay as they are. Then rotate the API key and update `PINATA_JWT` on Vercel.
+1. In the destination Pinata account, create an API key with upload rights. Keep the JWT in the password manager.
+2. Download the files into a folder, say DIR: the 52 entries of the image folder into DIR/folder/ (from `https://ipfs.io/ipfs/<folder CID>/<name>`), the 70 metadata files into DIR/json/<cid>, and the folder's entry list into DIR/folder.json. Public gateways rate-limit, so fetch slowly and retry.
+   Then run `python3 project-handover-docs/attachments/moinkee/reupload-to-pinata.py DIR --verify`, which recomputes every CID offline. Then run it without `--verify`: it asks for the JWT at a hidden prompt (never printed or saved), uploads the image folder first and then the metadata, and unpins and stops if any CID comes back different.
+3. Run it with `--check`, or look at the account's file list: all 71 CIDs should be there.
+4. Whoever brings the Moinkee site back sets `PINATA_JWT` to that account's key.
 
-Option B: re-pin into the company account.
-
-1. Srikar creates the company Pinata account. The free plan is enough for 71 files and 13.6 MB.
-2. In it, create an API key with pinning rights and read access to the pin list. Keep the JWT in the password manager.
-3. Pin every CID by hash. Pinata fetches the files from IPFS while the old account still pins them, so nothing is uploaded again. Paste the new JWT at the hidden prompt:
-
-   ```bash
-   read -rs NEW_JWT && for cid in $(jq -r '.rows[].ipfs_pin_hash' project-handover-docs/attachments/moinkee/pinata_pins.json); do curl -s -X POST https://api.pinata.cloud/pinning/pinByHash -H "Authorization: Bearer $NEW_JWT" -H "Content-Type: application/json" -d "{\"hashToPin\":\"$cid\"}" > /dev/null; done; unset NEW_JWT
-   ```
-
-   If the plan does not offer pin by hash, download each file through `https://ipfs.io/ipfs/<CID>` and upload it in the new account, then check the CID comes out the same.
-4. Check: the new account's pin list shows all 71 CIDs as pinned (Pinata, Files; or `GET https://api.pinata.cloud/data/pinList?status=pinned&pageLimit=1000` with the new JWT).
-5. The site is not hosted now. Whoever brings it back sets `PINATA_JWT` to the company account's JWT.
-6. After a week with nothing broken: revoke the old account's API keys, then unpin or close the old account.
-
-Nothing more is needed: the company account pins all 71 CIDs and Adithya's account no longer matters.
+Pin by CID (`repin-to-pinata.py`, beside it) is quicker but needs a paid Pinata plan; on the free plan it answers "paid feature only".
 
 ### After a devnet reset
 
@@ -84,10 +72,9 @@ None. The moi-devnet-reset skill lists Moinkee as one row of what a reset breaks
 
 ## Open items
 
-- Done 14 October 2026: moinkee-nft-minter, agent-dating, moisprint and contextual-compute-foundation-website moved to sarvalabs. tSwapper was left on Adithya's account by choice.
 - Two public repos contain a committed 12-word devnet recovery phrase: moinkee-nft-minter `scripts/getTdu.mjs` and tSwapper `Swap/src/lib/logic.js` (`POOL_OWNER_MNEMONIC`). Treat both wallets as public: never fund them. Removing the lines does not remove them from history.
 - MOI Sprint: the guide repo's README is the unedited Next.js template, and tSwapper's `solution` branch holds the challenge answers in public. A challenge prototype (`Sprint/Challenge 1/moisprint-challenge-mas0`) existed only on Adithya's laptop and is not in any repo.
 - Contextual Compute site: the join form keeps nothing: the Vercel project has no environment variables (checked 14 October 2026), so `SUBSCRIBE_WEBHOOK_URL` is unset and every sign-up is thrown away while the form still says thank you. Either point it at a webhook that stores emails (for example a form or sheet service marketing already uses) or remove the form. The CC3 paper shows as locked on the page but its PDF is still served at /docs/CC3.pdf. The README is the unedited Next.js template. The domain (Namecheap) and DNS (Cloudflare) are on company accounts. The Vercel project was transferred to the sarvalabsdeveloper@gmail.com Vercel account on 14 October 2026 and the site kept serving. Its Git connection points at sarvalabs/contextual-compute-foundation-website (checked 14 October 2026), so pushes to main deploy.
 - Leftover branches: moinkee-nft-minter (three merged handover and Claude branches) and agent-dating (seven old feature branches) can be deleted after the move.
-- Pinata: done (company account holds all 71 CIDs). Adithya's old Pinata account can be closed whenever; set `PINATA_JWT` to a company key if the Moinkee site is ever brought back.
-- The Agent Explorer also lists a Pinata account, with no key passed in production; who owns it is not recorded (ASK: Rahul).
+- Adithya's old Pinata account (login adithya@sarva.ai) can be closed whenever; the company account holds all 71 files.
+- The Agent Explorer also lists a Pinata account, with no key passed in production (AGENT-EXPLORER.md); who owns it is not recorded (ask Gokul).

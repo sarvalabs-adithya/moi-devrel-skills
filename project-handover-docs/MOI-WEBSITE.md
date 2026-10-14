@@ -40,8 +40,8 @@ Where they live: GitHub Actions secrets and variables on sarvalabs/MOI-Website. 
 | Variable | What it is | Where the value comes from |
 |---|---|---|
 | BLOG_ORIGIN | Where the site's blog listing links to. Optional; defaults to https://blog.moi.technology | Not needed. The code default is used |
-| BUFFER_ACCESS_TOKEN, BUFFER_CHANNEL_X, BUFFER_CHANNEL_LINKEDIN, DISCORD_WEBHOOK_URL, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID | The "Distribute a post" workflow, one per channel. A missing one skips its channel. This doc says only the three Buffer names are set, so Discord and Telegram are skipped, while ENV-VARS.md lists all six as set (see Open items) | Buffer (Chandra), Discord server settings, BotFather |
-| TELEPORT_PROXY, TELEPORT_JOIN_TOKEN, TELEPORT_NODE, VM_USERNAME, PREVIEW_VM_HOST, PREVIEW_VM_USER | Deploy and preview access | DevOps |
+| BUFFER_ACCESS_TOKEN, BUFFER_CHANNEL_X, BUFFER_CHANNEL_LINKEDIN, DISCORD_WEBHOOK_URL, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID | The "Distribute a post" workflow, one per channel. A missing one skips its channel. Only the three Buffer names are set (checked 14 October 2026), so Discord and Telegram are skipped | Buffer (Chandra), Discord server settings, BotFather |
+| TELEPORT_PROXY, TELEPORT_JOIN_TOKEN, TELEPORT_NODE, VM_USERNAME, PREVIEW_VM_HOST, PREVIEW_VM_USER | Deploy and preview access. VM_HOST and VM_SSH_KEY are also set (April 2026), from before the Teleport deploy | DevOps |
 | SUPABASE_URL, SUPABASE_KEY, VITE_CHATBOT_API, ANTHROPIC_API_KEY, OPENAI_API_KEY, DATA_ROOM_CHAT_URL | Live. The chatbot and the Express server use them, and the deploy passes them to the server script | Supabase, the two model consoles, the Dataroom (see ENV-VARS.md) |
 | ADMIN_API_KEY | The calendar admin routes on the Express server. The deploy does not pass it, so the routes accept a default written in the source, and the repo is public | `openssl rand -hex 32`; pass it in the deploy and remove the fallback |
 | VITE_GA_ID, PUBLIC_GA_ID | Passed by the deploy and read by nothing, because Tag Manager does the measuring. Leave them | The GA4 property |
@@ -92,7 +92,7 @@ The example file is .env.example in the repo.
 
 ## Claude skill
 
-The **moi-web-products-ops** skill covers running the site: shipping, settings and health. Its runbooks were written on 3 October, before PR #60, so its calendar runbook describes the calendar that the Luma block replaced. Its chatbot runbook still applies, since the chatbot and the server stay. The **moi-blog** skill covers posts: writing, publishing, announcing and the newsletter. The search and AI-visibility layer of the site is in **moi-docs** (its geo part).
+The **moi-web-products-ops** skill covers running the site: shipping, settings and health. Its calendar runbook was updated for PR #60 on 13 October, and its chatbot runbook still applies, since the chatbot and the server stay. The **moi-blog** skill covers posts: writing, publishing, announcing and the newsletter. The search and AI-visibility layer of the site is in **moi-docs** (its geo part).
 
 | When | What to tell Claude | What the skill does |
 |---|---|---|
@@ -111,5 +111,4 @@ What the skills never do without DevRel's yes: push, merge (a merge deploys), ru
 - The chatbot answers: unknown. It is hidden on the homepage, and GitHub issue 3 on the repo (opened 20 April) reports the retrieval query failing against the Supabase project. Whether the route works today, and which Supabase project SUPABASE_URL points at, is for DevOps (Srikar) to confirm.
 - VITE_CHATBOT_API is believed to hold the dev host, not https://moi.technology (ENV-VARS.md). Confirm what it holds.
 - ADMIN_API_KEY is not passed by the deploy, so the calendar admin routes accept the default written in the public source. Pass the key and remove the fallback, or remove the routes.
-- Discord and Telegram for the Distribute workflow: this doc says their secrets are not set, ENV-VARS.md says set. Check the repo's Actions secrets and correct whichever doc is wrong.
-- The moi-web-products-ops skill's website runbooks date from 3 October; bring the calendar and content ones in line with PR #60.
+- Optional: set DISCORD_WEBHOOK_URL, TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID if posts should also go to Discord and Telegram. They are not set today.
