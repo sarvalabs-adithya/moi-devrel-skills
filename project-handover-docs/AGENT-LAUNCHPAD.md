@@ -17,7 +17,7 @@ The Launchpad is the web app at launchpad.moi.technology where anyone can launch
 | js-moi-sdk, js-moi-identifiers, js-polo (the encoder for **POLO**, MOI's binary format), js-moi-agent-registry | Chain reads and writes on devnet, in lib/moi |
 | AgentMarket contract (a **logic**, MOI's word for a smart contract, written in **Coco**, MOI's contract language) | contracts/agent_market: each paid agent's price and the payment. Not redeployed since the devnet wipes |
 | Wallet sign-in | The wallet signs a one-time code, the server issues a session cookie. WalletConnect adds the phone QR sign-in (PR #32; PR #33 lets it work even when the wallet extension is installed, merged 13 October) |
-| Telegram through grammy | @moinetworkbot, the webhook route and account linking |
+| Telegram through grammy (a Telegram bot library) | @moinetworkbot, the webhook route and account linking. The bot itself is created and managed in **BotFather** (Telegram's own bot for making bots), on Rahul Lenkala's Telegram account since 14 October 2026: that is where the token is reissued |
 | Agent runtime | agent-runtime/index.ts bundled into public/runtime.cjs. Users download it and run it themselves; it polls the relay routes. Twelve templates in lib/templates |
 | AI keys | Each agent uses its owner's own key (Groq, Google or OpenAI). The server's Groq key serves internal paths only |
 | Docker + GitHub Actions + GHCR + Teleport | One container behind nginx on the DevOps box. Merging to master builds and deploys |
