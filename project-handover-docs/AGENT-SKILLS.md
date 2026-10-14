@@ -90,7 +90,7 @@ The test log (agent-skills-js-moi-sdk-test-log.md) and the two scripts (offline-
 
 ## Open items
 
-- Push before 14 October, or it is lost: the js-moi-sdk branch skills/0.9.0, the moidocs branch skills-after-merge (it holds the refreshed SDK zip), and the test log and scripts. None of them is pushed as of 13 October 2026. Then land skills/0.9.0: review, open a PR to sarvalabs/js-moi-sdk, and after the next release confirm the R2 upload and find out its public URL. Until then the public copies still say v0.7.1.
+- The js-moi-sdk skill rebuild and its test-run fixes are in PR sarvalabs/js-moi-sdk#153 (opened 14 October 2026 from Adithya's fork), waiting for review by Gokul or Rahul; merging it lets the next release package the skill. The refreshed SDK zip for the docs site is committed on the local moidocs branch skills-after-merge and goes onto PR #127 (below).
 - Get the moidocs skills index fix (PR #127) reviewed and merged.
 - The handover README lists this doc as a draft while its Status says active. Settle which.
 - Run the four SDK examples on devnet with a funded post-reset account and add the interaction hashes to js-moi-skills/CHANGELOG.md; the examples say their last on-chain run was with 0.7.1 before the September reset.
