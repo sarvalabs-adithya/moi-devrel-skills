@@ -1,6 +1,6 @@
 # Other projects: Moinkee, Agent dating, MOI Sprint, Contextual Compute website
 
-**Status: three inactive, one live.** Four small projects DevRel built. Moinkee, Agent dating and MOI Sprint are inactive; none is hosted any more (the Moinkee and Sprint Vercel projects were deleted on 14 October 2026). The repos moved from Adithya's GitHub account to the sarvalabs organisation on 14 October 2026 (tSwapper, the Sprint's challenge scaffolds, stays on his account). The one thing with ongoing value is the Pinata account behind Moinkee: see "Moving Pinata" below.
+**Status: three inactive, one live.** Four small projects DevRel built. Moinkee, Agent dating and MOI Sprint are inactive; none is hosted any more (the Moinkee and Sprint Vercel projects were deleted on 14 October 2026). The repos moved from Adithya's GitHub account to the sarvalabs organisation on 14 October 2026 (tSwapper, the Sprint's challenge scaffolds, stays on his account). The Moinkee files on IPFS were copied into the company Pinata account on 14 October 2026 (see "Moving Pinata").
 
 Marketing: How it works. Developers: everything.
 
@@ -24,7 +24,7 @@ The Sprint's chapter text is already in moi-foundation/moi-sprint.
 |---|---|---|
 | The four repos | sarvalabs org (from 14 October) | Public. Moved from sarvalabs-adithya |
 | Vercel projects moinkee-nft-minter and moisprint | Deleted on 14 October 2026 | To bring a site back, import the repo into a company Vercel team and set its env vars (README) |
-| Pinata account (Moinkee images and metadata, 71 files, 13.6 MB) | Adithya's account today | Moves to a company Pinata account that Srikar is creating. See below |
+| Pinata account (Moinkee images and metadata, 71 files, 13.6 MB) | Adithya's account today | Done 14 October 2026: all 71 CIDs are pinned in the company Pinata account (sarvalabsdeveloper@gmail.com) with identical CIDs. Adithya's account still pins them too until it is closed |
 | Moinkee minting wallet | Nobody | Nothing to move. The next owner makes a new devnet wallet and a new collection (README) |
 | Contextual Compute site: Vercel project, domain contextualcompute.org (Namecheap, registered to 2027-03-28), DNS (Cloudflare, company-owned), mail forwarding (Namecheap) | Vercel and Namecheap logins not recorded (ASK: Rahul) | The only one of the four still live. Keep its Vercel project |
 | Agent dating relay server | Retired | Its VPS was cancelled; the plugin no longer points at it |
@@ -46,6 +46,8 @@ gh api repos/sarvalabs-adithya/moinkee-nft-minter/transfer -f new_owner=sarvalab
 The same for `agent-dating`, `moisprint`, `tSwapper` and `contextual-compute-foundation-website`. The Contextual Compute site keeps serving after its move; check that its Vercel project still deploys from the moved repo. GitHub redirects the old addresses. No hosting is attached any more, so nothing else needs reconnecting.
 
 ### Moving Pinata
+
+**Done on 14 October 2026.** Pin by CID needs a paid plan, so the files were downloaded, checked against their CIDs, and uploaded again to the company account (sarvalabsdeveloper@gmail.com) with `others/moinkee/reupload-to-pinata.py`. The image folder (`bafybeig65m3...`) and all 70 metadata files came back with their original CIDs; log in ~/handover-notes/pinata-reupload-log.txt on Adithya's laptop. The rest of this section is how it was done, kept for a future move.
 
 Why it matters: every Moinkee image and token metadata file lives on IPFS, and Pinata keeps it online (pinned). If the account closes and nothing else pins the files, the images and metadata disappear and the recovery flow after a devnet reset stops working. **IPFS addresses (CIDs) are content hashes, so they do not change when the files move**; minted tokens point at `ipfs://<CID>` and the site reads through the public ipfs.io gateway, not an account-specific one. Moving the account changes nothing users see.
 
@@ -87,5 +89,5 @@ None. The moi-devnet-reset skill lists Moinkee as one row of what a reset breaks
 - MOI Sprint: the guide repo's README is the unedited Next.js template, and tSwapper's `solution` branch holds the challenge answers in public. A challenge prototype (`Sprint/Challenge 1/moisprint-challenge-mas0`) existed only on Adithya's laptop and is not in any repo.
 - Contextual Compute site: confirm where `SUBSCRIBE_WEBHOOK_URL` sends sign-ups (if unset, every sign-up is thrown away). The CC3 paper shows as locked on the page but its PDF is still served at /docs/CC3.pdf. The README is the unedited Next.js template. Who holds the Vercel and Namecheap logins is not recorded (ASK: Rahul).
 - Leftover branches: moinkee-nft-minter (three merged handover and Claude branches) and agent-dating (seven old feature branches) can be deleted after the move.
-- Move Pinata (Option A or B) once Srikar's company account exists. Owner: Srikar.
+- Pinata: done (company account holds all 71 CIDs). Adithya's old Pinata account can be closed whenever; set `PINATA_JWT` to a company key if the Moinkee site is ever brought back.
 - The Agent Explorer also lists a Pinata account, with no key passed in production; who owns it is not recorded (ASK: Rahul).
