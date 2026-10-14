@@ -32,7 +32,7 @@ No worker runs in production on purpose: it would steal the Telegram webhook and
 |---|---|---|
 | Codebase | DevRel | https://github.com/sarvalabs/moi-agent-launchpad deploys |
 | Database (Supabase) | Company Supabase organisation (transferred 8 October) | Holds all app state |
-| Telegram bot and the alert chat | DevRel (Rahul Lenkala's Telegram account) | @moinetworkbot delivers agent messages to users. Transferred from Adithya's Telegram account to Rahul (@p2pbuddy) on 14 October 2026; the token and the chat id did not change |
+| Telegram bot and the alert chat | Currently Rahul Lenkala's Telegram account | @moinetworkbot delivers agent messages to users. Transferred from Adithya's Telegram account to Rahul (@p2pbuddy) on 14 October 2026; the token and the chat id did not change |
 | AgentMarket contract on **devnet** (MOI's shared test network, wiped from time to time) | DevRel | Not redeployed since the devnet wipes, so paid agents are off. The code is there; the next owner redeploys it when it is needed |
 | Server, CI/CD, container registry, **Teleport** (the gateway DevOps uses to reach the server) | DevOps | |
 | Domain launchpad.moi.technology | DevOps | |
