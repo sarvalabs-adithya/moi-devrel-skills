@@ -75,3 +75,4 @@ Groq: no company-owned Groq key exists. The key the Launchpad server uses is not
 - Who holds the Luma, Riverside, Google Meet and YouTube accounts: ENV-VARS.md says Vardan; confirm.
 - moi-website.vercel.app, moinkee-nft-minter.vercel.app and moisprint.vercel.app were deleted on 14 October 2026 (404). sarva-dataroom.vercel.app still answered 200 after that: its Vercel project is in a team nobody has found; find and delete it.
 - Whose account holds the Launchpad's Groq key, and who holds the Agent Explorer accounts: not recorded.
+- Agent Explorer deploys are broken: its GH_TOKEN Actions secret (set 31 July) is refused by GHCR, so the 7 October and 14 October deploys failed at "Login to GHCR". PR #6 (deprecated agents hidden, never auto-verified) is merged but not live until DevOps (Upendhar) replaces GH_TOKEN with a token that has write:packages and re-runs the deploy.
