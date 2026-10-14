@@ -82,7 +82,7 @@ gh variable get ADMIN_EMAILS --repo sarvalabs/moi-project | tr ',' '\n' | grep -
 
 **Why the database stays in the points@moinetwork.io Supabase account**
 
-Launchpad and Dataroom moved into the company Supabase organisation on 8 October, but Points did not. The company organisation is on the free plan, which allows two active projects, and those two slots are taken. Moving Points would need the company organisation on a paid plan, which is Rahul's call. Until then the project stays in the points@moinetwork.io account, which Sai Kiran manages. The cost is that the free plan has no automatic backups. For access, ask Sai Kiran to add people (DevOps, Rahul) to that Supabase organisation so nothing depends on one login.
+Launchpad and Dataroom moved into the company Supabase organisation (owned by sarvalabsdeveloper@gmail.com) on 8 October, but Points did not. The company organisation is on the free plan, which allows two active projects, and those two slots are taken. Moving Points would need the company organisation on a paid plan, which is Rahul's call. Until then the project stays in the points@moinetwork.io account, which Sai Kiran manages. The cost is that the free plan has no automatic backups. For access, ask Sai Kiran to add people (DevOps, Rahul) to that Supabase organisation so nothing depends on one login.
 
 **The database rules** (drizzle/TRIGGERS.md; **Drizzle** is the database toolkit behind the schema and migrations)
 
