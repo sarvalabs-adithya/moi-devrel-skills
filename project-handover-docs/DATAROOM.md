@@ -172,5 +172,5 @@ Without a yes from DevRel, the skill never pushes, merges (a merge deploys), run
 - PR #7 (the README, the env template and the migration for the adopters and document_leads tables and the require_email column) merged on 13 October 2026. Run the migration file once in the SQL editor if it has not been run; on production it changes nothing.
 - The deploy runs /root/scripts/deploy-moi-dataroom.sh, a file that exists only on the server, so nobody can read or review what a deploy does. Put a copy in the repo and make the workflow run that copy. Then add a step after it that opens the site and checks a wrong admin key is refused, so a broken deploy turns the run red instead of green.
 - The Events page stays off for now; the steps to bring it back are under Process.
-- The second static data room at sarva-dataroom.vercel.app still serves. A delete on 9 October did not take, so the Vercel project sits in a team not yet found. Adithya believes it is his and will delete it; the item stays open until the site stops answering.
+- Done 14 October 2026: the second static data room at sarva-dataroom.vercel.app was deleted (the address answers 404).
 - Which account owns the Anthropic and OpenAI keys now in the repo's Actions secrets is not recorded. Find out, then replace both with company keys (see the chat steps and the Env vars table).

@@ -19,7 +19,7 @@ As of 13 October 2026, this lists what still sits under Adithya's own accounts a
 | Contextual Compute website | The repo | sarvalabs-adithya/contextual-compute-foundation-website | sarvalabs org, once Rahul says which organisation |
 | Dataroom | Supabase project and bucket | Done: transferred to the company Supabase organisation on 8 October | Same |
 | MOI Website | Old copy at moi-website.vercel.app | Done: deleted on 14 October 2026 (the address answers 404) | Delete the project. Keep this item open until the site stops answering |
-| Dataroom | Second static data room, sarva-dataroom.vercel.app | Still serving on 14 October 2026 after the other Vercel deletes: the project sits in a Vercel team nobody has found. Find it and delete it | Delete the project. Keep this item open until the site stops answering |
+| Dataroom | Second static data room, sarva-dataroom.vercel.app | Done: deleted on 14 October 2026 (the address answers 404) | Delete the project. Keep this item open until the site stops answering |
 
 ## How the Supabase projects move (done on 8 October; kept for the record)
 
@@ -73,6 +73,6 @@ Groq: no company-owned Groq key exists. The key the Launchpad server uses is not
 - Done 14 October 2026: agent-dating, moinkee-nft-minter, moisprint and contextual-compute-foundation-website moved to the sarvalabs organisation (tSwapper stays on Adithya's account).
 - Where the MOI Website is deployed. MOI-WEBSITE.md describes a VM; the MOI Website row above says Cloudflare Pages. Neither is verified; ask DevOps (Srikar).
 - Who holds the Luma, Riverside, Google Meet and YouTube accounts: ENV-VARS.md says Vardan; confirm.
-- moi-website.vercel.app, moinkee-nft-minter.vercel.app and moisprint.vercel.app were deleted on 14 October 2026 (404). sarva-dataroom.vercel.app still answered 200 after that: its Vercel project is in a team nobody has found; find and delete it.
+- Done 14 October 2026: moi-website.vercel.app, moinkee-nft-minter.vercel.app, moisprint.vercel.app and sarva-dataroom.vercel.app were all deleted (404).
 - Whose account holds the Launchpad's Groq key, and who holds the Agent Explorer accounts: not recorded.
 - Agent Explorer deploys are broken: its GH_TOKEN Actions secret (set 31 July) is refused by GHCR, so the 7 October and 14 October deploys failed at "Login to GHCR". PR #6 (deprecated agents hidden, never auto-verified) is merged but not live until DevOps (Upendhar) replaces GH_TOKEN with a token that has write:packages and re-runs the deploy.
