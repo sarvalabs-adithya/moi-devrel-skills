@@ -29,7 +29,7 @@ The Launchpad is the web app at launchpad.moi.technology where anyone can launch
 | Telegram through grammy (a Telegram bot library) | @moinetworkbot, the webhook route and account linking. The bot itself is created and managed in **BotFather** (Telegram's own bot for making bots), on Rahul Lenkala's Telegram account since 14 October 2026: that is where the token is reissued |
 | Agent runtime | agent-runtime/index.ts bundled into public/runtime.cjs. Users download it and run it themselves; it polls the relay routes. Twelve templates in lib/templates |
 | AI keys | Each agent uses its owner's own key (Groq, Google or OpenAI). The server holds no key in use: its shared free tier was retired |
-| Docker + GitHub Actions + GHCR + Teleport | One container behind nginx on the DevOps box. Merging to master builds and deploys |
+| Docker + GitHub Actions + GHCR + Teleport | One container behind nginx on the DevOps box. Merging to master builds and deploys. Paid agents also need a build argument for NEXT_PUBLIC_PAYMENTS_ENABLED, which the Dockerfile and the build workflow do not have yet |
 | Cleanup | Runs inside the app every six hours. The cron route guarded by CRON_SECRET is only the manual trigger |
 | vitest | 28 test files. The atomicity tests need a database |
 
@@ -190,5 +190,4 @@ What the skill never does without a yes from DevRel: push, merge (a merge deploy
 
 ## Open items
 
-- The repo's README and docs/HANDOFF.md still describe Vercel. A PR with the fixes was opened on 14 October 2026 (README, HANDOFF, DEPLOY.md and the env examples); merge it.
-- Paid agents cannot be switched on through the pipeline: NEXT_PUBLIC_PAYMENTS_ENABLED has no build argument in the Dockerfile or the build workflow. Add one before the AgentMarket contract is redeployed.
+None as of 14 October 2026.

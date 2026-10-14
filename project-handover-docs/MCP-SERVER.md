@@ -272,5 +272,4 @@ What the skill never does without DevRel's yes: push, open or comment on a PR or
 
 ## Open items
 
-- moi-mcp PR #30 fixes docs/handoff-infra.md (it named Adithya's copy of the repo and mcp.moi.technology, which does not exist). Merge it.
-- Dependabot opens update PRs on its own. #29 (14 October) bumps major versions and fails the build: close it or leave it; do not merge it as is.
+None as of 14 October 2026.
