@@ -30,7 +30,7 @@ The Launchpad and Dataroom projects sat in Adithya's personal Supabase organisat
 5. Check both apps: open launchpad.moi.technology and sign in, open dataroom.moi.technology and read a document. Both should behave exactly as before, because nothing they point at changed.
 6. DevOps removes Adithya's login from the organisation. Billing for the two projects now lands on the company account.
 
-Not part of this: the Points Program project is on the Points email account, not Adithya's. The Website's Supabase project is probably the Dataroom's one; confirm before assuming a third transfer.
+Not part of this: the Points Program project is on the points@moinetwork.io account (managed by Sai Kiran; kept there because the company organisation is at its free-plan limit, see POINTS-PROGRAM.md), not Adithya's. The Website's Supabase project is probably the Dataroom's one; confirm before assuming a third transfer.
 
 ## How the Telegram bot moves
 
@@ -48,7 +48,7 @@ The Points Program has its own bot, held under sarvalabsdeveloper@gmail.com; who
 
 The secrets themselves sit in each repo's GitHub Actions settings, not with Adithya. Where to get each one again if it is lost (which dashboard, which account) is written: ENV-VARS.md, one section per product, with the consoles and who holds each login.
 
-Not to migrate: the Points Program's Supabase project (it is on the Points email account, not Adithya's; it is still on the free plan with no backups, so a paid plan is worth doing when someone takes it over) and the **AgentMarket** contract (the paid-agent marketplace contract; the current one is not in use, and whoever redeploys it does so from their own wallet).
+Not to migrate: the Points Program's Supabase project (it is on the points@moinetwork.io account (managed by Sai Kiran; kept there because the company organisation is at its free-plan limit, see POINTS-PROGRAM.md), not Adithya's; it is still on the free plan with no backups, so a paid plan is worth doing when someone takes it over) and the **AgentMarket** contract (the paid-agent marketplace contract; the current one is not in use, and whoever redeploys it does so from their own wallet).
 
 Groq: no company-owned Groq key exists. The key the Launchpad server uses is not a company key, and whose account holds it is not recorded. The next owner creates a company key at console.groq.com/keys and sets GROQ_API_KEY before relying on it.
 

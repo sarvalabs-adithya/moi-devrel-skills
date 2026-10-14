@@ -18,7 +18,7 @@ Rules that hold everywhere:
 | Service | What it gives | Where | Who holds the login (October 2026) |
 |---|---|---|---|
 | GitHub Actions secrets and variables | Every production value | Each repo, Settings, Secrets and variables, Actions | The repo admins. Org-level secrets: the org admins (Rahul, Upendhar) |
-| Supabase | Database URLs and keys | supabase.com, the organisation, the project, Settings, API (or Connect for the Postgres URL) | Launchpad and Dataroom: the company organisation (moved 8 October). Points: the Points email account. The website's Supabase project (the old calendar's events and the chatbot's documents) is not recorded; the documents probably sit in the Dataroom's project |
+| Supabase | Database URLs and keys | supabase.com, the organisation, the project, Settings, API (or Connect for the Postgres URL) | Launchpad and Dataroom: the company organisation (moved 8 October). Points: the points@moinetwork.io account (managed by Sai Kiran; kept there because the company organisation is at its free-plan limit, see POINTS-PROGRAM.md). The website's Supabase project (the old calendar's events and the chatbot's documents) is not recorded; the documents probably sit in the Dataroom's project |
 | Google Cloud console | The Points Google **OAuth** client (the "Sign in with Google" credentials) | console.cloud.google.com, APIs and Services, Credentials | The sarvalabsdeveloper@gmail.com account |
 | X developer portal | The Points X app (paid API) | developer.x.com | The sarvalabsdeveloper@gmail.com account |
 | Discord developer portal | The Points Discord app and bot | discord.com/developers | The sarvalabsdeveloper@gmail.com account |

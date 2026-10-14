@@ -4,7 +4,7 @@
 
 Video: webinar bounties walkthrough (create, open, submit, award, close) https://drive.google.com/file/d/1MOs61CECZt6SRQhH9Zro0t2avq0-XPsy/view (recorded 14 October 2026).
 
-MOI Community Points. Members sign in with Google, link their X, Discord and Telegram accounts and a MOI wallet, complete tasks and earn points, and see where they stand on a public leaderboard. Admins run X like campaigns and webinar bounties from an admin page. Harsh Gupta wrote the first version and Upendhar the CI/CD; DevRel runs it. DevOps (Upendhar) owns the box it runs on.
+MOI Community Points. Members sign in with Google, link their X, Discord and Telegram accounts and a MOI wallet, complete tasks and earn points, and see where they stand on a public leaderboard. Admins run X like campaigns and webinar bounties from an admin page. The Points team built the app (Harsh Gupta wrote the first version, Upendhar the CI/CD); DevRel added only the webinar bounties (PR #22) and the review batch fixes (PR #23). Questions about anything other than the webinar bounties go to the Points team: connect with Piyush. DevOps (Upendhar) owns the box it runs on.
 
 ## How it works
 
@@ -57,9 +57,28 @@ Members see open bounties on their dashboard under Webinar bounties, one box per
 **Admin**
 
 - An admin is an email in ADMIN_EMAILS (once Google has verified it) or a row in the admin_users table. On 13 October the admin_users table was empty, so access comes only from ADMIN_EMAILS.
+- To add an admin: append their Google email to the ADMIN_EMAILS Actions variable (keeping the existing ones), redeploy, then check the count. The change only reaches the app after the redeploy (about 4 minutes):
+
+```bash
+gh variable set ADMIN_EMAILS --repo sarvalabs/moi-project --body "$(gh variable get ADMIN_EMAILS --repo sarvalabs/moi-project),name@example.com"
+```
+
+```bash
+gh workflow run ci-cd.yml --repo sarvalabs/moi-project --ref feature/ci-cd
+```
+
+```bash
+gh variable get ADMIN_EMAILS --repo sarvalabs/moi-project | tr ',' '\n' | grep -c @
+```
+
+  To remove someone, set the variable to the full list without them (gh variable set ADMIN_EMAILS --repo sarvalabs/moi-project --body "a@x.com,b@y.com") and redeploy. The person signs out and in again after the redeploy.
 - There is one admin role. An admin can run campaigns and bounties, erase a member and unlink a member's social accounts.
 - Every admin action writes a row in admin_audit_events.
 - A member without admin access who opens /admin is sent to the dashboard. That is by design.
+
+**Why the database stays in the points@moinetwork.io Supabase account**
+
+Launchpad and Dataroom moved into the company Supabase organisation on 8 October, but Points did not: the company organisation is on the free plan, which allows two active projects, and those two slots are taken. Moving Points would need the company organisation on a paid plan, which is Rahul's call. Until then the project stays in the points@moinetwork.io account, which Sai Kiran manages. The cost of this choice: the free plan has no automatic backups. For access, ask Sai Kiran to add people (DevOps, Rahul) to that Supabase organisation so nothing depends on one login.
 
 **The database rules** (drizzle/TRIGGERS.md; **Drizzle** is the database toolkit behind the schema and migrations)
 
@@ -95,7 +114,7 @@ Members see open bounties on their dashboard under Webinar bounties, one box per
 | Variable | Owner | Notes |
 |---|---|---|
 | Codebase | DevRel | sarvalabs/moi-project, private. The branch feature/ci-cd deploys, not main. Repo admins on 4 October: gokul, chandra, git, adithya, upendhar |
-| Supabase project | The Points email account | Free plan, no backups. It holds every member and every point |
+| Supabase project | points@moinetwork.io, managed by Sai Kiran | Free plan, no backups. It holds every member and every point. Kept in that account on purpose (see below) |
 | Google OAuth client, X developer app (paid API), Discord app and bot, Telegram bot and group, Reown project, Resend account | sarvalabsdeveloper@gmail.com | Each provider's callback must match BETTER_AUTH_URL |
 | The box, nginx, TLS, Teleport, DNS, the GHCR image | DevOps (Upendhar) | Container moi-project on host port 31000. preview.points.moi.technology is the same box |
 | Devnet RPC address | Protocol team | Written in config/moi-networks.ts; a move is a PR |
@@ -224,7 +243,7 @@ What the skill never does without DevRel's yes: push, merge (a merge deploys pro
 ## Open items
 
 - Webinar bounties shipped: PR #22 merged and deployed on 13 October (the first deploy run failed on an expired GHCR_PAT; DevOps replaced the token and the re-run went through). Tested end to end on 14 October 2026: adithya@moinetwork.io was added to ADMIN_EMAILS (redeployed), and a test bounty "Test, ignore" (session 9, two 1-point fields) was created, opened, answered from a second account, awarded 2 points and closed; the 2 points were then reversed by hand with a -2 ledger entry (reason bounty_test_reversal) and the cached total corrected, so the test left no points behind. It stays in the admin list because awarded bounties cannot be deleted; closed bounties are hidden from members. Left to do: add each session host's Google email to ADMIN_EMAILS (and take adithya@moinetwork.io out after 14 October), and optionally set MOI_RPC_URL as an Actions variable and redeploy for the chain's note next to hash answers. The local branch feature/bounty-form is merged and can be deleted.
-- Put the Supabase project on a paid plan with backups. Then drop the schema backup.tasks_before_0008.
+- Backups: either the company Supabase organisation moves to a paid plan and Points transfers into it, or the points@moinetwork.io account goes paid (Rahul decides). Until then there are no automatic backups. Only after a backup exists, drop the leftover table backup.tasks_before_0008.
 - The review batch shipped as #23 and is live (#21 is closed). #15 is closed, replaced by draft #24 (CI/CD hardening) for Upendhar. #1 (Upendhar's first CI/CD, base feat/dev-challenges) is Upendhar's to close. The repo sarvalabs/Points-Program was archived on 13 October.
 - Schedule the maintenance job (/api/jobs/maintenance, called with CRON_SECRET): nothing calls it. Ask Upendhar what runs on the box and who schedules it.
 - Remove SOCIAL_AUDIT_BATCH_SIZE from deploy.yml and from the Actions variables: it is still set and passed, but nothing reads it.
