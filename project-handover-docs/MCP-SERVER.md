@@ -185,22 +185,6 @@ The moi-mcp/ folder in voyage-api is a **git subtree** (a copy of another repo k
 - If the SDK constants moved, take the grouped Dependabot PR and run the canary by hand: MOI_E2E=1 npx vitest run test/e2e/chain-canary.test.ts. If KMOI's creator account is gone, the canary needs MOI_CANARY_ACCOUNT, which the nightly workflow does not pass: a workflow edit.
 - Three repos pin the registry id separately (Launchpad, Explorer, this server). After the September reset their ids drifted apart by up to 12 days. The Agent Explorer's id is the source of truth after a reset.
 
-**When an automatic check opens an issue**
-
-An upstream release:
-- Read the issue: which upstream, which tag, whether the pin differs, whether the version is on npm.
-- js-moi-sdk on npm: review the grouped Dependabot PR and run the canary by hand before merging. Never merge an SDK bump unread, because it changes what a user signs. A GitHub-only release (rc3 was one): wait for npm, or ask Gokul.
-- go-moi: read the release note, run the canary, and ask the Protocol team when devnet picks it up. A go-moi release can precede a reset.
-- cocolang: read the notes for manifest or calldata changes. moi_get_logic reads the manifests Coco produces and moi_call_logic encodes calls against them.
-- Comment what was checked and close the issue.
-
-The chain canary failing:
-- Read the issue for the failing check, then the health script's RPC line. A changed net.Version means a node upgrade.
-- Reproduce in a working copy with the canary command above.
-- Map the check to its cause: KMOI's id moved (SDK upgrade), a new asset standard (SDK upgrade), decimals or scaling changed, the storage fund or its floor too small, the fuel floor moved, or the sender account gone after a reset.
-- Fix by PR with a test. Production changes only after a sync and a deploy.
-- Let the next green run close the issue.
-
 **Checking it is healthy**
 
 - bash "$SKILLS/moi-mcp-ops/scripts/mcp-health.sh" checks both production gateways and the chain RPC. Add --env dev for the dev pair, --github for the canary and watch runs and open issues, --write-host for a preview host.
@@ -241,6 +225,22 @@ The chain canary failing:
 - Verify with the health script and the reads, and a Connect from a clean browser if sign-in was hit.
 - Tell the Voyage team and DevOps, then fix forward through a new PR with a test.
 - Never delete or move the data directory as part of a rollback.
+
+**When an automatic check opens an issue**
+
+An upstream release:
+- Read the issue: which upstream, which tag, whether the pin differs, whether the version is on npm.
+- js-moi-sdk on npm: review the grouped Dependabot PR and run the canary by hand before merging. Never merge an SDK bump unread, because it changes what a user signs. A GitHub-only release (rc3 was one): wait for npm, or ask Gokul.
+- go-moi: read the release note, run the canary, and ask the Protocol team when devnet picks it up. A go-moi release can precede a reset.
+- cocolang: read the notes for manifest or calldata changes. moi_get_logic reads the manifests Coco produces and moi_call_logic encodes calls against them.
+- Comment what was checked and close the issue.
+
+The chain canary failing:
+- Read the issue for the failing check, then the health script's RPC line. A changed net.Version means a node upgrade.
+- Reproduce in a working copy with the canary command above.
+- Map the check to its cause: KMOI's id moved (SDK upgrade), a new asset standard (SDK upgrade), decimals or scaling changed, the storage fund or its floor too small, the fuel floor moved, or the sender account gone after a reset.
+- Fix by PR with a test. Production changes only after a sync and a deploy.
+- Let the next green run close the issue.
 
 **Publishing to npm**
 
