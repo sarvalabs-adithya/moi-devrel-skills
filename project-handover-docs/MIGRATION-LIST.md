@@ -18,8 +18,8 @@ As of 13 October 2026, this lists what still sits under Adithya's own accounts a
 | Moinkee NFT Minter | Minting wallet and the collection asset | Adithya's **devnet** wallet (devnet is the shared MOI test network), seed in the **Vercel** env (Vercel hosts the app) | Nothing to move: the next owner makes a new devnet wallet and a new collection (README, Pick it up). What does move: the Vercel project (four variables) and the **Pinata** account (Pinata keeps files online by "pinning" them under content addresses called CIDs), or its pins re-pinned under a company account; the CIDs stay the same. Pinata is on Adithya's account today, and Srikar is creating a company Pinata account to transfer it to |
 | Contextual Compute website | The repo | sarvalabs-adithya/contextual-compute-foundation-website | sarvalabs org, once Rahul says which organisation |
 | Dataroom | Supabase project and bucket | Done: transferred to the company Supabase organisation on 8 October | Same |
-| MOI Website | Old copy at moi-website.vercel.app | A Vercel project that Adithya believes is his and will delete (a delete on 9 October did not take; the site still serves) | Delete the project. Keep this item open until the site stops answering |
-| Dataroom | Second static data room, sarva-dataroom.vercel.app | A Vercel project that Adithya believes is his and will delete (a delete on 9 October did not take; the site still serves) | Delete the project. Keep this item open until the site stops answering |
+| MOI Website | Old copy at moi-website.vercel.app | Done: deleted on 14 October 2026 (the address answers 404) | Delete the project. Keep this item open until the site stops answering |
+| Dataroom | Second static data room, sarva-dataroom.vercel.app | Still serving on 14 October 2026 after the other Vercel deletes: the project sits in a Vercel team nobody has found. Find it and delete it | Delete the project. Keep this item open until the site stops answering |
 
 ## How the Supabase projects move (done on 8 October; kept for the record)
 
@@ -62,7 +62,7 @@ Groq: no company-owned Groq key exists. The key the Launchpad server uses is not
 | Dataroom | Anthropic and OpenAI keys: no company account holds them, and the keys now set are not company keys; the next owner creates company keys |
 | Points Program | Settled 13 October: the Google OAuth client, X developer app (paid), Discord app and bot, Telegram bot, Reown project and Resend account are all under sarvalabsdeveloper@gmail.com. Their secrets are in GitHub |
 | Agent Explorer | Server devnet wallet, Reown project, Pinata account, the GitHub token used for images |
-| Moinkee NFT Minter | Vercel project. The Pinata account is Adithya's (see above) |
+| Moinkee NFT Minter | Vercel project deleted on 14 October 2026. The Pinata account is Adithya's (see above and OTHER-PROJECTS.md) |
 | Contextual Compute website | Vercel project, the domain registration (renews by 2027-03-28), the join-form webhook. The Cloudflare zone is company-owned |
 | Shared | Luma, Riverside, Google Meet and YouTube: Vardan holds them per ENV-VARS.md; confirm the account. Settled: Chandra owns the Buffer organisation; Vardan has Mailchimp access |
 
@@ -73,5 +73,5 @@ Groq: no company-owned Groq key exists. The key the Launchpad server uses is not
 - Which organisation each repo transfer goes to (agent dating plugin, Moinkee NFT Minter, Contextual Compute website): waiting on Rahul.
 - Where the MOI Website is deployed. MOI-WEBSITE.md describes a VM; the MOI Website row above says Cloudflare Pages. Neither is verified; ask DevOps (Srikar).
 - Who holds the Luma, Riverside, Google Meet and YouTube accounts: ENV-VARS.md says Vardan; confirm.
-- The two orphan Vercel projects (moi-website.vercel.app, sarva-dataroom.vercel.app): Adithya believes they are his and will delete them. Confirm the sites stop answering.
+- moi-website.vercel.app, moinkee-nft-minter.vercel.app and moisprint.vercel.app were deleted on 14 October 2026 (404). sarva-dataroom.vercel.app still answered 200 after that: its Vercel project is in a team nobody has found; find and delete it.
 - Whose account holds the Launchpad's Groq key, and who holds the Agent Explorer accounts: not recorded.
