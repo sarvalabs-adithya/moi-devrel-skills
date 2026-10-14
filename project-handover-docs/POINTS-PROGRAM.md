@@ -54,10 +54,6 @@ Every **Builders session** (MOI's live-build webinar for developers) can end wit
 
 Members see open bounties on their dashboard under Webinar bounties, one box per field.
 
-**Dev challenges (code)**
-
-The older way to run a session bounty: a verifier file, a registry entry, a task id, a brief page, a migration that seeds the task, and a flag. Session 8's challenge (challenge_access_policy, 500 points, four interaction hashes checked from chain reads) is built this way and is deployed but off. Bounties replace this for ordinary sessions; a challenge is only worth it when the check is more than "called this logic".
-
 **Admin**
 
 - An admin is an email in ADMIN_EMAILS (once Google has verified it) or a row in the admin_users table. On 13 October the admin_users table was empty, so access comes only from ADMIN_EMAILS.
