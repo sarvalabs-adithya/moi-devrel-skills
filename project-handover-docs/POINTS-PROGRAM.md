@@ -161,33 +161,6 @@ The full list with comments is .env.example in the repo.
 - Wait for the run, then read /api/health: healthy true, applied equals expected, origin https://points.moi.technology. Sign in and open the page that changed.
 - A redeploy without a code change: Actions, "MOI Project CI/CD", Run workflow, branch feature/ci-cd.
 
-**Running an X like campaign**
-
-- Write the brief: title, description, points, and the post links (https://x.com/<account>/status/<id>, up to five). Check the posts are live.
-- Sign in with an admin account, open /admin, X campaign control, Create draft.
-- Read it back. Only a draft can be edited.
-- Publish. The previous live campaign closes by itself.
-- Check as a member with a verified X connection: the campaign shows on the dashboard. It does not appear in /api/tasks, which lists only the fixed tasks.
-- Close it when it is over.
-
-**Running a webinar bounty**
-
-- Sign in with an admin account and open /admin, Webinar bounties.
-- Fill the composer: title, description, session number, brief link, an optional deadline, and the fields under What members send. Each field has a label, a type (interaction hash, link, number, text), its points, a required box and optional help text; the total across the fields is the bounty's points, at most 10,000. Add field adds another, up to six. Create bounty. It starts closed.
-- When the session ends, press Open and announce the brief link (moi-webinar skill). Members see the bounty on their dashboard.
-- Grade: submissions appear under Waiting for review with the member's name, email, linked wallet and every answer under its field, each with an Accept tick showing its points. A hash answer shows what the chain said about it and whether another bounty already holds it. Untick an optional answer to leave its points out; Award pays the ticked answers' points at once; Reject needs a reason. You cannot approve your own submission. If the member sent new answers after your page loaded, the action is refused and the page reloads.
-- When it is over, press Close. A bounty with submissions waiting cannot be closed, so review them first.
-- Rules: the fields and their points cannot change while the bounty is open or once a submission is waiting or approved. Title, description, brief link, deadline and session can change at any time. The deadline stops new submissions only. Approving needs the bounty open, so to approve a late submission re-open it first. Approving is permanent for the member's ledger.
-- The same can be done from the browser console with the admin API (documented in the moi-project README). There are no API tokens; the admin's session cookie protects every route.
-
-**Switching a task on or off, or changing its points**
-
-- Check that every setting the task needs is in deploy.yml and set in GitHub. Enabling a task whose settings are not passed stops the container.
-- On or off: flip enabled in config/reward-tasks.ts and ship it.
-- New points value: a hand-written migration that updates the tasks row, and the same number in TASK_POINTS. The database decides what is awarded.
-- Ship in the database-first order below.
-- Read /api/tasks: the new state shows.
-
 **Changing a setting or a secret**
 
 - Check the name is listed in deploy.yml. If not, a PR that adds the line comes first.
@@ -227,6 +200,33 @@ The full list with comments is .env.example in the repo.
 - A member's verify fails for everyone on one provider: that provider's app or callback. Check the provider console.
 - Do not redeploy to see if it helps before you know the cause, because a redeploy replaces the container again.
 - There is no rollback. Revert in a new PR and merge.
+
+**Running an X like campaign**
+
+- Write the brief: title, description, points, and the post links (https://x.com/<account>/status/<id>, up to five). Check the posts are live.
+- Sign in with an admin account, open /admin, X campaign control, Create draft.
+- Read it back. Only a draft can be edited.
+- Publish. The previous live campaign closes by itself.
+- Check as a member with a verified X connection: the campaign shows on the dashboard. It does not appear in /api/tasks, which lists only the fixed tasks.
+- Close it when it is over.
+
+**Running a webinar bounty**
+
+- Sign in with an admin account and open /admin, Webinar bounties.
+- Fill the composer: title, description, session number, brief link, an optional deadline, and the fields under What members send. Each field has a label, a type (interaction hash, link, number, text), its points, a required box and optional help text; the total across the fields is the bounty's points, at most 10,000. Add field adds another, up to six. Create bounty. It starts closed.
+- When the session ends, press Open and announce the brief link (moi-webinar skill). Members see the bounty on their dashboard.
+- Grade: submissions appear under Waiting for review with the member's name, email, linked wallet and every answer under its field, each with an Accept tick showing its points. A hash answer shows what the chain said about it and whether another bounty already holds it. Untick an optional answer to leave its points out; Award pays the ticked answers' points at once; Reject needs a reason. You cannot approve your own submission. If the member sent new answers after your page loaded, the action is refused and the page reloads.
+- When it is over, press Close. A bounty with submissions waiting cannot be closed, so review them first.
+- Rules: the fields and their points cannot change while the bounty is open or once a submission is waiting or approved. Title, description, brief link, deadline and session can change at any time. The deadline stops new submissions only. Approving needs the bounty open, so to approve a late submission re-open it first. Approving is permanent for the member's ledger.
+- The same can be done from the browser console with the admin API (documented in the moi-project README). There are no API tokens; the admin's session cookie protects every route.
+
+**Switching a task on or off, or changing its points**
+
+- Check that every setting the task needs is in deploy.yml and set in GitHub. Enabling a task whose settings are not passed stops the container.
+- On or off: flip enabled in config/reward-tasks.ts and ship it.
+- New points value: a hand-written migration that updates the tasks row, and the same number in TASK_POINTS. The database decides what is awarded.
+- Ship in the database-first order below.
+- Read /api/tasks: the new state shows.
 
 ## Claude skill
 
