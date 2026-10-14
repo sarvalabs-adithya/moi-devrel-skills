@@ -60,6 +60,8 @@ Members see open bounties on their dashboard under Webinar bounties, one box per
 
 **Admin**
 
+Admins as of 14 October 2026: adithya@moinetwork.io was removed from ADMIN_EMAILS, and sarvalabsdeveloper@gmail.com and points@moinetwork.io were added (redeployed the same day). So the admins are sarvalabsdeveloper@gmail.com (the shared company developer login), points@moinetwork.io (the Points account, managed by Sai Kiran) and Harsh Gupta's personal Gmail. Add the next DevRel person's company Google email before the next webinar bounty (commands under Admin), and ask the Points team (Piyush) whether the personal address should stay.
+
 - An admin is an email in ADMIN_EMAILS (once Google has verified it) or a row in the admin_users table. On 13 October the admin_users table was empty, so access comes only from ADMIN_EMAILS. Since 14 October the admins are sarvalabsdeveloper@gmail.com (the shared company developer login), points@moinetwork.io (the Points account, managed by Sai Kiran) and Harsh Gupta's personal Gmail. Add the next DevRel's company Google email before the next bounty.
 - To add an admin, append their Google email to the ADMIN_EMAILS Actions variable (keeping the existing ones), redeploy, then check the count. The change reaches the app only after the redeploy (about 4 minutes):
 
@@ -246,19 +248,4 @@ What the skill never does without DevRel's yes: push, merge (a merge deploys pro
 
 ## Open items
 
-- Admin access (14 October 2026): adithya@moinetwork.io was removed from ADMIN_EMAILS, and sarvalabsdeveloper@gmail.com and points@moinetwork.io were added (redeployed the same day). So the admins are sarvalabsdeveloper@gmail.com (the shared company developer login), points@moinetwork.io (the Points account, managed by Sai Kiran) and Harsh Gupta's personal Gmail. Add the next DevRel person's company Google email before the next webinar bounty (commands under Admin), and ask the Points team (Piyush) whether the personal address should stay.
-
-- Webinar bounties shipped: PR #22 merged and deployed on 13 October (the first deploy run failed on an expired GHCR_PAT; DevOps replaced the token and the re-run went through). Tested end to end on 14 October 2026: adithya@moinetwork.io was added to ADMIN_EMAILS (redeployed), and a test bounty "Test, ignore" (session 9, two 1-point fields) was created, opened, answered from a second account, awarded 2 points and closed; the 2 points were then reversed by hand with a -2 ledger entry (reason bounty_test_reversal) and the cached total corrected, so the test left no points behind. It stays in the admin list because awarded bounties cannot be deleted; closed bounties are hidden from members. adithya@moinetwork.io was taken out of ADMIN_EMAILS later the same day (first item above). Left to do: add each session host's Google email to ADMIN_EMAILS, and optionally set MOI_RPC_URL as an Actions variable and redeploy for the chain's note next to hash answers. The local branch feature/bounty-form is merged and can be deleted.
-- Backups: either the company Supabase organisation moves to a paid plan and Points transfers into it, or the points@moinetwork.io account goes paid (Rahul decides). Until then there are no automatic backups. Only after a backup exists, drop the leftover table backup.tasks_before_0008.
-- The review batch shipped as #23 and is live (#21 is closed). #15 is closed, replaced by draft #24 (CI/CD hardening) for Upendhar. #1 (Upendhar's first CI/CD, base feat/dev-challenges) is Upendhar's to close. The repo sarvalabs/Points-Program was archived on 13 October.
-- Schedule the maintenance job (/api/jobs/maintenance, called with CRON_SECRET): nothing calls it. Ask Upendhar what runs on the box and who schedules it.
-- Remove SOCIAL_AUDIT_BATCH_SIZE from deploy.yml and from the Actions variables: it is still set and passed, but nothing reads it.
-- Session 8's challenge is deployed but off. Open it (MOI_RPC_URL, one real submission, the flag) or drop it.
-- Move every secret into a shared vault. A secret was exposed in an old build record in September; the exposure was reviewed and the risk accepted on 15 September; delete those records and rotate before a real launch or if repo access widens.
-- The deploy logs in to the box as root and the container port answered over http from outside on 4 October. Draft #24 fixes both after DevOps setup; confirm the firewall meanwhile.
-- Pass X_TOKEN_ENCRYPTION_KEY (read lib/integrations/x-credentials.ts first; today the key falls back to BETTER_AUTH_SECRET), CLIENT_IP_HEADER (nginx must set it; without it the per-address limit is skipped) and GIT_SHA from the deploy.
-- Match the Dockerfile's pnpm version to package.json.
-- Test a wallet link. The devnet RPC certificate expired on 4 October and was renewed by 5 October; the server reads wallet keys from that host.
-- main is stale since August and nothing deploys from it. Merge feature/ci-cd into main and deploy from main.
-- Retire the old Vercel project.
-- Put an operator guide in the repo. The bounty section in the README on feature/ci-cd is a start.
+- An operator guide for the repo (docs/OPERATOR.md) is in a PR to feature/ci-cd, opened 14 October 2026. Review and merge it.
