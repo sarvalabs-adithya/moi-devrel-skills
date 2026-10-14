@@ -1,6 +1,6 @@
 # MOI MCP Server
 
-**Status: active.** The hosted connector is live on **devnet** (MOI's test network): mcp.voyage.moi.technology (reads and wallet writes) and mcp-read.voyage.moi.technology (reads only). Inactive: agent lookup (reading the **agent registry**, the on-chain list of registered agents, whose id went stale at the 11 September devnet reset), the Launchpad and dapp tools (on master, not deployed), and the npm package (never published). Checked again on 13 October: production has not changed since the 23 September deploy.
+**Status: active.** Production was redeployed on 14 October 2026 with the code review fixes: 33 tools on mcp.voyage.moi.technology (reads, wallet writes, the Launchpad and dapp tools) and 43 read tools on mcp-read.voyage.moi.technology, live on **devnet** (MOI's test network). Inactive: agent lookup (reading the **agent registry**, the on-chain list of registered agents), because the deploy workflow passes no MOI_READ_CALLER; the registry id in the code is current. Also inactive: the npm package (never published).
 
 Video: MCP demo, recorded 13 October: https://drive.google.com/file/d/1NGdNHOIDr7VfghWqs58ufskWbVxHyvQL/view
 
@@ -270,8 +270,8 @@ What the skill never does without DevRel's yes: push, open or comment on a PR or
 
 ## Open items
 
-- Merged on 14 October 2026: moi-mcp PR #27 (the code review fixes: dapp security, the MAS0 guard, the read layer, more writes, MAS1, MAS2 and MASX creation, hardening; reviewed by Gokul) as 3ae48cc0, then the voyage-api sync PR #320 into feat/moi-mcp as 237725c6. Both were squash-merged with clean messages. The voyage-api moi-mcp/ folder now equals moi-mcp master (271 files). voyage-api #313 and moi-mcp #4 were closed as superseded. **Nothing is deployed yet**: production still runs the 23 September sync.
-- Next: run Deploy MOI MCP Gateway with deploy_target dev, check with the health script, then production (Voyage team or DevOps, Srikar). Until that deploy, claude.ai Connect can stall on production.
+- Merged on 14 October 2026: moi-mcp PR #27 (the code review fixes: dapp security, the MAS0 guard, the read layer, more writes, MAS1, MAS2 and MASX creation, hardening; reviewed by Gokul) as 3ae48cc0, then the voyage-api sync PR #320 into feat/moi-mcp as 237725c6. Both were squash-merged with clean messages. The voyage-api moi-mcp/ folder now equals moi-mcp master (271 files). voyage-api #313 and moi-mcp #4 were closed as superseded. Both were deployed the same day (next item).
+- Deployed on 14 October 2026: dev (8 PASS, 0 FAIL), then production (8 PASS, 4 WARN, 0 FAIL). Production now runs moi-mcp master at 3ae48cc0: 33 tools on the write gateway, 43 on the read gateway, and the OAuth metadata fix, so claude.ai Connect no longer stalls. The four warnings are the new tool counts and agent lookup (below).
 - Before or with that deploy, the workflow must pass MOI_READ_CALLER (any account that exists on devnet). It passes none today, so agent lookup keeps answering "account not found" even after the deploy. The registry id in the code (0x200000002f3e9469...) is the current one, the same as the Agent Explorer and the Launchpad. MOI_LAUNCHPAD_URL defaults correctly; MOI_SESSION_KEY is not needed yet (the encryption-at-rest change comes back as its own PR once the workflow can pass it).
 - Dependabot PR #26 was closed on 12 October; its replacement #28 fails the build because it bumps majors (zod 4, TypeScript 7, vitest 5, @types/node 26) and zod 4 breaks the types in the dapp, Launchpad and WalletConnect code. Do not merge it as is: split the majors out or ignore them in dependabot.yml.
 - Decide the npm name and owner with Rahul, then publish in the order above.
