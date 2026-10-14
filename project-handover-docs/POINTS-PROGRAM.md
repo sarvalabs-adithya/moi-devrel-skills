@@ -6,7 +6,7 @@ Video: webinar bounties walkthrough (create, open, submit, award, close) https:/
 
 Marketing: How it works (What a member sees, Tasks, X like campaigns, Webinar bounties, Admin), Process (Running an X like campaign, Running a webinar bounty), Claude skill, Open items. Developers: How it works, Stack, Variables, Env vars, Process, Claude skill, Open items.
 
-MOI Community Points. Members sign in with Google, link their X, Discord and Telegram accounts and a MOI wallet, complete tasks to earn points, and see where they stand on a public leaderboard. Admins run X like campaigns and webinar bounties from an admin page. The Points team built the app (Harsh Gupta wrote the first version, Upendhar the CI/CD). DevRel added only the webinar bounties (PR #22) and the review batch fixes (PR #23). Questions about anything other than the webinar bounties go to the Points team: connect with Piyush. DevOps (Upendhar) owns the box it runs on.
+MOI Community Points. Members sign in with Google, link their X, Discord and Telegram accounts and a MOI wallet, complete tasks to earn points, and see where they stand on a public leaderboard. Admins run X like campaigns and webinar bounties from an admin page. The Points team built the app (Harsh Gupta wrote the first version, Upendhar the CI/CD). The webinar bounties (PR #22) are the only functional change DevRel (Adithya) made to the app; PR #23 was review fixes to existing code, with no new behaviour. Questions about anything other than the webinar bounties go to the Points team: connect with Piyush. DevOps (Upendhar) owns the box it runs on.
 
 ## How it works
 
@@ -46,6 +46,8 @@ The database value decides what is awarded. TASK_POINTS in lib/rewards/tasks.ts 
 - Close ends it. A closed campaign cannot be republished.
 
 **Webinar bounties (PR #22)**
+
+The only functional change DevRel made to the app: Adithya built this feature; everything else is the Points team's.
 
 Every **Builders session** (MOI's live-build webinar for developers) can end with a bounty: something attendees do for points. The host creates it on the Points site, with no code change and no deploy. A bounty is a small form: one to six fields, each an **interaction hash** (the ID of a transaction on MOI), a link, a number or a line of text, required or optional, and each worth its own points; the bounty's points are the sum. Members with a linked wallet fill it in, the answers wait in a queue, and the host grades them by hand, ticking the answers that earn their points. For example, "100 for the interaction, 100 for a demo video, 100 for the write-up" is three fields with the video optional: a member can earn up to 300 and must send the interaction. Nothing is awarded automatically.
 
