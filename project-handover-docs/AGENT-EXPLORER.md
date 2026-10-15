@@ -51,7 +51,7 @@ The server only gets the names that the workflow's docker run passes: ADMIN_ADDR
 | DB_HOST, DB_PORT, DB_USER, DB_NAME, DB_PASSWORD | Variables, password a secret | The MySQL database. Ask DevOps |
 | MOI_RPC_URL | Variable | The devnet RPC |
 | MOI_MNEMONIC, MOI_AGENT_ID, MOI_INTELLIGENCE_LOGIC_ID | Secrets | The server's devnet wallet and agent identity. Last set 17 June 2026, before the 11 September wipe. Ask Gokul whether they still exist on chain |
-| ADMIN_ADDRESSES | Variable | Wallets allowed to verify agents. Set 7 October and passed by the workflow |
+| ADMIN_ADDRESSES | Variable | Wallets allowed to verify agents and use the admin page. Holds one address (set 7 October 2026) that nobody is recorded as using, so in practice there is no admin (see Open items) |
 | VITE_API_BASE_URL, VITE_WC_PROJECT_ID, VITE_TESSERACT_BASE_URL, VITE_MOI_NETWORK, VITE_MOI_CHAIN_ID, VITE_TRANSACTION_FUEL_LIMIT, VITE_AGENT_REGISTRY_LOGIC_ID | Variables, client build | The project id comes from the Reown dashboard |
 | GH_TOKEN | Repo secret | GHCR login for the build. Expired: replace it with a token that has write:packages |
 | SSH_PRIVATE_KEY, VM_HOST, VM_USER | Secret and variables | The deploy. Ask Upendhar |
@@ -86,8 +86,8 @@ The **moi-launchpad-ops** skill (explorer branch) covers health, shipping a chan
 
 ## Open items
 
-- Replace GH_TOKEN and re-run the deploy so PR #6 goes live (asked of Upendhar, 14 October). Until then, 70 deprecated agents show as verified.
-- Security, as of 4 October: some server routes need no sign-in. A test script in server/ has a recovery phrase written in it, on every branch. Env files were committed on 2 April 2026 and deleted soon after, but they stay in git history. No fix exists. Treat that wallet and those files as exposed, and raise it with Gokul.
-- Pass PINATA_JWT, or Register an Agent cannot upload a card.
-- Prune the index (old-chain, test and retired-host rows). This is a database write by Upendhar after a backup, with Gokul's yes. No backup is on record.
-- Add a PR check and write down a rollback. Fill or delete the empty DEV and TEST environments.
+Adithya's work on the Explorer is done. These are notes for Gokul (the product) and DevOps (the server), not DevRel tasks.
+
+- No one is set up as an admin at the moment. The ADMIN_ADDRESSES variable in GitHub holds one wallet address (set 7 October 2026), but nobody is recorded as using it, and the live build was deployed by hand on 8 October. Until someone is an admin, nobody can verify agents or use the admin page.
+- The "Sync Registry Now" button on the admin page has not been tested. The automatic sync every 4 hours runs (it reported on 14 October).
+- PR #6 goes live once DevOps replaces GH_TOKEN and re-runs the deploy (Upendhar was asked on 14 October). Until then, 70 deprecated agents show as verified.
