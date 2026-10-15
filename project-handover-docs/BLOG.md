@@ -36,7 +36,7 @@ blog.moi.technology is MOI's blog. It is a separate site from moi.technology, bu
 | tags | Only agents, protocol and native-assets show as pills on the site. Any other tag still gets a page |
 | takeaways | The box above the body. Eight, or none |
 | faq | Question and answer pairs. Seven to seventeen. Each answer also becomes structured data, so it must stand alone |
-| cover | The social share image. No post on main sets one yet |
+| cover | The social share image. The feature is set up and works; no post uses it yet |
 | draft | true hides the post everywhere |
 
 Only the blog build checks these fields. Its content schema rejects a missing title or summary, a date that does not parse, an author link that is not a full URL, or a malformed FAQ. The website build reads the same file with no checks and renders a listing card from whatever it finds. So a header that the blog build rejects still produces a card at moi.technology/blog, pointing at an article that does not exist. Run both builds before merging. The preview build runs both.
@@ -67,7 +67,7 @@ Only the blog build checks these fields. Its content schema rejects a missing ti
 | scripts/build-blog-index.js | Builds the static listing at moi.technology/blog for the React site |
 | GitHub Actions + **Teleport** (the gateway DevOps uses to reach the server) | The deploy: a merge to main runs a script on the server that builds both sites |
 | GitHub Actions workflows | "Prepare social copy" drafts the announcement file. "Distribute a post" sends it: X and LinkedIn go to **Buffer** (a post-scheduling service) as drafts, and Discord and Telegram go straight to the channel |
-| Buffer | Where the X and LinkedIn announcements land as drafts for a person to approve and publish. It is the same account the webinar posts go through. The login is Chandra's, and the setup is in DEV-WEBINARS.md |
+| Buffer | Where the X and LinkedIn announcements land as drafts for a person to approve and publish. It is the same account the webinar posts go through. The login is Chandra's, and the setup is in DEV-WEBINARS.md. The next DevRel asks Chandra for access |
 | Mailchimp | An RSS campaign: on the 15th of every month it reads the email feed and sends the posts that are new. No code in the repo |
 | Google Tag Manager and Analytics | Measurement on both hosts. Both are under the sarvalabsdeveloper@gmail.com account |
 
@@ -79,7 +79,7 @@ Only the blog build checks these fields. Its content schema rejects a missing ti
 | Review | Rahul | Every post before it merges |
 | Release note | Protocol team | The source for a release post. Kept exactly as sent |
 | Social copy | DevRel | social/<slug>.md, drafted by a workflow and rewritten by hand. Marketing owns the company channels, so check with them before anything goes out |
-| Newsletter (**Mailchimp**, the email service) | Vardan | Vardan has the Mailchimp login. It is an **RSS** campaign (RSS is a standard feed format that other tools can poll for new posts) that runs on the 15th of every month |
+| Newsletter (**Mailchimp**, the email service) | Vardan | Vardan has the Mailchimp login. It is an **RSS** campaign (RSS is a standard feed format that other tools can poll for new posts) that runs on the 15th of every month. The next DevRel asks Vardan for access |
 | Server and deploy script | DevOps | Shared with the website |
 
 ## Env vars
@@ -171,7 +171,7 @@ The index across every product, with the consoles and who holds each login, is E
 
 **Writing a post, step 9: Newsletter**
 
-- Nothing to do. If the post is live at least three hours before the 15th's send, the monthly email includes it. See "The monthly newsletter" below.
+- Nothing to do. If the post is live at least three hours before the 15th's send (7:30 PM IST), the monthly email includes it. See "The monthly newsletter" below.
 
 **Other kinds of post: the protocol release post**
 
@@ -190,11 +190,11 @@ The index across every product, with the consoles and who holds each login, is E
 
 **The monthly newsletter**
 
-One email a month, on the 15th, with every post published since the last one. Nobody writes it and nobody sends it. It is a Mailchimp RSS campaign, a standing automation inside Mailchimp with a feed address and a schedule. On the schedule, Mailchimp fetches the feed and compares the items with what it sent last time. If anything is new, it builds one email from those items and sends it to the audience. If nothing is new, it sends nothing that month. Vardan has the Mailchimp login. Nothing about the newsletter lives in the repo, so a new DevRel needs that login. No secret is involved.
+One email a month, on the 15th at 7:30 PM IST, with every post published since the last one. The campaign is running (confirmed 14 October 2026). Nobody writes it and nobody sends it. It is a Mailchimp RSS campaign, a standing automation inside Mailchimp with a feed address and a schedule. On the schedule, Mailchimp fetches the feed and compares the items with what it sent last time. If anything is new, it builds one email from those items and sends it to the audience. If nothing is new, it sends nothing that month. Vardan has the Mailchimp login. Nothing about the newsletter lives in the repo, so a new DevRel needs that login. No secret is involved.
 
 **The monthly newsletter: what is set up, once**
 
-- In Mailchimp there is one automation of the type "Share blog updates via RSS" (an RSS campaign). It has these settings: the blog's email feed, https://blog.moi.technology/rss-email.xml; a schedule (monthly, the 15th, at a set hour; this doc does not record the hour, so read it in the campaign's schedule settings in Mailchimp); a subject line; a sender (a MOI address); an audience; and MOI's email design.
+- In Mailchimp there is one automation of the type "Share blog updates via RSS" (an RSS campaign). It has these settings: the blog's email feed, https://blog.moi.technology/rss-email.xml; a schedule (monthly, on the 15th at 7:30 PM IST, which is 14:00 UTC); a subject line; a sender (a MOI address); an audience; and MOI's email design.
 - The design is three template parts, header, body and footer, pasted into Mailchimp's editor once. The body part holds Mailchimp's RSS placeholders, which Mailchimp replaces with one block per new post: title, summary, link. The parts live in the moi-blog skill under templates/mailchimp.
 - The audience is the Mailchimp list. People join it through the Subscribe box at the bottom of every article, which posts straight to Mailchimp's signup endpoint for that list. So the Mailchimp account both sends the email and lets people subscribe at all. About 5,500 addresses as of October 2026.
 
@@ -216,7 +216,7 @@ One email a month, on the 15th, with every post published since the last one. No
 
 **The monthly newsletter: what this means for publishing**
 
-- A post is in the month's email only if it is live, meaning merged and deployed, at least three hours before the 15th's send hour (read from the campaign's schedule settings in Mailchimp; see Open items). That is Mailchimp's own guidance for RSS campaigns. A post published inside those three hours may not be picked up, and then it waits for the next month's email. A post that goes live on the 16th waits a month too.
+- A post is in the month's email only if it is live, meaning merged and deployed, at least three hours before the 15th's send hour, 7:30 PM IST (so by 4:30 PM IST on the 15th). That is Mailchimp's own guidance for RSS campaigns. A post published inside those three hours may not be picked up, and then it waits for the next month's email. A post that goes live on the 16th waits a month too.
 - The email shows the summary, so the summary field of each post is what subscribers read.
 - Never rename a published post's slug or change the link tagging. The feed's item id is the tagged link, so a change makes old posts look new, and they would be sent again. The same rule is under "Editing or deleting a published post".
 - An edit to a published post does not re-send it. Only a new post makes a new email.
@@ -237,7 +237,7 @@ One email a month, on the 15th, with every post published since the last one. No
 - Body images go in blog/src/assets/<slug>/ and are referenced from the post as ../../assets/<slug>/<file>, with alt text.
 - The cover image goes in blog/public/covers/. It is the picture shown when the link is shared on X or LinkedIn, and the thumbnail on the moi.technology/blog listing. If the cover is an SVG, a PNG with the same name must sit beside it, or the share image points at a missing file.
 - An image that changes gets a new filename. Email clients and social caches keep the old file under the old name for a long time.
-- No post on main sets a cover, so shares carry no picture as of October 2026. That is by choice, and there is nothing to backfill.
+- Covers are set up and ready to use; no post on main uses one yet, so shares carry no picture. There is nothing to backfill.
 
 **Editing or deleting a published post**
 
@@ -263,9 +263,4 @@ What the skills never do without a yes from DevRel: push, merge (a merge deploys
 
 ## Open items
 
-- Nobody is sure whether the RSS campaign is running or paused. Adithya thought it might have been paused in October 2026, though the 15 September send went out. Check its status in Mailchimp (Vardan) and resume it with Start RSS if it is paused. No post has been published since 11 September, so the 15 October send has nothing new either way.
-- The newsletter's send hour is not recorded anywhere in this doc, and the three-hour cutoff for a post depends on it. Read it from the RSS campaign's schedule in Mailchimp (Vardan has the login) and write it here.
-- The Discord and Telegram announcement values (DISCORD_WEBHOOK_URL, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID) are not set as of October 2026, so the "Distribute a post" workflow skips both channels. Decide with marketing whether to set them or leave those channels to a person.
-- No post on main sets a cover image, so shares carry no picture. Decide with marketing whether to add covers.
-- The Mailchimp login is Vardan's and the Buffer organisation is Chandra's. The next DevRel needs access to both. Ask them before the first post.
-- The announcing flow is used mainly for Dev Webinars posts. Agree with marketing which posts it should cover.
+None as of 14 October 2026.
