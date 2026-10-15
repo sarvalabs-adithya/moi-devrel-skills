@@ -81,9 +81,4 @@ None. The moi-devnet-reset skill lists Moinkee as one row of what a reset breaks
 
 ## Open items
 
-- Two public repos contain a committed 12-word devnet recovery phrase: moinkee-nft-minter `scripts/getTdu.mjs` and tSwapper `Swap/src/lib/logic.js` (`POOL_OWNER_MNEMONIC`). Treat both wallets as public: never fund them. Removing the lines does not remove them from history.
-- MOI Sprint: the guide repo's README is the unedited Next.js template. tSwapper's `solution` branch holds the challenge answers in public. A challenge prototype (`Sprint/Challenge 1/moisprint-challenge-mas0`) existed only on Adithya's laptop and is not in any repo.
-- Contextual Compute site: the join form keeps nothing. The Vercel project has no environment variables (checked 14 October 2026), so `SUBSCRIBE_WEBHOOK_URL` is unset and every sign-up is thrown away, while the form still says thank you. Either point it at a webhook that stores emails (for example a form or sheet service marketing already uses) or remove the form. The CC3 paper shows as locked on the page, but its PDF is still served at /docs/CC3.pdf. The README is the unedited Next.js template. The domain (Namecheap) and DNS (Cloudflare) are on company accounts. The Vercel project was transferred to the sarvalabsdeveloper@gmail.com Vercel account on 14 October 2026, and the site kept serving. Its Git connection points at sarvalabs/contextual-compute-foundation-website (checked 14 October 2026), so pushes to main deploy.
-- Leftover branches: moinkee-nft-minter (three merged handover and Claude branches) and agent-dating (seven old feature branches) can be deleted after the move.
-- Adithya's old Pinata account (login adithya@sarva.ai) can be closed whenever. The company account holds all 71 files.
-- The Agent Explorer also lists a Pinata account, with no key passed in production (AGENT-EXPLORER.md). Who owns it is not recorded (ask Gokul).
+None as of 14 October 2026.

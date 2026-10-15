@@ -62,7 +62,7 @@ Groq: the Launchpad no longer uses a server key (every agent runs on its owner's
 | MOI Website | Hosted on a DevOps VM (deploys go through Teleport), with Cloudflare in front, on the company-owned Cloudflare account. Settled: Tag Manager, Analytics and Search Console are under sarvalabsdeveloper@gmail.com. The chatbot and its Express server are not running, and their Supabase project no longer exists (MOI-WEBSITE.md) |
 | Dataroom | Anthropic and OpenAI keys: no company account holds them, and the keys now set are not company keys. The next owner creates company keys |
 | Points Program | Settled 13 October: the Google OAuth client, X developer app (paid), Discord app and bot, Telegram bot, Reown project and Resend account are all under sarvalabsdeveloper@gmail.com. Their secrets are in GitHub |
-| Agent Explorer | Server devnet wallet, Reown project, Pinata account, the GitHub token used for images |
+| Agent Explorer | Server devnet wallet, Reown project, the GitHub token used for images. Gokul owns the product |
 | Moinkee NFT Minter | Vercel project deleted on 14 October 2026. The Pinata files are pinned in the company account since 14 October (see above and OTHER-PROJECTS.md) |
 | Contextual Compute website | Settled 14 October 2026: the Vercel project is on the sarvalabsdeveloper@gmail.com Vercel account, and the domain (Namecheap, renews by 2027-03-28) and the Cloudflare zone are company-owned. The join form's webhook is not set, so sign-ups are discarded (see OTHER-PROJECTS.md) |
 | Shared | Luma, Riverside, Google Meet and YouTube: Vardan holds them per ENV-VARS.md. Confirm the account. Settled: Chandra owns the Buffer organisation, and Vardan has Mailchimp access |

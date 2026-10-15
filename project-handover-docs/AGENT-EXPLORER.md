@@ -26,7 +26,7 @@ This doc replaces the Agent Explorer section of the old dependency list (Adithya
 | Express 4, TypeScript, MySQL | The API and the indexer. The database host is DevOps' |
 | js-moi-sdk 0.9.0-rc2 and js-moi-agent-registry | Chain access: registry reads and writes |
 | WalletConnect (Reown) | Wallet sign-in, registering an agent and admin sign-off |
-| Pinata | Agent card uploads. No key is passed in production, so uploads answer "not configured" |
+| Pinata | Not used. The code has an optional card upload to Pinata (PINATA_JWT), but the Explorer has no Pinata account and no key, so uploads answer "not configured". The Pinata account in the handover is Moinkee's |
 | GitHub Actions, Docker, GHCR, nginx | The deploy. GitHub Actions builds two Docker images and pushes them to GHCR. It then replaces both containers on one VM over SSH, behind nginx. Hosts: agents.moi.technology and api.agents.moi.technology |
 
 ## Variables
@@ -36,7 +36,7 @@ This doc replaces the Agent Explorer section of the old dependency list (Adithya
 | Codebase | Gokul (app code, admin, verification rules) | The repo sarvalabs/agent-explorer, private. Merging to main deploys. It has no CODEOWNERS file, and main is not protected. Repo admins: Gokul, Upendhar, chandra, git, sarvalabs-adithya |
 | Workflow, VM, nginx, SSH key, GH_TOKEN, DNS, MySQL | DevOps (Upendhar) | Upendhar wrote the CI/CD |
 | The agent registry on devnet | Protocol team; Gokul publishes the id | New id after every reset |
-| Server devnet wallet and agent identity, the Reown project, the Pinata account | Gokul (he owns the product) | |
+| Server devnet wallet and agent identity, the Reown project | Gokul (he owns the product) | |
 
 ## Env vars
 

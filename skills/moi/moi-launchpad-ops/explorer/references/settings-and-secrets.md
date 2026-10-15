@@ -29,7 +29,7 @@ Defaults apply, so changing the GitHub value does nothing until the workflow is 
 | `LAUNCHPAD_ORIGIN` | Server, before PR #5 | `https://launchpad.moi.technology`. Empty disables the rule |
 | `LAUNCHPAD_HOSTS` | Server, PR #5 | `launchpad.moi.technology` and the retired Launchpad host. Replaces `LAUNCHPAD_ORIGIN` |
 | `SYNC_INTERVAL_HOURS` | Server, PR #5 | 4. 0 disables the schedule |
-| `PINATA_JWT` | Server | Empty. Pinning a card to IPFS answers an error without it |
+| `PINATA_JWT` | Server | Empty, and not used: the Explorer has no Pinata account. A card upload answers "not configured" |
 | `VITE_PARTICIPANT_BASE_URL`, `VITE_PUBLIC_URL` | Client | Read by pages and the wallet hook, never passed. Links built from the first likely render with `undefined` (inferred) |
 | `VITE_MOI_AGENT_REGISTRY_LOGIC_ID` | Client, PR #5 | Read by `vite.config.ts` through `process.env` at build, otherwise a code default |
 Names from older designs that nothing reads on `main` or PR #5: `LAUNCHPAD_ORIGINS`, `LAUNCHPAD_CONFIRM_ORIGIN` (the closed PR #4, still listed in the 4 October dependency snapshot), `AUTO_VERIFY_OWNERS`, `LAUNCHPAD_API_KEY`, `LAUNCHPAD_POLL_SECONDS` (removed 2026-09-23). A name nothing reads is ignored without a warning.
@@ -61,7 +61,7 @@ Proof per setting: `SYNC_INTERVAL_HOURS`, the boot log line `[reconcile] schedul
 | The MySQL database | `DB_*` | DevOps |
 | The server's devnet wallet and agent identity | `MOI_MNEMONIC`, `MOI_AGENT_ID`, `MOI_INTELLIGENCE_LOGIC_ID` | Owner "confirm" in the 4 October dependency list (now only in git history). ASK: Gokul |
 | The WalletConnect (Reown) project | `VITE_WC_PROJECT_ID` | Owner "confirm". ASK: Gokul |
-| A Pinata account, if one is used | `PINATA_JWT`, not set by the workflow | Not recorded. ASK: Gokul |
+| A Pinata account | None. The Explorer does not use Pinata (the handover's Pinata account is Moinkee's) | None |
 | Admin wallets | the server's admin list (`verify-agents.md`, section 2) | Whoever holds them. ASK: Gokul. Each person uses their own MOI Wallet; there is no key to hand over |
 
 ## 6. Names missing from `keys-and-access.md`

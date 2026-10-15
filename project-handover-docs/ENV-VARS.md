@@ -34,7 +34,7 @@ Rules that hold everywhere:
 | Google Analytics and Tag Manager | Measurement | analytics.google.com, tagmanager.google.com | The sarvalabsdeveloper@gmail.com account |
 | **Teleport**, the VMs, SSH keys, **GHCR** tokens | Deploy access. Teleport is the secure-access gateway to the servers. GHCR is GitHub's container registry, where the built app images are stored | DevOps | DevOps (Upendhar, Srikar) |
 | Cloudflare | DNS zones, including the Contextual Compute website's | dash.cloudflare.com | Company-owned |
-| Pinata | **IPFS** pinning, which keeps files online under fixed content addresses (CIDs). The Moinkee NFT Minter's images are pinned here. Agent Explorer also lists a Pinata account, whose owner is not recorded | pinata.cloud | The company account (sarvalabsdeveloper@gmail.com): all 71 Moinkee CIDs pinned there since 14 October 2026. Adithya's account no longer matters and can be closed |
+| Pinata | **IPFS** pinning, which keeps files online under fixed content addresses (CIDs). The Moinkee NFT Minter's images are pinned here. The Agent Explorer does not use Pinata | pinata.cloud | The company account (sarvalabsdeveloper@gmail.com): all 71 Moinkee CIDs pinned there since 14 October 2026. Adithya's account no longer matters and can be closed |
 | The **devnet** RPC (the shared MOI test network and the address programs use to talk to it), the agent registry id (the on-chain list of registered agents) | Network settings | The Protocol team | Gokul |
 | npm | The **MCP** (Model Context Protocol, the standard for plugging tools into AI assistants) package, unpublished | npmjs.com | Nobody yet. Rahul decides the name and the account |
 
