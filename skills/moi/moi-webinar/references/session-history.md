@@ -10,12 +10,12 @@ Facts are as of 2026-10-02. Where a file lives was read with git on that date: `
 | 2 | Fri 2026-06-12, about 18:22 IST | Native assets. A MAS0 asset, then a TaxToken (a logic-backed asset taking 5% on transfer). Bounty: both asset ids | main: `session-2/` |
 | 3 | Thu 2026-06-18, about 50 minutes | The on-chain agent registry with OpenClaw, a third-party agent framework. Two agents register, discover each other and message. Two bounties | main: `session-3/` |
 | 4 | date not recorded; form created 2026-07-03 | Swaps with MAS0 Lockup and Release between two wallets, as a CLI and a Vite UI. Bounty form | main: `session-4/` |
-| 5 | no record that it was held | NFTs: a MAS1 collection minted and transferred, CLI and a small web UI. Bounty section in its README | main: `session-5/` (added to main 2026-08-03) |
-| 6 | no record that it was held | Context inheritance. One wallet, sub-accounts under an AgentBudget logic, a squad script and a chat agent | main: `session-6/` (added to main 2026-08-03) |
+| 5 | held (date not recorded; confirmed by the previous operator, 2026-10-14) | NFTs: a MAS1 collection minted and transferred, CLI and a small web UI. Bounty section in its README | main: `session-5/` (added to main 2026-08-03) |
+| 6 | held (date not recorded; confirmed by the previous operator, 2026-10-14) | Context inheritance. One wallet, sub-accounts under an AgentBudget logic, a squad script and a chat agent | main: `session-6/` (added to main 2026-08-03) |
 | 7 | Fri 2026-08-07 (inferred from the form and the 6 Aug standup) | Agentic payments, part 1. A buyer agent finds a seller on the registry, checks the registered wallet against the quote, then pays with a native transfer | main: README, EXPLAINER, code, deck `MOI_Builders_S7-new.pptx`. Branch adds `BLOG.md`, `blog-assets/`, the presented deck `MOI_Builders_S7new1f.pptx`, `preflight.ts`. Local only (now in the handover repo, `skills/moi/moi-webinar/past-sessions/session-7/`): `STORYLINE.md`, `DEMO-PLAN.md`, `TRANSCRIPT.md`, `FACILITATOR-NOTE.md` |
 | 8, first design | not held | A budget logic on an inherited sub-account, with an allowance planned as the fix. Built, then dropped on 31 Aug 2026 after review | branch: `session-8/` (kept intact on purpose) |
 | 8 | Fri 2026-09-04, 16:00 IST (10:30 UTC), 60 minutes | Access policies: the same call made three times, refused, allowed, refused. A 30-line Ticker logic, four per-beat scripts | branch: `session-8-policies/` (63 files). Local only: `RUNBOOK.md`, `LUMA.md`, `SOCIAL.md`, `social/`. A cleaned copy is in `../examples/session-8/` |
-| 9 | planned; status unknown | Agentic payments, part 3: the x402 envelope with MOI settlement. Built on session 8's allowance, which was dropped | branch: `session-9/` (plan, draft blog, scripts). ASK: Rahul |
+| 9 | not held (planned and built only) | Agentic payments, part 3: the x402 envelope with MOI settlement. Built on session 8's allowance, which was dropped | branch: `session-9/` (plan, draft blog, scripts). ASK: Rahul |
 | Intro | not recorded | "Your first agent on MOI": four ideas, then the Agent Launchpad live. See `intro-session.md` | handover repo: `skills/moi/moi-webinar/past-sessions/intro-session-deck/` |
 
 Session 6's content also exists in the previous operator's private repo `moi-agent-budget` (3 commits, 15 July), which adds a teaching guide and a webinar plan. His dependency notes said that repo's contract was wiped by the devnet resets and needs a redeploy and an SDK upgrade. The repo is not in the 4 October dependency list (now only in git history) or `MIGRATION-LIST.md`; ASK: Rahul whether it moves to the org.
@@ -46,6 +46,6 @@ No run of any session is on record after the wipe announced for 11 September 202
 
 ## Not yet known
 
-- Held dates for sessions 1 and 4, whether sessions 5 and 6 were held at all, and whether a recording of any of them exists: not recorded (the previous DevRel's notes). `project-handover-docs/DEV-WEBINARS.md` says nine sessions so far, while this file records 1 to 4, 7 and 8 as held. ASK: Rahul to confirm the count.
+- Sessions 1 to 8 were held (confirmed by the previous operator on 2026-10-14); 9 was not. The held dates for sessions 1, 4, 5 and 6, and whether a recording of 1, 3 to 6 or 8 exists, are not recorded.
 - Whether session 9 is still planned, and under which number the next session runs. ASK: Rahul.
 - Whether 0.7.x SDK sessions run on 0.13.0. Rehearse one.

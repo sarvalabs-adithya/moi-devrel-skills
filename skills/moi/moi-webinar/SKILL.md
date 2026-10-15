@@ -6,7 +6,7 @@ description: "Run a MOI Builders session (a live developer webinar where the pre
 # MOI webinar
 
 ## What this covers
-One MOI Builders session: a live developer webinar where the presenter runs one idea on devnet, attendees repeat it afterwards, and a write-up is published. The folder `session-<N>/` sits at the root of a working copy of `moi-foundation/MOI-Webinars`. As of 2026-10-02 sessions 1 to 4, 7 and 8 have a record of being held, sessions 5 and 6 do not (`project-handover-docs/DEV-WEBINARS.md` says nine sessions so far: ASK: Rahul to confirm the count), session 9 is only planned, and a one-off intro session exists (`references/session-history.md`). Claude researches, builds, verifies and explains, and the operator approves every step that leaves the machine.
+One MOI Builders session: a live developer webinar where the presenter runs one idea on devnet, attendees repeat it afterwards, and a write-up is published. The folder `session-<N>/` sits at the root of a working copy of `moi-foundation/MOI-Webinars`. Sessions 1 to 8 were held (confirmed 2026-10-14), session 9 was only planned, and a one-off intro session exists (`references/session-history.md`). Claude researches, builds, verifies and explains, and the operator approves every step that leaves the machine.
 A deck or the monthly call: skip to the branch table below and read `deck/GUIDE.md` or `community-call/GUIDE.md`. The checklist and the run table are for a Builders session.
 Two branches live inside this skill and are read as their own guides:
 - `deck`: any MOI deck, for a session, the monthly call or anything else. One HTML file, the presenter window, the read-aloud script, the checker and the PDF.

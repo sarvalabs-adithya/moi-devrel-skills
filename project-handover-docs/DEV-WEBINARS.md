@@ -1,6 +1,6 @@
 # Dev Webinars
 
-**Status: active.** Nine sessions so far (see Open items). The next one is not scheduled.
+**Status: active.** Eight sessions held (1 to 8; confirmed by Adithya, 14 October 2026). Session 9 was planned and built but not held. The next one is not scheduled.
 
 Marketing: How it works, Variables, Process (Posting with Buffer, Announcement schedule). Developers: Env vars, Process, Claude skill, Open items.
 
@@ -115,4 +115,3 @@ Without a yes from DevRel, the skills never schedule or post anything, publish t
 
 - Bounties are live (PR #22, 13 October 2026). Whoever runs a webinar creates its bounty on the Points site, with no code change. A bounty is a small form that the host designs and grades by hand. Its field types are an **interaction hash** (the identifier of a signed request on the chain, shown in the explorer), a link, and number or text fields, each worth its own points. The moi-webinar skill walks the flow (create, test, grade, close) in references/after-the-session.md.
 - Merge the session work into main: sessions 8 and 9, session-8-policies, intro-session and the x402 work sit on the branch claude/agent-payments-simple of moi-foundation/MOI-Webinars (95 commits ahead of main, 2 behind, on 14 October 2026). The repo is public, so review before merging, and squash so the branch's commit names do not land on main.
-- Status says nine sessions. Folders exist for sessions 1 to 9. The session history in the moi-webinar skill (as of 2 October 2026) records sessions 1 to 4, 7 and 8 as held, has no record that 5 and 6 were, and lists 9 as planned. Confirm the count with Rahul.
