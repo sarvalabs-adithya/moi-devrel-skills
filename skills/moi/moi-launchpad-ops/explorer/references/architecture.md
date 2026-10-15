@@ -55,7 +55,7 @@ What the evidence says. `project-handover-docs/AGENT-EXPLORER.md`: Gokul owns th
 Who can act on the VM: Upendhar (DevOps). Nobody else is recorded. `moi-devrel/references/people-and-teams.md` lists as open whether Upendhar or Srikar owns the VM today. ASK: Rahul.
 
 ## Not yet known
-- Whether DevRel owns the Explorer, and who must approve a merge. No branch protection or required review is recorded. ASK: Rahul, then Gokul.
+- Who must approve a merge. No branch protection or required review is recorded. Gokul owns the product (settled 14 October 2026), so ask him.
 - Which VM, nginx configuration and MySQL host serve it. ASK: Upendhar. The `DEV` and `TEST` environments exist but are empty (4 October 2026 snapshot).
 - Who owns the server's devnet identity (`MOI_MNEMONIC`, `MOI_AGENT_ID`, `MOI_INTELLIGENCE_LOGIC_ID`) and the WalletConnect project. ASK: Gokul.
 - PR #5 is merged (7 October 2026). To confirm the state at any time: `gh pr view 5 -R sarvalabs/agent-explorer --json state,mergedAt,headRefOid`.
