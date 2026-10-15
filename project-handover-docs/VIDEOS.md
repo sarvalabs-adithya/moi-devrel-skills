@@ -1,12 +1,32 @@
 # Handover videos
 
-**Status: done for the handover.** Recorded: the Community Call skill video (9 October), the Launchpad demo (12 October), the Dataroom and MCP server demos (13 October), the Points webinar bounties walkthrough and the Blog newsletter video (14 October). Not recorded: skill videos for the Launchpad, Dataroom, MCP server and Points. Each skill's SKILL.md explains it instead.
+**Status: done for the handover.** Recorded: the Community Call skill video (9 October), the Launchpad demo (12 October), the Dataroom and MCP server demos (13 October), the Points webinar bounties walkthrough and the Blog newsletter video (14 October). Not recorded: skill videos for the Launchpad, Dataroom, MCP server and Points. Each skill's SKILL.md explains the skill instead.
 
-Marketing: the table of videos and the Reference line below it. Developers: the three outlines (Community Call, Agent Launchpad, Dataroom) and Open items.
+Marketing: How it works (including the table of videos and the Reference line below it). Developers: Process (the three outlines) and Open items.
 
-Each product gets two videos, each with its own link. The product demo shows the workflow end to end, with the tools and logins it needs. The skill video shows the Claude skill that runs the product, used on screen. A **Claude skill** is a folder of instructions Claude loads for a kind of task. Record screen plus voice, 5 to 10 minutes, no editing. The videos live in the Google Drive folder https://drive.google.com/drive/folders/1AVuEBGUHnuXPKwqRoFNAcSUdxQg97dKY (owner adithya@moinetwork.io; since 14 October it is open to anyone at moinetwork.io and Rahul is invited. If that account is ever closed, move ownership first, or the files go with it). Each video is linked under the Status line of its product doc as "Video: <link>".
+This doc lists the videos recorded for the handover. It also holds the outlines used to record the product demos.
 
-Decided on 13 October: no videos for the MOI Website or Dev Webinars; their docs carry those processes. The Blog has one short process video, the newsletter (Mailchimp and the RSS feed): https://drive.google.com/file/d/1TGfPULnb1cyjwFGV_dK4X-BRqG03ZtHL/view (recorded 14 October 2026).
+## How it works
+
+**What each product gets**
+
+- Each product gets two videos, each with its own link.
+- The product demo shows the workflow end to end, with the tools and logins it needs.
+- The skill video shows the Claude skill that runs the product, used on screen. A **Claude skill** is a folder of instructions Claude loads for a kind of task.
+- Each video is linked under the Status line of its product doc as "Video: <link>".
+
+**Where the videos are**
+
+- The videos live in the Google Drive folder https://drive.google.com/drive/folders/1AVuEBGUHnuXPKwqRoFNAcSUdxQg97dKY.
+- The folder owner is adithya@moinetwork.io. Since 14 October the folder is open to anyone at moinetwork.io, and Rahul is invited.
+- If that account is ever closed, move ownership first, or the files go with it.
+
+**What has no video**
+
+- Decided on 13 October: there are no videos for the MOI Website or Dev Webinars. Their docs carry those processes.
+- The Blog has one short process video, on the newsletter (Mailchimp and the RSS feed): https://drive.google.com/file/d/1TGfPULnb1cyjwFGV_dK4X-BRqG03ZtHL/view (recorded 14 October 2026).
+
+**The videos**
 
 | Product | Doc | Product demo | Skill video |
 |---|---|---|---|
@@ -16,28 +36,33 @@ Decided on 13 October: no videos for the MOI Website or Dev Webinars; their docs
 | MCP server | MCP-SERVER.md | https://drive.google.com/file/d/1NGdNHOIDr7VfghWqs58ufskWbVxHyvQL/view (recorded 13 October) | None on record (moi-mcp-ops) |
 | Points Program | POINTS-PROGRAM.md | https://drive.google.com/file/d/1MOs61CECZt6SRQhH9Zro0t2avq0-XPsy/view (webinar bounties walkthrough, recorded 14 October) | None on record (moi-web-products-ops) |
 
-Reference: the community call recordings, https://www.youtube.com/playlist?list=PL4-oiZj2acUPhBkDGm-8ue9jIVxh-NXvs. Watch one before recording to get the pace and the segments.
+Reference: the community call recordings, https://www.youtube.com/playlist?list=PL4-oiZj2acUPhBkDGm-8ue9jIVxh-NXvs. Watch one before you record, to get the pace and the segments.
 
-The outlines below are for the product demos. The Points Program video covers the webinar bounty flow only and has no outline here.
+## Process
 
-## Community Call (target 8 minutes)
+**Recording a video**
 
-1. What it is: monthly, on a Friday. Vardan owns the event, DevRel builds the deck and presents the DevRel segment, and the protocol content comes from Rahul's team. Show the Variables table.
+- Record screen plus voice. Aim for 5 to 10 minutes. Do no editing.
+- The outlines below are for the product demos. The Points Program video covers the webinar bounty flow only and has no outline here.
+
+**Outline: Community Call (target 8 minutes)**
+
+1. What it is: monthly, on a Friday. Vardan owns the event. DevRel builds the deck and presents the DevRel segment. The protocol content comes from Rahul's team. Show the Variables table.
 2. The timeline: scroll the Process section from Wednesday of the week before to the day of the call. Say out loud what is due on Friday and who sends it.
 3. **Luma** (the event-page service): open the MOI calendar, a past call's page and the two mailing lists. Show where the announcement to signed-up guests is sent from.
 4. **Riverside** (the recording platform): open the room, the description with the links, and where speakers are invited.
-5. The deck: open the community-call-14 folder in the moi-foundation/MOI-Webinars repo. Run the deck build with the moi-webinar skill, deck branch, and show the HTML deck, the checker and the PDF export. Show one slide with a figure and its source line.
+5. The deck: open the community-call-14 folder in the moi-foundation/MOI-Webinars repo. Run the deck build with the moi-webinar skill, deck branch. Show the HTML deck, the checker and the PDF export. Show one slide with a figure and its source line.
 6. The release check: open the release note next to the release slides.
 7. YouTube description: show a past description built from the agenda.
 8. Day of: the stale-wording sweep. Present from the HTML, with the PDF open as a fallback.
 9. After: the post-call tweets and shorts (Vardan) and the audience questions note.
 10. Logins needed: Luma admin, Riverside, YouTube. Say who holds each today.
 
-## Agent Launchpad (target 10 minutes)
+**Outline: Agent Launchpad (target 10 minutes)**
 
 Reference: the intro session deck in skills/moi/moi-webinar/past-sessions/intro-session-deck/ in the handover repo (press P for the script) and the launch video folder on Drive. Beat 2 is the same demo cue the deck uses (beats are the numbered demo cues in the deck's script).
 
-1. What it is: open launchpad.moi.technology and show the templates, create, dashboard, marketplace and stats. Say what is inactive (paid agents). The phone QR sign-in is live now (tested 13 October), so the demo can also be done from a phone.
+1. What it is: open launchpad.moi.technology and show the templates, create, dashboard, marketplace and stats. Say what is inactive (paid agents). The phone QR sign-in is live now (tested 13 October), so you can also do the demo from a phone.
 2. Sign in with the wallet, create an agent from a template, register it on chain, link Telegram, download the runtime and start it. Send the bot a message.
 3. The repo: app/, lib/templates, agent-runtime, contracts/agent_market, supabase/migrations.
 4. Shipping: a branch, typecheck and tests locally, the PR to the org repo, and the merge that builds and deploys. Show the Actions run from 7 October and the image on **GHCR** (GitHub's container registry).
@@ -48,14 +73,14 @@ Reference: the intro session deck in skills/moi/moi-webinar/past-sessions/intro-
 9. Health: stats not zero, the bot answers, and the skill's health check: "Is the Launchpad healthy?"
 10. Logins: GitHub, Supabase (company), the Telegram bot (Rahul's Telegram account since 14 October) and the VM (DevOps only).
 
-## Dataroom (target 8 minutes)
+**Outline: Dataroom (target 8 minutes)**
 
 1. What it is: open dataroom.moi.technology and show the home tiles (whitepaper, litepaper, decks), a document page and the email gate. Say what is inactive (the chat, the Events page).
 2. The admin page: unlock with the secret, then show the document list with its statuses (pending, processing, completed) and Re-index.
 3. Add a document: pick the category first, upload a PDF, and watch it go pending, processing, completed. Then replace a file inside a document and show the one-click permanent delete warning.
 4. The home page: the seven slots, "Show on home" pinning, the title-match fallback, and where the figures live in the code.
-5. Adopters, events and leads: where they are edited and what shows on the site.
-6. The repo: the moi-data-room folder, the API routes, the migrations (the Dataroom tables and the require_email column now have one in the repo, PR #7, merged 13 October) and the deploy workflow.
+5. Adopters, events and leads: where you edit them and what shows on the site.
+6. The repo: the moi-data-room folder, the API routes, the migrations (the Dataroom tables and the require_email column now have a migration in the repo: PR #7, merged 13 October) and the deploy workflow.
 7. Settings: the Actions secrets by name, and the manual deploy run after any change. Show today's run.
 8. Supabase: the company organisation (the project moved there on 8 October), the documents table, the private bucket and the **vector index** (the search index over the documents).
 9. Health: the site, an upload that indexes, and the Supabase advisors.

@@ -1,6 +1,6 @@
 # Agent Explorer
 
-**Status: active, deploys blocked.** agents.moi.technology is live. The build running is from 8 October 2026, deployed by hand. The deploy workflow fails at "Login to GHCR" (GHCR is GitHub's container image store) because its GH_TOKEN secret has expired. So PR #6 (merged 14 October) is not live yet. Upendhar has been asked to replace the token and re-run.
+**Status: active, deploys blocked.** agents.moi.technology is live. The build running is from 8 October 2026, deployed by hand. The deploy workflow fails at "Login to GHCR" (GHCR is GitHub's container registry) because its GH_TOKEN secret has expired. So PR #6 (merged 14 October) is not live yet. Upendhar has been asked to replace the token and re-run.
 
 Video: none recorded. The Launchpad demo (AGENT-LAUNCHPAD.md) shows agents landing in the Explorer.
 
