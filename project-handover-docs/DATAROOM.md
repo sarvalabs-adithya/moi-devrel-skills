@@ -69,7 +69,7 @@ Production values are GitHub Actions secrets on sarvalabs/moi-dataroom0. GitHub 
 | ADMIN_SECRET | The admin page. Never leave it empty | `openssl rand -hex 32`; Chandrasekhar holds the current value |
 | CLAUDE_PER_IP_HOURLY_LIMIT, CLAUDE_DAILY_TOKEN_BUDGET, CLAUDE_MAX_INPUT_TOKENS, CLAUDE_MAX_OUTPUT_TOKENS | Chat limits. Optional; the code defaults are 30, 500000, 8000 and 2048 | Not set |
 | VM_HOST, VM_USERNAME, VM_SSH_KEY | Deploy access | DevOps |
-| DATAROOM_URL | Where the whitepaper script points; defaults to the live site | Leave it unset. (ADMIN_TOKEN is no longer needed once PR #8 merges) |
+| DATAROOM_URL | Where the whitepaper script points; defaults to the live site | Leave it unset. (ADMIN_TOKEN is no longer used since PR #8) |
 
 ## Process
 
@@ -164,4 +164,4 @@ Without your yes, the skill never pushes, merges (merging deploys), runs a workf
 
 ## Open items
 
-- sarvalabs/moi-dataroom0 PR #8 makes the admin stats route use the ADMIN_SECRET check like every other admin route. Until it merges, that route also accepts a password written in the public source, which shows the chat question count and the top documents. Merge it (merging deploys). The older, wider fix on Adithya's fork (branch claude/security-vulnerability-analysis-dWvYu: httpOnly cookie, safe comparison) is optional.
+- Optional: the older, wider admin fix on Adithya's fork (branch claude/security-vulnerability-analysis-dWvYu: an httpOnly cookie and a safe comparison). The leak it was most needed for was closed by PR #8 on 14 October 2026, so this is hardening only.
