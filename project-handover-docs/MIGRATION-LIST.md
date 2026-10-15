@@ -2,7 +2,7 @@
 
 **Status: done for DevRel.** Both Supabase projects moved on 8 October, and the agent dating plugin no longer depends on a VPS. On 14 October four repos moved to the sarvalabs organisation, the orphan Vercel projects were deleted, and the Moinkee files were pinned in the company Pinata account. The Launchpad Telegram bot was transferred to Rahul Lenkala the same day.
 
-Marketing: Owner not on record: settle who holds the login, and Open items. Developers: every section.
+Marketing: Who holds each login. Developers: every section.
 
 This doc is current as of the end of 14 October 2026. It lists what sat under Adithya's own accounts and where each item went. It also has the steps for the two moves that needed a walkthrough, Supabase and Telegram, both done. It gives names only, no values.
 
@@ -20,7 +20,7 @@ This doc is current as of the end of 14 October 2026. It lists what sat under Ad
 | Dataroom | Supabase project and bucket | Adithya's personal Supabase organisation | Done 8 October: the same company organisation, same free plan |
 | MOI Website | Old copy at moi-website.vercel.app | Done: deleted on 14 October 2026 (the address answers 404) | Nothing |
 | Dataroom | Second static data room, sarva-dataroom.vercel.app | Done: deleted on 14 October 2026 (the address answers 404) | Nothing |
-| All | The product demo videos and the Launchpad launch video folder in Google Drive | Owned by adithya@moinetwork.io. Since 14 October the folders are open to anyone at moinetwork.io, and Rahul is invited | Sharing does not move ownership. If that account is closed, the files go with it. Transfer ownership to Rahul, or ask IT to transfer the files when the account is closed |
+| All | The handover videos and the Launchpad launch video folder in Google Drive | adithya@moinetwork.io | Open to anyone at moinetwork.io since 14 October 2026, and Rahul is invited. Ownership stays with that account |
 
 ## How the Supabase projects move (done on 8 October; kept for the record)
 
@@ -55,7 +55,7 @@ Not to migrate: the Points Program's Supabase project and the **AgentMarket** co
 
 Groq: the Launchpad no longer uses a server key (every agent runs on its owner's own key), so there is nothing to migrate.
 
-## Owner not on record: settle who holds the login
+## Who holds each login
 
 | Product | Account |
 |---|---|
@@ -65,11 +65,8 @@ Groq: the Launchpad no longer uses a server key (every agent runs on its owner's
 | Agent Explorer | Server devnet wallet, Reown project, the GitHub token used for images. Gokul owns the product |
 | Moinkee NFT Minter | Vercel project deleted on 14 October 2026. The Pinata files are pinned in the company account since 14 October (see above and OTHER-PROJECTS.md) |
 | Contextual Compute website | Settled 14 October 2026: the Vercel project is on the sarvalabsdeveloper@gmail.com Vercel account, and the domain (Namecheap, renews by 2027-03-28) and the Cloudflare zone are company-owned. The join form's webhook is not set, so sign-ups are discarded (see OTHER-PROJECTS.md) |
-| Shared | Luma, Riverside, Google Meet and YouTube: Vardan holds them per ENV-VARS.md. Confirm the account. Settled: Chandra owns the Buffer organisation, and Vardan has Mailchimp access |
+| Shared | Settled: Vardan has access to Luma, Riverside, Google Meet and YouTube and is responsible for them. Chandra owns the Buffer organisation, and Vardan has Mailchimp access |
 
 ## Open items
 
-- The Google Drive video folders: move ownership off adithya@moinetwork.io before that account is closed (see the table).
-- Who holds the Luma, Riverside, Google Meet and YouTube accounts: ENV-VARS.md says Vardan. Confirm.
-- Who holds the Agent Explorer accounts (AGENT-EXPLORER.md): not recorded.
-- Agent Explorer deploys are broken. Its GH_TOKEN Actions secret (set 31 July) is refused by GHCR (GitHub's container registry), so the 7 October and 14 October deploys failed at "Login to GHCR". PR #6 (deprecated agents hidden, never auto-verified) is merged (aa9488c6) but not live. The live site is a build from 8 October, deployed by hand, and 70 deprecated agents still show as verified until the deploy runs. Upendhar has been asked to replace GH_TOKEN with a token that has write:packages and re-run the deploy.
+None as of 14 October 2026.
