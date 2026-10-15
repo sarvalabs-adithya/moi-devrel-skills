@@ -12,7 +12,7 @@ The monthly public call where MOI shows what shipped and what the team did. DevR
 
 ### Where things live
 
-- Decks: the public repo moi-foundation/MOI-Webinars, one folder per call, with the deck in community-call-N/deck/ for calls 2 to 14. Each deck folder holds the PDF; from call 14 on, the HTML source is there too. Call 1 has no deck on file, and call 3 was the beta mainnet launch. The decks were merged in PR #2 on 13 October 2026.
+- Decks: the public repo moi-foundation/MOI-Webinars. The repo is shared: it holds the Builders webinar sessions (session-1 to session-7) and, since PR #2 on 13 October 2026, the community call decks too. Its description and README still mention only the webinars. One folder per call, with the deck in community-call-N/deck/ for calls 2 to 14. Each deck folder holds the PDF; from call 14 on, the HTML source is there too. Call 1 has no deck on file, and call 3 was the beta mainnet launch. The decks were merged in PR #2 on 13 October 2026.
 - Recordings: every call is on the MOI YouTube channel, in one playlist: https://www.youtube.com/playlist?list=PL4-oiZj2acUPhBkDGm-8ue9jIVxh-NXvs. Past recordings show how a call runs and are the reference for the shorts.
 - Logins: Luma, Riverside and YouTube are shared accounts held by Vardan.
 
