@@ -28,7 +28,7 @@ Rules that hold everywhere:
 | Reown (WalletConnect) | Project ids for wallet pairing (Reown runs the relay that connects a phone wallet to a site) | cloud.reown.com, the project, Project ID | Launchpad, MCP, Points: the sarvalabsdeveloper@gmail.com account |
 | Resend | Sign-in emails for Points | resend.com, API keys; domain moi.technology verified | The sarvalabsdeveloper@gmail.com account |
 | Groq console | The Launchpad server's old key, no longer used | console.groq.com/keys | Not needed: every agent uses its owner's own key |
-| Anthropic console, OpenAI platform | Chat and embedding keys for the website and the Dataroom | console.anthropic.com, platform.openai.com | No company account exists. The keys now set for the website and the Dataroom are not company keys; the next owner creates company keys before relying on them |
+| Anthropic console, OpenAI platform | Chat and embedding keys for the Dataroom (the website's chatbot is not running) | console.anthropic.com, platform.openai.com | No company account exists. The keys now set for the website and the Dataroom are not company keys; the next owner creates company keys before relying on them |
 | **Buffer** | A social media scheduling service; the owner creates API keys | publish.buffer.com | Chandra |
 | Mailchimp | The monthly newsletter | mailchimp.com | Vardan |
 | Google Analytics and Tag Manager | Measurement | analytics.google.com, tagmanager.google.com | The sarvalabsdeveloper@gmail.com account |
@@ -96,16 +96,11 @@ Deploy and CI only, held by DevOps: GHCR_PAT, TELEPORT_PROXY, TELEPORT_JOIN_TOKE
 
 ## MOI Website and Blog
 
-Repo sarvalabs/MOI-Website. Four workflows: deploy.yml (merge to main), preview.yml (pull requests), distribute.yml (announcing a post), social-prepare.yml. The blog builds with no variables. The names below serve the **Express server** (the small Node web server that answers the site's /api routes, chatbot included), the announcement workflow and the deploy, and VITE_CHATBOT_API is baked into the site's build. The chatbot and the Express server stay as they are (decided 13 October). The blog has one optional name, BLOG_ORIGIN, which defaults to https://blog.moi.technology.
+Repo sarvalabs/MOI-Website. Four workflows: deploy.yml (merge to main), preview.yml (pull requests), distribute.yml (announcing a post), social-prepare.yml. The blog builds with no variables. The names below serve the announcement workflow and the deploy. The chatbot and its **Express server** (server/index.js) are not running: the live site does not reach them (checked 14 October 2026), so their names are listed in one row as not needed. The blog has one optional name, BLOG_ORIGIN, which defaults to https://blog.moi.technology.
 
 | Name | Kind | What it is | Where the value comes from | Set for production |
 |---|---|---|---|---|
-| SUPABASE_URL, SUPABASE_KEY | Secret | The chatbot's documents and the old calendar's events (the homepage calendar is now a Luma block, PR #60, but the server's calendar routes remain) | Supabase, the project (which one: probably the Dataroom's, confirm), Settings, API | Set; deploy.yml passes them |
-| ANTHROPIC_API_KEY, OPENAI_API_KEY | Secret | The chatbot (hidden on the site; the route still calls both). Not company keys | The two consoles; the next owner creates company keys | Set; deploy.yml passes them |
-| VITE_CHATBOT_API | Build value | The address the browser calls for the API. Empty sends the chatbot to localhost, so set the origin | https://moi.technology | Set; deploy.yml passes it. The live value is believed to be the dev host; confirm what it holds |
-| ADMIN_API_KEY | Secret | The calendar admin routes. When unset, the routes accept a built-in default written in the source, and the repo is public | openssl rand -hex 32 | Not passed by the deploy. Pass it and remove the fallback |
-| ALLOWED_ORIGINS, PORT | Variable | The Express server's CORS list and port | Values in .env.example | Not passed by the deploy; set on the server by DevOps, confirm |
-| DATA_ROOM_CHAT_URL, DATA_ROOM_API_KEY | Secret | A proxy to the Dataroom chat in api/chat.js, from the Vercel days | The Dataroom | The URL is passed, the key is not. Whether the VM serves that route: confirm, probably not |
+| SUPABASE_URL, SUPABASE_KEY, VITE_CHATBOT_API, ANTHROPIC_API_KEY, OPENAI_API_KEY, DATA_ROOM_CHAT_URL, ADMIN_API_KEY, ALLOWED_ORIGINS, PORT | Secrets and variables | The chatbot and the old calendar server (server/index.js). Not running: the live site does not reach it (checked 14 October 2026), and the Supabase project it used no longer exists | Not needed | Most are still set and passed by deploy.yml; nothing needs them |
 | BUFFER_ACCESS_TOKEN, BUFFER_CHANNEL_X, BUFFER_CHANNEL_LINKEDIN, DISCORD_WEBHOOK_URL, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID | Secret | The announcement workflow, one per channel; a missing one skips its channel | Buffer (Chandra creates the token; the channel ids from node scripts/buffer-channels.js), Discord server settings, BotFather | distribute.yml passes them. The three Buffer names are set. DISCORD_WEBHOOK_URL, TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID are not set (checked 14 October 2026), so those channels are skipped |
 | VITE_GA_ID, PUBLIC_GA_ID | Secret | Analytics ids that nothing in the repo reads (Tag Manager measures instead) | The GA4 property | Passed by deploy.yml, read by nothing. Leave |
 | TELEPORT_PROXY, TELEPORT_JOIN_TOKEN, TELEPORT_NODE, VM_USERNAME, PREVIEW_VM_HOST, PREVIEW_VM_USER | Secrets and variables | Deploy and preview access | DevOps (Srikar) | Set |
@@ -153,10 +148,9 @@ There is no app, and one key: BUFFER_API_KEY, for the Buffer script that schedul
 ## Open items
 
 - No shared vault holds any production secret. This is open on every product.
-- No company Anthropic or OpenAI account exists. The keys now set for the website and the Dataroom are not company keys. (The Launchpad's Groq key is no longer used.) The next owner creates company keys.
+- No company Anthropic or OpenAI account exists. The keys now set for the Dataroom are not company keys (the website's chatbot is not running). (The Launchpad's Groq key is no longer used.) The next owner creates company keys.
 - Pinata: the Moinkee files are pinned in the company account (sarvalabsdeveloper@gmail.com) since 14 October 2026. The Launchpad bot was transferred in BotFather to Rahul Lenkala on 14 October. The npm package has no owner yet: Rahul decides the name and the account.
 - Agent Launchpad: confirm ADMIN_ALERT_TELEGRAM_CHAT_ID and MOI_PLATFORM_MNEMONIC with DevOps (read by deploy.yml, not in the repo's secrets list). After the next devnet reset, create the MOI_AGENT_REGISTRY_LOGIC_ID variable or change the constant in lib/moi/registry.ts.
 - Points Program: create the MOI_RPC_URL Actions variable, then run the deploy. Remove SOCIAL_AUDIT_BATCH_SIZE and its line in deploy.yml. Pass CLIENT_IP_HEADER so the per-address limit works.
-- MOI Website: confirm which Supabase project SUPABASE_URL points at (probably the Dataroom's), what VITE_CHATBOT_API holds (believed to be the dev host), whether the DATA_ROOM_CHAT_URL route is served by the VM (probably not). The Discord and Telegram secrets are not set (checked 14 October), so those channels are skipped. Confirm what DevOps set for ALLOWED_ORIGINS and PORT. Pass ADMIN_API_KEY and remove the source fallback.
 - Dataroom: ADMIN_TOKEN stays unset until the fix on the fork branch lands; the stats route answers any caller until then.
 - MCP server: MOI_READ_CALLER is passed since 14 October (voyage-api PR #323) and agent lookup works; MOI_AGENT_REGISTRY_LOGIC_ID is not passed, and the code default is current. UPSTREAM_READ_TOKEN and NPM_TOKEN are not set, so the upstream watch has never read the two private repos. The workflow does not pass the three session keys voyage-api already holds.

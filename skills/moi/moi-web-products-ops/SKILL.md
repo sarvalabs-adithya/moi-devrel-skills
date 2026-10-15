@@ -67,7 +67,7 @@ The run, for every job:
 |---|---|---|
 | Ship a code or copy change; a manual deploy run | Website | `references/website-ship.md` |
 | Set the Luma link or the next community call on the homepage; "the community block is missing" | Website | `references/website-calendar.md` |
-| Update what the chatbot knows; turn it back on | Website | `references/website-chatbot.md` |
+| Bring the chatbot back (not running since at least 14 October 2026) | Website | `references/website-chatbot.md` |
 | Add a page, a paper or a PDF; edit the sitemap | Website | `references/website-content.md` |
 | Change a key, a variable, the API address | Website | `references/website-settings.md` |
 | Supabase tables and SQL; the old calendar API answers 500 | Website | `references/website-database.md` |
@@ -116,7 +116,7 @@ Details: `moi-devrel/references/consent-and-identity.md`.
 
 ## Keys and access
 Names only; values never. Where each lives, who grants it and its status: `moi-devrel/references/keys-and-access.md` (status TBD until the owner settles access, ASK: Rahul).
-- Website: `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `SUPABASE_URL`, `SUPABASE_KEY`, `VITE_CHATBOT_API`, `ADMIN_API_KEY` (a fix is pending; see `project-handover-docs/MOI-WEBSITE.md` open items), `ALLOWED_ORIGINS`, `PORT`, `TELEPORT_*`. The model keys are not company keys: none exists yet. (`DATA_ROOM_API_KEY` and `DATA_ROOM_CHAT_URL` are read only by the old host's function and the dev proxy.)
+- Website: `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `SUPABASE_URL`, `SUPABASE_KEY`, `VITE_CHATBOT_API`, `ADMIN_API_KEY` (all for the chatbot server, which is not running), `ALLOWED_ORIGINS`, `PORT`, `TELEPORT_*`. The model keys are not company keys: none exists yet. (`DATA_ROOM_API_KEY` and `DATA_ROOM_CHAT_URL` are read only by the old host's function and the dev proxy.)
 - Dataroom: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `ADMIN_SECRET`, `ADMIN_TOKEN` (a fix is pending; see `project-handover-docs/DATAROOM.md` open items), `CLAUDE_*` limits, `VM_HOST`, `VM_USERNAME`, `VM_SSH_KEY`.
 - Points: `DATABASE_URL`, `BETTER_AUTH_SECRET`, `CRON_SECRET`, `GOOGLE_*`, `X_*`, `DISCORD_*`, `TELEGRAM_*`, `RESEND_API_KEY`, `EMAIL_FROM`, `ADMIN_EMAILS` (the only source of admins), `MOI_RPC_URL`, `GHCR_PAT`, `TELEPORT_JOIN_TOKEN`.
 

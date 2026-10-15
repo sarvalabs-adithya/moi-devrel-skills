@@ -59,7 +59,7 @@ Groq: the Launchpad no longer uses a server key (every agent runs on its owner's
 
 | Product | Account |
 |---|---|
-| MOI Website | Hosted on a DevOps VM (deploys go through Teleport), with Cloudflare in front, on the company-owned Cloudflare account. Settled: Tag Manager, Analytics and Search Console are under sarvalabsdeveloper@gmail.com. The chatbot and the Express server stay (MOI-WEBSITE.md); the chatbot's keys are not company keys, and the Supabase project they use is not recorded |
+| MOI Website | Hosted on a DevOps VM (deploys go through Teleport), with Cloudflare in front, on the company-owned Cloudflare account. Settled: Tag Manager, Analytics and Search Console are under sarvalabsdeveloper@gmail.com. The chatbot and its Express server are not running, and their Supabase project no longer exists (MOI-WEBSITE.md) |
 | Dataroom | Anthropic and OpenAI keys: no company account holds them, and the keys now set are not company keys; the next owner creates company keys |
 | Points Program | Settled 13 October: the Google OAuth client, X developer app (paid), Discord app and bot, Telegram bot, Reown project and Resend account are all under sarvalabsdeveloper@gmail.com. Their secrets are in GitHub |
 | Agent Explorer | Server devnet wallet, Reown project, Pinata account, the GitHub token used for images |

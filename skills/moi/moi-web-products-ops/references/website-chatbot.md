@@ -1,5 +1,7 @@
 # Website: the chatbot, what it knows, and turning it back on
 
+**Status, 14 October 2026: not running.** The live site answers every /api address with the normal web page, so this server is not reached, and the Supabase project it used no longer exists. Read this file only to bring the chatbot back from scratch; `project-handover-docs/MOI-WEBSITE.md` wins where they differ.
+
 Updated 13 October 2026: the chatbot and the Express server stay (decided that day, `project-handover-docs/MOI-WEBSITE.md`), and turning the chat back on needs company keys first. Facts are as of 2026-10-03 from `sarvalabs/MOI-Website` `main` (`5e91afa`: `server/index.js`, `scripts/ingest.js`, `src/pages/HomePage.jsx`), and the public text of GitHub issue 3. Back to `../SKILL.md`.
 
 ## State
