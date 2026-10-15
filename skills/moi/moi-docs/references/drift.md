@@ -53,10 +53,9 @@ Other findings from the same day:
 - moidocs `json-rpc.md` documents `net.NetworkID` with IDs 111 (Local), 112 (Devnet) and 113 (Babylon), added by #126 on 2026-10-01. The live devnet answered error -32601 for the method on 2026-10-03. The label "Babylon" is a contested name (`moi-devrel/references/terminology.md`, Contested 6). ASK: Gokul. <!-- slop-lint: ignore -->
 - "Indus TestNet" in `build/index.md` and `pnapi.md`, and "Babylon TestNet" in the Guard pages, name networks the current wording calls devnet or retires. Whether the Guardian pages still describe a live network is unknown. ASK: Gokul. <!-- slop-lint: ignore -->
 - `slop-lint.sh` flags the phrase "a specific account based on the provided account" in `json-rpc.md` as `account-centric`: a false hit on plain English. Leave the sentence; the rule's pattern is `account based`. <!-- slop-lint: ignore -->
-- `static/downloads/coco-0.8.2-skills.zip` is still in moidocs and stale; the `.well-known` index points at the CDN for 0.9.2 until #127 (open) lands, and the current Coco release is 0.9.3 (`https://cdn.moi.technology/cocolang/coco-0.9.3-skills.zip`). Whether to remove the 0.8.2 zip is open. ASK: Robert Špendl.
+- `static/downloads/coco-0.8.2-skills.zip` is still in moidocs and stale; the `.well-known` index points at the CDN for 0.9.3 since #127 merged on 2026-10-15, the current Coco release (`https://cdn.moi.technology/cocolang/coco-0.9.3-skills.zip`). Whether to remove the 0.8.2 zip is open. ASK: Robert Špendl.
 - coco-docs has an untracked `static.md` at the repo root left by an old build (previous operator's machine; `.gitignore` does not cover it). Delete it there, never commit it.
 
 ## Not yet known
 - Whether anyone wants this as a routine, and its cadence. ASK: Rahul.
-- Whether #127 (moidocs) has merged since 2026-10-14. #124, #5, #12 and #150 (js-moi-sdk, 2026-10-14) had merged by then; the machine layer changes what the build and the lint can check.
 - The right replacement for the dead genesis link; whether the four newer moidocs tutorials should get `HowToSchema`, `image` and in-band descriptions now or in a follow-up (the #124 body leaves four such pages "as-is here for a small follow-up"). ASK: Rahul.

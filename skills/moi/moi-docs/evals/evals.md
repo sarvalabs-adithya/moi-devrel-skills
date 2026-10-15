@@ -10,7 +10,7 @@ Expect: Sets or asks for `SKILLS` and works from a working copy of `sarvalabs/mo
 Why: the style guide reached `main` only on 2026-10-13, so an older clone lacks it; a push is a gate; the September post carried "Voyage devnet" and a universal about fuel that was removed on 2026-09-11. <!-- slop-lint: ignore -->
 
 ### 2. Review a docs PR
-Prompt: Review moidocs PR <N> (an open docs PR; at handover moidocs #127 is open) and post your review.
+Prompt: Review moidocs PR <N> (an open docs PR) and post your review.
 Expect: Reads the PR (read-only), notes base and head commits, and refuses to post: the draft is a local file in a self-ignoring folder `docs-review-<N>/`, and the operator posts it. Runs the lint with `--added-lines-since` on the changed pages, opens the preview, runs the ten-item checklist, checks scope (no Launchpad or other application docs: Rahul's ruling of 2026-09-17, which commit `75f608b` applied to #124), and checks that the PR body matches the diff (the stale bodies of 2026-10-02 are the model: they said every crawler is listed in `robots.txt`). Writes each finding as "Issue N: what, why, where, suggested fix" with a severity, puts breaking items first, counts them once in the summary, the table and the list, says what it did not check, and recommends a verdict. If a change request was met and not answered (as Rahul's on #124 was), drafts the reply and the re-review request instead of sending them. Does not use `gh` to comment or approve.
 Why: reviews were always read by the operator first; a PR comment notifies teammates (2026-09-28); the "27, 26, 25" count mismatch of 2026-08-21.
 

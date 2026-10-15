@@ -11,7 +11,7 @@ A docs PR can stay open for weeks: the sweep PRs were opened between 2026-09-09 
 | js-moi-sdk #150 (40 files, 22,549 added lines, mostly generated), from the previous DevRel's fork (sarvalabs-adithya) | merged 2026-10-14 by Gokul, live | Gokul requested | "Run Tests" green; no preview existed |
 | voyage #447 (7 files; the explorer app, not a docs site) | merged 2026-10-14 by Gokul, not live (the Voyage team deploys) | Gokul requested | no checks |
 | moidocs #116 (the `context_hash` rename, Abhinav Agarwalla) | open since July | unknown | unknown |
-| moidocs #127 (the skills index to Coco 0.9.3) | open (2026-10-14), waiting for Rahul's approval | needs review | unknown |
+| moidocs #127 (the skills index to Coco 0.9.3) | merged 2026-10-15, approved by Rahul | done | live |
 Read the current state before you act on this table (`gh pr view <N> --repo sarvalabs/<repo> --json state,reviews,mergedAt`).
 
 ## The loop
@@ -46,5 +46,4 @@ Commit messages and PR descriptions carry no `Co-Authored-By` line naming Claude
 
 ## Not yet known
 - Why the pushes were staggered. Not recorded (the previous DevRel's notes); ASK: Rahul.
-- Whether #127 has merged since 2026-10-14, and who merges it. ASK: Rahul. (#150 merged on 2026-10-14.)
 - Whether you push to a fork or to the org repo. #124, #5 and #12 were pushed to the org repos (the `geo-fixes` branch exists on each remote); #150 and #447 came from forks. ASK: Rahul.

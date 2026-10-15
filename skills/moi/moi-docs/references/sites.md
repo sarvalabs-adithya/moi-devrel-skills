@@ -58,5 +58,4 @@ Docusaurus 3.10.1, 20 pages in its sitemap, answers 200 (2026-10-03). The sweep 
 - Who owns the Cloudflare account, the Pages projects and the Search Console and Bing properties. ASK: Rahul.
 - Production branch, build command and Node version in each Pages project. The Cloudflare account owner is not on record, so ASK: Rahul who can read them (DNS records are DevOps: ASK: Upendhar).
 - Who may merge and who must approve, per repo. ASK: Rahul.
-- Whether #127 has merged since 2026-10-14. #124, #5, #12 and #150 had merged by then; read the state before you start.
 - How the SDK docs are built and deployed after a merge. ASK: Gokul.
