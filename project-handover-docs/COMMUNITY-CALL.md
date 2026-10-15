@@ -14,7 +14,7 @@ The monthly public call where MOI shows what shipped and what the team did. DevR
 
 - Decks: the public repo moi-foundation/MOI-Webinars. The repo is shared: it holds the Builders webinar sessions (session-1 to session-7) and, since PR #2 on 13 October 2026, the community call decks too. Its description and README still mention only the webinars. One folder per call, with the deck in community-call-N/deck/ for calls 2 to 14. Each deck folder holds the PDF; from call 14 on, the HTML source is there too. Call 1 has no deck on file, and call 3 was the beta mainnet launch. The decks were merged in PR #2 on 13 October 2026.
 - Recordings: every call is on the MOI YouTube channel, in one playlist: https://www.youtube.com/playlist?list=PL4-oiZj2acUPhBkDGm-8ue9jIVxh-NXvs. Past recordings show how a call runs and are the reference for the shorts.
-- Logins: Luma, Riverside and YouTube are shared accounts held by Vardan.
+- Logins: Luma, Riverside and YouTube are shared accounts. Vardan has access to all three and is responsible for them.
 
 ### What the deck needs
 
@@ -27,7 +27,7 @@ The inputs, and by when:
 | Marketing updates | Marketing team (Sai Kiran) | Friday of the week before |
 | Partnerships updates | Piyush | Friday of the week before |
 | Product updates (not every call) | Pratik | Friday of the week before |
-| Guest speaker | Discuss on the weekly marketing sync (confirm the name; earlier notes called it the cadence call) | Tuesday before the call |
+| Guest speaker | Discuss on the cadence call | Tuesday before the call |
 
 ## Variables
 
@@ -122,7 +122,4 @@ Without a yes from DevRel, the skill never sends a message, posts anything, uplo
 
 ## Open items
 
-- CC15 has no date. Ask Vardan; it is expected in the last week of October 2026.
-- Luma, Riverside and YouTube are shared logins held by Vardan. The next DevRel needs access to all three before the first call.
-- The guest speaker is agreed in a regular meeting, called the cadence call in the earlier notes. Confirm its name and who runs it.
-- Call 1 has no deck on file. Ask Vardan whether one exists.
+None as of 14 October 2026.
