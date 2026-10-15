@@ -115,11 +115,4 @@ The offline test script and its results from 13 October are saved in project-han
 
 ## Open items
 
-- Gokul merged the js-moi-sdk skill rebuild and its test-run fixes on 14 October 2026 (PR sarvalabs/js-moi-sdk#153). The next SDK release packages the skill. The docs site's SDK zip still holds v0.7.1. Rebuild it from js-moi-sdk main and replace static/downloads/js-moi-sdk-skills.zip in moidocs (one small PR). The SDK docs also got their SEO/GEO layer (search and AI-visibility) in js-moi-sdk #150, merged and live on 14 October. js-moi-sdk.docs.moi.technology/llms.txt serves it.
-- Get the moidocs skills index fix (PR #127, open since it needs Rahul's approval) approved and merged.
-- Run the four SDK examples on devnet with a funded post-reset account and add the interaction hashes to js-moi-skills/CHANGELOG.md. The examples say their last on-chain run was with 0.7.1, before the September reset.
-- Decide whether the docs page should name the SDK version the zip was verified against. As of October 2026 it names none, so a reader cannot see staleness.
-- rc3 is on GitHub only. When it or 0.9.0 final reaches npm, re-stamp: the `payer` to `fee_payer` rename changes what fee-payer code must write.
-- The 0.8.0 release notes name `predictAssetId` and `predictLogicId`. The code exports `deriveAssetId` and `deriveLogicId`. Tell Gokul so the notes get fixed.
-- The js-moi-sdk skill's lockup example reaches a protected provider method (`moi.Lockups`) that is not a public RPC in the SDK. It worked on 0.7.1 and has not been re-verified on 0.13.0.
-- Automate the staleness check: the MCP server's upstream watch opens an issue on each js-moi-sdk release (that repo is public, so it works). It cannot read go-moi or cocolang, because UPSTREAM_READ_TOKEN is not set (MCP-SERVER.md), so no Coco release has ever raised an issue. Set the token, then add "re-check the skill" to what the issue asks for.
+None as of 14 October 2026.
