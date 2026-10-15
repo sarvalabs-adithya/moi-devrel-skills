@@ -13,7 +13,7 @@ The product and program docs follow the same shape: status, owners, settings, th
 | `project-handover-docs/COMMUNITY-CALL.md` | The monthly call. Who owns what, the nine-day timeline, the announcement schedule, where the decks and recordings live. |
 | `project-handover-docs/DEV-WEBINARS.md` | The Builders sessions. From the planning meeting with Rahul to the post-session blog, posting through **Buffer** (a social media scheduling service), the session bounty, how a session folder is laid out. |
 | `project-handover-docs/BLOG.md` | How the blog is built and deployed, the writing process, the monthly newsletter (sent through **Mailchimp**, an email marketing service), images, editing a published post, the search rules. |
-| `project-handover-docs/VIDEOS.md` | The recorded walkthroughs, a product demo and a skill video per product, with the links and what is still to record. |
+| `project-handover-docs/VIDEOS.md` | One table of every handover video, with its link. |
 
 **Marketing**
 
