@@ -86,14 +86,7 @@ Production values are GitHub Actions secrets on sarvalabs/moi-dataroom0. GitHub 
 
 - Change it in GitHub, under the repo's Actions secrets and variables, then run the deploy workflow by hand. Changing a value deploys nothing by itself.
 - A NEXT_PUBLIC_ value needs a rebuild, which the deploy does.
-- To change the admin secret to a value you choose, run this and paste the value at the hidden prompt:
-  ```bash
-  gh secret set ADMIN_SECRET -R sarvalabs/moi-dataroom0
-  ```
-  For a random value instead: `openssl rand -hex 32 | gh secret set ADMIN_SECRET -R sarvalabs/moi-dataroom0`. Either way, then deploy so the server picks it up:
-  ```bash
-  gh workflow run "Deploy MOI Dataroom" -R sarvalabs/moi-dataroom0 --ref main
-  ``` Give the new value to Chandrasekhar, because GitHub cannot show it again. Every admin has to sign in again afterwards. It was last rotated on 9 October 2026.
+- To change the admin secret to a value you choose, run `gh secret set ADMIN_SECRET -R sarvalabs/moi-dataroom0` and paste the value at the hidden prompt. For a random value instead: `openssl rand -hex 32 | gh secret set ADMIN_SECRET -R sarvalabs/moi-dataroom0`. Either way, then deploy so the server picks it up: `gh workflow run "Deploy MOI Dataroom" -R sarvalabs/moi-dataroom0 --ref main`. Give the new value to Chandrasekhar, because GitHub cannot show it again. Every admin has to sign in again afterwards. It was last rotated on 9 October 2026.
 
 **Changing the database**
 
