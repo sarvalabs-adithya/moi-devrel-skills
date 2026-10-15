@@ -35,7 +35,7 @@ Facts are as of 2026-10-02. The code standard for a live demo, taken from sessio
 
 ## Where the code to copy lives
 
-Session 8's code is on the branch `claude/agent-payments-simple`, not on `main` (session 7's is on both). Read a file without switching branches: `git fetch origin claude/agent-payments-simple`, then `git show origin/claude/agent-payments-simple:session-8-policies/scripts/preflight.ts`. A fetch only reads from the remote.
+Session 8's code is on `main` as `session-8-policies/` since 2026-10-14 (session 7's is on both `main` and the branch). Read a file without switching branches: `git fetch origin claude/agent-payments-simple`, then `git show origin/claude/agent-payments-simple:session-8-policies/scripts/preflight.ts`. A fetch only reads from the remote.
 
 | To copy | File in `session-8-policies/` |
 |---|---|
