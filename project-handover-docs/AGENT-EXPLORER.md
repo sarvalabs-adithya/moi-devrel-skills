@@ -1,6 +1,6 @@
 # Agent Explorer
 
-**Status: active, deploys blocked.** agents.moi.technology is live. The build running is from 8 October 2026, deployed by hand. The deploy workflow fails at "Login to GHCR" (GHCR is GitHub's container registry) because its GH_TOKEN secret has expired. So PR #6 (merged 14 October) is not live yet. Upendhar has been asked to replace the token and re-run.
+**Status: active.** agents.moi.technology is live. PR #6 (deprecated agents hidden and never auto-verified) went live on 15 October 2026, after DevOps replaced GH_TOKEN and re-ran the deploy.
 
 Video: none recorded. The Launchpad demo (AGENT-LAUNCHPAD.md) shows agents landing in the Explorer.
 
@@ -16,7 +16,7 @@ This doc replaces the Agent Explorer section of the old dependency list (Adithya
 - **After a devnet reset.** The registry gets a new id. Gokul publishes it. You then change it here, in the Launchpad and in the MCP server. The Explorer's id is the one the others follow.
 - **Rows are never deleted.** Nothing ever deletes a row. Agents that left the chain, test agents and agents on the retired Launchpad host stay listed until someone prunes the database.
 - **What "verified" means.** Rules in the code set the mark. They look at where an agent's card is hosted. The mark does not mean audited or endorsed. On 14 October the index held 176 agents, 120 of them verified.
-- **Deprecated agents.** PR #6 hides them and never auto-verifies them. Until it deploys, 70 deprecated agents still show as verified.
+- **Deprecated agents.** PR #6 hides them and never auto-verifies them. Since 15 October 2026 no deprecated agent shows as verified.
 
 ## Stack
 
@@ -53,7 +53,7 @@ The server only gets the names that the workflow's docker run passes: ADMIN_ADDR
 | MOI_MNEMONIC, MOI_AGENT_ID, MOI_INTELLIGENCE_LOGIC_ID | Secrets | The server's devnet wallet and agent identity. Last set 17 June 2026, before the 11 September wipe. Ask Gokul whether they still exist on chain |
 | ADMIN_ADDRESSES | Variable | Wallets allowed to verify agents and use the admin page. Holds one address (set 7 October 2026) that nobody is recorded as using, so in practice there is no admin (see Open items) |
 | VITE_API_BASE_URL, VITE_WC_PROJECT_ID, VITE_TESSERACT_BASE_URL, VITE_MOI_NETWORK, VITE_MOI_CHAIN_ID, VITE_TRANSACTION_FUEL_LIMIT, VITE_AGENT_REGISTRY_LOGIC_ID | Variables, client build | The project id comes from the Reown dashboard |
-| GH_TOKEN | Repo secret | GHCR login for the build. Expired: replace it with a token that has write:packages |
+| GH_TOKEN | Repo secret | GHCR login for the build. Replaced by DevOps on 15 October 2026 (it needs write:packages) |
 | SSH_PRIVATE_KEY, VM_HOST, VM_USER | Secret and variables | The deploy. Ask Upendhar |
 
 ## Process
@@ -90,4 +90,3 @@ Adithya's work on the Explorer is done. These are notes for Gokul (the product) 
 
 - No one is set up as an admin at the moment. The ADMIN_ADDRESSES variable in GitHub holds one wallet address (set 7 October 2026), but nobody is recorded as using it, and the live build was deployed by hand on 8 October. Until someone is an admin, nobody can verify agents or use the admin page.
 - The "Sync Registry Now" button on the admin page has not been tested. The automatic sync every 4 hours runs (it reported on 14 October).
-- PR #6 goes live once DevOps replaces GH_TOKEN and re-runs the deploy (Upendhar was asked on 14 October). Until then, 70 deprecated agents show as verified.

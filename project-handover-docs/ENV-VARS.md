@@ -46,7 +46,7 @@ Every environment variable across the products, names only. Production values ar
 | Agent Explorer (sarvalabs/agent-explorer) | DB_HOST, DB_PORT, DB_USER, DB_NAME, DB_PASSWORD | The MySQL database | DevOps | Yes |
 | Agent Explorer | MOI_RPC_URL, MOI_MNEMONIC, MOI_AGENT_ID, MOI_INTELLIGENCE_LOGIC_ID, ADMIN_ADDRESSES | Chain access, the server's wallet and identity, admin wallets | Gokul | Yes |
 | Agent Explorer | VITE_ values (API URL, Reown project, network) | The web client's build settings | Gokul; Reown (sarvalabsdeveloper@gmail.com) | Yes |
-| Agent Explorer | GH_TOKEN, SSH_PRIVATE_KEY, VM_HOST, VM_USER | Deploy access. GH_TOKEN has expired | DevOps (Upendhar) | Yes |
+| Agent Explorer | GH_TOKEN, SSH_PRIVATE_KEY, VM_HOST, VM_USER | Deploy access. GH_TOKEN was replaced on 15 October 2026 | DevOps (Upendhar) | Yes |
 | Moinkee (sarvalabs/moinkee-nft-minter) | ADMIN_MNEMONIC, NEXT_PUBLIC_ASSET_ID, PINATA_JWT, NEXT_PUBLIC_FOLDER_CID, RECOVERY_SECRET | Minting wallet, the collection, the Pinata key. The site is not hosted | Pinata (sarvalabsdeveloper@gmail.com) | No |
 | Contextual Compute site | SUBSCRIBE_WEBHOOK_URL | Where the join form sends emails. Not set | | No |
 | Dev Webinars | BUFFER_API_KEY | The webinar skill's Buffer script, in a local .env | Buffer (Chandra) | When posting |
