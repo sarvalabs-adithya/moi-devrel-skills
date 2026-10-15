@@ -69,7 +69,7 @@ Production values are GitHub Actions secrets on sarvalabs/moi-dataroom0. GitHub 
 | ADMIN_SECRET | The admin page. Never leave it empty | `openssl rand -hex 32`; Chandrasekhar holds the current value |
 | CLAUDE_PER_IP_HOURLY_LIMIT, CLAUDE_DAILY_TOKEN_BUDGET, CLAUDE_MAX_INPUT_TOKENS, CLAUDE_MAX_OUTPUT_TOKENS | Chat limits. Optional; the code defaults are 30, 500000, 8000 and 2048 | Not set |
 | VM_HOST, VM_USERNAME, VM_SSH_KEY | Deploy access | DevOps |
-| ADMIN_TOKEN, DATAROOM_URL | Read by the code, set by nothing. ADMIN_TOKEN is a second admin check on the stats route; while it is unset, that route answers anyone (see Open items). DATAROOM_URL is where the whitepaper script points, and defaults to the live site | Set ADMIN_TOKEN once the security fix is merged. Leave DATAROOM_URL unset |
+| DATAROOM_URL | Where the whitepaper script points; defaults to the live site | Leave it unset. (ADMIN_TOKEN is no longer needed once PR #8 merges) |
 
 ## Process
 
@@ -164,4 +164,4 @@ Without your yes, the skill never pushes, merges (merging deploys), runs a workf
 
 ## Open items
 
-- The admin check is weak. The admin cookie carries the secret itself and page scripts can read it, the secret is not compared safely, and the stats route on main accepts a fixed cookie value written in the public source. While ADMIN_TOKEN is unset, that route shows anyone the question count and the top documents. A fix (safe comparison, an httpOnly cookie, and no admin at all if the secret is empty) is on the branch claude/security-vulnerability-analysis-dWvYu of Adithya's fork, from 23 March and 62 files behind main. Copy the branch to sarvalabs/moi-dataroom0, rebase it, keep the login changes, open a PR and merge it, then rotate ADMIN_SECRET once more.
+- sarvalabs/moi-dataroom0 PR #8 makes the admin stats route use the ADMIN_SECRET check like every other admin route. Until it merges, that route also accepts a password written in the public source, which shows the chat question count and the top documents. Merge it (merging deploys). The older, wider fix on Adithya's fork (branch claude/security-vulnerability-analysis-dWvYu: httpOnly cookie, safe comparison) is optional.
