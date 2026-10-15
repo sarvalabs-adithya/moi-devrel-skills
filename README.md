@@ -35,7 +35,7 @@ The product and program docs follow the same shape: status, owners, settings, th
 | `project-handover-docs/MOI-WEBSITE.md` | The website repo: settings, deploys, the server and the chatbot, which both stay as they are. |
 | `project-handover-docs/AGENT-SKILLS.md` | The **Coco** (MOI's smart contract language) and **js-moi-sdk** (the JavaScript SDK) agent skills: who builds each, where they are published, how to re-check one when a release lands. |
 | `project-handover-docs/ENV-VARS.md` | Every environment variable across the products in one index, with where each value comes from, the consoles, and who holds each login. |
-| `project-handover-docs/MIGRATION-LIST.md` | What moved off Adithya's accounts to company logins and when (all done by 14 October 2026), with the steps used. |
+| `project-handover-docs/MIGRATION-LIST.md` | A dated record of what moved off Adithya's accounts, and where it went. |
 | `project-handover-docs/AGENT-EXPLORER.md` | The Agent Explorer: the public agent directory, its settings, deploys and open items (Gokul owns the app). |
 | `project-handover-docs/OTHER-PROJECTS.md` | Moinkee, Agent dating, MOI Sprint and the Contextual Compute site: side projects (only the Contextual Compute site is live), now in the sarvalabs org (moved 14 October 2026), and how Moinkee's Pinata files were moved to the company account. |
 
