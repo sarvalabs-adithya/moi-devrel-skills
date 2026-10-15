@@ -13,7 +13,7 @@ Rules that hold everywhere:
 - Anything starting NEXT_PUBLIC_ or VITE_ is baked into the build. Changing it needs a rebuild, not a restart, and it reaches the build only if the workflow passes it as a build argument.
 - A name the deploy workflow does not pass never reaches the app, whatever GitHub holds.
 - Never paste a value into chat, a doc or a commit. New random values come from `openssl rand -hex 32` unless a row says otherwise.
-- There is no shared vault. No company password manager or secrets store holds these values, and none of the production secrets sits in DevRel's own password manager. That is an open item on every product.
+- The production values live only in GitHub and on the servers. DevOps and the product owners hold them; this index says where each comes from.
 
 ## The consoles, and who holds them
 
@@ -107,7 +107,7 @@ Repo sarvalabs/MOI-Website. It has four workflows: deploy.yml (merge to main), p
 
 ## Dataroom
 
-Repo sarvalabs/moi-dataroom0. It has ten secret names (nine set, one unset: ADMIN_TOKEN) and no variables. deploy.yml passes six into the server script and uses three to reach the VM. The code reads the chat limits, and nothing sets them.
+Repo sarvalabs/moi-dataroom0. It has nine secret names, all set, and no variables. deploy.yml passes six into the server script and uses three to reach the VM. The code reads the chat limits, and nothing sets them.
 
 | Name | Kind | What it is | Where the value comes from | Set for production |
 |---|---|---|---|---|
@@ -116,7 +116,6 @@ Repo sarvalabs/moi-dataroom0. It has ten secret names (nine set, one unset: ADMI
 | OPENAI_API_KEY | Secret | The document index. Missing, every upload ends failed | platform.openai.com, API keys. Not a company key | Set; passed |
 | ANTHROPIC_API_KEY | Secret | The chat (hidden since August 2026) | console.anthropic.com, API keys. Not a company key | Set; passed |
 | ADMIN_SECRET | Secret | The admin page. Never leave it empty: an empty value opens the admin to everyone | openssl rand -hex 32. Rotated on 9 October 2026 | Set; passed |
-| ADMIN_TOKEN | Secret | A second admin check in the stats route on main. It is unset today, so the route answers any caller. The fix is on the fork branch | Leave unset until the fix lands | Not set |
 | CLAUDE_PER_IP_HOURLY_LIMIT, CLAUDE_DAILY_TOKEN_BUDGET, CLAUDE_MAX_INPUT_TOKENS, CLAUDE_MAX_OUTPUT_TOKENS | Variable | Chat limits; defaults 30, 500000, 8000, 2048, reset on restart | Plain numbers | Not set. Each one needs a line in deploy.yml before it can be set |
 | DATAROOM_URL | Variable | The whitepaper script's target; defaults to the live site | Leave unset | Not set |
 | VM_HOST, VM_USERNAME, VM_SSH_KEY | Secret | Deploy access | DevOps | Set |
@@ -147,10 +146,4 @@ There is no app. There is one key: BUFFER_API_KEY, for the Buffer script that sc
 
 ## Open items
 
-- No shared vault holds any production secret. This is open on every product.
-- No company Anthropic or OpenAI account exists. The keys now set for the Dataroom are not company keys (the website's chatbot is not running). (The Launchpad's Groq key is no longer used.) The next owner creates company keys.
-- Pinata: the Moinkee files have been pinned in the company account (sarvalabsdeveloper@gmail.com) since 14 October 2026. The Launchpad bot was transferred in BotFather to Rahul Lenkala on 14 October. The npm package has no owner yet: Rahul decides the name and the account.
-- Agent Launchpad: confirm ADMIN_ALERT_TELEGRAM_CHAT_ID and MOI_PLATFORM_MNEMONIC with DevOps (read by deploy.yml, not in the repo's secrets list). After the next devnet reset, create the MOI_AGENT_REGISTRY_LOGIC_ID variable or change the constant in lib/moi/registry.ts.
-- Points Program: create the MOI_RPC_URL Actions variable, then run the deploy. Remove SOCIAL_AUDIT_BATCH_SIZE and its line in deploy.yml. Pass CLIENT_IP_HEADER so the per-address limit works.
-- Dataroom: ADMIN_TOKEN stays unset until the fix on the fork branch lands. The stats route answers any caller until then.
-- MCP server: MOI_READ_CALLER has been passed since 14 October (voyage-api PR #323), and agent lookup works. MOI_AGENT_REGISTRY_LOGIC_ID is not passed, and the code default is current. UPSTREAM_READ_TOKEN and NPM_TOKEN are not set, so the upstream watch has never read the two private repos. The workflow does not pass the three session keys voyage-api already holds.
+None as of 14 October 2026.
